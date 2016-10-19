@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    {% load staticfiles %}
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LEPV - LEP Visualizer & Analyzer</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "lepv/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "lepv/whhg-font/css/whhg.css" %}" rel="stylesheet">
+    <link href="{% static "lepv/css/bootstrap-language.min.css" %}" rel="stylesheet">
+
+    <link href="{% static "lepv/css/sb-admin.css" %}" rel="stylesheet">
+
+    <link href="{% static "lepv/css/plugins/morris.css" %}" rel="stylesheet">
+
+    <link href="{% static "lepv/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "lepv/lib/js.cookie.js" %}"></script>
+    <script src="{% static "lepv/js/jquery-ui.min.js" %}"></script>
+    
+    <link href="{% static "lepv/js/jquery-ui.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "lepv/css/language/languages.min.css" %}" rel="stylesheet" type="text/css">
+
+    <!-- DataTable -->
+    <link href="{% static "bower_components/datatables/media/css/jquery.dataTables.min.css" %} " rel="stylesheet">
+    <script src="{% static "bower_components/datatables/media/js/jquery.dataTables.min.js" %}"></script>
+
+    <!-- Load d3.js and c3.js -->
+    <link href="{% static "bower_components/c3/c3.min.css" %}" rel="stylesheet" type="text/css">
+    <script src="{% static "bower_components/c3/d3.min.js" %}" charset="utf-8"></script>
+    <script src="{% static "bower_components/c3/c3.min.js" %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+
+    <script src="{% static "lepv/js/lepv.js" %}"></script>
+    <script src="{% static "lepv/js/timer.jquery.min.js" %}"></script>
+    
+    <link href="{% static "lepv/css/lepv.css" %}" rel="stylesheet" type="text/css">
+    
+    <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
+    <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
+    <script src="{% static "lepv/lib/memorycharts.js" %}"></script>
+    <script src="{% static "lepv/lib/memoryStatTable.js" %}"></script>
+    <script src="{% static "lepv/lib/CPUTopTable.js" %}"></script>
+    <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
+    <script src="{% static "lepv/lib/iostatcharts.js" %}"></script>
+    <script src="{% static "lepv/lib/ioTopTable.js" %}"></script>
+    <script src="{% static "lepv/lib/averageloadchart.js" %}"></script>
+    <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
+    <script src="{% static "lepv/lib/config.js" %}"></script>
+    <script src="{% static "lepv/lib/utils.js" %}"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script>
+        $( document ).ready(function() {
+            showConfigPage();
+        });
+    </script>
+    
+    <script>
+        function initializeAndLoadCharts(server) {
+            // save the language pack in cookie so chart components can use it.
+            {% autoescape off %}
+            Cookies.set('languagePack', {{ languages }});
+            {% endautoescape %}
+
+            var bannerLabel = "LEPV - LEP Visualizer and Analyzer | ";
+            if (Cookies.get("language") == "zh") {
+                bannerLabel += "监测对象: " + server;
+            } else {
+                bannerLabel += "Watching " + server;
+            }
+            $('#labelBanner').text(bannerLabel);
+
+            GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
+            GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
+            GaugeCharts.setComponentDivName('io', 'div-io-gauge');
+            GaugeCharts.start(server);
+
+            CapacityLoader.setComponent('memory', 'div-memory-summary');
+            CapacityLoader.setComponent('cpu', 'div-cpu-summary');
+            CapacityLoader.setComponent('io', 'div-io-summary');
+            CapacityLoader.start(server);
+
+            CPUCharts.setOverallDivName('div-cpu-stat-overall');
+            CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
+            CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
+            CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
+            CPUCharts.start(server);
+
+            // Average Load
+            AverageLoadChart.setChartDivName('div-system-load');
+            AverageLoadChart.start(server);
+
+            MemoryCharts.setChartDivName('div-memory-chart');
+            MemoryCharts.start(server);
+
+            MemoryStatTable.setChartDivName('div-memory-stat');
+            MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
+            MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
+            MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat")
+            MemoryStatTable.start(server);
+
+            IOStatCharts.setChartDivName('div-io-stat');
+            IOStatCharts.start(server);
+
+            IOTopTable.setChartDivName('div-io-top');
+            IOTopTable.setTableName('#io-top-table');
+            IOTopTable.start(server);
+
+            CPUTopTable.setChartDivName('div-cpu-top');
+            CPUTopTable.setTableName('#cpu-top-table');
+            CPUTopTable.start(server);
+
+            PerfCPUTable.setChartDivName('div-perf');
+            PerfCPUTable.setTableName('#perf-table');
+            PerfCPUTable.start(server);
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+            //http://jquerytimer.com/
+            $('#divClock').empty();
+            $('#divClock').timer(
+                    {
+                        format: '%m 分 %s 秒'  //Display time as 3 minutes 45 seconds
+                    }
+            );
+
+            $(".panel-heading").mouseover(function() {
+
+                var spans = this.getElementsByTagName('span');
+                if (spans.length == 0) {
+                    return;
+                }
+
+                var titleSpan = spans[0];
+                if (titleSpan.getAttribute('fullTitle') != null) {
+                    titleSpan.textContent = titleSpan.getAttribute('fullTitle');
+                }
+
+            }).mouseout(function(){
+                var spans = this.getElementsByTagName('span');
+                if (spans.length == 0) {
+                    return;
+                }
+                var titleSpan = spans[0];
+
+                if (titleSpan.getAttribute('shortTitle') != null) {
+                    titleSpan.textContent = titleSpan.getAttribute('shortTitle');
+                }
+            })
+        }
+    </script>
+
+    <script>
+        function startWatching() {
+
+{#            if(Cookies.get('server') == null) {#}
+{#                showConfigPage();#}
+{#            } else {#}
+{#                $.get("/ping/" + Cookies.get('server'), function(data, status){#}
+{#                    if (data['result']) {#}
+{#                        initializeAndLoadCharts();#}
+{#                    } else {#}
+{#                        showConfigPage();#}
+{##}
+{#                        var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");#}
+{#                        $('#divPingResult').append(resultButton);#}
+{#                    }#}
+{#                });#}
+{#            }#}
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a id='labelBanner' class="navbar-brand" href="#">LEPV - LEP Viewer and Analyzer</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li>
+                    <a class="dropdown-toggle" data-toggle="modal" href="#" data-target="#divSettings">
+                        <i class="fa fa-fw fa-gear"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="#Summary"><i class="fa fa-fw fa-dashboard"></i> {{ languages.Summary }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#CPUCharts"><i class="icon-cpu-processor"></i> {{ languages.CPU }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#MemoryCharts"><i class="icon-ram"></i> {{ languages.Memory }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#IOCharts"><i class="icon-syncalt"></i> {{ languages.IO }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#PerfCharts"><i class="glyphicon glyphicon-tasks"></i> {{ languages.Perf }}</a>
+                    </li>
+
+                    <li>
+                        <div class="panel-heading btn-info btn-block" id="divClock" style="width:150px">
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </nav>
+        
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <div id='Summary' class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="panel panel-primary">
+                                            <div id="div-cpu-gauge"></div>
+
+                                            <div class="panel-footer text-center">
+                                                处理器
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="panel panel-primary">
+                                            <div id="div-memory-gauge"></div>
+                                            <div class="panel-footer text-center">
+                                                内存
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="panel panel-primary">
+                                            <div id="div-io-gauge"></div>
+                                            <div class="panel-footer text-center">
+                                                磁盘
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div id="div-cpu-summary" class="panel panel-green">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div id="div-memory-summary" class="panel panel-green">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div id="div-io-summary" class="panel panel-green">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-8 -->
+                    <!-- /.col-lg-4 -->
+                </div>
+
+
+                <div id='CPUCharts' class="row">
+                    <div class="col-lg-6">
+                        <div id="div-cpu-stat-overall-container" class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle" fullTitle="{{ languages.cpuStatRatioChartTitleFull }}" shortTitle="{{ languages.cpuStatRatioChartTitle }}">{{ languages.cpuStatRatioChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="div-cpu-stat-overall"></div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="div-cpu-stat-idle-container" class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle" fullTitle="{{ languages.cpuIdleGroupChartTitleFull }}" shortTitle="{{ languages.cpuIdleGroupChartTitle }}">{{ languages.cpuIdleGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-idle" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle" fullTitle="{{ languages.cpuUserGroupChartTitleFull }}" shortTitle="{{ languages.cpuUserGroupChartTitle }}">{{ languages.cpuUserGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-userGroup" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle" fullTitle="{{ languages.cpuIrqGroupChartTitleFull }}" shortTitle="{{ languages.cpuIrqGroupChartTitle }}">{{ languages.cpuIrqGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-irqGroup" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-system-load" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i> CPU TOP
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-cpu-top">
+                                        <table id="cpu-top-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div id='MemoryCharts' class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-ram"></i> {{ languages.ramChartTitle }}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-memory-chart" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-memory-stat">
+                                        <table id="memory-stat-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }}
+                            </div>
+                            <div class="panel-body">
+                                <div id="div-memory-free-pss-stat">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }}
+                            </div>
+                            <div class="panel-body">
+                                <div id="div-memory-pss-stat"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id='IOCharts' class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-io-stat" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id='IOCharts' class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-syncalt"></i> {{ languages.ioTopTableTitle }}
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-io-top">
+                                        <table id="io-top-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div id='PerfCharts' class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="glyphicon glyphicon-tasks"></i>
+                                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">{{ languages.perfTableTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-perf">
+                                        <table id="perf-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+        <div class="modal fade" id="divSettings" tabindex="-1"
+             role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true" on>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">{{ languages.Settings }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">{{ languages.Server }}</span>
+                            <input id="txtServer" type="text" class="form-control" placeholder="www.linuxxueyuan.com" value="www.linuxxueyuan.com"/>
+                        </div>
+                        <p></p>
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon">{{ languages.Language }}</span>
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="lang-sm lang-lbl-full" lang="zh"></span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><span class="lang-sm lang-lbl-full" lang="zh"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p></p>
+                        
+                        <div id='divPingResult' class="input-group">
+                        </div>
+                        <p></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="onPingButtonClicked(initializeAndLoadCharts)">{{ languages.Connect }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

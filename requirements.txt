@@ -1,0 +1,5 @@
+Django
+djangorestframework
+#psycopg2
+uwsgi
+

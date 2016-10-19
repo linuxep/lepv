@@ -1,0 +1,80 @@
+
+.c3-area {
+    opacity: 0.7 !important;
+}
+
+
+.flip-clock-wrapper ul {
+    width: (@clock-font-size * 0.8);
+    height: @clock-height;
+    margin: 0 (@digit-gap / 2);
+}
+
+.flip-clock-wrapper ul li {
+    line-height: @clock-height;
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+    font-size: @clock-font-size;
+}
+
+.flip-clock-wrapper ul,
+.flip-clock-wrapper ul li a div div.inn {
+    border-radius: @border-radius;
+}
+
+.flip-clock-wrapper ul li a div.down {
+    border-bottom-left-radius: @border-radius;
+    border-bottom-right-radius: @border-radius;
+}
+
+.flip-clock-wrapper ul li a div.up:after {
+    top: ((@clock-height / 2) - 1px);
+}
+
+.flip-clock-dot.top {
+    top: (@clock-height / 2 - @clock-font-size * 0.2 - @dot-size / 2);
+}
+
+.flip-clock-dot.bottom {
+    top: (@clock-height / 2 + @clock-font-size * 0.2 - @dot-size / 2);
+}
+
+.flip-clock-dot{
+    width: @dot-size;
+    height: @dot-size;
+    left: @dot-size;
+}
+
+.flip-clock-divider {
+    width: (@dot-size * 3);
+}
+
+.text-area {
+    display: block;
+    width: 100%;
+    height: 200px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+/*the '.flip-clock-wrapper ul' properties represent each digit's containing box.*/
+
+/*the line-height of '.flip-clock-wrapper ul li' should match the height of '.flip-clock-wrapper ul'.*/
+
+/*the actual number inside the box is represented by '.flip-clock-wrapper ul li a div div.inn' so I have adjusted the font size here.*/
+
+/*ive reduced the border radius' of '.flip-clock-wrapper ul li a div div.inn' and '.flip-clock-wrapper ul li a div.down' for aesthetics.*/
+
+/*'.flip-clock-wrapper ul li a div.up:after' represents the line between the top and bottom parts of the flip. Its 'top' property has to be the height of '.flip-clock-wrapper ul' divided by 2 minus its own height divided by 2 [(78/2) - (2/2) = 38].*/
