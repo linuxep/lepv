@@ -18,6 +18,8 @@
     <link href="{% static "lepv/whhg-font/css/whhg.css" %}" rel="stylesheet">
     <link href="{% static "lepv/css/bootstrap-language.min.css" %}" rel="stylesheet">
 
+    <link href="{% static "lepv/js/FlipClock/compiled/flipclock.css" %}" rel="stylesheet">
+
     <link href="{% static "lepv/css/sb-admin.css" %}" rel="stylesheet">
 
     <link href="{% static "lepv/css/plugins/morris.css" %}" rel="stylesheet">
@@ -27,6 +29,8 @@
     <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
     <script src="{% static "lepv/lib/js.cookie.js" %}"></script>
     <script src="{% static "lepv/js/jquery-ui.min.js" %}"></script>
+
+    <script src="{% static "lepv/js/FlipClock/compiled/flipclock.min.js" %}"></script>
     
     <link href="{% static "lepv/js/jquery-ui.min.css" %}" rel="stylesheet" type="text/css">
     <link href="{% static "lepv/css/language/languages.min.css" %}" rel="stylesheet" type="text/css">
@@ -144,6 +148,10 @@
                     }
             );
 
+            var clock = $('.flip-clock').FlipClock({
+                // ... your options here
+            });
+
             $(".panel-heading").mouseover(function() {
 
                 var spans = this.getElementsByTagName('span');
@@ -248,6 +256,11 @@
 
                     <li>
                         <div class="panel-heading btn-info btn-block" id="divClock" style="width:150px">
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="panel-heading btn-info btn-block flip-clock" style="width:150px">
                         </div>
                     </li>
 
