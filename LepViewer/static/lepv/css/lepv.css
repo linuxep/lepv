@@ -69,6 +69,10 @@
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+.anchor_div {
+    padding-top: 55px;
+}
+
 /*the '.flip-clock-wrapper ul' properties represent each digit's containing box.*/
 
 /*the line-height of '.flip-clock-wrapper ul li' should match the height of '.flip-clock-wrapper ul'.*/
