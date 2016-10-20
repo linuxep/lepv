@@ -7,13 +7,17 @@ RUN apt-get update
 RUN apt-get -y install vim
 RUN apt-get -y install less
 
+RUN pip install django
+RUN pip install djangorestframework
+RUN pip install uwsgi
+
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
 USER root
 ADD . /code/
 
-RUN pip install -r requirements.txt
+#RUN pip install -r requirements.txt
 RUN python ./manage.py  migrate
 # triage way to check static files are there:
 # python manage.py findstatic admin/css/base.css --verbosity 2
@@ -26,7 +30,6 @@ ENTRYPOINT ["uwsgi", "--ini", "lepv_docker_uwsgi.ini", "--static-map", "/static=
 
 # run a container with this command:
 # docker run -t -p 8889:8889 mxu/lepv0.1
-# docker run -it -p 8889:8889 mxu/lepv0.1
 # or:
 # docker run -it -p 8889:8889 mxu/lepv0.1 bash
 # uwsgi --ini lepv_docker_uwsgi.ini --static-map /static=/code/staticfiles
