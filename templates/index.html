@@ -166,7 +166,13 @@
                 if (titleSpan.getAttribute('shortTitle') != null) {
                     titleSpan.textContent = titleSpan.getAttribute('shortTitle');
                 }
-            })
+            });
+
+            $(".nav a").on("click", function(){
+                $(".nav").find(".active").removeClass("active");
+                $(this).parent().addClass("active");
+            });
+        
         }
     </script>
 
