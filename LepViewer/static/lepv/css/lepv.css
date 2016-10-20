@@ -73,6 +73,16 @@
     padding-top: 60px;
 }
 
+.sidebar-clock {
+    width: 150px;
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
 /*the '.flip-clock-wrapper ul' properties represent each digit's containing box.*/
 
 /*the line-height of '.flip-clock-wrapper ul li' should match the height of '.flip-clock-wrapper ul'.*/
