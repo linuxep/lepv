@@ -1,7 +1,10 @@
 #!/bin/bash  
 
+echo "running container:"
+docker ps
+
 echo "stop and remove existing lepv container"
-docker rm $(docker stop $(docker ps -a -q --filter ancestor=mxu/lepv0.1 --format="{{.ID}}"))
+docker ps -a | awk '{ print $1,$2 }' | grep mxu/lepv0.1 | awk '{print $1 }' | xargs -I {} docker stop {} | xargs -I {} docker rm {}
 
 echo "Run LEPV in container"
 docker run -t -p 8889:8889 mxu/lepv0.1
