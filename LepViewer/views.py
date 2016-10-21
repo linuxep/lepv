@@ -4,6 +4,8 @@ __copyright__ = "Licensed under GPLv2 or later."
 from django.http import HttpResponse
 from django.shortcuts import render
 
+import datetime
+
 # Create your views here.
 from django.template import Context
 from django.template.loader import get_template
@@ -75,8 +77,12 @@ def getComponentStatus(request, component='', server='', requestId=''):
             monitor = MemoryMonitor(server)
             return JSONResponse(monitor.getStatus())
         elif (component == "io"):
+            startTime = datetime.datetime.now()
             responseData = IOMonitor(server).getStatus()
             responseData['requestId'] = requestId
+            endTime = datetime.datetime.now()
+            duration = "%.1f" % ((endTime - startTime).total_seconds())
+            responseData['djangoViewTotalDuration'] = duration
             return JSONResponse(responseData)
         elif (component == "avgload"):
             monitor = CPUMonitor(server)

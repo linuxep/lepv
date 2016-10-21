@@ -47,6 +47,10 @@ class IOMonitor:
             thisDiskRatio = Decimal(lineValues[-1])
             if (thisDiskRatio > ioStatus['ratio']):
                 ioStatus['ratio'] = thisDiskRatio
+
+        endTime2 = datetime.datetime.now()
+        duration = "%.1f" % ((endTime2 - endTime).total_seconds())
+        ioStatus['lepvParsingDuration'] = duration
         
         return ioStatus
     

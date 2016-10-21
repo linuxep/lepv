@@ -120,6 +120,8 @@ var IOStatCharts = (function(){
                 var totalTime = (new Date().getTime()-ajaxTime) / 1000;
                 responseId = data['requestId'];
                 console.log(url + " <- in " + totalTime + " seconds; with lepd response time as " + data['lepdDuration']);
+                console.log(url + " <- in " + totalTime + " seconds; with LEPV parsing time as " + data['lepvParsingDuration']);
+                console.log(url + " <- in " + totalTime + " seconds; with Djandgo View processing time as " + data['djangoViewTotalDuration']);
                 if (isChartPaused) {
                     return;
                 }
