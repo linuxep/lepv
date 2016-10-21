@@ -247,7 +247,7 @@ function onPingButtonClicked(callbackFunctor) {
 
                 $('#divSettings').modal('hide');
 
-                callbackFunctor(server);
+                callbackFunctor(server, data);
 
             } else {
                 var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");

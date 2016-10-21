@@ -33,8 +33,6 @@ var MemoryStatTable = (function(){
     
     function init() {
         
-        totalMemorySize = getMemoryTotal(server);
-
         intializeCharts();
     }
     
@@ -312,6 +310,7 @@ var MemoryStatTable = (function(){
         }
 
         server = serverToMonitor;
+        totalMemorySize = Cookies.get(server + ".Memory.Total");
 
         init();
 

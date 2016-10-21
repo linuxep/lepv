@@ -118,5 +118,5 @@ if( __name__ =='__main__' ):
     # print(monitor.getSmemOutput())
     # print(monitor.getProcrankOutput())
     # 
-    # print(monitor.getCapacity())
+    print(monitor.getCapacity())
 

@@ -42,7 +42,7 @@ var AverageLoadChart = (function(){
         refreshInterval = 2; // in second
         isChartPaused = false;
 
-        var cpuCoreCount = getCpuCoreCount(server);
+        var cpuCoreCount = Cookies.get(server + ".Core.Count");
 
         yellowAlertValue = 0.7 * cpuCoreCount;
         redAlertValue = 0.9 * cpuCoreCount;
@@ -158,7 +158,7 @@ var AverageLoadChart = (function(){
 
             // TODO: need to refactor the way to get the max value of current data currently shown on chart.
 
-            var cpuCoreCount = getCpuCoreCount(server);
+            var cpuCoreCount = Cookies.get(server + ".Core.Count");
 
             yellowAlertValue = 0.7 * cpuCoreCount;
             redAlertValue = 0.9 * cpuCoreCount;

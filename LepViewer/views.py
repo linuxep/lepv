@@ -97,6 +97,14 @@ def pingServer(request, server):
         
         result = {}
         result['result'] = client.ping()
+        
+        if (result['result']):
+            # get cpu count
+            cpuMonitor = CPUMonitor(server)
+            result['cpuCoreCount'] = cpuMonitor.getCapacity()['coresCount']
+            
+            memMonitor = MemoryMonitor(server)
+            result['memoryTotal'] = memMonitor.getCapacity()['capacity']
 
         return JSONResponse(result)
     except Exception as ex:

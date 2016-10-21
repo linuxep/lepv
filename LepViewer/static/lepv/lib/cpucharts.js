@@ -211,7 +211,7 @@ var CPUCharts = (function(){
 
     function init() {
 
-        cpuCoreCount = getCpuCoreCount(server);
+        cpuCoreCount = Cookies.get(server + ".Core.Count");
 
         statDatas = {};
         timeData = ['x'];
@@ -393,7 +393,7 @@ var CPUCharts = (function(){
             refreshDetailCharts(data);
         });
     }
-
+    
     function start(serverToMonitor) {
 
         if (serverToMonitor == server) {

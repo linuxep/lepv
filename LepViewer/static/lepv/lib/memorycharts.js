@@ -39,7 +39,6 @@ var MemoryCharts = (function(){
         maxDataCount = 150;
         isChartPaused = false;
 
-        memoryTotal = getMemoryTotal(server);
         chart = c3.generate({
             bindto: '#' + chartDivName,
             data: {
@@ -178,6 +177,8 @@ var MemoryCharts = (function(){
         }
 
         server = serverToMonitor;
+        memoryTotal = Cookies.get(server + ".Memory.Total");
+
         _init();
         refreshChart();
     }

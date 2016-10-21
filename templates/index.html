@@ -59,7 +59,6 @@
     <script src="{% static "lepv/lib/averageloadchart.js" %}"></script>
     <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
-    <script src="{% static "lepv/lib/utils.js" %}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -76,7 +75,7 @@
     </script>
     
     <script>
-        function initializeAndLoadCharts(server) {
+        function initializeAndLoadCharts(server, capacityDatas) {
             // save the language pack in cookie so chart components can use it.
             {% autoescape off %}
             Cookies.set('languagePack', {{ languages }});
@@ -89,6 +88,9 @@
                 bannerLabel += "Watching " + server;
             }
             $('#labelBanner').text(bannerLabel);
+
+            Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
+            Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
 
             GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
             GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
@@ -116,7 +118,7 @@
             MemoryStatTable.setChartDivName('div-memory-stat');
             MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
             MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
-            MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat")
+            MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
             MemoryStatTable.start(server);
 
             IOStatCharts.setChartDivName('div-io-stat');
