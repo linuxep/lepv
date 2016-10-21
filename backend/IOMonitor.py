@@ -6,6 +6,7 @@ from backend.LepDClient import LepDClient
 import re
 import datetime
 import pprint
+from decimal import Decimal
 
 class IOMonitor:
 
@@ -28,6 +29,7 @@ class IOMonitor:
         ioStatus['lepdDuration'] = duration
         ioStatus['disks'] = {}
         ioStatus['diskCount'] = 0
+        ioStatus['ratio'] = 0
         for line in result:
             if (line.strip() == ""):
                 continue
@@ -41,7 +43,10 @@ class IOMonitor:
             ioStatus['disks'][deviceName]['rkbs'] = lineValues[5]
             ioStatus['disks'][deviceName]['wkbs'] = lineValues[6]
             ioStatus['disks'][deviceName]['ratio'] = lineValues[-1]
-            ioStatus['ratio'] = lineValues[-1]
+            
+            thisDiskRatio = Decimal(lineValues[-1])
+            if (thisDiskRatio > ioStatus['ratio']):
+                ioStatus['ratio'] = thisDiskRatio
         
         return ioStatus
     
