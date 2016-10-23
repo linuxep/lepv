@@ -88,7 +88,7 @@ def getComponentStatus(request, component='', server='', requestId=''):
             monitor = CPUMonitor(server)
             return JSONResponse(monitor.getAverageLoad())
     except Exception as ex:
-        print(ex)
+        # print(ex)
         return HttpResponse(status=404)
 
 def pingServer(request, server):
@@ -114,7 +114,7 @@ def pingServer(request, server):
 
         return JSONResponse(result)
     except Exception as ex:
-        print(ex)
+        # print(ex)
         return HttpResponse(status=404)
 
 
@@ -136,7 +136,7 @@ def getComponentCapacity(request, component='', server=''):
             monitor = IOMonitor(server)
             return JSONResponse(monitor.getCapacity())
     except Exception as ex:
-        print(ex)
+        # print(ex)
         return HttpResponse(status=404)
 
 def getCpuStat(request, server=''):
@@ -148,7 +148,7 @@ def getCpuStat(request, server=''):
         return JSONResponse(monitor.getStat())
 
     except Exception as ex:
-        print(ex)
+        # print(ex)
         return HttpResponse(status=404)
 
 def getPerfCpuClockData(request, server=''):
@@ -160,7 +160,7 @@ def getPerfCpuClockData(request, server=''):
         return JSONResponse(monitor.getPerfCpuClock())
 
     except Exception as ex:
-        print(ex)
+        # print(ex)
         return HttpResponse(status=404)
 
 def getCpuTopData(request, server=''):
@@ -172,7 +172,7 @@ def getCpuTopData(request, server=''):
         return JSONResponse(monitor.getTopOutput())
 
     except Exception as ex:
-        print(ex)
+        # print(ex)
         return HttpResponse(status=404)
 
 
@@ -185,7 +185,7 @@ def getMemoryStat(request, server=''):
         return JSONResponse(monitor.getMemoryStat())
 
     except Exception as ex:
-        print(ex)
+        # print(ex)
         return HttpResponse(status=404)
 
 

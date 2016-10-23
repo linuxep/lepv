@@ -70,13 +70,13 @@ class MemoryMonitor:
         results = self.client.getSMem()
 
         headerLine = results.pop(0)
-        print(headerLine)
+        # print(headerLine)
         headers = headerLine.split()
 
         sMemInfo = {}
         # sMemInfo['headerLine'] = headerLine
         for line in results:
-            print(line)
+            # print(line)
             lineValues = line.split()
 
             pid = lineValues[0]

@@ -95,7 +95,7 @@ class IOMonitor:
         ioTopResults = {}
         orderIndex = 1
         for line in ioTopLines:
-            print (line)
+            # print (line)
             if (line.strip() == ''):
                 continue
 

@@ -125,8 +125,8 @@ class LepDClient:
         
         headerLine = response.pop(0)
         # print(headerLine)
-        if (headerLine != 'PID USER     PRI  NI    VSZ   RSS S %CPU %MEM     TIME CMD'):
-            print("Header line changed, pay attention")
+        # if (headerLine != 'PID USER     PRI  NI    VSZ   RSS S %CPU %MEM     TIME CMD'):
+        #     print("Header line changed, pay attention")
         
         result = {}
         for responseLine in response:
@@ -258,7 +258,7 @@ class LepDClient:
             
             resultList.append(resultLine)
             if (len(resultList) >= count):
-                print('now the length of the array is greater than the max, break here')
+                # print('now the length of the array is greater than the max, break here')
                 break
 
         return {'result': resultList}

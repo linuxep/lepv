@@ -65,8 +65,8 @@ class CPUMonitor:
             return None
 
         results.pop(0)
-        for line in results:
-            print(line)
+        # for line in results:
+        #     print(line)
 
         statData = {}
         statData['data'] = {}
