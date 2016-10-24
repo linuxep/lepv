@@ -31,7 +31,7 @@ a) Uwsgi socker can NOT be connected.
 please check the 'mysite.sock' file under project folder, the mask should be like 'srw-rw-rw- 1 laoxu laoxu    0 Sep 20 16:17 mysite.sock='
 The 'chmod-socker=666' option matters
 
-b) Uwsgi buffer_size is default 4096, let's increase it if you meet this folliwng error:
+b) Uwsgi buffer_size is default 4096, let's increase it if you meet this following error:
 
 invalid request block size: 4221 (max 4096)...skip
 invalid request block size: 4244 (max 4096)...skip

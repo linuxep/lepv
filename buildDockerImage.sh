@@ -1,3 +1,3 @@
 #! /bin/bash
 echo "Building docker image"
-docker build -f DockerBasic/Dockerfile -t mxu/lepv0.1 .
+docker build -f DockerBasic/Dockerfile -t linuxep/lepv0.1 .

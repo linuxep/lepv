@@ -2,16 +2,20 @@
 
 1. https://docs.djangoproject.com/en/dev/howto/static-files/
 
-During development, if you use django.contrib.staticfiles, this will be done automatically by runserver when DEBUG is set to True (see django.contrib.staticfiles.views.serve()).
+During development, if you use django.contrib.staticfiles, this will be done automatically
+by runserver when DEBUG is set to True (see django.contrib.staticfiles.views.serve()).
 
 
 2. https://docs.djangoproject.com/en/dev/howto/static-files/#serving-static-files-during-development
 
-If you use django.contrib.staticfiles as explained above, runserver will do this automatically when DEBUG is set to True. If you don’t have django.contrib.staticfiles in INSTALLED_APPS, you can still manually serve static files using the django.contrib.staticfiles.views.serve() view.
+If you use django.contrib.staticfiles as explained above, runserver will do this automatically when DEBUG
+is set to True. If you don’t have django.contrib.staticfiles in INSTALLED_APPS, you can still manually
+serve static files using the django.contrib.staticfiles.views.serve() view.
 
-Note
+[Note]
 
-This helper function works only in debug mode and only if the given prefix is local (e.g. /static/) and not a URL (e.g. http://static.example.com/).
+This helper function works only in debug mode and only if the given prefix is local (e.g. /static/)
+and not a URL (e.g. http://static.example.com/).
 
 Also this helper function only serves the actual STATIC_ROOT folder; it doesn’t perform static files discovery like django.contrib.staticfiles.
 
@@ -21,7 +25,8 @@ Also this helper function only serves the actual STATIC_ROOT folder; it doesn’
 
 You should either:
     use runserver with DEBUG=True, in that case django will serve static files by default, in doubt use staticfiles_urlpatterns or
-    use a real httpd to serve STATIC_ROOT on STATIC_URL, in that case you should generate STATIC_ROOT from STATICFILES_DIRS (and actually each app's 'static' subdir, which is the point) with the command collectstatic
+    use a real httpd to serve STATIC_ROOT on STATIC_URL, in that case you should generate STATIC_ROOT
+    from STATICFILES_DIRS (and actually each app's 'static' subdir, which is the point) with the command collectstatic
 
 
 5. https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-DEBUG
