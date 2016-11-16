@@ -10,6 +10,17 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import os.path
+import platform
+
+platformName = platform.platform()
+
+DEBUG = True
+ALLOWED_HOSTS = []
+if( platformName.startswith('Linux') ):
+    DEBUG = False  # to be changed to False after stablization
+    ALLOWED_HOSTS = ['*']
+    
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -18,10 +29,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'lrcofu8j6(j!3ws=rz(0vfh64qwfu$=5jf3p!6ec71)+77r!%2'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = []
 
 # production env
 # DEBUG = False

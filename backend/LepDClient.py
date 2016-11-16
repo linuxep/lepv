@@ -25,7 +25,7 @@ class LepDClient:
 
     def ping(self):
         response = self.sendRequest("SayHello")
-        if (response != None and 'result' in response and response['result'] == 'Hello!'):
+        if (response != None and 'result' in response and response['result'].startswith('Hello!')):
             return True
         else:
             return False
@@ -430,14 +430,14 @@ if( __name__ =='__main__' ):
 
     # client.getCmdPerfCpuclock()
     
-    client.tryAllMethods()
+    # client.tryAllMethods()
 
     # pp.pprint(client.getIoTop())
     # pp.pprint(client.getCmdMpStat())
     
     # pp.pprint(client.sendRequest('GetProcSlabinfo'))
     # 
-    # pp.pprint(client.ping())
+    pp.pprint(client.ping())
     # 
     # print(client.getCmdVmstat())
     # 

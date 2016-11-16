@@ -107,7 +107,7 @@ var IOStatCharts = (function(){
 
         if (requestId - responseId >= 2) {
             console.log("requestId - responseId = " + (requestId - responseId));
-            return;
+            //return;
         }
 
         requestId += 1;
@@ -116,8 +116,12 @@ var IOStatCharts = (function(){
         console.log(url + " ->");
         $.get(url).success(
             function(data) {
+                
+                var currentTime = new Date().getTime();
+                console.log("current time: " + currentTime);
+                console.log("beginning time: " + ajaxTime);
 
-                var totalTime = (new Date().getTime()-ajaxTime) / 1000;
+                var totalTime = (currentTime - ajaxTime) / 1000;
                 responseId = data['requestId'];
                 console.log(url + " <- in " + totalTime + " seconds; with lepd:" + data['lepdDuration'] 
                     + "; LEPV parsing time:" + data['lepvParsingDuration'] + "; Django View Processing time: " + data['djangoViewTotalDuration']);

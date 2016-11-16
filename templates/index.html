@@ -24,179 +24,15 @@
 
     <link href="{% static "lepv/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
 
-    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-    <script src="{% static "lepv/lib/js.cookie.js" %}"></script>
-    <script src="{% static "lepv/js/jquery-ui.min.js" %}"></script>
-    
     <link href="{% static "lepv/js/jquery-ui.min.css" %}" rel="stylesheet" type="text/css">
     <link href="{% static "lepv/css/language/languages.min.css" %}" rel="stylesheet" type="text/css">
 
     <!-- DataTable -->
     <link href="{% static "bower_components/datatables/media/css/jquery.dataTables.min.css" %} " rel="stylesheet">
-    <script src="{% static "bower_components/datatables/media/js/jquery.dataTables.min.js" %}"></script>
 
-    <!-- Load d3.js and c3.js -->
     <link href="{% static "bower_components/c3/c3.min.css" %}" rel="stylesheet" type="text/css">
-    <script src="{% static "bower_components/c3/d3.min.js" %}" charset="utf-8"></script>
-    <script src="{% static "bower_components/c3/c3.min.js" %}"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
-
-    <script src="{% static "lepv/js/lepv.js" %}"></script>
-    <script src="{% static "lepv/js/timer.jquery.min.js" %}"></script>
-    
     <link href="{% static "lepv/css/lepv.css" %}" rel="stylesheet" type="text/css">
-    
-    <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
-    <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
-    <script src="{% static "lepv/lib/memorycharts.js" %}"></script>
-    <script src="{% static "lepv/lib/memoryStatTable.js" %}"></script>
-    <script src="{% static "lepv/lib/CPUTopTable.js" %}"></script>
-    <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
-    <script src="{% static "lepv/lib/iostatcharts.js" %}"></script>
-    <script src="{% static "lepv/lib/ioTopTable.js" %}"></script>
-    <script src="{% static "lepv/lib/averageloadchart.js" %}"></script>
-    <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
-    <script src="{% static "lepv/lib/config.js" %}"></script>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-
-    <script>
-        $( document ).ready(function() {
-            showConfigPage();
-        });
-    </script>
-    
-    <script>
-        function initializeAndLoadCharts(server, capacityDatas) {
-            // save the language pack in cookie so chart components can use it.
-            {% autoescape off %}
-            Cookies.set('languagePack', {{ languages }});
-            {% endautoescape %}
-
-            var bannerLabel = "LEPV - LEP Visualizer and Analyzer | ";
-            if (Cookies.get("language") == "zh") {
-                bannerLabel += "监测对象: " + server;
-            } else {
-                bannerLabel += "Watching " + server;
-            }
-            $('#labelBanner').text(bannerLabel);
-
-            Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
-            Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
-
-            GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
-            GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
-            GaugeCharts.setComponentDivName('io', 'div-io-gauge');
-            GaugeCharts.start(server);
-
-            CapacityLoader.setComponent('memory', 'div-memory-summary');
-            CapacityLoader.setComponent('cpu', 'div-cpu-summary');
-            CapacityLoader.setComponent('io', 'div-io-summary');
-            CapacityLoader.start(server);
-
-            CPUCharts.setOverallDivName('div-cpu-stat-overall');
-            CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
-            CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
-            CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
-            CPUCharts.start(server);
-
-            // Average Load
-            AverageLoadChart.setChartDivName('div-system-load');
-            AverageLoadChart.start(server);
-
-            MemoryCharts.setChartDivName('div-memory-chart');
-            MemoryCharts.start(server);
-
-            MemoryStatTable.setChartDivName('div-memory-stat');
-            MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
-            MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
-            MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
-            MemoryStatTable.start(server);
-
-            IOStatCharts.setChartDivName('div-io-stat');
-            IOStatCharts.start(server);
-
-            IOTopTable.setChartDivName('div-io-top');
-            IOTopTable.setTableName('#io-top-table');
-            IOTopTable.start(server);
-
-            CPUTopTable.setChartDivName('div-cpu-top');
-            CPUTopTable.setTableName('#cpu-top-table');
-            CPUTopTable.start(server);
-
-            PerfCPUTable.setChartDivName('div-perf');
-            PerfCPUTable.setTableName('#perf-table');
-            PerfCPUTable.start(server);
-
-            $('[data-toggle="tooltip"]').tooltip();
-
-            //http://jquerytimer.com/
-            $('#divClock').empty();
-            $('#divClock').timer(
-                    {
-                        format: '%m 分 %s 秒'  //Display time as 3 minutes 45 seconds
-                    }
-            );
-
-            $(".panel-heading").mouseover(function() {
-
-                var spans = this.getElementsByTagName('span');
-                if (spans.length == 0) {
-                    return;
-                }
-
-                var titleSpan = spans[0];
-                if (titleSpan.getAttribute('fullTitle') != null) {
-                    titleSpan.textContent = titleSpan.getAttribute('fullTitle');
-                }
-
-            }).mouseout(function(){
-                var spans = this.getElementsByTagName('span');
-                if (spans.length == 0) {
-                    return;
-                }
-                var titleSpan = spans[0];
-
-                if (titleSpan.getAttribute('shortTitle') != null) {
-                    titleSpan.textContent = titleSpan.getAttribute('shortTitle');
-                }
-            });
-
-            $(".nav a").on("click", function(){
-                $(".nav").find(".active").removeClass("active");
-                $(this).parent().addClass("active");
-            });
-        
-        }
-    </script>
-
-    <script>
-        function startWatching() {
-
-{#            if(Cookies.get('server') == null) {#}
-{#                showConfigPage();#}
-{#            } else {#}
-{#                $.get("/ping/" + Cookies.get('server'), function(data, status){#}
-{#                    if (data['result']) {#}
-{#                        initializeAndLoadCharts();#}
-{#                    } else {#}
-{#                        showConfigPage();#}
-{##}
-{#                        var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");#}
-{#                        $('#divPingResult').append(resultButton);#}
-{#                    }#}
-{#                });#}
-{#            }#}
-        }
-    </script>
 
 </head>
 
@@ -615,6 +451,181 @@
             </div>
         </div>
     </div>
+
+
+
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "lepv/lib/js.cookie.js" %}"></script>
+    <script src="{% static "lepv/js/jquery-ui.min.js" %}"></script>
+
+
+    <script src="{% static "bower_components/datatables/media/js/jquery.dataTables.min.js" %}"></script>
+
+    <!-- Load d3.js and c3.js -->
+
+    <script src="{% static "bower_components/c3/d3.min.js" %}" charset="utf-8"></script>
+    <script src="{% static "bower_components/c3/c3.min.js" %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+
+    <script src="{% static "lepv/js/lepv.js" %}"></script>
+    <script src="{% static "lepv/js/timer.jquery.min.js" %}"></script>
+
+
+
+    <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
+    <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
+    <script src="{% static "lepv/lib/memorycharts.js" %}"></script>
+    <script src="{% static "lepv/lib/memoryStatTable.js" %}"></script>
+    <script src="{% static "lepv/lib/CPUTopTable.js" %}"></script>
+    <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
+    <script src="{% static "lepv/lib/iostatcharts.js" %}"></script>
+    <script src="{% static "lepv/lib/ioTopTable.js" %}"></script>
+    <script src="{% static "lepv/lib/averageloadchart.js" %}"></script>
+    <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
+    <script src="{% static "lepv/lib/config.js" %}"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script>
+        $( document ).ready(function() {
+            showConfigPage();
+        });
+    </script>
+
+    <script>
+        function initializeAndLoadCharts(server, capacityDatas) {
+            // save the language pack in cookie so chart components can use it.
+            {% autoescape off %}
+            Cookies.set('languagePack', {{ languages }});
+        {% endautoescape %}
+
+        var bannerLabel = "LEPV - LEP Visualizer and Analyzer | ";
+        if (Cookies.get("language") == "zh") {
+            bannerLabel += "监测对象: " + server;
+        } else {
+            bannerLabel += "Watching " + server;
+        }
+        $('#labelBanner').text(bannerLabel);
+
+        Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
+        Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
+
+        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
+        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
+        GaugeCharts.setComponentDivName('io', 'div-io-gauge');
+        GaugeCharts.start(server);
+
+        CapacityLoader.setComponent('memory', 'div-memory-summary');
+        CapacityLoader.setComponent('cpu', 'div-cpu-summary');
+        CapacityLoader.setComponent('io', 'div-io-summary');
+        CapacityLoader.start(server);
+
+        CPUCharts.setOverallDivName('div-cpu-stat-overall');
+        CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
+        CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
+        CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
+        CPUCharts.start(server);
+
+        // Average Load
+        AverageLoadChart.setChartDivName('div-system-load');
+        AverageLoadChart.start(server);
+
+        MemoryCharts.setChartDivName('div-memory-chart');
+        MemoryCharts.start(server);
+
+        MemoryStatTable.setChartDivName('div-memory-stat');
+        MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
+        MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
+        MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
+        MemoryStatTable.start(server);
+
+        IOStatCharts.setChartDivName('div-io-stat');
+        IOStatCharts.start(server);
+
+        IOTopTable.setChartDivName('div-io-top');
+        IOTopTable.setTableName('#io-top-table');
+        IOTopTable.start(server);
+
+        CPUTopTable.setChartDivName('div-cpu-top');
+        CPUTopTable.setTableName('#cpu-top-table');
+        CPUTopTable.start(server);
+
+        PerfCPUTable.setChartDivName('div-perf');
+        PerfCPUTable.setTableName('#perf-table');
+        PerfCPUTable.start(server);
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        //http://jquerytimer.com/
+        $('#divClock').empty();
+        $('#divClock').timer(
+                {
+                    format: '%m 分 %s 秒'  //Display time as 3 minutes 45 seconds
+                }
+        );
+
+        $(".panel-heading").mouseover(function() {
+
+            var spans = this.getElementsByTagName('span');
+            if (spans.length == 0) {
+                return;
+            }
+
+            var titleSpan = spans[0];
+            if (titleSpan.getAttribute('fullTitle') != null) {
+                titleSpan.textContent = titleSpan.getAttribute('fullTitle');
+            }
+
+        }).mouseout(function(){
+            var spans = this.getElementsByTagName('span');
+            if (spans.length == 0) {
+                return;
+            }
+            var titleSpan = spans[0];
+
+            if (titleSpan.getAttribute('shortTitle') != null) {
+                titleSpan.textContent = titleSpan.getAttribute('shortTitle');
+            }
+        });
+
+        $(".nav a").on("click", function(){
+            $(".nav").find(".active").removeClass("active");
+            $(this).parent().addClass("active");
+        });
+
+        }
+    </script>
+
+    <script>
+        function startWatching() {
+
+            {#            if(Cookies.get('server') == null) {#}
+                {#                showConfigPage();#}
+                {#            } else {#}
+                {#                $.get("/ping/" + Cookies.get('server'), function(data, status){#}
+                    {#                    if (data['result']) {#}
+                        {#                        initializeAndLoadCharts();#}
+                        {#                    } else {#}
+                        {#                        showConfigPage();#}
+                        {##}
+                        {#                        var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");#}
+                        {#                        $('#divPingResult').append(resultButton);#}
+                        {#                    }#}
+                    {#                });#}
+                {#            }#}
+        }
+    </script>
+
+
+
 </body>
 
 </html>

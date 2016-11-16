@@ -72,7 +72,7 @@
 
 
       <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#4078c0">
-      <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+      //<link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
 
     <meta name="html-safe-nonce" content="19056f2725b078f02a6850efeffeecfc49295e7e">
     <meta content="8c01353df8e51c718f176437e9ca398d10c24b9e" name="form-nonce" />
