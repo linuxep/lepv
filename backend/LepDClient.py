@@ -25,7 +25,9 @@ class LepDClient:
 
     def ping(self):
         response = self.sendRequest("SayHello")
-        if (response != None and 'result' in response and response['result'].startswith('Hello!')):
+        print("response from SayHello: ")
+        print(response)
+        if (response != None and 'result' in response and response['result'].startswith('Hello')):
             return True
         else:
             return False

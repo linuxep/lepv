@@ -91,14 +91,16 @@ def getComponentStatus(request, component='', server='', requestId=''):
         # print(ex)
         return HttpResponse(status=404)
 
-def pingServer(request, server):
+def pingServer(request, server=''):
     if( request.method != 'GET' ):
         return
 
     try:
         if( server == '' ):
+            print("LEPD serer is not specified!")
             return
-
+        
+        print("LEPD address: " + server)
         client = LepDClient(server)
         
         result = {}

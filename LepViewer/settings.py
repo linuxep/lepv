@@ -18,6 +18,7 @@ platformName = platform.platform()
 DEBUG = True
 ALLOWED_HOSTS = []
 if( platformName.startswith('Linux') ):
+    print("setting DEBUG=False")
     DEBUG = False  # to be changed to False after stablization
     ALLOWED_HOSTS = ['*']
     
