@@ -89,34 +89,27 @@ class LepDClient:
             results[lineKey] = lineValue
 
         return results
+    
+    
+
+    def getProcCpuinfoX(self):
+        
+        responseARM = '{"result":	"Processor\\t: ARMv7 Processor rev 4 (v7l)\\nprocessor\\t: 0\\nBogoMIPS\\t: 1810.43\\n\\nprocessor\\t: 1\\nBogoMIPS\\t: 1823.53\\n\\nFeatures\\t: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt \\nCPU implementer\\t: 0x41\\nCPU architecture: 7\\nCPU variant\\t: 0x0\\nCPU part\\t: 0xc07\\nCPU revision\\t: 4\\n\\nHardware\\t: sun7i\\nRevision\\t: 0000\\nSerial\\t\\t: 0000000000000000\\nlepdendstring"}'
+        
+        responseX86 = '{"result":	"processor\\t: 0\\nvendor_id\\t: GenuineIntel\\ncpu family\\t: 6\\nmodel\\t\\t: 6\\nmodel name\\t: QEMU Virtual CPU\\nstepping\\t: 3\\nmicrocode\\t: 0x1\\ncpu MHz\\t\\t: 2599.998\\ncache size\\t: 4096 KB\\nphysical id\\t: 0\\nsiblings\\t: 1\\ncore id\\t\\t: 0\\ncpu cores\\t: 1\\napicid\\t\\t: 0\\ninitial apicid\\t: 0\\nfpu\\t\\t: yes\\nfpu_exception\\t: yes\\ncpuid level\\t: 13\\nwp\\t\\t: yes\\nflags\\t\\t: fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pse36 clflush mmx fxsr sse sse2 syscall nx lm rep_good nopl pni cx16 x2apic popcnt hypervisor lahf_lm\\nbugs\\t\\t:\\nbogomips\\t: 5199.99\\nclflush size\\t: 64\\ncache_alignment\\t: 64\\naddress sizes\\t: 40 bits physical, 48 bits virtual\\npower management:\\n\\nprocessor\\t: 1\\nvendor_id\\t: GenuineIntel\\ncpu family\\t: 6\\nmodel\\t\\t: 6\\nmodel name\\t: QEMU Virtual CPU\\nstepping\\t: 3\\nmicrocode\\t: 0x1\\ncpu MHz\\t\\t: 2599.998\\ncache size\\t: 4096 KB\\nphysical id\\t: 1\\nsiblings\\t: 1\\ncore id\\t\\t: 0\\ncpu cores\\t: 1\\napicid\\t\\t: 1\\ninitial apicid\\t: 1\\nfpu\\t\\t: yes\\nfpu_exception\\t: yes\\ncpuid level\\t: 13\\nwp\\t\\t: yes\\nflags\\t\\t: fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pse36 clflush mmx fxsr sse sse2 syscall nx lm rep_good nopl pni cx16 x2apic popcnt hypervisor lahf_lm\\nbugs\\t\\t:\\nbogomips\\t: 5199.99\\nclflush size\\t: 64\\ncache_alignment\\t: 64\\naddress sizes\\t: 40 bits physical, 48 bits virtual\\npower management:\\n\\nlepdendstring"}'
+        
+        response = json.loads(responseARM)
+        
+        return response
 
     def getProcCpuinfo(self):
         response = self.sendRequest("GetProcCpuinfo")
         if (response == None or 'result' not in response):
             return None
 
-        results = {}
-        result = response['result'].strip()
-        lines = result.split("\n")
-        for line in lines:
-            # print(line)
-            
-            if (line.strip() == ""):
-                continue
-            
-            if re.match(r'processor\W+:\W+\d.*', line, re.M|re.I):
-                linePairs = line.split(":")
-                processorId = linePairs[1].strip()
-                results[processorId] = {}
-                continue
-
-            linePairs = line.split(":")
-            lineKey = linePairs[0].strip()
-            lineValue = linePairs[1].strip()
-            
-            results[processorId][lineKey] = lineValue
-            
-        return results
+        return response['result'].strip()
+        
+        return result
 
     def getTopOutput(self):
         response = self.sendRequest("GetCmdTop")
@@ -427,6 +420,8 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     client = LepDClient('www.linuxxueyuan.com')
+    
+    client.getProcCpuinfoX()
 
     # client = LepDClient('www.linuxxueyuan.com')
 
@@ -439,7 +434,7 @@ if( __name__ =='__main__' ):
     
     # pp.pprint(client.sendRequest('GetProcSlabinfo'))
     # 
-    pp.pprint(client.ping())
+    # pp.pprint(client.ping())
     # 
     # print(client.getCmdVmstat())
     # 

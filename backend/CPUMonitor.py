@@ -12,36 +12,109 @@ class CPUMonitor:
     def __init__(self, server):
         self.server = server
         self.client = LepDClient(self.server)
+    
+    def getCpuInfoForArm(self, result):
+
+        results = {}
+
+        lines = result.split("\n")
+
+        line = lines.pop(0)
+        results['architecture'] = "ARM"
+        results['model name'] = line.split(':')[1].strip()
+        results['processors'] = {}
+
+        line = lines.pop(0)
+        while(not line.startswith("Features")):
+            if (line.startswith("processor")):
+
+                processorId = line.split(":")[1].strip()
+                results['processors'][processorId] = {}
+
+                bogoMips = lines.pop(0).split(":")[1].strip()
+                results['processors'][processorId]["processorId"] = processorId
+                results['processors'][processorId]["bogomips"] = bogoMips
+            
+            line = lines.pop(0)
+
+        return results
+    
+    def getCpuInfoForX86(self, result):
+
+        results = {}
+        results['architecture'] = "X86"
+        results['processors'] = {}
+        
+        lines = result.split("\n")
+        for line in lines:
+            if (line.strip() == ""):
+                continue
+    
+            if re.match(r'processor\W+:\W+\d.*', line, re.M|re.I):
+                linePairs = line.split(":")
+                processorId = linePairs[1].strip()
+                results['processors'][processorId] = {}
+                continue
+    
+            if (":" in line):
+                linePairs = line.split(":")
+                lineKey = linePairs[0].strip()
+                lineValue = ''
+                if (len(linePairs) > 1):
+                    lineValue = linePairs[1].strip()
+
+                results['processors'][processorId][lineKey] = lineValue
+    
+        return results
+    
+    def getCpuInfo(self):
+
+        cpuInfoResult = self.client.getProcCpuinfo()
+        if ("ARM" in cpuInfoResult):
+            return self.getCpuInfoForArm(cpuInfoResult)
+        else:
+            return self.getCpuInfoForX86(cpuInfoResult)
 
     def getCapacity(self):
         
-        processorsData = self.client.getProcCpuinfo()
+        processorsData = self.getCpuInfo()
         
         if (not processorsData):
             return {}
         
         capacity = {}
-        capacity['processors'] = processorsData
-        
+        capacity['processors'] = processorsData['processors']
+
         coresString = 'Core'
-        coreCount = len(processorsData)
+        coreCount = len(processorsData['processors'])
         capacity['coresCount'] = coreCount
         
         if (coreCount > 1):
             coresString = "Cores"
 
-        for processorId, processorData in processorsData.items():
-            modelName = processorData['model name'].replace("(R)", "").replace(" CPU", "")
-            if (" @" in modelName):
-                modelName = modelName[0:modelName.find(" @")]
-            processorData['model'] = modelName
+        for processorId, processorData in processorsData['processors'].items():
             
-            processorSpeed = Decimal(processorData['cpu MHz']).quantize(Decimal('0'))
+            if (processorsData['architecture'] == "ARM"):
+                processorData['model'] = processorsData['model name']
+
+                # Summary is a string to briefly describe the CPU, like "2GHZ x 2", meaning it's a 2-core cpu with 2GHZ speed.
+                capacity['summary'] = processorData['bogomips'] + " MHz x " + str(coreCount) + coresString
+                capacity['model'] = processorData['model']
+                capacity['bogomips'] = processorData['bogomips']
             
-            # Summary is a string to briefly describe the CPU, like "2GHZ x 2", meaning it's a 2-core cpu with 2GHZ speed.
-            capacity['summary'] = str(processorSpeed) + " MHz x " + str(coreCount) + coresString
-            capacity['model'] = modelName
-            capacity['bogomips'] = processorData['bogomips']
+            else:
+                modelName = processorData['model name'].replace("(R)", "").replace(" CPU", "")
+                if (" @" in modelName):
+                    modelName = modelName[0:modelName.find(" @")]
+                processorData['model'] = modelName
+                
+                processorSpeed = Decimal(processorData['cpu MHz']).quantize(Decimal('0'))
+                
+                # Summary is a string to briefly describe the CPU, like "2GHZ x 2", meaning it's a 2-core cpu with 2GHZ speed.
+                capacity['summary'] = str(processorSpeed) + " MHz x " + str(coreCount) + coresString
+                capacity['model'] = modelName
+                capacity['bogomips'] = processorData['bogomips']
+            
             break
 
         return capacity
@@ -151,8 +224,8 @@ if( __name__ =='__main__' ):
     monitor = CPUMonitor('www.linuxxueyuan.com')
     # monitor = CPUMonitor('www.linuxep.com')
 
-    # monitor.getCapacity()
-    pp.pprint(monitor.getStatus())
+    pp.pprint(monitor.getCapacity())
+    pp.pprint(monitor.getCpuInfo())
     # pp.pprint(monitor.getStat())
     # pp.pprint(monitor.getAverageLoad())
     # pp.pprint(monitor.getTopOutput())
