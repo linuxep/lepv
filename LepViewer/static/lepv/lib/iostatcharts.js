@@ -107,7 +107,7 @@ var IOStatCharts = (function(){
 
         if (requestId - responseId >= 2) {
             console.log("requestId - responseId = " + (requestId - responseId));
-            //return;
+            return;
         }
 
         requestId += 1;
