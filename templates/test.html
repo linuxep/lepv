@@ -81,7 +81,11 @@
                             log(textElement, textStatus + "; " + jqXHR.status + " " + errorThrown);
                         }
                 )
-            
+        }
+    </script>
+
+    <script>
+        function loadMethodMap() {
             
         }
     </script>
@@ -93,61 +97,74 @@
 
             $("#divResults").empty();
             
-            var resultArea = $('#result');
+            var resultArea = $('#result'); 
 
             resultArea.val('');
+            
+            
+            $.get('/methodmap').success(
+                    function(methodMap) {
 
-            var urls = [
-                    '/status/io',
-                    '/status/memory',
-                    '/status/cpu',
-                    '/status/iotop',
-                    '/status/avgload',
-                    '/cpustat',
-                    '/cputop',
-                    '/perfcpu',
-                    '/memstat',
-                    '/ping',
-                    '/capacity/cpu',
-                    '/capacity/memory',
-                    '/capacity/io'
-                    
-            ];
+//                        var urls = [
+//                            '/status/io',
+//                            '/status/memory',
+//                            '/status/cpu',
+//                            '/status/iotop',
+//                            '/status/avgload',
+//                            '/cpustat',
+//                            '/cputop',
+//                            '/perfcpu',
+//                            '/memstat',
+//                            '/ping',
+//                            '/capacity/cpu',
+//                            '/capacity/memory',
+//                            '/capacity/io'
+//                        ];
 
-            $.each( urls, function( i, url ) {
-                var rowDiv = $("<div></div>").addClass("row");
-                $("#divResults").append(rowDiv);
 
-                var colDiv = $("<div></div>").addClass("col-lg-12");
-                rowDiv.append(colDiv);
 
-                var panelDiv = $("<div></div>").addClass("panel panel-default");
-                colDiv.append(panelDiv);
+                        $.each( methodMap, function( i, methodItem ) {
+                            var rowDiv = $("<div></div>").addClass("row");
+                            $("#divResults").append(rowDiv);
 
-                var panelHeadingDiv = $("<div></div>").addClass("panel-heading");
-                panelDiv.append(panelHeadingDiv);
+                            var colDiv = $("<div></div>").addClass("col-lg-12");
+                            rowDiv.append(colDiv);
 
-                var iElement = $("<i></i>").addClass("icon-syncalt");
-                panelHeadingDiv.append(iElement);
+                            var panelDiv = $("<div></div>").addClass("panel panel-default");
+                            colDiv.append(panelDiv);
 
-                var index = i + 1;
-                var spanElement = $("<span></span>").text( " [" + index + "/" + urls.length + "] " + url);
-                panelHeadingDiv.append(spanElement);
+                            var panelHeadingDiv = $("<div></div>").addClass("panel-heading");
+                            panelDiv.append(panelHeadingDiv);
 
-                var panelBody = $("<span></span>").addClass("panel-body");
-                panelDiv.append(panelBody);
+                            var iElement = $("<i></i>").addClass("icon-syncalt");
+                            panelHeadingDiv.append(iElement);
 
-                var panelBodyForm = $("<form></form>");
-                panelBody.append(panelBodyForm);
+                            var index = i + 1;
+                            var headerString = " [" + index + "/" + methodMap.length + "] " + methodItem[['url']];
+                            headerString += " => [LEPV] " + methodItem['moduleMethod'];
+                            headerString += " => [LEPD] " + methodItem['lepdMethod'];
+                            var spanElement = $("<span></span>").text(headerString);
+                            panelHeadingDiv.append(spanElement);
 
-                var divFormGroup = $("<div></div>").addClass("form-group");
-                panelBodyForm.append(divFormGroup);
+                            var panelBody = $("<span></span>").addClass("panel-body");
+                            panelDiv.append(panelBody);
 
-                var textArea = $("<textarea></textarea>").addClass("text-area");
-                divFormGroup.append(textArea);
+                            var panelBodyForm = $("<form></form>");
+                            panelBody.append(panelBodyForm);
 
-                testingByComponent(textArea, panelDiv, url + "/" + server);
-            });
+                            var divFormGroup = $("<div></div>").addClass("form-group");
+                            panelBodyForm.append(divFormGroup);
+
+                            var textArea = $("<textarea></textarea>").addClass("text-area");
+                            divFormGroup.append(textArea);
+
+                            testingByComponent(textArea, panelDiv, methodItem['url'] + "/" + server);
+                        });
+                    }
+            );
+            
+
+            
         }
     </script>
 

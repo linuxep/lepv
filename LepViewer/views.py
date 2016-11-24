@@ -15,6 +15,7 @@ from backend.CPUMonitor import CPUMonitor
 from backend.IOMonitor import IOMonitor
 from backend.Languages import Languages
 from backend.PerfMonitor import PerfMonitor
+from backend.MethodMap import MethodMap
 
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
@@ -91,7 +92,7 @@ def getComponentStatus(request, component='', server='', requestId=''):
         # print(ex)
         return HttpResponse(status=404)
 
-def pingServer(request, server=''):
+def pingServer(request, server='', debug=False):
     if( request.method != 'GET' ):
         return
 
@@ -102,6 +103,8 @@ def pingServer(request, server=''):
         
         print("LEPD address: " + server)
         client = LepDClient(server)
+        if (debug):
+            client.debug=True
         
         result = {}
         result['result'] = client.ping()
@@ -188,6 +191,16 @@ def getMemoryStat(request, server=''):
 
     except Exception as ex:
         # print(ex)
+        return HttpResponse(status=404)
+
+def getMethodMap(request):
+    if( request.method != 'GET' ):
+        return
+
+    try:
+        methodMap = MethodMap()
+        return JSONResponse(methodMap.getMap())
+    except Exception as ex:
         return HttpResponse(status=404)
 
 

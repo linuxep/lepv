@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^memstat/$', getMemoryStat),
     url(r'^memstat/(?P<server>.+)/$', getMemoryStat),
 
+    url(r'^ping/(?P<server>.+)/(?P<debug>.+)/$', pingServer),
     url(r'^ping/(?P<server>.+)/$', pingServer),
 
     url(r'^capacity/$', getComponentCapacity),
@@ -34,6 +35,8 @@ urlpatterns = [
 
     url(r'^test/$', showTestPage),
     url(r'^test/(?P<server>.+)/$', showTestPage),
+
+    url(r'^methodmap/$', getMethodMap),
 
     url(r'^$', showHomepage),
     url(r'^(?P<server>.+)/$', showHomepage),

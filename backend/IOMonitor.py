@@ -140,8 +140,8 @@ if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     
     # monitor = IOMonitor('www.linuxep.com')
-    # pp.pprint(monitor.getIoTopData())
-    pp.pprint(monitor.getStatus())
+    pp.pprint(monitor.getIoTopData())
+    # pp.pprint(monitor.getStatus())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &
 

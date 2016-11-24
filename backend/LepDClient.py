@@ -14,6 +14,7 @@ class LepDClient:
         self.server = server
         self.port = port
         self.bufferSize = 2048
+        self.debug = False
 
     def listAllMethods(self):
         response = self.sendRequest("ListAllMethod")
@@ -26,6 +27,12 @@ class LepDClient:
     def ping(self):
         response = self.sendRequest("SayHello")
         print("response from SayHello: ")
+        
+        if (self.debug):
+            print("Ping in debug mode")
+        else:
+            print("Ping in release mode")
+            
         print(response)
         if (response != None and 'result' in response and response['result'].startswith('Hello')):
             return True
