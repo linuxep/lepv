@@ -122,6 +122,23 @@ def pingServer(request, server='', requestId='', config='release'):
         # print(ex)
         return HttpResponse(status=404)
 
+def runCommand(request, server, command):
+    if( request.method != 'GET' ):
+        return
+
+    try:
+        if( server == '' ):
+            print("LEPD serer is not specified!")
+            return
+
+        print("LEPD address: " + server)
+        client = LepDClient(server=server, config='debug')
+
+        return JSONResponse(client.sendRequest(command))
+    except Exception as ex:
+        # print(ex)
+        return HttpResponse(status=404)
+
 
 def getComponentCapacity(request, component='', server='', requestId='', config='release'):
     if( request.method != 'GET' ):

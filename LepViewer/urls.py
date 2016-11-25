@@ -41,6 +41,8 @@ urlpatterns = [
     url(r'^ping/(?P<server>.+)/$', pingServer),
     url(r'^ping/$', pingServer),
 
+    url(r'^command/(?P<server>.+)/(?P<command>.+)/$', runCommand),
+
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getComponentCapacity),
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/(?P<config>.+)/$', getComponentCapacity),
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/$', getComponentCapacity),
