@@ -33,47 +33,6 @@ class LepDClient:
         else:
             return False
         
-    def getIOStat(self):
-        response = self.sendRequest("GetCmdIostat")
-        if (response == None or 'result' not in response):
-            return None
-        
-        # TODO
-        # seems like IOStat command needs to run with "x" option according to Barry's document, will wait for Bob's update before moving on.
-        results = response['result'].strip().split("\n")
-        # for line in results:
-        #     print(line)
-            
-        return results
-
-    def getSMem(self):
-        response = self.sendRequest("GetCmdSmem")
-        if (response == None or 'result' not in response):
-            return None
-
-        results = response['result'].strip().split("\n")
-        return results
-
-    def getProcRank(self):
-        # TODO: returns empty JSON,  @Bob please take a look
-        response = self.sendRequest("GetCmdProcrank")
-        if (response == None or 'result' not in response):
-            return None
-
-        results = response['result'].strip().split("\n")
-        # for line in results:
-        #     print(line)
-
-        return results
-
-    def getAverageLoad(self):
-        response = self.sendRequest("GetProcLoadavg")
-        if (response == None or 'result' not in response):
-            return None
-        
-        results = response['result'].strip().split(" ")
-        return results
-
     def getProcMeminfo(self):
         response = self.sendRequest("GetProcMeminfo")
         if (response == None or 'result' not in response):
@@ -103,14 +62,6 @@ class LepDClient:
         
         return response
 
-    def getProcCpuinfo(self):
-        response = self.sendRequest("GetProcCpuinfo")
-        if (response == None or 'result' not in response):
-            return None
-
-        return response['result'].strip()
-        
-        return result
 
     def getTopOutput(self):
         response = self.sendRequest("GetCmdTop")
@@ -150,36 +101,6 @@ class LepDClient:
 
         return result
 
-    def getTopHOutput(self):
-        response = self.sendRequest("GetCmdTopH")
-        if (response == None or 'result' not in response):
-             return None
-
-        results = {}
-        results = response['result'].strip()
-        results = results.split("\n")
-        return results
-
-    def getSmemOutput(self):
-        response = self.sendRequest("GetCmdSmem")
-        if (response == None or 'result' not in response):
-             return None
-
-        results = {}
-        results = response['result'].strip()
-        results = results.split("\n")
-        return results
-
-    def getProcrankOutput(self):
-        response = self.sendRequest("GetCmdProcrank")
-        if (response == None or 'result' not in response):
-             return None
-
-        results = {}
-        results = response['result'].strip()
-        results = results.split("\n")
-        return results
-    
     def getCmdDf(self):
         response = self.sendRequest("GetCmdDf")
         if (response == None or 'result' not in response):
@@ -207,22 +128,6 @@ class LepDClient:
 
         return diskData
 
-    def getCmdVmstat(self):
-        response = self.sendRequest("GetCmdVmstat")
-        if (response == None or 'result' not in response):
-            return None
-
-        results = response['result'].strip()
-        # TODO: need to parse it to structured data.
-        return results
-
-    def getCmdPerfFaults(self):
-        response = self.sendRequest("GetCmdPerfFaults")
-        if (response == None or 'result' not in response):
-            return None
-
-        results = response['result'].strip().split('\n')
-        return results
 
     def getCmdPerfCpuclock(self, count=25):
         response = self.sendRequest("GetCmdPerfCpuclock")
@@ -274,23 +179,6 @@ class LepDClient:
             
             return resultLines[i:]
 
-        # headerLine = resultLines[2]
-        # valueLine = resultLines[3]
-        # headers = headerLine.split()
-        # values = valueLine.split()
-        # 
-        # resultMap = {}
-        # index = 0
-        # while(index < len(headers)):
-        #     header = headers[index].replace("/s", "").replace(":", "").replace("%", "")
-        #     value = values[index]
-        # 
-        #     resultMap[header] = value
-        #     
-        #     index = index + 1
-        # 
-        # return resultMap
-
     def getCmdMpStat(self):
         response = self.sendRequest("GetCmdMpstat")
         if (response == None or 'result' not in response):
@@ -301,11 +189,6 @@ class LepDClient:
         lines.pop(0)
         lines.pop(0)
         return lines
-
-        # for line in lines:
-        #     lineValues = line.split()
-        #     for lineValue in lineValues:
-        #         print(lineValue)
 
 
     def getProcStat(self):
@@ -351,15 +234,6 @@ class LepDClient:
                 procStats[procStat['id']] = procStat
 
         return procStats
-
-    def getIoTop(self):
-        response = self.sendRequest("GetCmdIotop")
-        if (response == None or 'result' not in response):
-            return None
-    
-        lines = response['result'].strip().split("\n")
-        return lines
-    
     
     def tryAllMethods(self):
         methods = self.listAllMethods()
@@ -385,6 +259,15 @@ class LepDClient:
         else:
             print("\n\nAdd methods are working!")
 
+    def getResponse(self, methodName):
+        response = self.sendRequest(methodName)
+        if (response == None or 'result' not in response):
+            return []
+
+        lines = response['result'].strip().split("\n")
+        return lines
+        
+        
     def sendRequest(self, methodName):
         sock = None
 

@@ -72,7 +72,7 @@ class MemoryMonitor:
 
         memoryStatData = {}
         
-        results = self.client.getSMem()
+        results = self.client.getResponse('GetCmdSmem')
         if (self.config == 'debug'):
             memoryStatData['rawResult'] = results[:]
 
@@ -106,13 +106,10 @@ class MemoryMonitor:
     def getMeminfo(self):
         return self.client.getProcMeminfo()
 
-    def getSmemOutput(self):
-        response = self.client.getSmemOutput()
-        return response
+    # def getSmemOutput(self):
+    #     response = self.client.getSmemOutput()
+    #     return response
 
-    def getProcrankOutput(self):
-        response = self.client.getProcrankOutput()
-        return response
 
 
 if( __name__ =='__main__' ):

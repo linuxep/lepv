@@ -15,11 +15,12 @@ class CPUMonitor:
         self.config = config
         print("cpu monitor construction done")
     
-    def getCpuInfoForArm(self, result):
+    def getCpuInfoForArm(self, lines):
 
         results = {}
 
-        lines = result.split("\n")
+        if (self.config == 'debug'):
+            results['rawResult'] = lines[:]
 
         line = lines.pop(0)
         results['architecture'] = "ARM"
@@ -41,13 +42,15 @@ class CPUMonitor:
 
         return results
     
-    def getCpuInfoForX86(self, result):
+    def getCpuInfoForX86(self, lines):
 
         results = {}
         results['architecture'] = "X86"
         results['processors'] = {}
         
-        lines = result.split("\n")
+        if (self.config == 'debug'):
+            results['rawResult'] = lines[:]
+            
         for line in lines:
             if (line.strip() == ""):
                 continue
@@ -71,7 +74,7 @@ class CPUMonitor:
     
     def getCpuInfo(self):
 
-        cpuInfoResult = self.client.getProcCpuinfo()
+        cpuInfoResult = self.client.getResponse('GetProcCpuinfo')
         if ("ARM" in cpuInfoResult):
             return self.getCpuInfoForArm(cpuInfoResult)
         else:
@@ -173,7 +176,9 @@ class CPUMonitor:
         return statData
 
     def getAverageLoad(self):
-        response = self.client.getAverageLoad()
+        responseLines = self.client.getResponse('GetProcLoadavg')
+        
+        response = responseLines[0].split(" ")
 
         # '0.00 0.01 0.05 1/103 24750
         # 'avg system load of 1 minute ago, 5 minutes ago, 15 minutes ago,
@@ -226,10 +231,10 @@ if( __name__ =='__main__' ):
     monitor = CPUMonitor('www.linuxxueyuan.com')
     # monitor = CPUMonitor('www.linuxep.com')
 
-    pp.pprint(monitor.getCapacity())
-    pp.pprint(monitor.getCpuInfo())
+    # pp.pprint(monitor.getCapacity())
+    # pp.pprint(monitor.getCpuInfo())
     # pp.pprint(monitor.getStat())
-    # pp.pprint(monitor.getAverageLoad())
+    pp.pprint(monitor.getAverageLoad())
     # pp.pprint(monitor.getTopOutput())
     # pp.pprint(monitor.getCpuByName("kworker/u3:0"))
     # pp.pprint(monitor.getCpuByPid("4175"))

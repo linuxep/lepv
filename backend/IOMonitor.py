@@ -80,7 +80,7 @@ class IOMonitor:
     # 10 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [rcuob/0]
     def getIoTopData(self):
         
-        ioTopLines = self.client.getIoTop()
+        ioTopLines = self.client.getResponse('GetCmdIotop')
         
         dataLineStartingIndex = 0
         for line in ioTopLines:
