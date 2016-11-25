@@ -292,12 +292,18 @@ var MemoryStatTable = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("Memory Stat Chart request busy!");
+            //console.log("Memory Stat Chart request busy!");
             return;
         }
 
-        $.get("/memstat/" + server, function(data, status){
+        requestId += 1;
+        var ajaxTime= new Date().getTime();
+        $.get("/memstat/" + server + "/" + requestId, function(data, status){
 
+            var currentTime = new Date().getTime();
+            var totalTime = (currentTime - ajaxTime) / 1000;
+            responseId = data['requestId'];
+            
             if (isChartPaused) {
                 return;
             }

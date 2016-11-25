@@ -13,6 +13,7 @@ class CPUMonitor:
         self.server = server
         self.client = LepDClient(self.server)
         self.config = config
+        print("cpu monitor construction done")
     
     def getCpuInfoForArm(self, result):
 

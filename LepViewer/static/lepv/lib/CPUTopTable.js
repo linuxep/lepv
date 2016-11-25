@@ -124,21 +124,27 @@ var CPUTopTable = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("CPU Top Table request busy!");
+            //console.log("CPU Top Table request busy!");
             return;
         }
 
-        $.get("/cputop/" + server, function(newData, status){
+        requestId += 1;
+        var ajaxTime= new Date().getTime();
+        $.get("/cputop/" + server + "/" + requestId, function(data, status){
 
             if (isChartPaused) {
                 return;
             }
 
+            var currentTime = new Date().getTime();
+            var totalTime = (currentTime - ajaxTime) / 1000;
+            responseId = data['requestId'];
+
             cpuTopTable.rows().remove().draw( true );
             var index = 0;
 
-            if (newData != null) {
-                $.each( newData, function( processId, processData ) {
+            if (data != null) {
+                $.each( data, function( processId, processData ) {
 
                     if (index >= maxDataCount) {
                         return;

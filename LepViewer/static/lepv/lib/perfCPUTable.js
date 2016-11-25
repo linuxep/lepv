@@ -97,12 +97,18 @@ var PerfCPUTable = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("Perf CPU Chart request busy!");
+            //console.log("Perf CPU Chart request busy!");
             return;
         }
 
-        $.get("/perfcpu/" + server, function(newData, status){
+        requestId += 1;
+        var ajaxTime= new Date().getTime();
+        $.get("/perfcpu/" + server + "/" + requestId, function(newData, status){
 
+            var currentTime = new Date().getTime();
+            var totalTime = (currentTime - ajaxTime) / 1000;
+            responseId = newData['requestId'];
+            
             if (isChartPaused) {
                 return;
             }

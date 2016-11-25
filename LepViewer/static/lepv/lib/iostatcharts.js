@@ -106,7 +106,7 @@ var IOStatCharts = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("IO Stat Chart request busy!");
+            //console.log("IO Stat Chart request busy!");
             return;
         }
 
@@ -118,13 +118,11 @@ var IOStatCharts = (function(){
             function(data) {
                 
                 var currentTime = new Date().getTime();
-                //console.log("current time: " + currentTime);
-                //console.log("beginning time: " + ajaxTime);
-
                 var totalTime = (currentTime - ajaxTime) / 1000;
                 responseId = data['requestId'];
                 console.log(url + " <- in " + totalTime + " seconds; with lepd:" + data['lepdDuration'] 
                     + "; LEPV parsing time:" + data['lepvParsingDuration'] + "; Django View Processing time: " + data['djangoViewTotalDuration']);
+                
                 if (isChartPaused) {
                     return;
                 }

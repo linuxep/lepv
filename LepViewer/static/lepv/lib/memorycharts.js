@@ -142,12 +142,18 @@ var MemoryCharts = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("Memory Chart request busy!");
+            //console.log("Memory Chart request busy!");
             return;
         }
-        
+
+        requestId += 1;
+        var ajaxTime= new Date().getTime();
         $.get("/status/memory/" + server + "/" + requestId, function(data, status){
 
+            var currentTime = new Date().getTime();
+            var totalTime = (currentTime - ajaxTime) / 1000;
+            responseId = data['requestId'];
+            
             if (isChartPaused) {
                 return;
             }

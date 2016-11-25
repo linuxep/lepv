@@ -94,6 +94,7 @@ class IOMonitor:
             dataLineStartingIndex -= 1
 
         ioTopResults = {}
+        ioTopResults['topData'] = {}
         orderIndex = 1
         for line in ioTopLines:
             # print (line)
@@ -129,7 +130,7 @@ class IOMonitor:
             ioTopItem['COMMAND'] = command
         
             # use an incremental int as key, so we keey the order of the items.
-            ioTopResults[orderIndex] = ioTopItem
+            ioTopResults['topData'][orderIndex] = ioTopItem
             orderIndex += 1
         
         return ioTopResults

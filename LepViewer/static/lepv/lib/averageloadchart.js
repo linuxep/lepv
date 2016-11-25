@@ -136,16 +136,24 @@ var AverageLoadChart = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("Average Load Chart request busy!");
+            //console.log("Average Load Chart request busy!");
             return;
         }
 
+        requestId += 1;
         var ajaxTime= new Date().getTime();
         $.get("/status/avgload/" + server + "/" + requestId, function(data, status){
 
             if (isChartPaused) {
                 return;
             }
+
+            var currentTime = new Date().getTime();
+            //console.log("current time: " + currentTime);
+            //console.log("beginning time: " + ajaxTime);
+
+            var totalTime = (currentTime - ajaxTime) / 1000;
+            responseId = data['requestId'];
             
             if (dataLast1.length > maxDataCount) {
                 timeData.splice(1, 1);

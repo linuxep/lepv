@@ -91,7 +91,7 @@ var GaugeCharts = (function(){
 
     function getDataAndFlush() {
         $.each( chartsMap, function( component, chart ) {
-            var url = "/status/" + component + "/" + server;
+            var url = "/status/" + component + "/" + server + "/" + requestId;
             $.get(url, function(data, status){
                 refreshData(chart, data);
             });
@@ -114,7 +114,7 @@ var GaugeCharts = (function(){
 
         setInterval(function () {
             getDataAndFlush();
-        }, refreshInterval * 1000);
+        }, refreshInterval * 3000);
     }
 
     return {

@@ -66,26 +66,30 @@ def getComponentStatus(request, component='', server='', requestId='', config='r
         if( component == '' or server == ""):
             return
 
+        startTime = datetime.datetime.now()
+        
+        responseData = {}
         if (component == "cpu"):
-            monitor = CPUMonitor(server, config)
-            return JSONResponse(monitor.getStatus())
+            print("im cpu")
+            monitor = CPUMonitor(server=server, config=config)
+            print("monitor construction done")
+            responseData = monitor.getStatus()
         elif (component == 'iotop'):
-            monitor = IOMonitor(server, config)
-            return JSONResponse(monitor.getIoTopData())
+            responseData = IOMonitor(server, config).getIoTopData()
         elif (component == "memory"):
-            monitor = MemoryMonitor(server, config)
-            return JSONResponse(monitor.getStatus())
+            responseData = MemoryMonitor(server, config).getStatus()
         elif (component == "io"):
-            startTime = datetime.datetime.now()
             responseData = IOMonitor(server, config).getStatus()
-            responseData['requestId'] = requestId
-            endTime = datetime.datetime.now()
-            duration = "%.1f" % ((endTime - startTime).total_seconds())
-            responseData['djangoViewTotalDuration'] = duration
-            return JSONResponse(responseData)
         elif (component == "avgload"):
-            monitor = CPUMonitor(server, config)
-            return JSONResponse(monitor.getAverageLoad())
+            responseData = CPUMonitor(server, config).getAverageLoad()
+
+        responseData['requestId'] = requestId
+        endTime = datetime.datetime.now()
+        duration = "%.1f" % ((endTime - startTime).total_seconds())
+        responseData['djangoViewTotalDuration'] = duration
+        
+        return JSONResponse(responseData)
+    
     except Exception as ex:
         # print(ex)
         return HttpResponse(status=404)

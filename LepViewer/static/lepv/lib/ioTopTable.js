@@ -113,19 +113,26 @@ var IOTopTable = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("IO Top Table request busy!");
+            //console.log("IO Top Table request busy!");
             return;
         }
 
+        requestId += 1;
+        var ajaxTime= new Date().getTime();
         $.get("/status/iotop/" + server + "/" + requestId, function(newData, status){
 
+            var currentTime = new Date().getTime();
+            var totalTime = (currentTime - ajaxTime) / 1000;
+            responseId = newData['requestId'];
+            
             if (isChartPaused) {
                 return;
             }
 
             table.rows().remove().draw( true );
-            if (newData != null) {
-                $.each( newData, function( itemIndex, ioTopData ) {
+            var topData = newData['topData'];
+            if (topData != null) {
+                $.each( topData, function( itemIndex, ioTopData ) {
 
                     if (itemIndex >= maxDataCount) {
                         return;
@@ -143,7 +150,7 @@ var IOTopTable = (function(){
                     ]);
                 });
             } else {
-                var index = 0
+                var index = 0;
                 while(index < maxDataCount) {
                     table.row.add([
                         "--",

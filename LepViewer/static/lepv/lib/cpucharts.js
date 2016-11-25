@@ -387,15 +387,21 @@ var CPUCharts = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("CPU chart request busy!");
+            //console.log("CPU chart request busy!");
             return;
         }
-        
+
+        requestId += 1;
+        var ajaxTime= new Date().getTime();
         $.get("/cpustat/" + server + "/" + requestId, function(data, status){
 
             if (isChartPaused) {
                 return;
             }
+
+            var currentTime = new Date().getTime();
+            var totalTime = (currentTime - ajaxTime) / 1000;
+            responseId = data['requestId'];
             
             refreshOverallChart(data);
             refreshDetailCharts(data);
