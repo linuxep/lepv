@@ -9,9 +9,10 @@ import pprint
 
 class CPUMonitor:
 
-    def __init__(self, server):
+    def __init__(self, server, config='release'):
         self.server = server
         self.client = LepDClient(self.server)
+        self.config = config
     
     def getCpuInfoForArm(self, result):
 

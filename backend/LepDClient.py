@@ -10,11 +10,11 @@ import re
 
 class LepDClient:
 
-    def __init__(self, server, port=12307):
+    def __init__(self, server, port=12307, config='release'):
         self.server = server
         self.port = port
         self.bufferSize = 2048
-        self.debug = False
+        self.config = config
 
     def listAllMethods(self):
         response = self.sendRequest("ListAllMethod")
@@ -26,12 +26,6 @@ class LepDClient:
 
     def ping(self):
         response = self.sendRequest("SayHello")
-        print("response from SayHello: ")
-        
-        if (self.debug):
-            print("Ping in debug mode")
-        else:
-            print("Ping in release mode")
             
         print(response)
         if (response != None and 'result' in response and response['result'].startswith('Hello')):
@@ -426,15 +420,15 @@ class LepDClient:
 if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
-    client = LepDClient('www.linuxxueyuan.com')
+    client = LepDClient('www.linuxxueyuan.com', config='debug')
     
-    client.getProcCpuinfoX()
+    client.ping()
 
     # client = LepDClient('www.linuxxueyuan.com')
 
     # client.getCmdPerfCpuclock()
     
-    # client.tryAllMethods()
+    client.tryAllMethods()
 
     # pp.pprint(client.getIoTop())
     # pp.pprint(client.getCmdMpStat())

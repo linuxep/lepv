@@ -9,9 +9,12 @@ __author__ = 'xmac'
 
 class MemoryMonitor:
 
-    def __init__(self, server):
+    def __init__(self, server, config='release'):
         self.server = server
         self.client = LepDClient(self.server)
+        self.config = config
+        
+        self.dataCount = 25
 
     def convertKbToMb(self, strKbValue):
         return Decimal(int(strKbValue) / 1024).quantize(Decimal('0'))
@@ -66,37 +69,39 @@ class MemoryMonitor:
         return valueString
         
     def getMemoryStat(self):
+
+        memoryStatData = {}
         
         results = self.client.getSMem()
+        if (self.config == 'debug'):
+            memoryStatData['rawResult'] = results[:]
 
         headerLine = results.pop(0)
-        # print(headerLine)
         headers = headerLine.split()
-
-        sMemInfo = {}
+        
         # sMemInfo['headerLine'] = headerLine
         for line in results:
             # print(line)
             lineValues = line.split()
 
             pid = lineValues[0]
-            sMemInfo[pid] = {}
+            memoryStatData[pid] = {}
             # sMemInfo['line'] = line
-            sMemInfo[pid]['pid'] = lineValues.pop(0)
-            sMemInfo[pid]['user'] = lineValues.pop(0)
+            memoryStatData[pid]['pid'] = lineValues.pop(0)
+            memoryStatData[pid]['user'] = lineValues.pop(0)
 
             # the command section is likely to have whitespaces in it thus hard to locate it. workaround here.
-            sMemInfo[pid]['rss'] = self.normalizeValue(lineValues.pop())
-            sMemInfo[pid]['pss'] = self.normalizeValue(lineValues.pop())
-            sMemInfo[pid]['uss'] = self.normalizeValue(lineValues.pop())
-            sMemInfo[pid]['swap'] = self.normalizeValue(lineValues.pop())
+            memoryStatData[pid]['rss'] = self.normalizeValue(lineValues.pop())
+            memoryStatData[pid]['pss'] = self.normalizeValue(lineValues.pop())
+            memoryStatData[pid]['uss'] = self.normalizeValue(lineValues.pop())
+            memoryStatData[pid]['swap'] = self.normalizeValue(lineValues.pop())
 
-            sMemInfo[pid]['command'] = ' '.join([str(x) for x in lineValues])
+            memoryStatData[pid]['command'] = ' '.join([str(x) for x in lineValues])
 
-            if(len(sMemInfo) >= 25):
+            if(len(memoryStatData) >= self.dataCount):
                 break
 
-        return sMemInfo
+        return memoryStatData
 
     def getMeminfo(self):
         return self.client.getProcMeminfo()
@@ -112,8 +117,9 @@ class MemoryMonitor:
 
 if( __name__ =='__main__' ):
     monitor = MemoryMonitor('www.linuxxueyuan.com')
+    monitor.debug = True
     # monitor = MemoryMonitor('www.linuxep.com')
-    # monitor.getMemoryStat()
+    monitor.getMemoryStat()
     print(monitor.getStatus())
     # print(monitor.getSmemOutput())
     # print(monitor.getProcrankOutput())

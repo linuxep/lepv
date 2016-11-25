@@ -30,6 +30,8 @@ var MemoryStatTable = (function(){
     var intervalId;
     
     var server;
+    var requestId;
+    var responseId = 0;
     
     function init() {
         
@@ -289,6 +291,11 @@ var MemoryStatTable = (function(){
             return;
         }
 
+        if (requestId - responseId >= 2) {
+            console.log("Memory Stat Chart request busy!");
+            return;
+        }
+
         $.get("/memstat/" + server, function(data, status){
 
             if (isChartPaused) {
@@ -310,6 +317,9 @@ var MemoryStatTable = (function(){
         }
 
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
+        
         totalMemorySize = Cookies.get(server + ".Memory.Total");
 
         init();

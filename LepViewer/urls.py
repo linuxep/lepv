@@ -12,34 +12,47 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # url(r'^status/$', getComponentStatus),
+    url(r'^status/(?P<component>.+)/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getComponentStatus),
     url(r'^status/(?P<component>.+)/(?P<server>.+)/(?P<requestId>\d+)/$', getComponentStatus),
     url(r'^status/(?P<component>.+)/(?P<server>.+)/$', getComponentStatus),
 
-    url(r'^cpustat/$', getCpuStat),
+    url(r'^cpustat/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getCpuStat),
+    url(r'^cpustat/(?P<server>.+)/(?P<config>.+)/$', getCpuStat),
     url(r'^cpustat/(?P<server>.+)/$', getCpuStat),
+    url(r'^cpustat/$', getCpuStat),
 
-    url(r'^cputop/$', getCpuTopData),
+    url(r'^cputop/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getCpuTopData),
+    url(r'^cputop/(?P<server>.+)/(?P<config>.+)/$', getCpuTopData),
     url(r'^cputop/(?P<server>.+)/$', getCpuTopData),
+    url(r'^cputop/$', getCpuTopData),
 
-    url(r'^perfcpu/$', getPerfCpuClockData),
+    url(r'^perfcpu/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getPerfCpuClockData),
+    url(r'^perfcpu/(?P<server>.+)/(?P<config>.+)/$', getPerfCpuClockData),
     url(r'^perfcpu/(?P<server>.+)/$', getPerfCpuClockData),
+    url(r'^perfcpu/$', getPerfCpuClockData),
 
-    url(r'^memstat/$', getMemoryStat),
+    url(r'^memstat/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getMemoryStat),
+    url(r'^memstat/(?P<server>.+)/(?P<config>.+)/$', getMemoryStat),
     url(r'^memstat/(?P<server>.+)/$', getMemoryStat),
+    url(r'^memstat/$', getMemoryStat),
 
-    url(r'^ping/(?P<server>.+)/(?P<debug>.+)/$', pingServer),
+    url(r'^ping/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', pingServer),
+    url(r'^ping/(?P<server>.+)/(?P<config>.+)/$', pingServer),
     url(r'^ping/(?P<server>.+)/$', pingServer),
+    url(r'^ping/$', pingServer),
 
-    url(r'^capacity/$', getComponentCapacity),
+    url(r'^capacity/(?P<component>.+)/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getComponentCapacity),
+    url(r'^capacity/(?P<component>.+)/(?P<server>.+)/(?P<config>.+)/$', getComponentCapacity),
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/$', getComponentCapacity),
+    url(r'^capacity/$', getComponentCapacity),
 
-    url(r'^test/$', showTestPage),
     url(r'^test/(?P<server>.+)/$', showTestPage),
+    url(r'^test/$', showTestPage),
 
     url(r'^methodmap/$', getMethodMap),
 
-    url(r'^$', showHomepage),
     url(r'^(?P<server>.+)/$', showHomepage),
+    url(r'^$', showHomepage),
     url(r'm/^$', showHomepage),
 ]
 

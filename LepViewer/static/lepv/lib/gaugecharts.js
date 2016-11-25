@@ -13,6 +13,8 @@ var GaugeCharts = (function(){
     var refreshInterval = 2; // in second
     
     var server;
+    var requestId;
+    var responseId = 0;
 
     function _init() {
         
@@ -103,6 +105,8 @@ var GaugeCharts = (function(){
         }
          
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
 
         _init();
 

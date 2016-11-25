@@ -58,7 +58,7 @@ def showTestPage(request, server=''):
         
     return HttpResponse(html)
 
-def getComponentStatus(request, component='', server='', requestId=''):
+def getComponentStatus(request, component='', server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 
@@ -66,33 +66,31 @@ def getComponentStatus(request, component='', server='', requestId=''):
         if( component == '' or server == ""):
             return
 
-        # Send JSON RPC request to the server, and get the JSON response.
-        # now. I'm mocking the data here
         if (component == "cpu"):
-            monitor = CPUMonitor(server)
+            monitor = CPUMonitor(server, config)
             return JSONResponse(monitor.getStatus())
         elif (component == 'iotop'):
-            monitor = IOMonitor(server)
+            monitor = IOMonitor(server, config)
             return JSONResponse(monitor.getIoTopData())
         elif (component == "memory"):
-            monitor = MemoryMonitor(server)
+            monitor = MemoryMonitor(server, config)
             return JSONResponse(monitor.getStatus())
         elif (component == "io"):
             startTime = datetime.datetime.now()
-            responseData = IOMonitor(server).getStatus()
+            responseData = IOMonitor(server, config).getStatus()
             responseData['requestId'] = requestId
             endTime = datetime.datetime.now()
             duration = "%.1f" % ((endTime - startTime).total_seconds())
             responseData['djangoViewTotalDuration'] = duration
             return JSONResponse(responseData)
         elif (component == "avgload"):
-            monitor = CPUMonitor(server)
+            monitor = CPUMonitor(server, config)
             return JSONResponse(monitor.getAverageLoad())
     except Exception as ex:
         # print(ex)
         return HttpResponse(status=404)
 
-def pingServer(request, server='', debug=False):
+def pingServer(request, server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 
@@ -102,19 +100,17 @@ def pingServer(request, server='', debug=False):
             return
         
         print("LEPD address: " + server)
-        client = LepDClient(server)
-        if (debug):
-            client.debug=True
+        client = LepDClient(server=server, config=config)
         
         result = {}
         result['result'] = client.ping()
         
         if (result['result']):
             # get cpu count
-            cpuMonitor = CPUMonitor(server)
+            cpuMonitor = CPUMonitor(server=server, config=config)
             result['cpuCoreCount'] = cpuMonitor.getCapacity()['coresCount']
             
-            memMonitor = MemoryMonitor(server)
+            memMonitor = MemoryMonitor(server=server, config=config)
             result['memoryTotal'] = memMonitor.getCapacity()['capacity']
 
         return JSONResponse(result)
@@ -123,7 +119,7 @@ def pingServer(request, server='', debug=False):
         return HttpResponse(status=404)
 
 
-def getComponentCapacity(request, component='', server=''):
+def getComponentCapacity(request, component='', server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 
@@ -132,61 +128,60 @@ def getComponentCapacity(request, component='', server=''):
             return
 
         if (component == "cpu"):
-            monitor = CPUMonitor(server)
+            monitor = CPUMonitor(server, config)
             return JSONResponse(monitor.getCapacity())
         elif (component == "memory"):
-            monitor = MemoryMonitor(server)
+            monitor = MemoryMonitor(server, config)
             return JSONResponse(monitor.getCapacity())
         elif (component == "io"):
-            monitor = IOMonitor(server)
+            monitor = IOMonitor(server, config)
             return JSONResponse(monitor.getCapacity())
     except Exception as ex:
         # print(ex)
         return HttpResponse(status=404)
 
-def getCpuStat(request, server=''):
+def getCpuStat(request, server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 
     try:
-        monitor = CPUMonitor(server)
+        monitor = CPUMonitor(server, config)
         return JSONResponse(monitor.getStat())
 
     except Exception as ex:
         # print(ex)
         return HttpResponse(status=404)
 
-def getPerfCpuClockData(request, server=''):
+def getPerfCpuClockData(request, server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 
     try:
-        monitor = PerfMonitor(server)
+        monitor = PerfMonitor(server, config)
         return JSONResponse(monitor.getPerfCpuClock())
 
     except Exception as ex:
         # print(ex)
         return HttpResponse(status=404)
 
-def getCpuTopData(request, server=''):
+def getCpuTopData(request, server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 
     try:
-        monitor = CPUMonitor(server)
+        monitor = CPUMonitor(server, config)
         return JSONResponse(monitor.getTopOutput())
 
     except Exception as ex:
-        # print(ex)
         return HttpResponse(status=404)
 
 
-def getMemoryStat(request, server=''):
+def getMemoryStat(request, server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 
     try:
-        monitor = MemoryMonitor(server)
+        monitor = MemoryMonitor(server, config)
         return JSONResponse(monitor.getMemoryStat())
 
     except Exception as ex:
@@ -202,16 +197,3 @@ def getMethodMap(request):
         return JSONResponse(methodMap.getMap())
     except Exception as ex:
         return HttpResponse(status=404)
-
-
-# def getProcMemInfo(request, server=''):
-#     if( request.method != 'GET' ):
-#         return
-# 
-#     try:
-#         monitor = MemoryMonitor(server)
-#         return JSONResponse(monitor.getMemInfo())
-# 
-#     except Exception as ex:
-#         print(ex)
-#         return HttpResponse(status=404)

@@ -106,7 +106,7 @@ var IOStatCharts = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            console.log("requestId - responseId = " + (requestId - responseId));
+            console.log("IO Stat Chart request busy!");
             return;
         }
 
@@ -118,8 +118,8 @@ var IOStatCharts = (function(){
             function(data) {
                 
                 var currentTime = new Date().getTime();
-                console.log("current time: " + currentTime);
-                console.log("beginning time: " + ajaxTime);
+                //console.log("current time: " + currentTime);
+                //console.log("beginning time: " + ajaxTime);
 
                 var totalTime = (currentTime - ajaxTime) / 1000;
                 responseId = data['requestId'];

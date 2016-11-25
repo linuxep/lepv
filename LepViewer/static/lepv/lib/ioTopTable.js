@@ -20,6 +20,8 @@ var IOTopTable = (function(){
     var intervalId;
 
     var server;
+    var requestId;
+    var responseId = 0;
 
     function _init() {
         
@@ -103,14 +105,19 @@ var IOTopTable = (function(){
 
         refreshTable();
     }
-    
+
     function refreshTable() {
 
         if (isChartPaused) {
             return;
         }
 
-        $.get("/status/iotop/" + server, function(newData, status){
+        if (requestId - responseId >= 2) {
+            console.log("IO Top Table request busy!");
+            return;
+        }
+
+        $.get("/status/iotop/" + server + "/" + requestId, function(newData, status){
 
             if (isChartPaused) {
                 return;
@@ -169,6 +176,9 @@ var IOTopTable = (function(){
         }
 
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
+        
         _init();
 
         refreshTable();

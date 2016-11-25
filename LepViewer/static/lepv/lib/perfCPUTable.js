@@ -20,6 +20,8 @@ var PerfCPUTable = (function(){
     var intervalId;
 
     var server;
+    var requestId;
+    var responseId = 0;
 
     function _init() {
         
@@ -94,6 +96,11 @@ var PerfCPUTable = (function(){
             return;
         }
 
+        if (requestId - responseId >= 2) {
+            console.log("Perf CPU Chart request busy!");
+            return;
+        }
+
         $.get("/perfcpu/" + server, function(newData, status){
 
             if (isChartPaused) {
@@ -153,10 +160,13 @@ var PerfCPUTable = (function(){
         }
 
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
+
         _init();
         refreshTable();
     }
-    
+
     return {
         setChartDivName: setDivName,
         setTableName:setTableDivName,

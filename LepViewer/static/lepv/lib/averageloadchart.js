@@ -29,6 +29,8 @@ var AverageLoadChart = (function(){
     var intervalId;
 
     var server;
+    var requestId;
+    var responseId = 0;
 
     function _init() {
 
@@ -93,7 +95,7 @@ var AverageLoadChart = (function(){
         });
 
         intervalId = setInterval(function () {
-            _flushChart();
+            refreshChart();
         }, refreshInterval * 1000);
 
         // create the control elements( config, resume, pause ), and cache them here.
@@ -122,19 +124,24 @@ var AverageLoadChart = (function(){
             clearInterval(intervalId);
 
             intervalId = setInterval(function () {
-                _flushChart();
+                refreshChart();
             }, refreshInterval * 1000);
         }
     }
 
-    function _flushChart() {
+    function refreshChart() {
 
         if (isChartPaused) {
             return;
         }
 
+        if (requestId - responseId >= 2) {
+            console.log("Average Load Chart request busy!");
+            return;
+        }
+
         var ajaxTime= new Date().getTime();
-        $.get("/status/avgload/" + server, function(data, status){
+        $.get("/status/avgload/" + server + "/" + requestId, function(data, status){
 
             if (isChartPaused) {
                 return;
@@ -187,10 +194,12 @@ var AverageLoadChart = (function(){
         }
         
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
 
         _init();
 
-        _flushChart();
+        refreshChart();
     }
 
     return {

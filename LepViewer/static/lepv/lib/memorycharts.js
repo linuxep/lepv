@@ -26,6 +26,8 @@ var MemoryCharts = (function(){
     var memoryTotal;
     
     var server;
+    var requestId;
+    var responseId = 0;
 
     function _init() {
 
@@ -138,8 +140,13 @@ var MemoryCharts = (function(){
         if (isChartPaused) {
             return;
         }
+
+        if (requestId - responseId >= 2) {
+            console.log("Memory Chart request busy!");
+            return;
+        }
         
-        $.get("/status/memory/" + server, function(data, status){
+        $.get("/status/memory/" + server + "/" + requestId, function(data, status){
 
             if (isChartPaused) {
                 return;
@@ -177,6 +184,9 @@ var MemoryCharts = (function(){
         }
 
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
+        
         memoryTotal = Cookies.get(server + ".Memory.Total");
 
         _init();

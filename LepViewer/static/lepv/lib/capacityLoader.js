@@ -6,6 +6,8 @@
 var CapacityLoader = (function(){
     
     var server;
+    var requestId;
+    var responseId = 0;
     
     var componentDivMap = {};
 
@@ -67,6 +69,8 @@ var CapacityLoader = (function(){
         }
         
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
         
         _init();
 

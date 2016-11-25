@@ -10,9 +10,10 @@ from decimal import Decimal
 
 class IOMonitor:
 
-    def __init__(self, server):
+    def __init__(self, server, config='release'):
         self.server = server
         self.client = LepDClient(self.server)
+        self.config = config
 
     def getStatus(self):
 

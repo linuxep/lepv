@@ -32,6 +32,9 @@ var CPUCharts = (function(){
     var intervalId;
 
     var server;
+    var requestId;
+    var responseId = 0;
+    
     var cpuCoreCount = 1;
 
     function _getAllFieldNames() {
@@ -382,8 +385,13 @@ var CPUCharts = (function(){
         if (isChartPaused) {
             return;
         }
+
+        if (requestId - responseId >= 2) {
+            console.log("CPU chart request busy!");
+            return;
+        }
         
-        $.get("/cpustat/" + server, function(data, status){
+        $.get("/cpustat/" + server + "/" + requestId, function(data, status){
 
             if (isChartPaused) {
                 return;
@@ -401,6 +409,9 @@ var CPUCharts = (function(){
         }
         
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
+        
         init();
         refreshCharts();
     }

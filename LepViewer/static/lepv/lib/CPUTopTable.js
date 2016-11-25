@@ -20,6 +20,8 @@ var CPUTopTable = (function(){
     var intervalId;
 
     var server;
+    var requestId;
+    var responseId = 0;
 
     function _init() {
         
@@ -121,6 +123,11 @@ var CPUTopTable = (function(){
             return;
         }
 
+        if (requestId - responseId >= 2) {
+            console.log("CPU Top Table request busy!");
+            return;
+        }
+
         $.get("/cputop/" + server, function(newData, status){
 
             if (isChartPaused) {
@@ -187,6 +194,9 @@ var CPUTopTable = (function(){
             return;
         }
         server = serverToMonitor;
+        requestId = 0;
+        responseId = 0;
+        
         _init();
 
         refreshCpuTopTable();
