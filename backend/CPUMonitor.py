@@ -133,6 +133,8 @@ class CPUMonitor:
         componentInfo["name"] = "cpu"
         componentInfo["ratio"] = 100 - allIdleRatio
         componentInfo['server'] = self.server
+        
+        componentInfo['rawResult'] = statData['rawResult']
 
         return componentInfo
 
@@ -142,11 +144,11 @@ class CPUMonitor:
         if (results == None):
             return None
 
-        results.pop(0)
-        # for line in results:
-        #     print(line)
-
         statData = {}
+        
+        results.pop(0)
+        statData['rawResult'] = results
+        
         statData['data'] = {}
         for line in results:
             
@@ -177,6 +179,9 @@ class CPUMonitor:
 
     def getAverageLoad(self):
         responseLines = self.client.getResponse('GetProcLoadavg')
+
+        responseData = {}
+        responseData['rawResult'] = responseLines[:]
         
         response = responseLines[0].split(" ")
 
@@ -190,7 +195,9 @@ class CPUMonitor:
         resultData['last5'] = Decimal(response[1])
         resultData['last15'] = Decimal(response[2])
 
-        return resultData
+        responseData['data'] = resultData
+        
+        return responseData
 
     def getTopOutput(self):
         response = self.client.getTopOutput()
@@ -233,7 +240,7 @@ if( __name__ =='__main__' ):
 
     # pp.pprint(monitor.getCapacity())
     # pp.pprint(monitor.getCpuInfo())
-    # pp.pprint(monitor.getStat())
+    pp.pprint(monitor.getStat())
     pp.pprint(monitor.getAverageLoad())
     # pp.pprint(monitor.getTopOutput())
     # pp.pprint(monitor.getCpuByName("kworker/u3:0"))

@@ -23,6 +23,8 @@ class IOMonitor:
         
         endTime = datetime.datetime.now()
         
+        rawResult = result[:]
+        
         headerLine = result.pop(0)
 
         duration = "%.1f" % ((endTime - startTime).total_seconds())
@@ -53,7 +55,10 @@ class IOMonitor:
         duration = "%.1f" % ((endTime2 - endTime).total_seconds())
         ioStatus['lepvParsingDuration'] = duration
         
-        return ioStatus
+        responseData = {}
+        responseData['data'] = ioStatus
+        responseData['rawResult'] = rawResult
+        return responseData
     
     def getCapacity(self):
         diskInfo = self.client.getCmdDf()
@@ -81,6 +86,9 @@ class IOMonitor:
     def getIoTopData(self):
         
         ioTopLines = self.client.getResponse('GetCmdIotop')
+        ioTopResults = {}
+        ioTopResults['topData'] = {}
+        ioTopResults['rawResult'] = ioTopLines[:]
         
         dataLineStartingIndex = 0
         for line in ioTopLines:
@@ -93,8 +101,6 @@ class IOMonitor:
             ioTopLines.pop(0)
             dataLineStartingIndex -= 1
 
-        ioTopResults = {}
-        ioTopResults['topData'] = {}
         orderIndex = 1
         for line in ioTopLines:
             # print (line)
@@ -138,12 +144,13 @@ class IOMonitor:
 
 if( __name__ =='__main__' ):
     monitor = IOMonitor('www.linuxxueyuan.com')
+    monitor.config = 'debug'
 
     pp = pprint.PrettyPrinter(indent=2)
     
     # monitor = IOMonitor('www.linuxep.com')
-    pp.pprint(monitor.getIoTopData())
-    # pp.pprint(monitor.getStatus())
+    # pp.pprint(monitor.getIoTopData())
+    pp.pprint(monitor.getStatus())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &
 

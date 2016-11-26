@@ -142,11 +142,13 @@ var AverageLoadChart = (function(){
 
         requestId += 1;
         var ajaxTime= new Date().getTime();
-        $.get("/status/avgload/" + server + "/" + requestId, function(data, status){
+        $.get("/status/avgload/" + server + "/" + requestId, function(responseData, status){
 
             if (isChartPaused) {
                 return;
             }
+            
+            var data = responseData['data'];
 
             var currentTime = new Date().getTime();
             //console.log("current time: " + currentTime);

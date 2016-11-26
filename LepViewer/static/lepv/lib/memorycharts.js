@@ -148,10 +148,12 @@ var MemoryCharts = (function(){
 
         requestId += 1;
         var ajaxTime= new Date().getTime();
-        $.get("/status/memory/" + server + "/" + requestId, function(data, status){
+        $.get("/status/memory/" + server + "/" + requestId, function(responseData, status){
 
             var currentTime = new Date().getTime();
             var totalTime = (currentTime - ajaxTime) / 1000;
+            
+            var data = responseData['data'];
             responseId = data['requestId'];
             
             if (isChartPaused) {

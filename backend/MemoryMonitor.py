@@ -20,19 +20,30 @@ class MemoryMonitor:
         return Decimal(int(strKbValue) / 1024).quantize(Decimal('0'))
 
     def getStatus(self):
-        response = self.client.getProcMeminfo()
+
+        response = self.client.getResponse("GetProcMeminfo")
+        if (response == None or len(response) == 0):
+            return None
+
+        responseData = {}
+        if (self.config == 'debug'):
+            responseData['rawResult'] = response[:]
+        
+        results = {}
+        for line in response:
+            linePairs = line.split(":")
+            lineKey = linePairs[0].strip()
+            lineValue = linePairs[1].replace('kB', '').strip()
+
+            results[lineKey] = lineValue
 
         componentInfo = {}
-        if (response == None):
-            componentInfo['error'] = 'timeout'
-            return componentInfo
-        
         componentInfo["name"] = "memory"
 
-        componentInfo['total'] = Decimal(int(response['MemTotal']) / 1024).quantize(Decimal('0'))
-        componentInfo['free'] = Decimal(int(response['MemFree']) / 1024).quantize(Decimal('0'))
-        componentInfo['buffers'] = Decimal(int(response['Buffers']) / 1024).quantize(Decimal('0'))
-        componentInfo['cached'] = Decimal(int(response['Cached']) / 1024).quantize(Decimal('0'))
+        componentInfo['total'] = Decimal(int(results['MemTotal']) / 1024).quantize(Decimal('0'))
+        componentInfo['free'] = Decimal(int(results['MemFree']) / 1024).quantize(Decimal('0'))
+        componentInfo['buffers'] = Decimal(int(results['Buffers']) / 1024).quantize(Decimal('0'))
+        componentInfo['cached'] = Decimal(int(results['Cached']) / 1024).quantize(Decimal('0'))
         componentInfo['used'] = componentInfo['total'] - componentInfo['free'] - componentInfo['buffers'] - componentInfo['cached']
 
         usedRatio = (componentInfo['used'] / componentInfo['total']) * 100
@@ -41,7 +52,9 @@ class MemoryMonitor:
         componentInfo["ratio"] = usedRatio
 
         componentInfo['unit'] = 'MB'
-        return componentInfo
+        
+        responseData['data'] = componentInfo
+        return responseData
 
     def getCapacity(self):
         response = self.client.getProcMeminfo()
@@ -114,12 +127,12 @@ class MemoryMonitor:
 
 if( __name__ =='__main__' ):
     monitor = MemoryMonitor('www.linuxxueyuan.com')
-    monitor.debug = True
+    monitor.config = 'debug'
     # monitor = MemoryMonitor('www.linuxep.com')
-    monitor.getMemoryStat()
+    # monitor.getMemoryStat()
     print(monitor.getStatus())
     # print(monitor.getSmemOutput())
     # print(monitor.getProcrankOutput())
     # 
-    print(monitor.getCapacity())
+    # print(monitor.getCapacity())
 

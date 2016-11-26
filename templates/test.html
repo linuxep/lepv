@@ -63,16 +63,26 @@
     </script>
 
     <script>
-        function testingByComponent(textElement, panelDiv, fullUrl) {
+        function testingByComponent(textElement, textElement2, panelDiv, fullUrl) {
 
                 $.get(fullUrl).success(
                         function(result) {
 
                             panelDiv.addClass("panel-green");
+                            
+                            var rawResult = result["rawResult"];
+                            delete result['rawResult'];
 
                             var jsonString = JSON.stringify(result, undefined, 2);
                             textElement.val(jsonString);
-                            
+
+                            if (rawResult != null) {
+                                var resultLines = "";
+                                for (var i = 0; i < rawResult.length; i++) {
+                                    resultLines += rawResult[i] + "\r\n";
+                                }
+                                textElement2.val(resultLines);
+                            }
                             
                         }
                 ).error(
@@ -140,8 +150,13 @@
 
                             var textArea = $("<textarea></textarea>").addClass("text-area");
                             divFormGroup.append(textArea);
+                            
+                            divFormGroup.append($("<br>"));
 
-                            testingByComponent(textArea, panelDiv, methodItem['url'] + "/" + server + "/1/debug");
+                            var textArea2 = $("<textarea></textarea>").addClass("text-area");
+                            divFormGroup.append(textArea2);
+
+                            testingByComponent(textArea, textArea2, panelDiv, methodItem['url'] + "/" + server + "/1/debug");
                         });
                     }
             );

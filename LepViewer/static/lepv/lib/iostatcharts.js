@@ -115,18 +115,19 @@ var IOStatCharts = (function(){
         var url = "/status/io/" + server + "/" + requestId;
         console.log(url + " ->");
         $.get(url).success(
-            function(data) {
+            function(responseData) {
                 
                 var currentTime = new Date().getTime();
                 var totalTime = (currentTime - ajaxTime) / 1000;
-                responseId = data['requestId'];
-                console.log(url + " <- in " + totalTime + " seconds; with lepd:" + data['lepdDuration'] 
-                    + "; LEPV parsing time:" + data['lepvParsingDuration'] + "; Django View Processing time: " + data['djangoViewTotalDuration']);
+                responseId = responseData['requestId'];
+                console.log(url + " <- in " + totalTime + " seconds; with lepd:" + responseData['lepdDuration'] 
+                    + "; LEPV parsing time:" + responseData['lepvParsingDuration'] + "; Django View Processing time: " + responseData['djangoViewTotalDuration']);
                 
                 if (isChartPaused) {
                     return;
                 }
 
+                var data = responseData['data'];
                 var diskDatas = data['disks'];
                 $.each( diskDatas, function( diskName, diskData ) {
                     if ( !(diskName in ioDatas)) {
