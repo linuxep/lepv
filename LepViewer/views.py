@@ -107,15 +107,18 @@ def pingServer(request, server='', requestId='', config='release'):
         client = LepDClient(server=server, config=config)
         
         result = {}
-        result['result'] = client.ping()
+        result['connected'] = client.ping()
         
-        if (result['result']):
+        if (result['connected']):
             # get cpu count
             cpuMonitor = CPUMonitor(server=server, config=config)
-            result['cpuCoreCount'] = cpuMonitor.getCapacity()['coresCount']
+            cpuCapacityData = cpuMonitor.getCapacity()
+            # result['cpuCoreCount'] = capacityData['data']['coresCount']
+            result['cpuCoreCount'] = cpuCapacityData['data']['coresCount']
             
             memMonitor = MemoryMonitor(server=server, config=config)
-            result['memoryTotal'] = memMonitor.getCapacity()['capacity']
+            memoryCapacityData = memMonitor.getCapacity()
+            result['memoryTotal'] = memoryCapacityData['data']['capacity']
 
         return JSONResponse(result)
     except Exception as ex:

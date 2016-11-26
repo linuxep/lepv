@@ -57,19 +57,30 @@ class MemoryMonitor:
         return responseData
 
     def getCapacity(self):
-        response = self.client.getProcMeminfo()
+        responseLines = self.client.getResponse("GetProcMeminfo")
+        if (len(responseLines) == 0):
+            return {}
+        
+        responseData = {}
+        responseData['rawResult'] = responseLines[:]
 
-        if (not response):
-            return None
+        results = {}
+        for line in responseLines:
+            linePairs = line.split(":")
+            lineKey = linePairs[0].strip()
+            lineValue = linePairs[1].replace('kB', '').strip()
+
+            results[lineKey] = lineValue
 
         componentInfo = {}
         componentInfo["name"] = "memory"
-        componentInfo["capacity"] = int(int(response['MemTotal']) / 1024)
+        componentInfo["capacity"] = int(int(results['MemTotal']) / 1024)
         componentInfo["unit"] = "MB"
         
         componentInfo["summary"] = str(componentInfo["capacity"]) + " " + componentInfo["unit"]
-
-        return componentInfo
+        
+        responseData['data'] = componentInfo
+        return responseData
 
     def normalizeValue(self, valueString):
         # 1.23% -> 0.012
@@ -130,7 +141,7 @@ if( __name__ =='__main__' ):
     monitor.config = 'debug'
     # monitor = MemoryMonitor('www.linuxep.com')
     # monitor.getMemoryStat()
-    print(monitor.getStatus())
+    print(monitor.getCapacity())
     # print(monitor.getSmemOutput())
     # print(monitor.getProcrankOutput())
     # 

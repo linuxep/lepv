@@ -13,17 +13,53 @@ class PerfMonitor:
         self.server = server
         self.client = LepDClient(self.server)
         self.config = config
+        
+        self.dataCount = 25
 
     def getPerfCpuClock(self):
-        return self.client.getCmdPerfCpuclock()
+
+        responseLines = self.client.getResponse("GetCmdPerfCpuclock")
+        if (len(responseLines) == 0):
+            return {}
+        
+        responseData = {}
+        responseData['rawResult'] = responseLines[:]
+
+        resultList = []
+        for line in responseLines:
+            if (line.strip() == ''):
+                continue
+
+            # print(line)
+            lineValues = line.split()
+
+            if (len(lineValues) < 5):
+                # print('                     --------------- skip it.')
+                continue
+
+            if ('%' not in lineValues[0]):
+                # print('                     --------------- skip it.')
+                continue
+
+            resultLine = {}
+            resultLine['Overhead'] = lineValues[0]
+            resultLine["Command"] = lineValues[1]
+            resultLine["Shared Object"] = lineValues[2]
+            resultLine['Symbol'] = ' '.join([str(x) for x in lineValues[3:]])
+
+            resultList.append(resultLine)
+            if (len(resultList) >= self.dataCount):
+                # print('now the length of the array is greater than the max, break here')
+                break
+
+        responseData['data'] = resultList
+        return responseData
 
 if( __name__ =='__main__' ):
-    monitor = PerfMonitor('www.linuxxueyuan.com')
+    monitor = PerfMonitor(server='www.linuxxueyuan.com', config='debug')
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    while(1):
-        result = monitor.getPerfCpuClock()['result']
-        print(len(result))
-    # pp.pprint(monitor.getPerfCpuClock())
+    responseData = monitor.getPerfCpuClock()
+    pp.pprint(responseData)
 

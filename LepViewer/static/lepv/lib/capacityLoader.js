@@ -80,13 +80,13 @@ var CapacityLoader = (function(){
 
             $(divName).empty();
             
-            $.get(url, function(data, status){
+            $.get(url, function(responseData, status){
                 if (component == "cpu") {
-                    loadCpuCapacityInfo(data, divName);
+                    loadCpuCapacityInfo(responseData['data'], divName);
                 } else if (component == "memory") {
-                    loadMemoryCapacityInfo(data, divName);
+                    loadMemoryCapacityInfo(responseData['data'], divName);
                 } else if (component == "io") {
-                    loadIOCapacityInfo(data, divName);
+                    loadIOCapacityInfo(responseData['data'], divName);
                 }
             });
         });

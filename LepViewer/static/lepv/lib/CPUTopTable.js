@@ -130,12 +130,13 @@ var CPUTopTable = (function(){
 
         requestId += 1;
         var ajaxTime= new Date().getTime();
-        $.get("/cputop/" + server + "/" + requestId, function(data, status){
+        $.get("/cputop/" + server + "/" + requestId, function(responseData, status){
 
             if (isChartPaused) {
                 return;
             }
-
+            
+            var data = responseData['data'];
             var currentTime = new Date().getTime();
             var totalTime = (currentTime - ajaxTime) / 1000;
             responseId = data['requestId'];

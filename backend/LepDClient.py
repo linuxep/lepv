@@ -33,24 +33,6 @@ class LepDClient:
         else:
             return False
         
-    def getProcMeminfo(self):
-        response = self.sendRequest("GetProcMeminfo")
-        if (response == None or 'result' not in response):
-            return None
-
-        results = {}
-        result = response['result'].strip()
-        lines = result.split("\n")
-        for line in lines:
-            linePairs = line.split(":")
-            lineKey = linePairs[0].strip()
-            lineValue = linePairs[1].replace('kB', '').strip()
-
-            results[lineKey] = lineValue
-
-        return results
-    
-    
 
     def getProcCpuinfoX(self):
         
@@ -101,68 +83,36 @@ class LepDClient:
 
         return result
 
-    def getCmdDf(self):
-        response = self.sendRequest("GetCmdDf")
-        if (response == None or 'result' not in response):
-            return None
-
-        results = response['result'].strip()
-
-        resultLines = results.split('\n')
-
-        diskData = {}
-        for resultLine in resultLines:
-            if (not resultLine.startswith('/dev/')):
-                continue
-
-            lineValues = resultLine.split()
-            diskName = lineValues[0][5:]
-            diskData[diskName] = {}
-            diskData[diskName]['size'] = lineValues[1]
-            diskData[diskName]['used'] = lineValues[2]
-            diskData[diskName]['free'] = lineValues[3]
-
-            diskData['size'] = lineValues[1]
-            diskData['used'] = lineValues[2]
-            diskData['free'] = lineValues[3]
-
-        return diskData
+    # def getCmdDf(self):
+    #     response = self.sendRequest("GetCmdDf")
+    #     if (response == None or 'result' not in response):
+    #         return None
+    # 
+    #     results = response['result'].strip()
+    # 
+    #     resultLines = results.split('\n')
+    # 
+    #     diskData = {}
+    #     for resultLine in resultLines:
+    #         if (not resultLine.startswith('/dev/')):
+    #             continue
+    # 
+    #         lineValues = resultLine.split()
+    #         diskName = lineValues[0][5:]
+    #         diskData[diskName] = {}
+    #         diskData[diskName]['size'] = lineValues[1]
+    #         diskData[diskName]['used'] = lineValues[2]
+    #         diskData[diskName]['free'] = lineValues[3]
+    # 
+    #         diskData['size'] = lineValues[1]
+    #         diskData['used'] = lineValues[2]
+    #         diskData['free'] = lineValues[3]
+    # 
+    #     return diskData
 
 
     def getCmdPerfCpuclock(self, count=25):
-        response = self.sendRequest("GetCmdPerfCpuclock")
-        if (response == None or 'result' not in response):
-            return None
-
-        results = response['result'].strip().split('\n')
-        resultList = []
-        for line in results:
-            if (line.strip() == ''):
-                continue
-                
-            # print(line)
-            lineValues = line.split()
-            
-            if (len(lineValues) < 5):
-                # print('                     --------------- skip it.')
-                continue
-
-            if ('%' not in lineValues[0]):
-                # print('                     --------------- skip it.')
-                continue
-                
-            resultLine = {}
-            resultLine['Overhead'] = lineValues[0]
-            resultLine["Command"] = lineValues[1]
-            resultLine["Shared Object"] = lineValues[2]
-            resultLine['Symbol'] = ' '.join([str(x) for x in lineValues[3:]])
-            
-            resultList.append(resultLine)
-            if (len(resultList) >= count):
-                # print('now the length of the array is greater than the max, break here')
-                break
-
-        return {'result': resultList}
+        pass
 
     def getIostatResult(self):
         response = self.sendRequest("GetCmdIostat")

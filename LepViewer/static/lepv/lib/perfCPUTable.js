@@ -119,7 +119,7 @@ var PerfCPUTable = (function(){
             var index = 0;
 
             if (newData != null) {
-                $.each( newData['result'], function( index, lineValues ) {
+                $.each( newData['data'], function( index, lineValues ) {
 
                     if (isChartPaused) {
                         return;

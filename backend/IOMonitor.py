@@ -61,13 +61,35 @@ class IOMonitor:
         return responseData
     
     def getCapacity(self):
-        diskInfo = self.client.getCmdDf()
+        responseLines = self.client.getResponse("GetCmdDf")
+        if (len(responseLines) == 0):
+            return {}
+        
+        responseData = {}
+        responseData['rawResult'] = responseLines[:]
+
+        diskData = {}
+        for resultLine in responseLines:
+            if (not resultLine.startswith('/dev/')):
+                continue
+
+            lineValues = resultLine.split()
+            diskName = lineValues[0][5:]
+            diskData[diskName] = {}
+            diskData[diskName]['size'] = lineValues[1]
+            diskData[diskName]['used'] = lineValues[2]
+            diskData[diskName]['free'] = lineValues[3]
+
+            diskData['size'] = lineValues[1]
+            diskData['used'] = lineValues[2]
+            diskData['free'] = lineValues[3]
 
         capacity = {}
-        capacity['diskTotal'] = diskInfo['size']
-        capacity['diskUsed'] = diskInfo['used']
+        capacity['diskTotal'] = diskData['size']
+        capacity['diskUsed'] = diskData['used']
         
-        return capacity
+        responseData['data'] = capacity
+        return responseData
 
 
     # Total DISK READ :    1025.66 M/s | Total DISK WRITE :       0.00 B/s
@@ -150,7 +172,7 @@ if( __name__ =='__main__' ):
     
     # monitor = IOMonitor('www.linuxep.com')
     # pp.pprint(monitor.getIoTopData())
-    pp.pprint(monitor.getStatus())
+    pp.pprint(monitor.getCapacity())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &
 

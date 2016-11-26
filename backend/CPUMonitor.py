@@ -19,9 +19,6 @@ class CPUMonitor:
 
         results = {}
 
-        if (self.config == 'debug'):
-            results['rawResult'] = lines[:]
-
         line = lines.pop(0)
         results['architecture'] = "ARM"
         results['model name'] = line.split(':')[1].strip()
@@ -48,9 +45,6 @@ class CPUMonitor:
         results['architecture'] = "X86"
         results['processors'] = {}
         
-        if (self.config == 'debug'):
-            results['rawResult'] = lines[:]
-            
         for line in lines:
             if (line.strip() == ""):
                 continue
@@ -74,11 +68,15 @@ class CPUMonitor:
     
     def getCpuInfo(self):
 
-        cpuInfoResult = self.client.getResponse('GetProcCpuinfo')
-        if ("ARM" in cpuInfoResult):
-            return self.getCpuInfoForArm(cpuInfoResult)
+        cpuInfoLines = self.client.getResponse('GetProcCpuinfo')
+        responseData = {}
+        responseData['rawResult'] = cpuInfoLines
+        if ("ARM" in cpuInfoLines):
+            responseData['data'] = self.getCpuInfoForArm(cpuInfoLines)
         else:
-            return self.getCpuInfoForX86(cpuInfoResult)
+            responseData['data'] = self.getCpuInfoForX86(cpuInfoLines)
+        
+        return responseData
 
     def getCapacity(self):
         
@@ -88,19 +86,19 @@ class CPUMonitor:
             return {}
         
         capacity = {}
-        capacity['processors'] = processorsData['processors']
+        capacity['processors'] = processorsData['data']['processors']
 
         coresString = 'Core'
-        coreCount = len(processorsData['processors'])
+        coreCount = len(processorsData['data']['processors'])
         capacity['coresCount'] = coreCount
         
         if (coreCount > 1):
             coresString = "Cores"
 
-        for processorId, processorData in processorsData['processors'].items():
+        for processorId, processorData in processorsData['data']['processors'].items():
             
-            if (processorsData['architecture'] == "ARM"):
-                processorData['model'] = processorsData['model name']
+            if (processorsData['data']['architecture'] == "ARM"):
+                processorData['model'] = processorsData['data']['model name']
 
                 # Summary is a string to briefly describe the CPU, like "2GHZ x 2", meaning it's a 2-core cpu with 2GHZ speed.
                 capacity['summary'] = processorData['bogomips'] + " MHz x " + str(coreCount) + coresString
@@ -122,7 +120,10 @@ class CPUMonitor:
             
             break
 
-        return capacity
+        responseData = {}
+        responseData['rawResult'] = processorsData['rawResult']
+        responseData['data'] = capacity
+        return responseData
 
     def getStatus(self):
 
@@ -200,8 +201,42 @@ class CPUMonitor:
         return responseData
 
     def getTopOutput(self):
-        response = self.client.getTopOutput()
-        return response
+
+        responseLines = self.client.getResponse("GetCmdTop")
+        if (len(responseLines) == 0):
+            return {}
+        
+        responseData = {}
+        responseData['rawResult'] = responseLines[:]
+        
+        headerLine = responseLines.pop(0)
+
+        result = {}
+        for responseLine in responseLines:
+            # print(responseLine)
+            lineValues = responseLine.split()
+
+            pid = lineValues[0]
+            result[pid] = {}
+
+            result[pid]['pid'] = pid
+            result[pid]['user'] = lineValues[1]
+            result[pid]['pri'] = lineValues[2]
+            result[pid]['ni'] = lineValues[3]
+            result[pid]['vsz'] = lineValues[4]
+            result[pid]['rss'] = lineValues[5]
+            result[pid]['s'] = lineValues[6]
+            result[pid]['cpu'] = lineValues[7]
+            result[pid]['mem'] = lineValues[8]
+            result[pid]['time'] = lineValues[9]
+
+            result[pid]['command'] = ' '.join([str(x) for x in lineValues[10:]])
+
+            if(len(result) >= 25):
+                break
+
+        responseData['data'] = result
+        return responseData
 
     def getTopHResult(self):
         response = self.client.getTopHResult()
@@ -238,10 +273,10 @@ if( __name__ =='__main__' ):
     monitor = CPUMonitor('www.linuxxueyuan.com')
     # monitor = CPUMonitor('www.linuxep.com')
 
-    # pp.pprint(monitor.getCapacity())
+    pp.pprint(monitor.getCapacity())
     # pp.pprint(monitor.getCpuInfo())
-    pp.pprint(monitor.getStat())
-    pp.pprint(monitor.getAverageLoad())
+    # pp.pprint(monitor.getStat())
+    # pp.pprint(monitor.getAverageLoad())
     # pp.pprint(monitor.getTopOutput())
     # pp.pprint(monitor.getCpuByName("kworker/u3:0"))
     # pp.pprint(monitor.getCpuByPid("4175"))
