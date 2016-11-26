@@ -1,0 +1,81 @@
+# ========
+# captured on: Fri Nov 25 06:53:48 2016
+# hostname : ubuntu
+# os release : 3.13.0-32-generic
+# perf version : 3.13.11.4
+# arch : x86_64
+# nrcpus online : 2
+# nrcpus avail : 2
+# cpudesc : Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz
+# cpuid : GenuineIntel,6,78,3
+# total memory : 1002748 kB
+# cmdline : /usr/lib/linux-lts-trusty-tools-3.13.0-32/perf record -a -e cpu-clock sleep 1 
+# event : name = cpu-clock, type = 1, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, excl_host = 0, excl_guest = 1, precise_ip = 0, attr_mmap2 = 0, attr_mmap  = 1, attr_mmap_data = 0
+# HEADER_CPU_TOPOLOGY info available, use -I to display
+# HEADER_NUMA_TOPOLOGY info available, use -I to display
+# pmu mappings: cpu = 4, software = 1, tracepoint = 2, breakpoint = 5
+# ========
+#
+# Samples: 2K of event 'cpu-clock'
+# Event count (approx.): 698500000
+#
+# Overhead          Command                            Shared Object                           Symbol
+# ........  ...............  .......................................  ...............................
+#
+    45.17%            uwsgi  libpython3.5m.so.1.0                     [.] 0x000000000011c525         
+    12.96%            uwsgi  libpthread-2.19.so                       [.] 0x0000000000011770         
+    11.92%            uwsgi  libc-2.19.so                             [.] 0x000000000007afa8         
+     8.23%            uwsgi  [kernel.kallsyms]                        [k] context_tracking_user_exit 
+     5.94%            uwsgi  [kernel.kallsyms]                        [k] context_tracking_user_enter
+     1.72%            uwsgi  [kernel.kallsyms]                        [k] system_call_after_swapgs   
+     1.25%            uwsgi  _socket.cpython-35m-x86_64-linux-gnu.so  [.] 0x0000000000006b00         
+     1.15%            uwsgi  [kernel.kallsyms]                        [k] audit_net                  
+     0.89%            uwsgi  [kernel.kallsyms]                        [k] SYSC_recvfrom              
+     0.89%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_lock_bh          
+     0.82%            uwsgi  [kernel.kallsyms]                        [k] syscall_trace_enter        
+     0.82%            uwsgi  [kernel.kallsyms]                        [k] fget_light                 
+     0.82%            uwsgi  [kernel.kallsyms]                        [k] sock_recvmsg               
+     0.75%            uwsgi  [kernel.kallsyms]                        [k] aa_revalidate_sk           
+     0.57%            uwsgi  [kernel.kallsyms]                        [k] tcp_recvmsg                
+     0.50%            uwsgi  [kernel.kallsyms]                        [k] sockfd_lookup_light        
+     0.43%            uwsgi  [kernel.kallsyms]                        [k] syscall_trace_leave        
+     0.43%            uwsgi  [kernel.kallsyms]                        [k] security_socket_recvmsg    
+     0.36%            uwsgi  [kernel.kallsyms]                        [k] local_bh_enable_ip         
+     0.36%            uwsgi  [kernel.kallsyms]                        [k] inet_recvmsg               
+     0.36%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock           
+     0.36%            uwsgi  [kernel.kallsyms]                        [k] int_check_syscall_exit_work
+     0.32%            uwsgi  [kernel.kallsyms]                        [k] local_bh_enable            
+     0.32%            uwsgi  [kernel.kallsyms]                        [k] aa_net_perm                
+     0.29%            uwsgi  [kernel.kallsyms]                        [k] apparmor_socket_recvmsg    
+     0.21%            uwsgi  [kernel.kallsyms]                        [k] release_sock               
+     0.21%            uwsgi  [kernel.kallsyms]                        [k] tcp_cleanup_rbuf           
+     0.21%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock_bh        
+     0.14%            uwsgi  [kernel.kallsyms]                        [k] local_bh_disable           
+     0.14%            uwsgi  [kernel.kallsyms]                        [k] sys_recvfrom               
+     0.14%            uwsgi  [kernel.kallsyms]                        [k] tracesys                   
+     0.11%           compiz  [kernel.kallsyms]                        [k] vmw_fifo_ping_host         
+     0.11%            uwsgi  [kernel.kallsyms]                        [k] __do_softirq               
+     0.11%            uwsgi  [kernel.kallsyms]                        [k] _cond_resched              
+     0.11%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock_irqrestore
+     0.11%            uwsgi  [kernel.kallsyms]                        [k] retint_careful             
+     0.07%            sleep  [kernel.kallsyms]                        [k] _raw_spin_unlock_irqrestore
+     0.07%             Xorg  [kernel.kallsyms]                        [k] iowrite32                  
+     0.07%             Xorg  [kernel.kallsyms]                        [k] vmw_fifo_ping_host         
+     0.07%            uwsgi  [kernel.kallsyms]                        [k] lock_sock_nested           
+     0.07%            uwsgi  [kernel.kallsyms]                        [k] int_ret_from_sys_call      
+     0.07%            uwsgi  [kernel.kallsyms]                        [k] int_restore_rest           
+     0.04%            sleep  [kernel.kallsyms]                        [k] __call_rcu                 
+     0.04%       irqbalance  [kernel.kallsyms]                        [k] kstat_irqs                 
+     0.04%       irqbalance  [kernel.kallsyms]                        [k] strcmp                     
+     0.04%         vmtoolsd  libvmtools.so                            [.] 0x00000000000207a0         
+     0.04%         vmtoolsd  libX11.so.6.3.0                          [.] _XEventsQueued             
+     0.04%  ManagementAgent  [kernel.kallsyms]                        [k] __call_rcu                 
+     0.04%           compiz  [kernel.kallsyms]                        [k] sock_def_readable          
+     0.04%          firefox  libxul.so                                [.] 0x0000000001809fc8         
+     0.04%            uwsgi  [kernel.kallsyms]                        [k] tcp_release_cb             
+
+
+#
+# (For a higher level overview, try: perf report --sort comm,dso)
+#
+lepdendstring

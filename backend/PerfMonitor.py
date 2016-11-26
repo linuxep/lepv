@@ -21,9 +21,18 @@ class PerfMonitor:
         responseLines = self.client.getResponse("GetCmdPerfCpuclock")
         if (len(responseLines) == 0):
             return {}
-        
+
         responseData = {}
-        responseData['rawResult'] = responseLines[:]
+        if (self.config == 'debug'):
+            responseData['rawResult'] = responseLines[:]
+        
+        columnHeaderLinePrefix = '# Overhead'
+        while( not responseLines[0].startswith(columnHeaderLinePrefix)):
+            responseLines.pop(0)
+        
+        responseLines.pop(0)
+        responseLines.pop(0)
+        responseLines.pop(0)
 
         resultList = []
         for line in responseLines:

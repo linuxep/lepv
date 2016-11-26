@@ -53,9 +53,6 @@ class LepDClient:
         response = response['result'].strip().split("\n")
         
         headerLine = response.pop(0)
-        # print(headerLine)
-        # if (headerLine != 'PID USER     PRI  NI    VSZ   RSS S %CPU %MEM     TIME CMD'):
-        #     print("Header line changed, pay attention")
         
         result = {}
         for responseLine in response:
@@ -82,34 +79,6 @@ class LepDClient:
                 break
 
         return result
-
-    # def getCmdDf(self):
-    #     response = self.sendRequest("GetCmdDf")
-    #     if (response == None or 'result' not in response):
-    #         return None
-    # 
-    #     results = response['result'].strip()
-    # 
-    #     resultLines = results.split('\n')
-    # 
-    #     diskData = {}
-    #     for resultLine in resultLines:
-    #         if (not resultLine.startswith('/dev/')):
-    #             continue
-    # 
-    #         lineValues = resultLine.split()
-    #         diskName = lineValues[0][5:]
-    #         diskData[diskName] = {}
-    #         diskData[diskName]['size'] = lineValues[1]
-    #         diskData[diskName]['used'] = lineValues[2]
-    #         diskData[diskName]['free'] = lineValues[3]
-    # 
-    #         diskData['size'] = lineValues[1]
-    #         diskData['used'] = lineValues[2]
-    #         diskData['free'] = lineValues[3]
-    # 
-    #     return diskData
-
 
     def getCmdPerfCpuclock(self, count=25):
         pass
@@ -208,6 +177,28 @@ class LepDClient:
                 print(methodName)
         else:
             print("\n\nAdd methods are working!")
+    
+    
+    def getPerfDataLines(self):
+        armResponse = '''
+        {
+	"result":	"# To display the perf.data header info, please use --header/--header-only options.\\n#\\n#\\n# Total Lost Samples: 0\\n#\\n# Samples: 8K of event 'cpu-clock'\\n# Event count (approx.): 8050\\n#\\n# Overhead  Command      Shared Object       Symbol                         \\n# ........  ...........  ..................  ...............................\\n#\\n    98.47%  swapper      [kernel.kallsyms]   [k] default_idle\\n     0.78%  swapper      [kernel.kallsyms]   [k] __delay\\n     0.09%  kworker/0:1  [kernel.kallsyms]   [k] __delay\\n     0.07%  swapper      [kernel.kallsyms]   [k] tick_nohz_idle_enter\\n     0.06%  swapper      [kernel.kallsyms]   [k] _raw_spin_unlock_irq\\n     0.02%  perf         [kernel.kallsyms]   [k] sub_preempt_count\\n     0.02%  sleep        [kernel.kallsyms]   [k] _raw_spin_unlock_irqrestore\\n     0.02%  sleep        [kernel.kallsyms]   [k] in_lock_functions\\n     0.01%  kpktgend_0   [kernel.kallsyms]   [k] schedule\\n     0.01%  kworker/0:1  [kernel.kallsyms]   [k] Get_Bat_Coulomb_Count\\n     0.01%  kworker/0:1  [kernel.kallsyms]   [k] _raw_spin_unlock_irq\\n     0.01%  kworker/0:1  [kernel.kallsyms]   [k] i2c_sunxi_xfer\\n     0.01%  kworker/0:1  [kernel.kallsyms]   [k] nr_blockdev_pages\\n     0.01%  kworker/1:1  [kernel.kallsyms]   [k] gmac_mdio_read\\n     0.01%  menu-cached  libdbus-1.so.3.5.8  [.] 0x0000883e\\n     0.01%  perf         [kernel.kallsyms]   [k] __memzero\\n     0.01%  perf         [kernel.kallsyms]   [k] do_page_fault\\n     0.01%  sleep        [kernel.kallsyms]   [k] __lru_cache_add\\n     0.01%  sleep        [kernel.kallsyms]   [k] __raw_spin_lock\\n     0.01%  sleep        [kernel.kallsyms]   [k] _raw_spin_unlock_irq\\n     0.01%  sleep        [kernel.kallsyms]   [k] cgroup_exit\\n     0.01%  sleep        [kernel.kallsyms]   [k] do_lookup\\n     0.01%  sleep        [kernel.kallsyms]   [k] find_get_page\\n     0.01%  sleep        [kernel.kallsyms]   [k] flush_tlb_range\\n     0.01%  sleep        [kernel.kallsyms]   [k] link_path_walk\\n     0.01%  sleep        [kernel.kallsyms]   [k] radix_tree_lookup_element\\n     0.01%  sleep        ld-2.15.so          [.] 0x000070d2\\n     0.01%  sleep        ld-2.15.so          [.] 0x000074c4\\n     0.01%  sleep        ld-2.15.so          [.] 0x0000ca8e\\n     0.01%  sleep        libc-2.15.so        [.] 0x0001ed38\\n     0.01%  sleep        libc-2.15.so        [.] 0x00023658\\n     0.01%  sleep        libc-2.15.so        [.] 0x0004c7be\\n     0.01%  sleep        libc-2.15.so        [.] 0x00053cbe\\n     0.01%  sleep        libc-2.15.so        [.] 0x000585be\\n     0.01%  sleep        libc-2.15.so        [.] 0x00059e40\\n     0.01%  swapper      [kernel.kallsyms]   [k] _test_and_clear_bit\\n     0.01%  swapper      [kernel.kallsyms]   [k] file_free_rcu\\n     0.01%  swapper      [kernel.kallsyms]   [k] ipv4_get_l4proto\\n     0.01%  swapper      [kernel.kallsyms]   [k] rcu_idle_enter\\n     0.01%  x11vnc       [kernel.kallsyms]   [k] ktime_get_ts\\n     0.01%  x11vnc       [kernel.kallsyms]   [k] sys_gettimeofday\\n     0.01%  x11vnc       libX11.so.6.3.0     [.] 0x00010eb8\\n     0.01%  x11vnc       x11vnc              [.] 0x0005e540\\n     0.01%  x11vnc       x11vnc              [.] 0x00065884\\n\\n\\n#\\n# (Cannot load tips.txt file, please install perf!)\\n#\\nlepdendstring"
+}
+        '''
+        
+        x86Response = '''
+        {
+	"result":	"# ========\\n# captured on: Fri Nov 25 06:53:48 2016\\n# hostname : ubuntu\\n# os release : 3.13.0-32-generic\\n# perf version : 3.13.11.4\\n# arch : x86_64\\n# nrcpus online : 2\\n# nrcpus avail : 2\\n# cpudesc : Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz\\n# cpuid : GenuineIntel,6,78,3\\n# total memory : 1002748 kB\\n# cmdline : /usr/lib/linux-lts-trusty-tools-3.13.0-32/perf record -a -e cpu-clock sleep 1 \\n# event : name = cpu-clock, type = 1, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, excl_host = 0, excl_guest = 1, precise_ip = 0, attr_mmap2 = 0, attr_mmap  = 1, attr_mmap_data = 0\\n# HEADER_CPU_TOPOLOGY info available, use -I to display\\n# HEADER_NUMA_TOPOLOGY info available, use -I to display\\n# pmu mappings: cpu = 4, software = 1, tracepoint = 2, breakpoint = 5\\n# ========\\n#\\n# Samples: 2K of event 'cpu-clock'\\n# Event count (approx.): 698500000\\n#\\n# Overhead          Command                            Shared Object                           Symbol\\n# ........  ...............  .......................................  ...............................\\n#\\n    45.17%            uwsgi  libpython3.5m.so.1.0                     [.] 0x000000000011c525         \\n    12.96%            uwsgi  libpthread-2.19.so                       [.] 0x0000000000011770         \\n    11.92%            uwsgi  libc-2.19.so                             [.] 0x000000000007afa8         \\n     8.23%            uwsgi  [kernel.kallsyms]                        [k] context_tracking_user_exit \\n     5.94%            uwsgi  [kernel.kallsyms]                        [k] context_tracking_user_enter\\n     1.72%            uwsgi  [kernel.kallsyms]                        [k] system_call_after_swapgs   \\n     1.25%            uwsgi  _socket.cpython-35m-x86_64-linux-gnu.so  [.] 0x0000000000006b00         \\n     1.15%            uwsgi  [kernel.kallsyms]                        [k] audit_net                  \\n     0.89%            uwsgi  [kernel.kallsyms]                        [k] SYSC_recvfrom              \\n     0.89%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_lock_bh          \\n     0.82%            uwsgi  [kernel.kallsyms]                        [k] syscall_trace_enter        \\n     0.82%            uwsgi  [kernel.kallsyms]                        [k] fget_light                 \\n     0.82%            uwsgi  [kernel.kallsyms]                        [k] sock_recvmsg               \\n     0.75%            uwsgi  [kernel.kallsyms]                        [k] aa_revalidate_sk           \\n     0.57%            uwsgi  [kernel.kallsyms]                        [k] tcp_recvmsg                \\n     0.50%            uwsgi  [kernel.kallsyms]                        [k] sockfd_lookup_light        \\n     0.43%            uwsgi  [kernel.kallsyms]                        [k] syscall_trace_leave        \\n     0.43%            uwsgi  [kernel.kallsyms]                        [k] security_socket_recvmsg    \\n     0.36%            uwsgi  [kernel.kallsyms]                        [k] local_bh_enable_ip         \\n     0.36%            uwsgi  [kernel.kallsyms]                        [k] inet_recvmsg               \\n     0.36%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock           \\n     0.36%            uwsgi  [kernel.kallsyms]                        [k] int_check_syscall_exit_work\\n     0.32%            uwsgi  [kernel.kallsyms]                        [k] local_bh_enable            \\n     0.32%            uwsgi  [kernel.kallsyms]                        [k] aa_net_perm                \\n     0.29%            uwsgi  [kernel.kallsyms]                        [k] apparmor_socket_recvmsg    \\n     0.21%            uwsgi  [kernel.kallsyms]                        [k] release_sock               \\n     0.21%            uwsgi  [kernel.kallsyms]                        [k] tcp_cleanup_rbuf           \\n     0.21%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock_bh        \\n     0.14%            uwsgi  [kernel.kallsyms]                        [k] local_bh_disable           \\n     0.14%            uwsgi  [kernel.kallsyms]                        [k] sys_recvfrom               \\n     0.14%            uwsgi  [kernel.kallsyms]                        [k] tracesys                   \\n     0.11%           compiz  [kernel.kallsyms]                        [k] vmw_fifo_ping_host         \\n     0.11%            uwsgi  [kernel.kallsyms]                        [k] __do_softirq               \\n     0.11%            uwsgi  [kernel.kallsyms]                        [k] _cond_resched              \\n     0.11%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock_irqrestore\\n     0.11%            uwsgi  [kernel.kallsyms]                        [k] retint_careful             \\n     0.07%            sleep  [kernel.kallsyms]                        [k] _raw_spin_unlock_irqrestore\\n     0.07%             Xorg  [kernel.kallsyms]                        [k] iowrite32                  \\n     0.07%             Xorg  [kernel.kallsyms]                        [k] vmw_fifo_ping_host         \\n     0.07%            uwsgi  [kernel.kallsyms]                        [k] lock_sock_nested           \\n     0.07%            uwsgi  [kernel.kallsyms]                        [k] int_ret_from_sys_call      \\n     0.07%            uwsgi  [kernel.kallsyms]                        [k] int_restore_rest           \\n     0.04%            sleep  [kernel.kallsyms]                        [k] __call_rcu                 \\n     0.04%       irqbalance  [kernel.kallsyms]                        [k] kstat_irqs                 \\n     0.04%       irqbalance  [kernel.kallsyms]                        [k] strcmp                     \\n     0.04%         vmtoolsd  libvmtools.so                            [.] 0x00000000000207a0         \\n     0.04%         vmtoolsd  libX11.so.6.3.0                          [.] _XEventsQueued             \\n     0.04%  ManagementAgent  [kernel.kallsyms]                        [k] __call_rcu                 \\n     0.04%           compiz  [kernel.kallsyms]                        [k] sock_def_readable          \\n     0.04%          firefox  libxul.so                                [.] 0x0000000001809fc8         \\n     0.04%            uwsgi  [kernel.kallsyms]                        [k] tcp_release_cb             \\n\\n\\n#\\n# (For a higher level overview, try: perf report --sort comm,dso)\\n#\\nlepdendstring"
+}
+        '''
+        response = json.loads(armResponse)
+        lines = response['result'].strip().split("\n")
+        
+        for line in lines:
+            print(line)
+            
+        return lines
+        
 
     def getResponse(self, methodName):
         response = self.sendRequest(methodName)
@@ -255,13 +246,15 @@ if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     client = LepDClient('www.linuxxueyuan.com', config='debug')
     
-    client.ping()
+    # client.ping()
 
     # client = LepDClient('www.linuxxueyuan.com')
 
     # client.getCmdPerfCpuclock()
     
-    client.tryAllMethods()
+    client.getPerfDataLines()
+    
+    # client.tryAllMethods()
 
     # pp.pprint(client.getIoTop())
     # pp.pprint(client.getCmdMpStat())
