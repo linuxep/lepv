@@ -113,7 +113,6 @@ def pingServer(request, server='', requestId='', config='release'):
             # get cpu count
             cpuMonitor = CPUMonitor(server=server, config=config)
             cpuCapacityData = cpuMonitor.getCapacity()
-            # result['cpuCoreCount'] = capacityData['data']['coresCount']
             result['cpuCoreCount'] = cpuCapacityData['data']['coresCount']
             
             memMonitor = MemoryMonitor(server=server, config=config)

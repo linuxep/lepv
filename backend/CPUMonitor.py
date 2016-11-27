@@ -70,8 +70,11 @@ class CPUMonitor:
 
         cpuInfoLines = self.client.getResponse('GetProcCpuinfo')
         responseData = {}
-        responseData['rawResult'] = cpuInfoLines
-        if ("ARM" in cpuInfoLines):
+        if (self.config == 'debug'):
+            responseData['rawResult'] = cpuInfoLines
+
+        firstLine = cpuInfoLines[0]
+        if ("ARM" in firstLine):
             responseData['data'] = self.getCpuInfoForArm(cpuInfoLines)
         else:
             responseData['data'] = self.getCpuInfoForX86(cpuInfoLines)
@@ -80,30 +83,35 @@ class CPUMonitor:
 
     def getCapacity(self):
         
-        processorsData = self.getCpuInfo()
+        cpuInfoData = self.getCpuInfo()
         
-        if (not processorsData):
+        if (not cpuInfoData):
             return {}
+
+        responseData = {}
+        if (self.config == 'debug'):
+            responseData['rawResult'] = cpuInfoData['rawResult']
         
         capacity = {}
-        capacity['processors'] = processorsData['data']['processors']
+        capacity['processors'] = cpuInfoData['data']['processors']
 
         coresString = 'Core'
-        coreCount = len(processorsData['data']['processors'])
+        coreCount = len(cpuInfoData['data']['processors'])
         capacity['coresCount'] = coreCount
         
         if (coreCount > 1):
             coresString = "Cores"
 
-        for processorId, processorData in processorsData['data']['processors'].items():
+        for processorId, processorData in cpuInfoData['data']['processors'].items():
             
-            if (processorsData['data']['architecture'] == "ARM"):
-                processorData['model'] = processorsData['data']['model name']
+            if (cpuInfoData['data']['architecture'] == "ARM"):
+                processorData['model'] = cpuInfoData['data']['model name']
 
                 # Summary is a string to briefly describe the CPU, like "2GHZ x 2", meaning it's a 2-core cpu with 2GHZ speed.
                 capacity['summary'] = processorData['bogomips'] + " MHz x " + str(coreCount) + coresString
                 capacity['model'] = processorData['model']
                 capacity['bogomips'] = processorData['bogomips']
+                capacity['architecture'] = 'ARM'
             
             else:
                 modelName = processorData['model name'].replace("(R)", "").replace(" CPU", "")
@@ -117,11 +125,10 @@ class CPUMonitor:
                 capacity['summary'] = str(processorSpeed) + " MHz x " + str(coreCount) + coresString
                 capacity['model'] = modelName
                 capacity['bogomips'] = processorData['bogomips']
+                capacity['architecture'] = 'X86'
             
             break
-
-        responseData = {}
-        responseData['rawResult'] = processorsData['rawResult']
+        
         responseData['data'] = capacity
         return responseData
 
@@ -273,8 +280,8 @@ if( __name__ =='__main__' ):
     monitor = CPUMonitor('www.linuxxueyuan.com')
     # monitor = CPUMonitor('www.linuxep.com')
 
-    pp.pprint(monitor.getCapacity())
-    # pp.pprint(monitor.getCpuInfo())
+    # pp.pprint(monitor.getCapacity())
+    pp.pprint(monitor.getCpuInfo())
     # pp.pprint(monitor.getStat())
     # pp.pprint(monitor.getAverageLoad())
     # pp.pprint(monitor.getTopOutput())
