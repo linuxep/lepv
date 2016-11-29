@@ -3,9 +3,10 @@ __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 from decimal import Decimal
-from backend.LepDClient import LepDClient
 import re
 import pprint
+
+from backend.LepDClient import LepDClient
 
 class CPUMonitor:
 

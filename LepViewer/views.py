@@ -76,6 +76,8 @@ def getComponentStatus(request, component='', server='', requestId='', config='r
             responseData = monitor.getStatus()
         elif (component == 'iotop'):
             responseData = IOMonitor(server, config).getIoTopData()
+        elif (component == 'iopp'):
+            responseData = IOMonitor(server, config).getIoPPData()
         elif (component == "memory"):
             responseData = MemoryMonitor(server, config).getStatus()
         elif (component == "io"):

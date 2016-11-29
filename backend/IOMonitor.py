@@ -92,19 +92,6 @@ class IOMonitor:
         return responseData
 
 
-    # Total DISK READ :    1025.66 M/s | Total DISK WRITE :       0.00 B/s
-    # Actual DISK READ:     808.10 M/s | Actual DISK WRITE:       0.00 B/s
-    # TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN      IO    COMMAND
-    # 26014 be/4 root      323.24 M/s    0.00 B/s  0.00 %  8.96 % dd if=/dev/sda of=/dev/null
-    # 26035 be/4 root      702.42 M/s    0.00 B/s  0.00 %  0.47 % dd if=/dev/sda of=/dev/null
-    # 1 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % init
-    # 2 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [kthreadd]
-    # 3 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [ksoftirqd/0]
-    # 5 be/0 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [kworker/0:0H]
-    # 7 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [rcu_sched]
-    # 8 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [rcu_bh]
-    # 9 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [rcuos/0]
-    # 10 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [rcuob/0]
     def getIoTopData(self):
         
         ioTopLines = self.client.getResponse('GetCmdIotop')
@@ -163,6 +150,47 @@ class IOMonitor:
         
         return ioTopResults
 
+    def getIoPPData(self):
+
+        ioTopLines = self.client.getResponse('GetCmdIopp')
+        ioResults = {}
+        ioResults['data'] = {}
+        if (self.config == 'debug'):    
+            ioResults['rawResult'] = ioTopLines[:]
+        
+        headerLine = ioTopLines.pop(0)
+        # TODO: validate the header column ordering here.
+
+        # pid    rchar    wchar    syscr    syscw   rbytes   wbytes  cwbytes command
+        # 1        0        0        0        0        0        0        0 init
+        # 2        0        0        0        0        0        0        0 kthreadd
+        # 3        0        0        0        0        0        0        0 ksoftirqd/0
+        # 5        0        0        0        0        0        0        0 kworker/0:0H
+        orderIndex = 1
+        for line in ioTopLines:
+            # print (line)
+            if (line.strip() == ''):
+                continue
+
+            lineValues = line.split()
+
+            ioTopItem = {}
+            ioTopItem['pid'] = lineValues.pop(0)
+            ioTopItem['rchar'] = lineValues.pop(0)
+            ioTopItem['wchar'] = lineValues.pop(0)
+            ioTopItem['syscr'] = lineValues.pop(0)
+            ioTopItem['syscw'] = lineValues.pop(0)
+            ioTopItem['rbytes'] = lineValues.pop(0)
+            ioTopItem['wbytes'] = lineValues.pop(0)
+            ioTopItem['cwbytes'] = lineValues.pop(0)
+            ioTopItem['command'] = ' '.join([str(x) for x in lineValues])
+
+            # use an incremental int as key, so we keey the order of the items.
+            ioResults['data'][orderIndex] = ioTopItem
+            orderIndex += 1
+
+        return ioResults
+
 
 if( __name__ =='__main__' ):
     monitor = IOMonitor('www.linuxxueyuan.com')
@@ -172,7 +200,7 @@ if( __name__ =='__main__' ):
     
     # monitor = IOMonitor('www.linuxep.com')
     # pp.pprint(monitor.getIoTopData())
-    pp.pprint(monitor.getCapacity())
+    pp.pprint(monitor.getIoPPData())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &
 

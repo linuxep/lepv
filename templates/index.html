@@ -379,6 +379,26 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-syncalt"></i> I/O PP Table
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-io-pp">
+                                        <table id="io-pp-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div id="PerfCharts" class="row anchor_div">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
@@ -482,6 +502,7 @@
     <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
     <script src="{% static "lepv/lib/iostatcharts.js" %}"></script>
     <script src="{% static "lepv/lib/ioTopTable.js" %}"></script>
+    <script src="{% static "lepv/lib/ioPPTable.js" %}"></script>
     <script src="{% static "lepv/lib/averageloadchart.js" %}"></script>
     <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
@@ -553,6 +574,10 @@
         IOTopTable.setChartDivName('div-io-top');
         IOTopTable.setTableName('#io-top-table');
         IOTopTable.start(server);
+
+        IOPPTable.setChartDivName('div-io-pp');
+        IOPPTable.setTableName('#io-pp-table');
+        IOPPTable.start(server);
 
         CPUTopTable.setChartDivName('div-cpu-top');
         CPUTopTable.setTableName('#cpu-top-table');
