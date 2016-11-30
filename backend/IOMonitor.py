@@ -193,7 +193,7 @@ class IOMonitor:
 
 
 if( __name__ =='__main__' ):
-    monitor = IOMonitor('www.linuxxueyuan.com')
+    monitor = IOMonitor('www.readeeper.com')
     monitor.config = 'debug'
 
     pp = pprint.PrettyPrinter(indent=2)

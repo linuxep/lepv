@@ -1,3 +1,0 @@
-[
-    {'result': 'Filesystem      Size  Used Avail Use% Mounted on\nudev            486M  4.0K  486M   1% /dev\ntmpfs           100M  440K   99M   1% /run\n/dev/sda1        20G  2.0G   17G  11% /\nnone            4.0K     0  4.0K   0% /sys/fs/cgroup\nnone            5.0M     0  5.0M   0% /run/lock\nnone            497M     0  497M   0% /run/shm\nnone            100M     0  100M   0% /run/user\n'}
-]

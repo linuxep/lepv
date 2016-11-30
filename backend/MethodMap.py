@@ -20,13 +20,6 @@ class MethodMap:
         methodMap.append(methodMapItem)
 
         methodMapItem = {}
-        methodMapItem['url'] = '/status/iotop'
-        methodMapItem['viewMethod'] = 'getComponentStatus'
-        methodMapItem['moduleMethod'] = 'IOMonitor.getIoTopData'
-        methodMapItem['lepdMethod'] = 'GetCmdIotop'
-        methodMap.append(methodMapItem)
-
-        methodMapItem = {}
         methodMapItem['url'] = '/status/memory'
         methodMapItem['viewMethod'] = 'getComponentStatus'
         methodMapItem['moduleMethod'] = 'MemoryMonitor.getStatus'
@@ -68,12 +61,12 @@ class MethodMap:
         methodMapItem['lepdMethod'] = 'GetCmdPerfCpuclock'
         methodMap.append(methodMapItem)
 
-        methodMapItem = {}
-        methodMapItem['url'] = '/memstat'
-        methodMapItem['viewMethod'] = 'getMemoryStat'
-        methodMapItem['moduleMethod'] = 'MemoryMonitor.getMemoryStat'
-        methodMapItem['lepdMethod'] = 'GetCmdSmem'
-        methodMap.append(methodMapItem)
+        # methodMapItem = {}
+        # methodMapItem['url'] = '/memstat'
+        # methodMapItem['viewMethod'] = 'getMemoryStat'
+        # methodMapItem['moduleMethod'] = 'MemoryMonitor.getMemoryStat'
+        # methodMapItem['lepdMethod'] = 'GetCmdSmem'
+        # methodMap.append(methodMapItem)
 
         methodMapItem = {}
         methodMapItem['url'] = '/ping'

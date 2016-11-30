@@ -134,7 +134,7 @@ var IOPPTable = (function(){
             }
 
             table.rows().remove().draw( true );
-            var topData = newData['topData'];
+            var topData = newData['data'];
             if (topData != null) {
                 $.each( topData, function( itemIndex, ioTopData ) {
 
@@ -151,7 +151,7 @@ var IOPPTable = (function(){
                         ioTopData['rbytes'],
                         ioTopData['wbytes'],
                         ioTopData['cwbytes'],
-                        ioTopData['COMMAND']
+                        ioTopData['command']
                     ]);
                 });
             } else {

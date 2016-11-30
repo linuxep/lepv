@@ -65,7 +65,7 @@ class PerfMonitor:
         return responseData
 
 if( __name__ =='__main__' ):
-    monitor = PerfMonitor(server='www.linuxxueyuan.com', config='debug')
+    monitor = PerfMonitor(server='www.readeeper.com', config='debug')
 
     pp = pprint.PrettyPrinter(indent=2)
     

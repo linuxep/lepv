@@ -4,6 +4,8 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.LepDClient import LepDClient
 from decimal import Decimal
+import pprint
+import re
 
 __author__ = 'xmac'
 
@@ -92,40 +94,106 @@ class MemoryMonitor:
         
         return valueString
         
-    def getMemoryStat(self):
+    # def getMemoryStat(self):
+    # 
+    #     memoryStatData = {}
+    #     
+    #     results = self.client.getResponse('GetCmdSmem')
+    #     if (self.config == 'debug'):
+    #         memoryStatData['rawResult'] = results[:]
+    # 
+    #     headerLine = results.pop(0)
+    #     headers = headerLine.split()
+    #     
+    #     # sMemInfo['headerLine'] = headerLine
+    #     for line in results:
+    #         # print(line)
+    #         lineValues = line.split()
+    # 
+    #         pid = lineValues[0]
+    #         memoryStatData[pid] = {}
+    #         # sMemInfo['line'] = line
+    #         memoryStatData[pid]['pid'] = lineValues.pop(0)
+    #         memoryStatData[pid]['user'] = lineValues.pop(0)
+    # 
+    #         # the command section is likely to have whitespaces in it thus hard to locate it. workaround here.
+    #         memoryStatData[pid]['rss'] = self.normalizeValue(lineValues.pop())
+    #         memoryStatData[pid]['pss'] = self.normalizeValue(lineValues.pop())
+    #         memoryStatData[pid]['uss'] = self.normalizeValue(lineValues.pop())
+    #         memoryStatData[pid]['swap'] = self.normalizeValue(lineValues.pop())
+    # 
+    #         memoryStatData[pid]['command'] = ' '.join([str(x) for x in lineValues])
+    # 
+    #         if(len(memoryStatData) >= self.dataCount):
+    #             break
+    # 
+    #     return
 
-        memoryStatData = {}
+    def getProcrank(self):
+
+        procrankData = {}
+
+        resultLines = self.client.getResponse('GetCmdProcrank')
+        if (len(resultLines) == 0):
+            return {}
         
-        results = self.client.getResponse('GetCmdSmem')
         if (self.config == 'debug'):
-            memoryStatData['rawResult'] = results[:]
+            procrankData['rawResult'] = resultLines[:]
 
-        headerLine = results.pop(0)
-        headers = headerLine.split()
+            for line in resultLines:
+                print(line)
+
+        procrankData['data'] = {}
+        headerLine = resultLines.pop(0)
+        lineIndex = 0
         
-        # sMemInfo['headerLine'] = headerLine
-        for line in results:
-            # print(line)
+        for line in resultLines:
+            if (re.match( r'\W+-+\W+-+\W-+.*', line, re.M|re.I)):
+                break
             lineValues = line.split()
 
-            pid = lineValues[0]
-            memoryStatData[pid] = {}
-            # sMemInfo['line'] = line
-            memoryStatData[pid]['pid'] = lineValues.pop(0)
-            memoryStatData[pid]['user'] = lineValues.pop(0)
+            procrankData['data'][lineIndex] = {}
+            procrankData['data'][lineIndex]['pid'] = lineValues.pop(0)
+            procrankData['data'][lineIndex]['vss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data'][lineIndex]['rss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data'][lineIndex]['pss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data'][lineIndex]['uss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
 
-            # the command section is likely to have whitespaces in it thus hard to locate it. workaround here.
-            memoryStatData[pid]['rss'] = self.normalizeValue(lineValues.pop())
-            memoryStatData[pid]['pss'] = self.normalizeValue(lineValues.pop())
-            memoryStatData[pid]['uss'] = self.normalizeValue(lineValues.pop())
-            memoryStatData[pid]['swap'] = self.normalizeValue(lineValues.pop())
+            procrankData['data'][lineIndex]['cmdline'] = ' '.join([str(x) for x in lineValues])
+            
+            lineIndex += 1
 
-            memoryStatData[pid]['command'] = ' '.join([str(x) for x in lineValues])
-
-            if(len(memoryStatData) >= self.dataCount):
+            if(len(procrankData) >= self.dataCount):
                 break
+        
+        # now parse from end, which contains summary info
+        lastLine = resultLines[-1]
+        procrankData['sum'] = {}
+        if (lastLine.startswith('RAM:')):
+            lastLine = lastLine.replace("RAM:", '')
+            lastLineValuePairs = lastLine.split(", ")
+            for valuePair in lastLineValuePairs:
+                keyValuePair = valuePair.split()
+                
+                keyName = keyValuePair[1].strip()
+                keyValue = keyValuePair[0].strip()
+                
+                procrankData['sum'][keyName + "Unit"] = keyValue[-1:]
+                procrankData['sum'][keyName] = Decimal(Decimal(keyValue[:-1]))
 
-        return memoryStatData
+        xssSumLine = resultLines[-3].strip()
+        if (xssSumLine.endswith('TOTAL')):
+            xssValues = xssSumLine.split()
+            
+            ussTotalString = xssValues[-2]
+            procrankData['sum']['ussTotalUnit'] = ussTotalString[-1:]
+            procrankData['sum']['ussTotal'] = Decimal(Decimal(ussTotalString[:-1]))
+            
+            pssTotalString = xssValues[-3]
+            procrankData['sum']['pssTotalUnit'] = pssTotalString[-1:]
+            procrankData['sum']['pssTotal'] = Decimal(Decimal(pssTotalString[:-1]))
+            
+        return procrankData
 
     def getMeminfo(self):
         return self.client.getProcMeminfo()
@@ -137,11 +205,13 @@ class MemoryMonitor:
 
 
 if( __name__ =='__main__' ):
+    pp = pprint.PrettyPrinter(indent=2)
+    
     monitor = MemoryMonitor('www.linuxxueyuan.com')
     monitor.config = 'debug'
     # monitor = MemoryMonitor('www.linuxep.com')
     # monitor.getMemoryStat()
-    print(monitor.getCapacity())
+    pp.pprint(monitor.getProcrank())
     # print(monitor.getSmemOutput())
     # print(monitor.getProcrankOutput())
     # 

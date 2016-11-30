@@ -70,9 +70,7 @@ def getComponentStatus(request, component='', server='', requestId='', config='r
         
         responseData = {}
         if (component == "cpu"):
-            print("im cpu")
             monitor = CPUMonitor(server=server, config=config)
-            print("monitor construction done")
             responseData = monitor.getStatus()
         elif (component == 'iotop'):
             responseData = IOMonitor(server, config).getIoTopData()
@@ -182,6 +180,7 @@ def getPerfCpuClockData(request, server='', requestId='', config='release'):
         return
 
     try:
+        print("Im views: cpuperf------------------")
         monitor = PerfMonitor(server, config)
         return JSONResponse(monitor.getPerfCpuClock())
 
@@ -207,7 +206,7 @@ def getMemoryStat(request, server='', requestId='', config='release'):
 
     try:
         monitor = MemoryMonitor(server, config)
-        return JSONResponse(monitor.getMemoryStat())
+        return JSONResponse(monitor.getProcrank())
 
     except Exception as ex:
         # print(ex)

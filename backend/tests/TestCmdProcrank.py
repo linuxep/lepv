@@ -7,7 +7,6 @@ import pprint
 
 import os
 
-from backend.LepDClient import LepDClient
 from backend.tests.UnitTester import UnitTester
 
 

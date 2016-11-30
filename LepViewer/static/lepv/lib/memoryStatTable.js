@@ -18,10 +18,9 @@ var MemoryStatTable = (function(){
     var memoryFreeVsPssChart;
     
     var totalMemorySize;
-    var pssTotal;
 
     // any process with pss value less than pssBenchmarkValue will not be shown.
-    var pssBenchmarkValue = 0.0005;
+    var pssBenchmarkValue = 200;
 
     var controlElements = {};
     var maxDataCount = 25;
@@ -52,12 +51,11 @@ var MemoryStatTable = (function(){
             searching: true,
             columns: [
                 { title: "PID", orderable: false },
-                { title: "User", orderable: false },
-                { title: "Command", orderable: false },
-                { title: "USS", orderable: false },
-                { title: "PSS", orderable: true },
-                { title: "RSS", orderable: false },
-                { title: "Swap", orderable: false }
+                { title: "Vss", orderable: false },
+                { title: "Rss", orderable: false },
+                { title: "Pss", orderable: true },
+                { title: "Uss", orderable: false },
+                { title: "cmdline", orderable: false }
             ],
             order: [[ 4, "desc" ]]
         });
@@ -200,27 +198,29 @@ var MemoryStatTable = (function(){
                     "--",
                     "--",
                     "--",
-                    "--",
                     "--"
                 ]);
                 index = index + 1;
             }
             
         } else {
-            $.each( newData, function( processId, processData ) {
+            $.each( newData, function( lineIndex, processData ) {
 
                 if (index >= maxDataCount) {
                     return;
                 }
 
                 memoryStatTable.row.add([
-                    processId,
-                    processData['user'],
-                    processData['command'],
-                    Math.round(processData['uss'] * totalMemorySize * 1000) / 1000,
-                    Math.round(processData['pss'] * totalMemorySize * 1000) / 1000,
-                    Math.round(processData['rss'] * totalMemorySize * 1000) / 1000,
-                    Math.round(processData['swap'] * totalMemorySize * 1000) / 1000
+                    processData['pid'],
+                    processData['vss'],
+                    processData['rss'],
+                    processData['pss'],
+                    processData['uss'],
+                    //Math.round(processData['vss'] * totalMemorySize * 1000) / 1000,
+                    //Math.round(processData['rss'] * totalMemorySize * 1000) / 1000,
+                    //Math.round(processData['pss'] * totalMemorySize * 1000) / 1000,
+                    //Math.round(processData['uss'] * totalMemorySize * 1000) / 1000,
+                    processData['cmdline']
                 ]);
 
                 index = index + 1;
@@ -230,18 +230,14 @@ var MemoryStatTable = (function(){
         memoryStatTable.draw(true);
     }
 
-    function refreshMemoryPssStatChart(newData) {
+    function refreshMemoryPssStatChart(newData, sumData) {
         var pssDataColumns = [];
 
-        pssTotal = 0;
         $.each( newData, function( processId, processData ) {
-            if (processData['command'] != null) {
+            if (processData['cmdline'] != null) {
                 
-                var pssPercentValue = processData['pss'];
-                if (pssPercentValue >= pssBenchmarkValue) {
-                    var pssValue = pssPercentValue * totalMemorySize;
-                    pssTotal += pssValue;
-                    pssDataColumns.push([processData['command'], pssValue]);
+                if (processData['pss'] > pssBenchmarkValue ) {
+                    pssDataColumns.push([processData['cmdline'], processData['pss']]);
                 }
             }
         });
@@ -255,12 +251,12 @@ var MemoryStatTable = (function(){
         });
     }
 
-    function _flushMemoryPssVsTotalStatChart() {
+    function _flushMemoryPssVsTotalStatChart(sumData) {
         var dataColumn = [];
         
         // to show the correct % of pss against total in donut chart, we need to to set total as (total - pss)
-        dataColumn.push(["Total Memory", totalMemorySize - pssTotal]);
-        dataColumn.push(["Total PSS", pssTotal]);
+        dataColumn.push(["Total Memory", sumData['total'] - sumData['pssTotal']]);
+        dataColumn.push(["Total PSS", sumData['pssTotal']]);
 
         memoryFreeVsPssChart.load({
             columns: dataColumn,
@@ -298,8 +294,9 @@ var MemoryStatTable = (function(){
 
         requestId += 1;
         var ajaxTime= new Date().getTime();
-        $.get("/memstat/" + server + "/" + requestId, function(data, status){
+        $.get("/memstat/" + server + "/" + requestId, function(responseData, status){
 
+            var data = responseData['data'];
             var currentTime = new Date().getTime();
             var totalTime = (currentTime - ajaxTime) / 1000;
             responseId = data['requestId'];
@@ -311,8 +308,8 @@ var MemoryStatTable = (function(){
             refreshMemoryStatTable(null);
             refreshMemoryStatTable(data);
 
-            refreshMemoryPssStatChart(data);
-            _flushMemoryPssVsTotalStatChart();
+            refreshMemoryPssStatChart(data, responseData['sum']);
+            _flushMemoryPssVsTotalStatChart(responseData['sum']);
         });
     }
 

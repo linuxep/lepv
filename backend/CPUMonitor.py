@@ -14,7 +14,7 @@ class CPUMonitor:
         self.server = server
         self.client = LepDClient(self.server)
         self.config = config
-        print("cpu monitor construction done")
+        # print("cpu monitor construction done")
     
     def getCpuInfoForArm(self, lines):
 
@@ -269,6 +269,24 @@ class CPUMonitor:
                 cpu = re.search(" .\.. ", line).group().strip()
                 return (name, cpu)
         return None
+
+    def unitTestGetProcCpuinfo(self):
+        pass
+    
+    def unitTestGetCmdMpstat(self):
+        pass
+    
+    def unitTestGetCmdTop(self):
+        pass
+    
+    def unitTestGetProcLoadavg(self):
+        pass
+    
+    def unitTests(self):
+        self.unitTestGetProcCpuinfo()
+        self.unitTestGetCmdMpstat()
+        self.unitTestGetCmdTop()
+        self.unitTestGetProcLoadavg()
 
 if( __name__ =='__main__' ):
     

@@ -7,9 +7,7 @@ import pprint
 
 import os
 
-from backend.LepDClient import LepDClient
 from backend.tests.UnitTester import UnitTester
-
 
 def testX86(rawFile):
     filePath = os.path.join(rawFile, 'x86.txt')
@@ -27,7 +25,7 @@ if( __name__ =='__main__' ):
 
     currentDir = os.path.dirname(os.path.realpath(__file__))
     
-    rawDataPath = os.path.join(currentDir, "GetCmdIopp", 'raw')
+    rawDataPath = os.path.join(currentDir, "GetCmdDf", 'raw')
 
     testX86(rawDataPath)
     

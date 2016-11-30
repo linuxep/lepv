@@ -16,6 +16,8 @@ class LepDClient:
         self.port = port
         self.bufferSize = 2048
         self.config = config
+        
+        self.LEPDENDINGSTRING = 'lepdendstring'
 
     def listAllMethods(self):
         responseLines = self.getResponse("ListAllMethod")
@@ -47,6 +49,12 @@ class LepDClient:
         result = {}
         for responseLine in response:
             # print(responseLine)
+            if (self.LEPDENDINGSTRING in responseLine):
+                break
+
+            if(len(result) >= 25):
+                break
+                
             lineValues = responseLine.split()
             
             pid = lineValues[0]
@@ -64,9 +72,6 @@ class LepDClient:
             result[pid]['time'] = lineValues[9]
 
             result[pid]['command'] = ' '.join([str(x) for x in lineValues[10:]])
-            
-            if(len(result) >= 25):
-                break
 
         return result
 
@@ -182,16 +187,28 @@ class LepDClient:
             print(resultSumamry)
         
         return executionResuts
+
+    def getUnitTestResponse(self, commandName, arch='arm'):
+        
+        currentDir = os.path.dirname(os.path.realpath(__file__))
+        jsonFilePath = os.path.join(currentDir, 'tests', commandName, 'raw', arch + ".txt")
+        
+        with open(jsonFilePath) as data_file:
+            return json.load(data_file)
     
     def getResponse(self, methodName):
-        response = self.sendRequest(methodName)
+        if (self.config != 'unittest'):
+            response = self.sendRequest(methodName)
+        else:
+            response = self.getUnitTestResponse(methodName)
+            
         if (response == None or 'result' not in response):
             return []
 
         lines = response['result'].strip().split("\n")
-        if (self.config == 'debug'):
-            for line in lines:
-                print(line)
+        # if (self.config == 'debug'):
+        #     for line in lines:
+        #         print(line)
                 
         return lines
         
@@ -229,10 +246,15 @@ class LepDClient:
                 sock.close()
 
 if( __name__ =='__main__' ):
+    
+    # MEMO:
+    # procrank is to replace smem, ( smem will retire )
+    # iopp is to replace iotop, ( iotop is to retire )
+    # df is now supported
 
     pp = pprint.PrettyPrinter(indent=2)
-    client = LepDClient('www.linuxxueyuan.com', config='debug')
+    client = LepDClient('www.readeeper.com', config='debug')
     
     client.listAllMethods()
-    # client.getResponse('GetCmdDf')
+    # pp.pprint(client.getResponse('GetCmdDf'))
 
