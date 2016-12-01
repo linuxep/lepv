@@ -29,6 +29,7 @@ class LepDClient:
         return responseLines
 
     def ping(self):
+        print('Send "SayHello" command to LEPD')
         response = self.sendRequest("SayHello")
             
         print(response)
