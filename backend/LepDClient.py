@@ -197,6 +197,27 @@ class LepDClient:
         with open(jsonFilePath) as data_file:
             return json.load(data_file)
     
+    def getSystemInfo(self):
+        responseLines = self.getResponse('GetProcVersion')
+        if (len(responseLines) == 0):
+            return {}
+        
+        # it has just one line
+        # a line like this:
+        # Linux version 3.13.0-86-generic (buildd@lgw01-19) (gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ) #130-Ubuntu SMP Mon Apr 18 18:27:15 UTC 2016
+        responseLine = responseLines.pop(0)
+        
+        sysInfo = {}
+        sysInfo['os'] = 'linux'
+        sysInfo['kernel'] = '3.13.0-86-generic'
+        sysInfo['gcc'] = '4.8.2'
+        sysInfo['distribution'] = 'ubuntu'
+        sysInfo['version'] = '4.8.2'
+        
+        return sysInfo
+        
+        
+    
     def getResponse(self, methodName):
         if (self.config != 'unittest'):
             response = self.sendRequest(methodName)
@@ -256,6 +277,7 @@ if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     client = LepDClient('www.readeeper.com', config='debug')
     
-    client.listAllMethods()
+    pp.pprint(client.getSystemInfo())
+    # client.listAllMethods()
     # pp.pprint(client.getResponse('GetCmdDf'))
 
