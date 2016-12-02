@@ -42,7 +42,16 @@ var CapacityLoader = (function(){
         $(divName).empty();
 
         var ulElement = $("<ul></ul>").addClass('list-group');
-        var liElement1 =  $("<li></li>").addClass('list-group-item').text('CPU: ' + data['summary']);
+        var liElement1 =  $("<li></li>").addClass('list-group-item').text('CPU: ' + data['summary'] + " ");
+        
+        var imgElement = $("<img></img>").addClass("logo-icon");
+        if (data['architecture'] == "ARM") {
+            imgElement.attr("src", "/static/images/arm.jpg");
+        } else {
+            imgElement.attr("src", "/static/images/x86.png");
+        }
+        liElement1.append(imgElement);
+        
         var liElement2 =  $("<li></li>").addClass('list-group-item').text('Model: ' + data['model']);
         var liElement3 =  $("<li></li>").addClass('list-group-item').text("bogoMIPS: " + data['bogomips']);
         ulElement.append(liElement1, liElement2, liElement3);

@@ -83,6 +83,11 @@
     border-top-right-radius: 0px;
 }
 
+.logo-icon {
+    width: 30px;
+    height: 30px;
+}
+
 /*the '.flip-clock-wrapper ul' properties represent each digit's containing box.*/
 
 /*the line-height of '.flip-clock-wrapper ul li' should match the height of '.flip-clock-wrapper ul'.*/
