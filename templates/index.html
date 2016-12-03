@@ -114,7 +114,11 @@
                                             <div id="div-cpu-gauge"></div>
 
                                             <div class="panel-footer text-center">
-                                                处理器 
+                                                {% if config == 'debug' %}
+                                                处理器 - [GetCmdMpstat]
+                                                {% else %}
+                                                处理器
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +126,11 @@
                                         <div class="panel panel-primary">
                                             <div id="div-memory-gauge"></div>
                                             <div class="panel-footer text-center">
+                                                {% if config == 'debug' %}
+                                                内存 - [GetProcMeminfo]
+                                                {% else %}
                                                 内存
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -130,7 +138,11 @@
                                         <div class="panel panel-primary">
                                             <div id="div-io-gauge"></div>
                                             <div class="panel-footer text-center">
+                                                {% if config == 'debug' %}
+                                                磁盘 - [GetCmdIostat]
+                                                {% else %}
                                                 磁盘
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -138,16 +150,25 @@
 
                                 <div class="row">
                                     <div class="col-lg-3">
+                                        {% if config == 'debug' %}
+                                        <div>[GetProcCpuinfo]</div>
+                                        {% endif %}
                                         <div id="div-cpu-summary" class="panel panel-green">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3">
+                                        {% if config == 'debug' %}
+                                        <div>[GetProcMeminfo]</div>
+                                        {% endif %}
                                         <div id="div-memory-summary" class="panel panel-green">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3">
+                                        {% if config == 'debug' %}
+                                        <div>[GetCmdDf]</div>
+                                        {% endif %}
                                         <div id="div-io-summary" class="panel panel-green">
                                         </div>
                                     </div>
@@ -170,7 +191,12 @@
                         <div id="div-cpu-stat-overall-container" class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
+                                {% if config == 'debug' %}
+                                <span class="spanTitle">{{ languages.cpuStatRatioChartTitle }} - [GetCmdMpstat] </span>
+                                {% else %}
                                 <span class="spanTitle" fullTitle="{{ languages.cpuStatRatioChartTitleFull }}" shortTitle="{{ languages.cpuStatRatioChartTitle }}">{{ languages.cpuStatRatioChartTitle }}</span>
+                                {% endif %}
+                                
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -188,7 +214,7 @@
                         <div id="div-cpu-stat-idle-container" class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle" fullTitle="{{ languages.cpuIdleGroupChartTitleFull }}" shortTitle="{{ languages.cpuIdleGroupChartTitle }}">{{ languages.cpuIdleGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuIdleGroupChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -207,7 +233,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle" fullTitle="{{ languages.cpuUserGroupChartTitleFull }}" shortTitle="{{ languages.cpuUserGroupChartTitle }}">{{ languages.cpuUserGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuUserGroupChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -226,7 +252,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle" fullTitle="{{ languages.cpuIrqGroupChartTitleFull }}" shortTitle="{{ languages.cpuIrqGroupChartTitle }}">{{ languages.cpuIrqGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuIrqGroupChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -245,7 +271,11 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
+                                {% if config == 'debug' %}
+                                <span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>
+                                {% else %}
                                 <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
+                                {% endif %}
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -263,7 +293,11 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-cpu-processor"></i> CPU TOP -[GetCmdTop]
+                                {% else %}
                                 <i class="icon-cpu-processor"></i> CPU TOP
+                                {% endif %}
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -285,7 +319,11 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.ramChartTitle }} -[GetProcMeminfo]
+                                {% else %}
                                 <i class="icon-ram"></i> {{ languages.ramChartTitle }}
+                                {% endif %}
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -303,7 +341,11 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }} -[GetCmdProcrank]
+                                {% else %}
                                 <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }}
+                                {% endif %}
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -325,7 +367,11 @@
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }} -[GetCmdProcrank]
+                                {% else %}
                                 <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }}
+                                {% endif %}
                             </div>
                             <div class="panel-body">
                                 <div id="div-memory-free-pss-stat">
@@ -337,7 +383,11 @@
                     <div class="col-lg-8">
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }} -[GetCmdProcrank]
+                                {% else %}
                                 <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }}
+                                {% endif %}
                             </div>
                             <div class="panel-body">
                                 <div id="div-memory-pss-stat"></div>
@@ -350,7 +400,11 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]
+                                {% else %}
                                 <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
+                                {% endif %}
                             </div>
                             <div class="panel-body">
                                 <div class="flot-chart">
@@ -365,7 +419,11 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-syncalt"></i> I/O PP Table -[GetCmdIopp]
+                                {% else %}
                                 <i class="icon-syncalt"></i> I/O PP Table
+                                {% endif %}
                             </div>
                             <div class="panel-body">
                                 <div>
@@ -386,7 +444,11 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="glyphicon glyphicon-tasks"></i>
+                                {% if config == 'debug' %}
+                                <span class="spanTitle">{{ languages.perfTableTitle }}</span> -[GetCmdPerfCpuclock]
+                                {% else %}
                                 <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">{{ languages.perfTableTitle }}</span>
+                                {% endif %}
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -523,45 +585,55 @@
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
         GaugeCharts.setComponentDivName('io', 'div-io-gauge');
+        GaugeCharts.setRunConfig( '{{config}}' );
         GaugeCharts.start(server);
 
         CapacityLoader.setComponent('memory', 'div-memory-summary');
         CapacityLoader.setComponent('cpu', 'div-cpu-summary');
         CapacityLoader.setComponent('io', 'div-io-summary');
+        CapacityLoader.setRunConfig( '{{config}}' );
         CapacityLoader.start(server);
 
         CPUCharts.setOverallDivName('div-cpu-stat-overall');
         CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
         CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
         CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
+        CPUCharts.setRunConfig( '{{config}}' );
         CPUCharts.start(server);
 
         // Average Load
         AverageLoadChart.setChartDivName('div-system-load');
+        AverageLoadChart.setRunConfig( '{{config}}' );
         AverageLoadChart.start(server);
 
         MemoryCharts.setChartDivName('div-memory-chart');
+        MemoryCharts.setRunConfig( '{{config}}' );
         MemoryCharts.start(server);
 
         MemoryStatTable.setChartDivName('div-memory-stat');
         MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
         MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
         MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
+        MemoryStatTable.setRunConfig( '{{config}}' );
         MemoryStatTable.start(server);
 
         IOStatCharts.setChartDivName('div-io-stat');
+        IOStatCharts.setRunConfig( '{{config}}' );
         IOStatCharts.start(server);
 
         IOPPTable.setChartDivName('div-io-pp');
         IOPPTable.setTableName('#io-pp-table');
+        IOPPTable.setRunConfig( '{{config}}' );
         IOPPTable.start(server);
 
         CPUTopTable.setChartDivName('div-cpu-top');
         CPUTopTable.setTableName('#cpu-top-table');
+        CPUTopTable.setRunConfig( '{{config}}' );
         CPUTopTable.start(server);
 
         PerfCPUTable.setChartDivName('div-perf');
         PerfCPUTable.setTableName('#perf-table');
+        PerfCPUTable.setRunConfig( '{{config}}' );
         PerfCPUTable.start(server);
 
         $('[data-toggle="tooltip"]').tooltip();

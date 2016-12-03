@@ -23,6 +23,8 @@ var IOPPTable = (function(){
     var requestId;
     var responseId = 0;
 
+    var config = 'release';
+
     function _init() {
         
         initTable();
@@ -196,10 +198,19 @@ var IOPPTable = (function(){
 
         refreshTable();
     }
+
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
     
     return {
         setChartDivName: setDivName,
         setTableName:setTableName,
+        setRunConfig:setRunConfig,
         start: start
     };
 

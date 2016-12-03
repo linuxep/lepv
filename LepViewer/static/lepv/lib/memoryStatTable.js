@@ -31,6 +31,8 @@ var MemoryStatTable = (function(){
     var server;
     var requestId;
     var responseId = 0;
+
+    var config = 'release';
     
     function init() {
         
@@ -333,12 +335,21 @@ var MemoryStatTable = (function(){
             refreshCharts();
         }, refreshInterval * 1000);
     }
+
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
     
     return {
         setChartDivName: setDivName,
         setMemoryStatTableDivName:setMemoryStatTableDivName,
         setMemoryPssChartDivName: setMemoryPssChartDivName,
         setMemoryFreeVsPssChartDivName: setMemoryFreeVsPssChartDivName,
+        setRunConfig:setRunConfig,
         start: start
     };
 

@@ -48,12 +48,13 @@ urlpatterns = [
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/$', getComponentCapacity),
     url(r'^capacity/$', getComponentCapacity),
 
-    url(r'^test/(?P<server>.+)/$', showTestPage),
     url(r'^test/$', showTestPage),
+    url(r'^test/sanity/$', showSanityTestPage),
+    url(r'^test/lepdperformance/$', showLepdPerformanceTestPage),
 
     url(r'^methodmap/$', getMethodMap),
 
-    url(r'^(?P<server>.+)/$', showHomepage),
+    url(r'^(?P<config>.+)/$', showHomepage),
     url(r'^$', showHomepage),
     url(r'm/^$', showHomepage),
 ]

@@ -8,6 +8,8 @@ var CapacityLoader = (function(){
     var server;
     var requestId;
     var responseId = 0;
+
+    var config = 'release';
     
     var componentDivMap = {};
 
@@ -100,9 +102,18 @@ var CapacityLoader = (function(){
             });
         });
     }
+
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
     
     return {
         setComponent: setComponent,
+        setRunConfig:setRunConfig,
         start: start
     };
 

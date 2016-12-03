@@ -25,6 +25,8 @@ var IOStatCharts = (function(){
     var requestId;
     var responseId = 0;
 
+    var config = 'release';
+
     function init() {
 
         //Sample: http://c3js.org/samples/timeseries.html
@@ -187,8 +189,17 @@ var IOStatCharts = (function(){
         refreshChart();
     }
 
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
+
     return {
         setChartDivName: setDivName,
+        setRunConfig:setRunConfig,
         start: start
     };
 

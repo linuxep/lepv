@@ -29,6 +29,8 @@ var MemoryCharts = (function(){
     var requestId;
     var responseId = 0;
 
+    var config = 'release';
+
     function _init() {
 
         timeData = ['x'];
@@ -200,9 +202,18 @@ var MemoryCharts = (function(){
         _init();
         refreshChart();
     }
+
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
     
     return {
         setChartDivName: setDivName,
+        setRunConfig:setRunConfig,
         start: start
     };
 

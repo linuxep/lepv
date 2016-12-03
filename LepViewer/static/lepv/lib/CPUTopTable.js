@@ -23,6 +23,8 @@ var CPUTopTable = (function(){
     var requestId;
     var responseId = 0;
 
+    var config = 'release';
+
     function _init() {
         
         initCpuTopTable();
@@ -208,10 +210,19 @@ var CPUTopTable = (function(){
 
         refreshCpuTopTable();
     }
+
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
     
     return {
         setChartDivName: setDivName,
         setTableName:setCputTopTableName,
+        setRunConfig:setRunConfig,
         start: start
     };
 

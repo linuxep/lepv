@@ -30,32 +30,46 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 
-def showHomepage(request, server=None):
+def showHomepage(request, config='release'):
     template = get_template('index.html')
     
-    html = None
-    if (server == None):
-        html = template.render(Context({
-            'request': request,
-            'languages': Languages().getLanguagePackForCN(),
-        }))
-    else:
-        html = template.render(Context({
-            'request': request,
-            'languages': Languages().getLanguagePackForCN(),
-            'server': server
-        }))
-
-    return HttpResponse(html)
-
-def showTestPage(request, server=''):
-    template = get_template('test.html')
+    if (config != 'debug'):
+        config = 'release'
 
     html = template.render(Context({
         'request': request,
-        'server': server
+        'languages': Languages().getLanguagePackForCN(),
+        'config': config
+    }));
+
+    return HttpResponse(html)
+
+def showTestPage(request):
+    template = get_template('test.html')
+
+    html = template.render(Context({
+        'request': request
     }))
         
+    return HttpResponse(html)
+
+
+def showSanityTestPage(request):
+    template = get_template('sanityTest.html')
+
+    html = template.render(Context({
+        'request': request
+    }))
+
+    return HttpResponse(html)
+
+def showLepdPerformanceTestPage(request):
+    template = get_template('lepdPerformanceTesting.html')
+
+    html = template.render(Context({
+        'request': request
+    }))
+
     return HttpResponse(html)
 
 def getComponentStatus(request, component='', server='', requestId='', config='release'):

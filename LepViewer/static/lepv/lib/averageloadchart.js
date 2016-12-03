@@ -32,6 +32,8 @@ var AverageLoadChart = (function(){
     var requestId;
     var responseId = 0;
 
+    var config = 'release';
+
     function _init() {
 
         timeData = ['x'];
@@ -211,9 +213,18 @@ var AverageLoadChart = (function(){
 
         refreshChart();
     }
+    
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
 
     return {
         setChartDivName: setDivName,
+        setRunConfig:setRunConfig,
         start: start
     };
 

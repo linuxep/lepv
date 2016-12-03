@@ -15,6 +15,7 @@ var GaugeCharts = (function(){
     var server;
     var requestId;
     var responseId = 0;
+    var config = 'release';
 
     function _init() {
         
@@ -117,10 +118,18 @@ var GaugeCharts = (function(){
         }, refreshInterval * 3000);
     }
 
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
+
     return {
         setChartDivName: setDivName,
         setComponentDivName: setComponentDivName,
-        
+        setRunConfig:setRunConfig,
         start: start
     };
 

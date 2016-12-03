@@ -37,6 +37,8 @@ var CPUCharts = (function(){
     
     var cpuCoreCount = 1;
 
+    var config = 'release';
+
     function _getAllFieldNames() {
         return [ "user", "nice", "system", "idle", "iowait", "irq", "softirq", "steal", "guest", "guestnice"];
     }
@@ -422,12 +424,21 @@ var CPUCharts = (function(){
         refreshCharts();
     }
 
+    function setRunConfig(newConfig) {
+        if (newConfig == 'debug') {
+            config = newConfig;
+        } else {
+            config = 'release';
+        }
+    }
+
     return {
         setChartDivName: setDivName,
         setOverallDivName: setOverallDivName,
         setIdleStatDivName: setIdleStatDivName,
         setUserStatDivName: setUserStatDivName,
         setIrqStatDivName: setIrqStatDivName,
+        setRunConfig:setRunConfig,
         start: start
     };
 
