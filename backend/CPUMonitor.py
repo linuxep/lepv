@@ -143,7 +143,8 @@ class CPUMonitor:
         componentInfo["ratio"] = 100 - allIdleRatio
         componentInfo['server'] = self.server
         
-        componentInfo['rawResult'] = statData['rawResult']
+        if (self.config == 'debug'):
+            componentInfo['rawResult'] = statData['rawResult']
 
         return componentInfo
 
