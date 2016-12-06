@@ -36,8 +36,8 @@ class LepDRequestor(threading.Thread):
         print("")
         print("Command: " + self.command)
         print("Duration: " + str(self.timeUsed) + " seconds")
-        print("Result:")
-        print(self.response)
+        # print("Result:")
+        # print(self.response)
         
     
     def runAndReport(self):

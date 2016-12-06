@@ -3,6 +3,7 @@ __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.LepDRequestor import LepDRequestor
+from backend.LepDClient import LepDClient
 
 __author__ = 'xmac'
 
@@ -13,6 +14,7 @@ class LepDTests:
     
     def runMethodConcurrently(self, command, times):
         
+        print("Testing command '" + command + "' with " + str(times) + " threads concurrently.")
         processes = []
         
         while times > 0:
@@ -28,8 +30,31 @@ class LepDTests:
         for process in processes:
             process.report()
 
-    def runMethodRepeatedly(self, command, times):
+    def runAllMethodConcurrently(self):
 
+        print("Testing all commands concurrently.")
+        processes = []
+
+        client = LepDClient(self.server)
+        commands = client.listAllMethods()
+        
+        for command in commands:
+            print("Running command: " + command)
+
+            lepdRequestor = LepDRequestor(command)
+            processes.append(lepdRequestor)
+            lepdRequestor.start()
+
+        print("Joining processes...")
+        for process in processes:
+            process.join()
+
+        print("Reporting...")
+        for process in processes:
+            process.report()
+
+    def runMethodRepeatedly(self, command, times):
+        print("Testing command '" + command + "' for " + str(times) + " times.")
         i = 1
         while i <= times:
             print("")
@@ -41,14 +66,32 @@ class LepDTests:
             lepdRequestor.report()
 
             i = i + 1
+    
+    
+    def runAllMethodsRepeatedly(self):
+        client = LepDClient(self.server)
+        commands = client.listAllMethods()
+
+        for command in commands:
+            print("Running command: " + command)
+            
+            i = 1
+            while( i <= 3 ):
+                self.runMethodConcurrently(command, 1)
+                i += 1
 
 
 if( __name__ =='__main__' ):
     
-    tests = LepDTests('www.linuxep.com')
-    tests = LepDTests('www.linuxxueyuan.com')
-    tests.runMethodConcurrently("GetCmdIostat", 10)
-    tests.runMethodRepeatedly("GetCmdIostat", 20)
+    server = 'localhost'
+    print("Testing against: " + server)
+    
+    tests = LepDTests(server)
+    # tests.runAllMethodsRepeatedly()
+    tests.runAllMethodConcurrently()
+    
+    # tests.runMethodConcurrently("GetCmdPerfCpuclock", 5)
+    # tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
 
 
 

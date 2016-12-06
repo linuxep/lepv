@@ -54,47 +54,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <script>
-        function log(resultTextArea, line) {
-            var objectAsString = JSON.stringify(line);
-            resultTextArea.val( resultTextArea.val() + "\n" + objectAsString);
-        }
-    </script>
-
-    <script>
-        function testingByComponent(textElement, textElement2, panelDiv, fullUrl) {
-
-                $.get(fullUrl).success(
-                        function(result) {
-
-                            panelDiv.addClass("panel-green");
-                            
-                            var rawResult = result["rawResult"];
-                            delete result['rawResult'];
-
-                            var jsonString = JSON.stringify(result, undefined, 2);
-                            textElement.val(jsonString);
-
-                            if (rawResult != null) {
-                                var resultLines = "";
-                                for (var i = 0; i < rawResult.length; i++) {
-                                    resultLines += rawResult[i] + "\r\n";
-                                }
-                                textElement2.val(resultLines);
-                            }
-                            
-                        }
-                ).error(
-                        function(jqXHR, textStatus, errorThrown) {
-                            panelDiv.addClass("panel-red");
-
-                            log(textElement, fullUrl);
-                            log(textElement, textStatus + "; " + jqXHR.status + " " + errorThrown);
-                        }
-                )
-        }
-    </script>
 
     <script>
         $( document ).ready(function() {
@@ -122,46 +81,32 @@
     
     <script>
         function createProgressBar(commandResponse) {
-            if (commandResponse != undefined) {
+            var progressDiv = $("<div></div>").addClass("progress");
+            $("#divResults").append(progressDiv);
 
-                var progressDiv = $("<div></div>").addClass("progress");
-                $("#divResults").append(progressDiv);
+            var progressBarDiv = $("<div></div>").addClass("progress-bar progress-bar-success");
+            progressBarDiv.attr('aria-valuemin', 0);
+            progressBarDiv.attr('aria-valuemax', 30);
+            progressBarDiv.attr('style', "width:40%");
+            progressBarDiv.val("2 seconds");
 
-                var progressBarDiv = $("<div></div>").addClass("progress-bar progress-bar-success");
-                progressBarDiv.attr('aria-valuemin', 0);
-                progressBarDiv.attr('aria-valuemax', 30);
-                progressBarDiv.attr('style', "width:40%");
-                progressBarDiv.val("2 seconds");
-                
-                progressDiv.append(progressBarDiv);
-            }
+            progressDiv.append(progressBarDiv);
         }
     </script>
 
     <script>
         function testing() {
-
             var server = $('#txtServer').val();
             var command = $('#methodSelect').val();
 
             $("#divResults").empty();
-            
-            var resultArea = $('#result'); 
 
-            resultArea.val('');
-
-//            url(r'^command/(?P<server>.+)/(?P<command>.+)/$', runCommand),
             var commandUrl = '/command/' + server + '/' + command;
-            
-            $.get(commandUrl).success(
-                    function(commandResponse) {
-                        var resultDiv = createProgressBar(commandResponse);
-                    }
-            ).error(
-                    function(jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR.status + " " + errorThrown);
-                    }
-            );
+            $.get(commandUrl, function(responseData, status) {
+                var xxx = 1;
+                console.log(responseData);
+                createProgressBar(responseData);
+            });
         }
     </script>
 
