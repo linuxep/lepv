@@ -20,13 +20,12 @@ class LepDClient:
         self.LEPDENDINGSTRING = 'lepdendstring'
 
     def listAllMethods(self):
-        responseLines = self.getResponse("ListAllMethod")
-        if (len(responseLines) == 0):
-            return None
-        
-        for method in responseLines:
-            print(method)
-        return responseLines
+        response = self.sendRequest('ListAllMethod')
+        if (response == None or 'result' not in response):
+            return []
+
+        lines = response['result'].strip().split()
+        return lines
 
     def ping(self):
         print('Send "SayHello" command to LEPD')
