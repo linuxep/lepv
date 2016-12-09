@@ -3,18 +3,17 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvIOChart = function(divName, dataUrlPrefix) {
+var LepvIOChart = function(divName) {
     
-    LepvChart.call(this, divName, dataUrlPrefix);
+    LepvChart.call(this, divName);
     console.log("I'm initialized in LepvIO");
-
-    this.timeData = ['x'];
-    this.readData = ['read'];
-    this.writeData = ['write'];
+    
+    this.maxDataCount = 500;
+    this.refreshInterval = 10;
 
     this.initializeChart();
     console.log(this.writeData);
-}
+};
 
 LepvIOChart.prototype = Object.create(LepvChart.prototype);
 
@@ -32,22 +31,7 @@ LepvIOChart.prototype.refreshChart = function() {
 };
 
 LepvIOChart.prototype.reloadChartData = function(data) {
-    if (this.readData.length > this.maxDataCount ) {
-        this.timeData.splice(1, 1);
-        this.readData.splice(1, 1);
-        this.writeData.splice(1, 1);
-    }
-
-    this.timeData.push(new Date());
-    this.readData.push(data['rkB']);
-    this.writeData.push(data['wkB']);
-
-    this.chart.load({
-        columns: [this.timeData, this.readData, this.writeData],
-        keys: {
-            value: ['']
-        }
-    });
+    
 };
 
 LepvIOChart.prototype.initializeChart = function() {
