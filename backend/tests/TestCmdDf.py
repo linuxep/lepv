@@ -25,7 +25,7 @@ if( __name__ =='__main__' ):
 
     currentDir = os.path.dirname(os.path.realpath(__file__))
     
-    rawDataPath = os.path.join(currentDir, "GetCmdIopp", 'raw')
+    rawDataPath = os.path.join(currentDir, "GetCmdDf", 'raw')
 
     testX86(rawDataPath)
     

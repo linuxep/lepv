@@ -227,10 +227,6 @@ class LepDClient:
             return []
 
         lines = response['result'].strip().split("\n")
-        # if (self.config == 'debug'):
-        #     for line in lines:
-        #         print(line)
-                
         return lines
         
         
