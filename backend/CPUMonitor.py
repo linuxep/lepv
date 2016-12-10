@@ -14,7 +14,6 @@ class CPUMonitor:
         self.server = server
         self.client = LepDClient(self.server)
         self.config = config
-        # print("cpu monitor construction done")
     
     def getCpuInfoForArm(self, lines):
 
@@ -247,48 +246,6 @@ class CPUMonitor:
         responseData['data'] = result
         return responseData
 
-    def getTopHResult(self):
-        response = self.client.getTopHResult()
-        return response
-
-    def getCpuByName(self, name):
-        response = self.client.getTopOutput()
-        
-        for line in response:
-            if name in line:
-                pid = line.strip().split(" ")[0].strip()
-                cpu = re.search(" .\.. ", line).group().strip()
-                return (pid, cpu)
-        return None
-
-    def getCpuByPid(self, pid):
-        response = self.client.getTopOutput()
-        
-        for line in response:
-            if pid == line.strip().split(" ")[0].strip():
-                name = re.split(":.+ ",line, 1)[1].strip()
-                cpu = re.search(" .\.. ", line).group().strip()
-                return (name, cpu)
-        return None
-
-    def unitTestGetProcCpuinfo(self):
-        pass
-    
-    def unitTestGetCmdMpstat(self):
-        pass
-    
-    def unitTestGetCmdTop(self):
-        pass
-    
-    def unitTestGetProcLoadavg(self):
-        pass
-    
-    def unitTests(self):
-        self.unitTestGetProcCpuinfo()
-        self.unitTestGetCmdMpstat()
-        self.unitTestGetCmdTop()
-        self.unitTestGetProcLoadavg()
-
 if( __name__ =='__main__' ):
     
     # run "stress" command on the server to make data change
@@ -297,8 +254,7 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    monitor = CPUMonitor('www.linuxxueyuan.com')
-    # monitor = CPUMonitor('www.linuxep.com')
+    monitor = CPUMonitor('www.readeeper.com')
 
     # pp.pprint(monitor.getCapacity())
     pp.pprint(monitor.getCpuInfo())
