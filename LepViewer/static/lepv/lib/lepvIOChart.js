@@ -4,15 +4,19 @@
  */
 
 var LepvIOChart = function(divName) {
-    
+
+    // Call the base constructor, making sure (using call)
+    // that "this" is set correctly during the call
     LepvChart.call(this, divName);
     console.log("I'm initialized in LepvIO");
     
     this.maxDataCount = 500;
     this.refreshInterval = 10;
+    this.chartHeaderColor = 'yellow';
+
+    this.updateChartHeader();
 
     this.initializeChart();
-    console.log(this.writeData);
 };
 
 LepvIOChart.prototype = Object.create(LepvChart.prototype);

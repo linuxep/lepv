@@ -239,26 +239,33 @@ function onPingButtonClicked(callbackFunctor) {
 
     $('#divPingResult').empty();
 
-    $.get("/ping/" + server).done(
-        function(data, status) {
-            if (data['connected']) {
-                var resultButton = $("<button></button>").text("Connection succeeded!").addClass("btn btn-success");
-                $('#divPingResult').append(resultButton);
+    $('#divSettings').modal('hide');
 
-                $('#divSettings').modal('hide');
+    var data = {};
+    data['cpuCoreCount'] = 2;
+    data['memoryTotal'] = 1000;
+    callbackFunctor(server, data);
 
-                callbackFunctor(server, data);
-
-            } else {
-                var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");
-                $('#divPingResult').append(resultButton);
-            }
-        }
-    ).fail(
-        function(data, status) {
-            var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");
-            $('#divPingResult').append(resultButton);
-        }
-    );
+    //$.get("/ping/" + server).done(
+    //    function(data, status) {
+    //        if (data['connected']) {
+    //            var resultButton = $("<button></button>").text("Connection succeeded!").addClass("btn btn-success");
+    //            $('#divPingResult').append(resultButton);
+    //
+    //            $('#divSettings').modal('hide');
+    //
+    //            callbackFunctor(server, data);
+    //
+    //        } else {
+    //            var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");
+    //            $('#divPingResult').append(resultButton);
+    //        }
+    //    }
+    //).fail(
+    //    function(data, status) {
+    //        var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");
+    //        $('#divPingResult').append(resultButton);
+    //    }
+    //);
 
 }

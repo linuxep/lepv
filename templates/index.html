@@ -604,10 +604,6 @@
         Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
         Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
 
-
-        var baseChart = new LepvChart();
-        baseChart.report();
-        
         var ioChart = new LepvIOChart('div-io-stat-XXX');
         ioChart.report();
 //        ioChart.initializeChart();
