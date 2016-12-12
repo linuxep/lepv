@@ -14,7 +14,6 @@ var LepvMemoryChart = function(divName) {
     this.chartHeaderColor = 'green';
 
     this.updateChartHeader();
-
     this.initializeChart();
 };
 

@@ -15,12 +15,10 @@ var LepvIOChart = function(divName) {
     this.chartHeaderColor = 'yellow';
 
     this.updateChartHeader();
-
     this.initializeChart();
 };
 
 LepvIOChart.prototype = Object.create(LepvChart.prototype);
-
 LepvIOChart.prototype.constructor = LepvIOChart;
 
 LepvIOChart.prototype.refreshChart = function() {
@@ -46,7 +44,7 @@ LepvIOChart.prototype.initializeChart = function() {
         bindto: '#' + this.chartDivName,
         data: {
             x: 'x',
-            columns: [['x'], ['read'], ['write']],
+            columns: [['x'], ['read'], ['write']]
         },
         legend: {
             show: true,

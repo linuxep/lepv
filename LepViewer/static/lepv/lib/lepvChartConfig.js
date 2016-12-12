@@ -6,7 +6,6 @@
 var LepvChartConfig = function(callback, thisContainer) {
     
     this.dialogTitle = "";
-    this.callbackFunctor = callback;
     this.thisContainer = thisContainer;
     this.configDialog = null;
     this.configContainerDiv = null;
@@ -17,6 +16,32 @@ var LepvChartConfig = function(callback, thisContainer) {
     this.saveButton = null;
     
     this.createBasicElements();
+};
+
+LepvChartConfig.prototype.show = function(currentConfigData) {
+
+    this.displayRefreshIntervalConfig(currentConfigData['refreshInterval']);
+    this.displayMaxDataCountConfig(currentConfigData['maxDataCount']);
+
+    this.configDialog.modal();
+};
+
+LepvChartConfig.prototype.save = function() {
+
+    var updatedConfig = {};
+    updatedConfig['refreshInterval'] = this.refreshIntervalTxt.val();
+    updatedConfig['maxDataCount'] = this.maxDataCountTxt.val();
+
+    this.thisContainer.updateConfigs(updatedConfig);
+};
+
+LepvChartConfig.prototype.displayMaxDataCountConfig = function(currentMaxCount) {
+    if (this.maxDataCountTxt == null) {
+        this.createMaxDataCountConfigElements();
+    }
+
+    this.maxDataCountTxt.val(currentMaxCount);
+    this.maxDataCountTxt.text(currentMaxCount);
 };
 
 LepvChartConfig.prototype.createBasicElements = function() {
@@ -67,7 +92,6 @@ LepvChartConfig.prototype.createBasicElements = function() {
     divModalFooter.append(this.saveButton);
 
     this.saveButton.on("click", $.proxy(this.save, this));
-    //this.saveButton.on("click", this.save);
 };
 
 LepvChartConfig.prototype.createRefreshIntervalConfigElements = function() {
@@ -124,44 +148,4 @@ LepvChartConfig.prototype.displayRefreshIntervalConfig = function(currentInterva
     
     this.refreshIntervalTxt.val(currentInterval);
     this.refreshIntervalTxt.text(currentInterval);
-};
-
-LepvChartConfig.prototype.displayMaxDataCountConfig = function(currentMaxCount) {
-    if (this.maxDataCountTxt == null) {
-    this.createMaxDataCountConfigElements();
-    }
-    
-    this.maxDataCountTxt.val(currentMaxCount);
-    this.maxDataCountTxt.text(currentMaxCount);
-};
-
-LepvChartConfig.prototype.setCallback = function(saveFunctor) {
-    this.callbackFunctor = saveFunctor;
-};
-
-LepvChartConfig.prototype.create = function() {
-    console.log("create");
-};
-
-LepvChartConfig.prototype.show = function(currentConfigData) {
-    
-    this.displayRefreshIntervalConfig(currentConfigData['refreshInterval']);
-    this.displayMaxDataCountConfig(currentConfigData['maxDataCount']);
-    
-    this.configDialog.modal();
-};
-
-LepvChartConfig.prototype.save = function() {
-
-    var updatedConfig = {};
-    updatedConfig['refreshInterval'] = this.refreshIntervalTxt.val();
-    updatedConfig['maxDataCount'] = this.maxDataCountTxt.val();
-    
-    this.thisContainer.updateConfigs(updatedConfig);
-    //this.callbackFunctor(updatedConfig);
-};
-
-LepvChartConfig.prototype.cancel = function() {
-
-    console.log("cancel");
 };
