@@ -569,6 +569,7 @@
     <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
 
+    <script src="{% static "lepv/lib/lepvChartConfig.js" %}"></script>
     <script src="{% static "lepv/lib/lepvChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvIOChart.js" %}"></script>
 
@@ -605,7 +606,6 @@
         Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
 
         var ioChart = new LepvIOChart('div-io-stat-XXX');
-        ioChart.report();
 //        ioChart.initializeChart();
 
 //        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');

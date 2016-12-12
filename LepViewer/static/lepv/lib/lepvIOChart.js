@@ -94,20 +94,3 @@ LepvIOChart.prototype.start = function() {
     }, this.refreshInterval * 1000);
 
 };
-
-
-LepvIOChart.prototype.updateConfigs = function() {
-    this.maxDataCount = newConfigs.maxDataCount;
-
-    var updatedFlushInterval = newConfigs.flushInterval;
-
-    if (updatedFlushInterval != this.refreshInterval) {
-        this.refreshInterval = newConfigs.flushInterval;
-
-        clearInterval(this.invervalId);
-
-        this.intervalId = setInterval(function () {
-            this.refreshChart();
-        }, this.refreshInterval * 1000);
-    }
-};
