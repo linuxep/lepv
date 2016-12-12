@@ -434,6 +434,25 @@
                     </div>
                 </div>
 
+                <div id='IOChartsYYY' class="row anchor_div">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-syncalt"></i> IOXXX
+                                {% else %}
+                                <i class="icon-syncalt"></i> IOXXX
+                                {% endif %}
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-io-stat-YYY" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
@@ -572,6 +591,7 @@
     <script src="{% static "lepv/lib/lepvChartConfig.js" %}"></script>
     <script src="{% static "lepv/lib/lepvChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvIOChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvMemoryChart.js" %}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -606,6 +626,9 @@
         Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
 
         var ioChart = new LepvIOChart('div-io-stat-XXX');
+
+
+        var memChart = new LepvMemoryChart('div-io-stat-YYY');
 //        ioChart.initializeChart();
 
 //        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
