@@ -540,12 +540,9 @@
 
     <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
     <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
-    <script src="{% static "lepv/lib/memorycharts.js" %}"></script>
     <script src="{% static "lepv/lib/memoryStatTable.js" %}"></script>
     <script src="{% static "lepv/lib/CPUTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
-    <script src="{% static "lepv/lib/iostatcharts.js" %}"></script>
-    <script src="{% static "lepv/lib/ioPPTable.js" %}"></script>
     <script src="{% static "lepv/lib/averageloadchart.js" %}"></script>
     <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
@@ -554,6 +551,7 @@
     <script src="{% static "lepv/lib/lepvChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvIOStatChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvMemoryChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvIOPPTable.js" %}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -590,6 +588,10 @@
         var ioChart = new LepvIOStatChart('div-io-stat');
         ioChart.start(server);
 
+        var ioPPTable = new LepvIOPPTable('div-io-pp');
+        ioPPTable.setTableDivName('#io-pp-table');
+        ioPPTable.start(server);
+
         var memChart = new LepvMemoryChart('div-memory-chart');
         memChart.start(server);
 
@@ -623,11 +625,6 @@
         MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
         MemoryStatTable.setRunConfig( '{{config}}' );
         MemoryStatTable.start(server);
-
-        IOPPTable.setChartDivName('div-io-pp');
-        IOPPTable.setTableName('#io-pp-table');
-        IOPPTable.setRunConfig( '{{config}}' );
-        IOPPTable.start(server);
 
         CPUTopTable.setChartDivName('div-cpu-top');
         CPUTopTable.setTableName('#cpu-top-table');

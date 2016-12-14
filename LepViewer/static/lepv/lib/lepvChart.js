@@ -4,7 +4,8 @@
  */
 
 var LepvChart = function(divName) {
-  this.chartDivName = divName;
+  this.setDivName(divName);
+  this.tableDivName = null;
   this.chartDiv = null;
   if (this.chartDivName != '') {
     this.chartDiv = $('#' + this.chartDivName);
@@ -12,6 +13,7 @@ var LepvChart = function(divName) {
   
   this.charts = null;
   this.chart = null;
+  this.table = null;
   this.chartTitle = null;
   this.chartHeaderColor = 'grey';
 
@@ -37,6 +39,22 @@ var LepvChart = function(divName) {
   this.dataUrlPrefix = null;
 
   this.initializeControlElements();
+};
+
+LepvChart.prototype.setDivName = function(divName) {
+  if (divName.startsWith('#')) {
+    this.chartDivName = divName.substr(1);
+  } else {
+    this.chartDivName = divName;
+  }
+};
+
+LepvChart.prototype.setTableDivName = function(tableDivName) {
+  if (tableDivName.startsWith('#')) {
+    this.tableDivName = tableDivName;
+  } else {
+    this.tableDivName = '#' + tableDivName;
+  }
 };
 
 LepvChart.prototype.updateChartHeader = function() {
