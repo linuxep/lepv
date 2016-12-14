@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvIOChart = function(divName) {
+var LepvIOStatChart = function(divName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -21,10 +21,10 @@ var LepvIOChart = function(divName) {
     this.initialize();
 };
 
-LepvIOChart.prototype = Object.create(LepvChart.prototype);
-LepvIOChart.prototype.constructor = LepvIOChart;
+LepvIOStatChart.prototype = Object.create(LepvChart.prototype);
+LepvIOStatChart.prototype.constructor = LepvIOStatChart;
 
-LepvIOChart.prototype.initialize = function() {
+LepvIOStatChart.prototype.initialize = function() {
     
     this.chart = c3.generate({
         bindto: '#' + this.chartDivName,
@@ -66,7 +66,7 @@ LepvIOChart.prototype.initialize = function() {
     });
 };
 
-LepvIOChart.prototype.updateChartData = function(data) {
+LepvIOStatChart.prototype.updateChartData = function(data) {
     var diskDatas = data['disks'];
     
     var thisChart = this;
