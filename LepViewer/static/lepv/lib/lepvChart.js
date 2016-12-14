@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvChart = function(divName = '') {
+var LepvChart = function(divName) {
   this.chartDivName = divName;
   this.chartDiv = null;
   if (this.chartDivName != '') {
@@ -22,12 +22,13 @@ var LepvChart = function(divName = '') {
   this.refreshInterval = 2; // in seconds
   
   this.isChartPaused = false;
-  this.invervalId = null;
+  this.intervalId = null;
   
   this.server = null;
   
   this.requestId = null;
   this.responseId = null;
+  this.maxRequestIdGap = 2;
   
   this.executionConfig = 'release';
   
@@ -63,7 +64,6 @@ LepvChart.prototype.updateChartHeader = function() {
 };
 
 LepvChart.prototype.onPauseResume = function() {
-    
   // Inside an event handler, "this" is the object that created the event!!!!!
   // unless we bind event???
   if (this.controlElements == null) {
@@ -100,11 +100,11 @@ LepvChart.prototype.updateConfigs = function(newConfigs) {
     if (updatedRefreshInterval != this.refreshInterval) {
       this.refreshInterval = newConfigs.refreshInterval;
 
-      //clearInterval(this.invervalId);
-      //
-      //this.intervalId = setInterval(function () {
-      //  this.refreshChart();
-      //}, this.refreshInterval * 1000);
+      var thisChart = this;
+      clearInterval(this.intervalId);
+      this.intervalId = setInterval(function () {
+        thisChart.refresh();
+      }, this.refreshInterval * 1000);
     }
   }
 };
@@ -115,11 +115,9 @@ LepvChart.prototype.initializeControlElements = function() {
   }
 
   this.createControlElements();
-  
-  // bind click events
+
   // IMPORTANT:  $.proxy() is the way to get the event bind work here
   this.controlElements.pauseResumeLink.on("click", $.proxy(this.onPauseResume, this));
-
   this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
 };
 
@@ -186,10 +184,6 @@ LepvChart.prototype.createControlElements = function() {
 
 };
 
-LepvChart.prototype.setServer = function(serverToMonitor) {
-  this.server = serverToMonitor;
-};
-
 LepvChart.prototype.start = function(serverToMonitor) {
   if (serverToMonitor == this.server) {
     return;
@@ -216,21 +210,17 @@ LepvChart.prototype.updateChartData = function(responseData) {
   console.log("updateChartData() method needs to be overwritten by sub-classes!")
 };
 
-LepvChart.prototype.process = function(responseData) {
-  console.log("updateChartData() method needs to be overwritten by sub-classes!")
-};
-
 LepvChart.prototype.refresh = function() {
   if (this.isChartPaused) {
     return;
   }
 
-  if (this.requestId - this.responseId >= 2) {
+  if (this.requestId - this.responseId >= this.maxRequestIdGap) {
     return;
   }
 
   this.requestId += 1;
-  var startTime= new Date().getTime();
+  //var startTime= new Date().getTime();
 
   //this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
   var thisChart = this;
@@ -241,8 +231,8 @@ LepvChart.prototype.refresh = function() {
       return;
     }
 
-    var endTime = new Date().getTime();
-    var totalTime = (endTime - startTime) / 1000;
+    //var endTime = new Date().getTime();
+    //var totalTime = (endTime - startTime) / 1000;
     
     thisChart.responseId = responseData['requestId'];
     

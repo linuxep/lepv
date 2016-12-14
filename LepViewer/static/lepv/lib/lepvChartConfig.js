@@ -5,7 +5,6 @@
 
 var LepvChartConfig = function(callback, thisContainer) {
     
-    this.dialogTitle = "";
     this.thisContainer = thisContainer;
     this.configDialog = null;
     this.configContainerDiv = null;
@@ -70,7 +69,7 @@ LepvChartConfig.prototype.createBasicElements = function() {
     var btnClose = $('<button/>').addClass("close").attr('type', "button").attr('data-dismiss', "modal");
     divModalHeader.append(btnClose);
 
-    var h4Title = $("<h4/>").addClass("modal-title").text('参数设置');
+    var h4Title = $("<h4/>").addClass("modal-title").text(this.thisContainer.chartTitle + '参数设置');
     divModalHeader.append(h4Title);
 
     this.configContainerDiv = $("<div/>").addClass("modal-body");
@@ -132,8 +131,8 @@ LepvChartConfig.prototype.createMaxDataCountConfigElements = function() {
     
     this.maxDataCountTxt = $("<input/>")
       .attr("type", "number")
-      .attr("min", 20)
-      .attr("max", 300)
+      .attr("min", 50)
+      .attr("max", 500)
       .attr("step", 5)
       .attr("aria-describedby", "basic-addon3")
       .addClass("form-control")

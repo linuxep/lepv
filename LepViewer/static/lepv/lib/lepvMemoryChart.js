@@ -10,7 +10,7 @@ var LepvMemoryChart = function(divName) {
     LepvChart.call(this, divName);
     
     this.maxDataCount = 200;
-    this.refreshInterval = 2;
+    this.refreshInterval = 1;
     this.chartHeaderColor = 'green';
 
     this.updateChartHeader();

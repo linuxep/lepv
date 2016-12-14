@@ -8,25 +8,24 @@ var LepvIOChart = function(divName) {
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
     LepvChart.call(this, divName);
-    console.log("I'm initialized in LepvIO");
     
-    this.maxDataCount = 500;
-    this.refreshInterval = 10;
+    this.chartTitle = "IO Stat Chart";
     this.chartHeaderColor = 'yellow';
+    
+    this.maxDataCount = 150;
+    this.refreshInterval = 2;
 
     this.dataUrlPrefix = "/status/io/";
 
     this.updateChartHeader();
-    this.initializeChart();
+    this.initialize();
 };
 
 LepvIOChart.prototype = Object.create(LepvChart.prototype);
 LepvIOChart.prototype.constructor = LepvIOChart;
 
-LepvIOChart.prototype.initializeChart = function() {
+LepvIOChart.prototype.initialize = function() {
     
-    console.log("chart initialized in lepvIO");
-    console.log(this.isChartPaused);
     this.chart = c3.generate({
         bindto: '#' + this.chartDivName,
         data: {
@@ -65,14 +64,6 @@ LepvIOChart.prototype.initializeChart = function() {
             }
         }
     });
-
-    console.log("IO chart initialization done.");
-};
-
-LepvIOChart.prototype.reloadChartData = function(data) {
-    
-    console.log("data reloaded in LepvIOChart");
-
 };
 
 LepvIOChart.prototype.updateChartData = function(data) {
@@ -94,16 +85,16 @@ LepvIOChart.prototype.updateChartData = function(data) {
             thisChart.chartData[diskName]['write'].splice(1, 1);
         }
 
-        thisChart.chartData[diskName]['read'].push(data['disks'][diskName]['rkbs']);
-        thisChart.chartData[diskName]['write'].push(data['disks'][diskName]['wkbs']);
+        thisChart.chartData[diskName]['read'].push(diskData['rkbs']);
+        thisChart.chartData[diskName]['write'].push(diskData['wkbs']);
 
     });
 
     thisChart.timeData.push(new Date());
     var columnDataToDisplay = [thisChart.timeData];
     $.each( thisChart.chartData, function( diskName, diskData ) {
-        columnDataToDisplay.push(thisChart.chartData[diskName]['read']);
-        columnDataToDisplay.push(thisChart.chartData[diskName]['write']);
+        columnDataToDisplay.push(diskData['read']);
+        columnDataToDisplay.push(diskData['write']);
     });
 
     this.chart.load({

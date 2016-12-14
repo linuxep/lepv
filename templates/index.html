@@ -396,57 +396,38 @@
                     </div>
                 </div>
 
+                <!--<div id='IOCharts' class="row anchor_div">-->
+                    <!--<div class="col-lg-12">-->
+                        <!--<div class="panel panel-default">-->
+                            <!--<div class="panel-heading">-->
+                                <!--{% if config == 'debug' %}-->
+                                <!--<i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]-->
+                                <!--{% else %}-->
+                                <!--<i class="icon-syncalt"></i> {{ languages.ioChartTitle }}-->
+                                <!--{% endif %}-->
+                            <!--</div>-->
+                            <!--<div class="panel-body">-->
+                                <!--<div class="flot-chart">-->
+                                    <!--<div id="div-io-stat" class="flot-chart-content"></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
                 <div id='IOCharts' class="row anchor_div">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 {% if config == 'debug' %}
-                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]
+                                <i class="icon-syncalt"></i> IO吞吐量
                                 {% else %}
-                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
+                                <i class="icon-syncalt"></i> IO吞吐量
                                 {% endif %}
                             </div>
                             <div class="panel-body">
                                 <div class="flot-chart">
                                     <div id="div-io-stat" class="flot-chart-content"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id='IOChartsXXX' class="row anchor_div">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                {% if config == 'debug' %}
-                                <i class="icon-syncalt"></i> IOXXX
-                                {% else %}
-                                <i class="icon-syncalt"></i> IOXXX
-                                {% endif %}
-                            </div>
-                            <div class="panel-body">
-                                <div class="flot-chart">
-                                    <div id="div-io-stat-XXX" class="flot-chart-content"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id='IOChartsYYY' class="row anchor_div">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                {% if config == 'debug' %}
-                                <i class="icon-syncalt"></i> IOXXX
-                                {% else %}
-                                <i class="icon-syncalt"></i> IOXXX
-                                {% endif %}
-                            </div>
-                            <div class="panel-body">
-                                <div class="flot-chart">
-                                    <div id="div-io-stat-YYY" class="flot-chart-content"></div>
                                 </div>
                             </div>
                         </div>
@@ -625,67 +606,62 @@
         Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
         Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
 
-        server = 'www.readeeper.com';
-        var ioChart = new LepvIOChart('div-io-stat-XXX');
+        var ioChart = new LepvIOChart('div-io-stat');
         ioChart.start(server);
 
+        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
+        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
+        GaugeCharts.setComponentDivName('io', 'div-io-gauge');
+        GaugeCharts.setRunConfig( '{{config}}' );
+        GaugeCharts.start(server);
 
-        var memChart = new LepvMemoryChart('div-io-stat-YYY');
-//        ioChart.initializeChart();
+        CapacityLoader.setComponent('memory', 'div-memory-summary');
+        CapacityLoader.setComponent('cpu', 'div-cpu-summary');
+        CapacityLoader.setComponent('io', 'div-io-summary');
+        CapacityLoader.setRunConfig( '{{config}}' );
+        CapacityLoader.start(server);
 
-//        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
-//        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
-//        GaugeCharts.setComponentDivName('io', 'div-io-gauge');
-//        GaugeCharts.setRunConfig( '{{config}}' );
-//        GaugeCharts.start(server);
-//
-//        CapacityLoader.setComponent('memory', 'div-memory-summary');
-//        CapacityLoader.setComponent('cpu', 'div-cpu-summary');
-//        CapacityLoader.setComponent('io', 'div-io-summary');
-//        CapacityLoader.setRunConfig( '{{config}}' );
-//        CapacityLoader.start(server);
-//
-//        CPUCharts.setOverallDivName('div-cpu-stat-overall');
-//        CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
-//        CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
-//        CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
-//        CPUCharts.setRunConfig( '{{config}}' );
-//        CPUCharts.start(server);
-//
-//        // Average Load
-//        AverageLoadChart.setChartDivName('div-system-load');
-//        AverageLoadChart.setRunConfig( '{{config}}' );
-//        AverageLoadChart.start(server);
-//
-//        MemoryCharts.setChartDivName('div-memory-chart');
-//        MemoryCharts.setRunConfig( '{{config}}' );
-//        MemoryCharts.start(server);
-//
-//        MemoryStatTable.setChartDivName('div-memory-stat');
-//        MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
-//        MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
-//        MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
-//        MemoryStatTable.setRunConfig( '{{config}}' );
-//        MemoryStatTable.start(server);
-//
+        CPUCharts.setOverallDivName('div-cpu-stat-overall');
+        CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
+        CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
+        CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
+        CPUCharts.setRunConfig( '{{config}}' );
+        CPUCharts.start(server);
+
+        // Average Load
+        AverageLoadChart.setChartDivName('div-system-load');
+        AverageLoadChart.setRunConfig( '{{config}}' );
+        AverageLoadChart.start(server);
+
+        MemoryCharts.setChartDivName('div-memory-chart');
+        MemoryCharts.setRunConfig( '{{config}}' );
+        MemoryCharts.start(server);
+
+        MemoryStatTable.setChartDivName('div-memory-stat');
+        MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
+        MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
+        MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
+        MemoryStatTable.setRunConfig( '{{config}}' );
+        MemoryStatTable.start(server);
+
 //        IOStatCharts.setChartDivName('div-io-stat');
 //        IOStatCharts.setRunConfig( '{{config}}' );
 //        IOStatCharts.start(server);
-//
-//        IOPPTable.setChartDivName('div-io-pp');
-//        IOPPTable.setTableName('#io-pp-table');
-//        IOPPTable.setRunConfig( '{{config}}' );
-//        IOPPTable.start(server);
-//
-//        CPUTopTable.setChartDivName('div-cpu-top');
-//        CPUTopTable.setTableName('#cpu-top-table');
-//        CPUTopTable.setRunConfig( '{{config}}' );
-//        CPUTopTable.start(server);
-//
-//        PerfCPUTable.setChartDivName('div-perf');
-//        PerfCPUTable.setTableName('#perf-table');
-//        PerfCPUTable.setRunConfig( '{{config}}' );
-//        PerfCPUTable.start(server);
+
+        IOPPTable.setChartDivName('div-io-pp');
+        IOPPTable.setTableName('#io-pp-table');
+        IOPPTable.setRunConfig( '{{config}}' );
+        IOPPTable.start(server);
+
+        CPUTopTable.setChartDivName('div-cpu-top');
+        CPUTopTable.setTableName('#cpu-top-table');
+        CPUTopTable.setRunConfig( '{{config}}' );
+        CPUTopTable.start(server);
+
+        PerfCPUTable.setChartDivName('div-perf');
+        PerfCPUTable.setTableName('#perf-table');
+        PerfCPUTable.setRunConfig( '{{config}}' );
+        PerfCPUTable.start(server);
 
         $('[data-toggle="tooltip"]').tooltip();
 
