@@ -396,33 +396,14 @@
                     </div>
                 </div>
 
-                <!--<div id='IOCharts' class="row anchor_div">-->
-                    <!--<div class="col-lg-12">-->
-                        <!--<div class="panel panel-default">-->
-                            <!--<div class="panel-heading">-->
-                                <!--{% if config == 'debug' %}-->
-                                <!--<i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]-->
-                                <!--{% else %}-->
-                                <!--<i class="icon-syncalt"></i> {{ languages.ioChartTitle }}-->
-                                <!--{% endif %}-->
-                            <!--</div>-->
-                            <!--<div class="panel-body">-->
-                                <!--<div class="flot-chart">-->
-                                    <!--<div id="div-io-stat" class="flot-chart-content"></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
                 <div id='IOCharts' class="row anchor_div">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 {% if config == 'debug' %}
-                                <i class="icon-syncalt"></i> IO吞吐量
+                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]
                                 {% else %}
-                                <i class="icon-syncalt"></i> IO吞吐量
+                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
                                 {% endif %}
                             </div>
                             <div class="panel-body">
@@ -609,6 +590,9 @@
         var ioChart = new LepvIOChart('div-io-stat');
         ioChart.start(server);
 
+        var memChart = new LepvMemoryChart('div-memory-chart');
+        memChart.start(server);
+
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
         GaugeCharts.setComponentDivName('io', 'div-io-gauge');
@@ -633,20 +617,12 @@
         AverageLoadChart.setRunConfig( '{{config}}' );
         AverageLoadChart.start(server);
 
-        MemoryCharts.setChartDivName('div-memory-chart');
-        MemoryCharts.setRunConfig( '{{config}}' );
-        MemoryCharts.start(server);
-
         MemoryStatTable.setChartDivName('div-memory-stat');
         MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
         MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
         MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
         MemoryStatTable.setRunConfig( '{{config}}' );
         MemoryStatTable.start(server);
-
-//        IOStatCharts.setChartDivName('div-io-stat');
-//        IOStatCharts.setRunConfig( '{{config}}' );
-//        IOStatCharts.start(server);
 
         IOPPTable.setChartDivName('div-io-pp');
         IOPPTable.setTableName('#io-pp-table');

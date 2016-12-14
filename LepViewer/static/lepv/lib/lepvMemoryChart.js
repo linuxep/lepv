@@ -8,43 +8,59 @@ var LepvMemoryChart = function(divName) {
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
     LepvChart.call(this, divName);
-    
-    this.maxDataCount = 200;
-    this.refreshInterval = 1;
+
+    this.chartTitle = "RAM Chart";
     this.chartHeaderColor = 'green';
 
+    this.maxDataCount = 150;
+    this.refreshInterval = 2;
+
+    this.dataUrlPrefix = "/status/memory/";
+
     this.updateChartHeader();
-    this.initializeChart();
+    this.initialize();
 };
 
 LepvMemoryChart.prototype = Object.create(LepvChart.prototype);
-
 LepvMemoryChart.prototype.constructor = LepvMemoryChart;
 
-LepvMemoryChart.prototype.refreshChart = function() {
-    if (this.isChartPaused) {
-        return;
-    }
-
-    $.get(this.dataUrl, function(data, status){
-        console.log("refreshed......");
-        this.reloadChartData(data);
-    });
-};
-
-LepvMemoryChart.prototype.reloadChartData = function(data) {
+LepvMemoryChart.prototype.initialize = function() {
     
-};
+    this.chartData['Free'] = ['Free'];
+    this.chartData['Cached'] = ['Cached'];
+    this.chartData['Buffers'] = ['Buffers'];
+    this.chartData['Used'] = ['Used'];
 
-LepvMemoryChart.prototype.initializeChart = function() {
-    
-    console.log("chart initialized in lepvMemory");
-    console.log(this.isChartPaused);
     this.chart = c3.generate({
         bindto: '#' + this.chartDivName,
         data: {
             x: 'x',
-            columns: [['x'], ['readYYY'], ['writeYYY']],
+            // the order matters: free -> cached -> buffers -> used
+            columns: [this.timeData, 
+                this.chartData['Used'],
+                this.chartData['Buffers'],
+                this.chartData['Cached'],
+                this.chartData['Free']],
+
+            types: {
+                Used: 'area',
+                Buffers: "area",
+                Cached: "area",
+                Free: "area"
+            },
+
+            groups: [['Free', 'Cached', 'Buffers', 'Used']],
+            order: null,
+
+            colors: {
+                Free: '#2d862d',
+                Cached: "#ffb84d",
+                Buffers: "#4d94ff",
+                Used: "#ff6666"
+            }
+        },
+        point: {
+            show: false
         },
         legend: {
             show: true,
@@ -65,28 +81,43 @@ LepvMemoryChart.prototype.initializeChart = function() {
             },
             y: {
                 label: {
-                    text: "MMMB/S",
                     position: "inner-middle"
-                }
+                },
+                min: 0,
+                padding: {top:0, bottom:0}
             }
         },
         tooltip: {
             format: {
                 value: function (value, ratio, id) {
-                    return value + " MMMMb/s";
+                    return value + " MB";
                 }
             }
         }
     });
 };
 
-LepvMemoryChart.prototype.start = function() {
-    this.initialize();
-    this.refreshChart();
+LepvMemoryChart.prototype.updateChartData = function(data) {
+    if (this.timeData.length > this.maxDataCount) {
+        this.timeData.splice(1, 1);
+        this.chartData['Free'].splice(1, 1);
+        this.chartData['Used'].splice(1, 1);
+        this.chartData['Buffers'].splice(1, 1);
+        this.chartData['Cached'].splice(1, 1);
+    }
 
-    var refreshFunction = this.refreshChart;
-    this.intervalId = setInterval(function () {
-        refreshFunction();
-    }, this.refreshInterval * 1000);
+    this.timeData.push(new Date());
+    this.chartData['Used'].push(data['used']);
+    this.chartData['Buffers'].push(data['buffers']);
+    this.chartData['Free'].push(data['free']);
+    this.chartData['Cached'].push(data['cached']);
 
+    this.chart.load({
+        //// the order matters: free -> cached -> buffers -> used
+        columns: [this.timeData,
+            this.chartData['Used'],
+            this.chartData['Buffers'],
+            this.chartData['Cached'],
+            this.chartData['Free']]
+    });
 };
