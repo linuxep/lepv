@@ -625,7 +625,9 @@
         Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
         Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
 
+        server = 'www.readeeper.com';
         var ioChart = new LepvIOChart('div-io-stat-XXX');
+        ioChart.start(server);
 
 
         var memChart = new LepvMemoryChart('div-io-stat-YYY');

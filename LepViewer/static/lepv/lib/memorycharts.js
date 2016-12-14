@@ -144,7 +144,6 @@ var MemoryCharts = (function(){
         }
 
         if (requestId - responseId >= 2) {
-            //console.log("Memory Chart request busy!");
             return;
         }
 

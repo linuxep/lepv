@@ -14,27 +14,14 @@ var LepvIOChart = function(divName) {
     this.refreshInterval = 10;
     this.chartHeaderColor = 'yellow';
 
+    this.dataUrlPrefix = "/status/io/";
+
     this.updateChartHeader();
     this.initializeChart();
 };
 
 LepvIOChart.prototype = Object.create(LepvChart.prototype);
 LepvIOChart.prototype.constructor = LepvIOChart;
-
-LepvIOChart.prototype.refreshChart = function() {
-    if (this.isChartPaused) {
-        return;
-    }
-
-    $.get(this.dataUrl, function(data, status){
-        console.log("refreshed......");
-        this.reloadChartData(data);
-    });
-};
-
-LepvIOChart.prototype.reloadChartData = function(data) {
-    
-};
 
 LepvIOChart.prototype.initializeChart = function() {
     
@@ -82,13 +69,47 @@ LepvIOChart.prototype.initializeChart = function() {
     console.log("IO chart initialization done.");
 };
 
-LepvIOChart.prototype.start = function() {
-    this.initialize();
-    this.refreshChart();
+LepvIOChart.prototype.reloadChartData = function(data) {
+    
+    console.log("data reloaded in LepvIOChart");
 
-    var refreshFunction = this.refreshChart;
-    this.intervalId = setInterval(function () {
-        refreshFunction();
-    }, this.refreshInterval * 1000);
+};
 
+LepvIOChart.prototype.updateChartData = function(data) {
+    var diskDatas = data['disks'];
+    
+    var thisChart = this;
+    $.each( diskDatas, function( diskName, diskData ) {
+        if ( !(diskName in thisChart.chartData)) {
+            thisChart.chartData[diskName] = {};
+
+            thisChart.chartData[diskName]['read'] = [diskName + ' read'];
+            thisChart.chartData[diskName]['write'] = [diskName + ' write'];
+        }
+
+        if (thisChart.chartData[diskName]['read'].length > thisChart.maxDataCount ) {
+            thisChart.timeData.splice(1, 1);
+
+            thisChart.chartData[diskName]['read'].splice(1, 1);
+            thisChart.chartData[diskName]['write'].splice(1, 1);
+        }
+
+        thisChart.chartData[diskName]['read'].push(data['disks'][diskName]['rkbs']);
+        thisChart.chartData[diskName]['write'].push(data['disks'][diskName]['wkbs']);
+
+    });
+
+    thisChart.timeData.push(new Date());
+    var columnDataToDisplay = [thisChart.timeData];
+    $.each( thisChart.chartData, function( diskName, diskData ) {
+        columnDataToDisplay.push(thisChart.chartData[diskName]['read']);
+        columnDataToDisplay.push(thisChart.chartData[diskName]['write']);
+    });
+
+    this.chart.load({
+        columns: columnDataToDisplay,
+        keys: {
+            value: ['']
+        }
+    });
 };

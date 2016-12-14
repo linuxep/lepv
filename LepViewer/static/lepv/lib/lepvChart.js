@@ -11,6 +11,7 @@ var LepvChart = function(divName = '') {
   }
   
   this.charts = null;
+  this.chart = null;
   this.chartTitle = null;
   this.chartHeaderColor = 'grey';
 
@@ -30,8 +31,9 @@ var LepvChart = function(divName = '') {
   
   this.executionConfig = 'release';
   
-  this.data = {};
-  this.dataUrl = null;
+  this.chartData = {};
+  this.timeData = ['x'];
+  this.dataUrlPrefix = null;
 
   this.initializeControlElements();
 };
@@ -184,7 +186,67 @@ LepvChart.prototype.createControlElements = function() {
 
 };
 
-LepvChart.prototype.refreshChart = function() {
-  // TODO:
+LepvChart.prototype.setServer = function(serverToMonitor) {
+  this.server = serverToMonitor;
+};
+
+LepvChart.prototype.start = function(serverToMonitor) {
+  if (serverToMonitor == this.server) {
+    return;
+  }
+
+  this.server = serverToMonitor;
+  this.requestId = 0;
+  this.responseId = 0;
+  
+  this.initialize();
+  this.refresh();
+
+  var thisChart = this;
+  this.intervalId = setInterval(function () {
+    thisChart.refresh();
+  }, this.refreshInterval * 1000);
+};
+
+LepvChart.prototype.initialize = function(server) {
+  console.log("initialize() method needs to be overwritten by sub-classes!")
+};
+
+LepvChart.prototype.updateChartData = function(responseData) {
+  console.log("updateChartData() method needs to be overwritten by sub-classes!")
+};
+
+LepvChart.prototype.process = function(responseData) {
+  console.log("updateChartData() method needs to be overwritten by sub-classes!")
+};
+
+LepvChart.prototype.refresh = function() {
+  if (this.isChartPaused) {
+    return;
+  }
+
+  if (this.requestId - this.responseId >= 2) {
+    return;
+  }
+
+  this.requestId += 1;
+  var startTime= new Date().getTime();
+
+  //this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
+  var thisChart = this;
+  var url = thisChart.dataUrlPrefix + thisChart.server + "/" + thisChart.requestId;
+  
+  $.get(url, function(responseData, status) {
+    if (this.isChartPaused) {
+      return;
+    }
+
+    var endTime = new Date().getTime();
+    var totalTime = (endTime - startTime) / 1000;
+    
+    thisChart.responseId = responseData['requestId'];
+    
+    thisChart.updateChartData(responseData['data']);
+  });
 };
 
