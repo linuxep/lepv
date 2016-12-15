@@ -552,6 +552,7 @@
     <script src="{% static "lepv/lib/lepvIOStatChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvMemoryChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvIOPPTable.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvAvgLoadChart.js" %}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -595,6 +596,9 @@
         var memChart = new LepvMemoryChart('div-memory-chart');
         memChart.start(server);
 
+        var avgLoadChart = new LepvAvgLoadChart('div-system-load');
+        avgLoadChart.start(server);
+
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
         GaugeCharts.setComponentDivName('io', 'div-io-gauge');
@@ -613,11 +617,6 @@
         CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
         CPUCharts.setRunConfig( '{{config}}' );
         CPUCharts.start(server);
-
-        // Average Load
-        AverageLoadChart.setChartDivName('div-system-load');
-        AverageLoadChart.setRunConfig( '{{config}}' );
-        AverageLoadChart.start(server);
 
         MemoryStatTable.setChartDivName('div-memory-stat');
         MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
