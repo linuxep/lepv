@@ -9,11 +9,15 @@ import os
 
 from backend.tests.UnitTester import UnitTester
 
-def testX86(rawFile):
-    filePath = os.path.join(rawFile, 'x86.txt')
+def testX86(sampleFilePath):
 
     tester = UnitTester()
-    tester.getResultList(filePath)
+
+    jsonData = ''
+    with open(sampleFilePath) as data_file:
+        jsonData = json.load(data_file)
+    
+    tester.getResultList(sampleFilePath)
 
 def testArm(rawFile):
     filePath = os.path.join(rawFile, 'arm.txt')
@@ -24,8 +28,11 @@ def testArm(rawFile):
 if( __name__ =='__main__' ):
 
     currentDir = os.path.dirname(os.path.realpath(__file__))
+    fileName = os.path.basename(os.path.realpath(__file__))
     
-    rawDataPath = os.path.join(currentDir, "GetCmdDf", 'raw')
+    jsonFileName = fileName.replace(".py", ".json")
+    
+    rawDataPath = os.path.join(currentDir, jsonFileName)
 
     testX86(rawDataPath)
     
