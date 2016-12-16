@@ -5,7 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 from backend.LepDClient import LepDClient
 import threading
 from datetime import datetime
-from django.utils.timezone import utc
+# from django.utils.timezone import utc
 
 __author__ = 'xmac'
 
