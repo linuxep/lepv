@@ -23,11 +23,11 @@ class LepDRequestor(threading.Thread):
 
 
     def run(self):
-        timeStarts = datetime.utcnow().replace(tzinfo=utc)
+        timeStarts = datetime.utcnow().replace()
         
         self.response = self.lepDClient.sendRequest(self.command)
     
-        timeEnds = datetime.utcnow().replace(tzinfo=utc)
+        timeEnds = datetime.utcnow().replace()
         duration = timeEnds - timeStarts
         self.timeUsed = int(duration.total_seconds())
     
