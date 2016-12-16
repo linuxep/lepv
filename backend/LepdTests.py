@@ -83,15 +83,15 @@ class LepDTests:
 
 if( __name__ =='__main__' ):
     
-    server = 'localhost'
+    server = 'www.readeeper.com'
     print("Testing against: " + server)
     
     tests = LepDTests(server)
     # tests.runAllMethodsRepeatedly()
-    tests.runAllMethodConcurrently()
+    # tests.runAllMethodConcurrently()
     
     # tests.runMethodConcurrently("GetCmdPerfCpuclock", 5)
-    # tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
+    tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
 
 
 
