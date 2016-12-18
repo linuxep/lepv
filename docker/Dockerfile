@@ -4,12 +4,9 @@ FROM python:3.5
 # docker build -f DockerBasic/Dockerfile -t mxu/lepv0.1 .
 
 RUN apt-get update
-RUN apt-get -y install vim
-RUN apt-get -y install less
+RUN apt-get -y install vim less
 
-RUN pip install django
-RUN pip install djangorestframework
-RUN pip install uwsgi
+RUN pip install django djangorestframework uwsgi
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
@@ -17,14 +14,10 @@ WORKDIR /code
 USER root
 ADD . /code/
 
-#RUN pip install -r requirements.txt
 RUN python ./manage.py  migrate
 # triage way to check static files are there:
 # python manage.py findstatic admin/css/base.css --verbosity 2
 RUN python ./manage.py collectstatic --noinput
-
-
-#ENTRYPOINT ["python", "./manage.py", "runserver", "0.0.0.0:8889"]
 
 ENTRYPOINT ["uwsgi", "--ini", "lepv_docker_uwsgi.ini", "--static-map", "/static=/code/staticfiles"]
 
