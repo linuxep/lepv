@@ -215,7 +215,6 @@ class LepDClient:
         
         return sysInfo
         
-        
     
     def getResponse(self, methodName):
         if (self.config != 'unittest'):
@@ -226,7 +225,7 @@ class LepDClient:
         if (response == None or 'result' not in response):
             return []
 
-        lines = response['result'].strip().split("\n")
+        lines = re.split(r'\\n|\n', response['result'].strip())
         return lines
         
         

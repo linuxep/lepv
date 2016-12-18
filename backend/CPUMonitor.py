@@ -38,6 +38,29 @@ class CPUMonitor:
             line = lines.pop(0)
 
         return results
+
+    def getCpuInfoForArmArch64(self, lines):
+
+        results = {}
+
+        line = lines.pop(0)
+        results['architecture'] = "ARM"
+        
+        results['model name'] = line.split(":")[1].strip()
+        results['processors'] = {}
+
+        line = lines.pop(0)
+        while(not line.startswith("Features")):
+            if (line.startswith("processor")):
+
+                processorId = line.split(":")[1].strip()
+                results['processors'][processorId] = {}
+                results['processors'][processorId]["processorId"] = processorId
+                results['processors'][processorId]["bogomips"] = ''
+
+            line = lines.pop(0)
+
+        return results
     
     def getCpuInfoForX86(self, lines):
 
@@ -66,9 +89,11 @@ class CPUMonitor:
     
         return results
     
-    def getCpuInfo(self):
-
-        cpuInfoLines = self.client.getResponse('GetProcCpuinfo')
+    def getCpuInfo(self, cpuInfoLines = None):
+        
+        if (cpuInfoLines == None):
+            cpuInfoLines = self.client.getResponse('GetProcCpuinfo')
+            
         responseData = {}
         if (self.config == 'debug'):
             responseData['rawResult'] = cpuInfoLines
@@ -76,10 +101,29 @@ class CPUMonitor:
         firstLine = cpuInfoLines[0]
         if ("ARM" in firstLine):
             responseData['data'] = self.getCpuInfoForArm(cpuInfoLines)
+        elif ('AArch64' in firstLine):
+            responseData['data'] = self.getCpuInfoForArmArch64(cpuInfoLines)
         else:
+            secondLine = cpuInfoLines[1]
             responseData['data'] = self.getCpuInfoForX86(cpuInfoLines)
+            if ('GenuineIntel' not in secondLine):
+                responseData['data']['architecture'] = 'ARM'
         
         return responseData
+
+    def validateProcCpuInfo(self, parsedData):
+
+        print("Validating parsed data for GetProcCpuinfo")
+        if (parsedData == None):
+            print("parsed data is None!")
+            return False
+
+        if ('data' not in parsedData):
+            print('"data" section was not found')
+            return False
+        
+        # TODO: need to do more
+        return True
 
     def getCapacity(self):
         
@@ -105,12 +149,20 @@ class CPUMonitor:
         for processorId, processorData in cpuInfoData['data']['processors'].items():
             
             if (cpuInfoData['data']['architecture'] == "ARM"):
-                processorData['model'] = cpuInfoData['data']['model name']
+                if ('model name' in cpuInfoData['data']):
+                    processorData['model'] = cpuInfoData['data']['model name']
+                else:
+                    processorData['model'] = ''
 
                 # Summary is a string to briefly describe the CPU, like "2GHZ x 2", meaning it's a 2-core cpu with 2GHZ speed.
-                capacity['summary'] = processorData['bogomips'] + " MHz x " + str(coreCount) + coresString
+                if ('bogomips' not in processorData):
+                    capacity['bogomips'] = ''
+                    capacity['summary'] = ''
+                else:
+                    capacity['bogomips'] = processorData['bogomips']
+                    capacity['summary'] = processorData['bogomips'] + " MHz x " + str(coreCount) + coresString
+                    
                 capacity['model'] = processorData['model']
-                capacity['bogomips'] = processorData['bogomips']
                 capacity['architecture'] = 'ARM'
             
             else:

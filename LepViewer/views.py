@@ -135,7 +135,6 @@ def pingServer(request, server='', requestId='', config='release'):
 
         return JSONResponse(result)
     except Exception as ex:
-        # print(ex)
         return HttpResponse(status=404)
 
 def runCommand(request, server, command):
@@ -194,7 +193,6 @@ def getPerfCpuClockData(request, server='', requestId='', config='release'):
         return
 
     try:
-        print("Im views: cpuperf------------------")
         monitor = PerfMonitor(server, config)
         return JSONResponse(monitor.getPerfCpuClock())
 

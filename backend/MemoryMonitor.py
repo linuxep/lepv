@@ -58,8 +58,13 @@ class MemoryMonitor:
         responseData['data'] = componentInfo
         return responseData
 
-    def getCapacity(self):
-        responseLines = self.client.getResponse("GetProcMeminfo")
+    def getCapacity(self, sampleDataLines = None):
+        responseLines = []
+        if (sampleDataLines == None):
+            responseLines = self.client.getResponse("GetProcMeminfo")
+        else:
+            responseLines = sampleDataLines
+            
         if (len(responseLines) == 0):
             return {}
         
@@ -194,14 +199,6 @@ class MemoryMonitor:
             procrankData['sum']['pssTotal'] = Decimal(Decimal(pssTotalString[:-1]))
             
         return procrankData
-
-    def getMeminfo(self):
-        return self.client.getProcMeminfo()
-
-    # def getSmemOutput(self):
-    #     response = self.client.getSmemOutput()
-    #     return response
-
 
 
 if( __name__ =='__main__' ):

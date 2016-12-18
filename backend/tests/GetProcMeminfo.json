@@ -1,0 +1,20 @@
+{
+  "samples": [
+
+    {
+      "kernel": "",
+      "os": "",
+      "cpu": "arm",
+      "note": "Bubblegum 96board, 64-bit, provided by Wang Zechao",
+      "result":"MemTotal:        1987972 kB\nMemFree:         1042356 kB\nCmaFree:          573280 kB\nBuffers:           17364 kB\nCached:           133796 kB\nSwapCached:            0 kB\nActive:           189352 kB\nInactive:         115760 kB\nActive(anon):     154412 kB\nInactive(anon):    14352 kB\nActive(file):      34940 kB\nInactive(file):   101408 kB\nUnevictable:           0 kB\nMlocked:               0 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nDirty:                 0 kB\nWriteback:             0 kB\nAnonPages:        153988 kB\nMapped:            47760 kB\nShmem:             14816 kB\nSlab:              37940 kB\nSReclaimable:      24600 kB\nSUnreclaim:        13340 kB\nKernelStack:        2976 kB\nPageTables:         2768 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:      993984 kB\nCommitted_AS:     878204 kB\nVmallocTotal:   251658176 kB\nVmallocUsed:       13880 kB\nVmallocChunk:   251634132 kB\n"
+    },
+
+    {
+      "kernel": "",
+      "os": "",
+      "cpu": "arm",
+      "note": "Made-In-China ARM, 64-bit, provided by Wang Zechao",
+      "result":"MemTotal:        8150392 kB\nMemFree:         7979396 kB\nMemAvailable:    8009532 kB\nBuffers:            7676 kB\nCached:            72944 kB\nSwapCached:            0 kB\nActive:            49640 kB\nInactive:          50788 kB\nActive(anon):      24140 kB\nInactive(anon):    21944 kB\nActive(file):      25500 kB\nInactive(file):    28844 kB\nUnevictable:        7256 kB\nMlocked:        12043088305240 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nDirty:                 0 kB\nWriteback:             0 kB\nAnonPages:         27220 kB\nMapped:            33296 kB\nShmem:             22284 kB\nSlab:              30256 kB\nSReclaimable:       8384 kB\nSUnreclaim:        21872 kB\nKernelStack:        4080 kB\nPageTables:         1264 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     4075196 kB\nCommitted_AS:     192552 kB\nVmallocTotal:   258998208 kB\nVmallocUsed:           0 kB\nVmallocChunk:          0 kB\nAnonHugePages:      2048 kB\nCmaTotal:          16384 kB\nCmaFree:           14976 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\n"
+    }
+  ]
+}
