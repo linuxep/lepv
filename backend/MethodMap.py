@@ -68,12 +68,12 @@ class MethodMap:
         # methodMapItem['lepdMethod'] = 'GetCmdSmem'
         # methodMap.append(methodMapItem)
 
-        methodMapItem = {}
-        methodMapItem['url'] = '/ping'
-        methodMapItem['viewMethod'] = 'pingServer'
-        methodMapItem['moduleMethod'] = 'LepDClient.ping'
-        methodMapItem['lepdMethod'] = 'SayHello'
-        methodMap.append(methodMapItem)
+        # methodMapItem = {}
+        # methodMapItem['url'] = '/ping'
+        # methodMapItem['viewMethod'] = 'pingServer'
+        # methodMapItem['moduleMethod'] = 'LepDClient.ping'
+        # methodMapItem['lepdMethod'] = 'SayHello'
+        # methodMap.append(methodMapItem)
 
         methodMapItem = {}
         methodMapItem['url'] = '/capacity/cpu'
