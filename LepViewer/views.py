@@ -87,15 +87,13 @@ def getComponentStatus(request, component='', server='', requestId='', config='r
             monitor = CPUMonitor(server=server, config=config)
             responseData = monitor.getStatus()
         elif (component == 'iotop'):
-            responseData = IOMonitor(server, config).getIoTopData()
-        elif (component == 'iopp'):
-            responseData = IOMonitor(server, config).getIoPPData()
+            responseData = IOMonitor(server=server, config=config).getIoTopData()
         elif (component == "memory"):
-            responseData = MemoryMonitor(server, config).getStatus()
+            responseData = MemoryMonitor(server=server, config=config).getStatus()
         elif (component == "io"):
-            responseData = IOMonitor(server, config).getStatus()
+            responseData = IOMonitor(server=server, config=config).getStatus()
         elif (component == "avgload"):
-            responseData = CPUMonitor(server, config).getAverageLoad()
+            responseData = CPUMonitor(server=server, config=config).getAverageLoad()
 
         responseData['requestId'] = requestId
         endTime = datetime.datetime.now()

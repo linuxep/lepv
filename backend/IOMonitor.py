@@ -98,7 +98,7 @@ class IOMonitor:
             ioTopLines = self.client.getResponse('GetCmdIotop')
         
         ioTopResults = {}
-        ioTopResults['topData'] = {}
+        ioTopResults['data'] = {}
         ioTopResults['rawResult'] = ioTopLines[:]
         
         dataLineStartingIndex = 0
@@ -150,7 +150,7 @@ class IOMonitor:
             ioTopItem['COMMAND'] = command
         
             # use an incremental int as key, so we keey the order of the items.
-            ioTopResults['topData'][orderIndex] = ioTopItem
+            ioTopResults['data'][orderIndex] = ioTopItem
             orderIndex += 1
         
         return ioTopResults
@@ -198,7 +198,7 @@ class IOMonitor:
 
 
 if( __name__ =='__main__' ):
-    monitor = IOMonitor('www.readeeper.com')
+    monitor = IOMonitor('www.linuxxueyuan.com')
     monitor.config = 'debug'
 
     pp = pprint.PrettyPrinter(indent=2)
