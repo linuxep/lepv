@@ -1,0 +1,46 @@
+#### Who serve the static file ####
+
+1. https://docs.djangoproject.com/en/dev/howto/static-files/
+
+During development, if you use django.contrib.staticfiles, this will be done automatically
+by runserver when DEBUG is set to True (see django.contrib.staticfiles.views.serve()).
+
+
+2. https://docs.djangoproject.com/en/dev/howto/static-files/#serving-static-files-during-development
+
+If you use django.contrib.staticfiles as explained above, runserver will do this automatically when DEBUG
+is set to True. If you don’t have django.contrib.staticfiles in INSTALLED_APPS, you can still manually
+serve static files using the django.contrib.staticfiles.views.serve() view.
+
+[Note]
+
+This helper function works only in debug mode and only if the given prefix is local (e.g. /static/)
+and not a URL (e.g. http://static.example.com/).
+
+Also this helper function only serves the actual STATIC_ROOT folder; it doesn’t perform static files discovery like django.contrib.staticfiles.
+
+3. https://docs.djangoproject.com/en/dev/howto/static-files/#deployment
+
+4. http://stackoverflow.com/questions/10799216/static-files-are-not-showed-in-django-templates/10801056#10801056
+
+You should either:
+    use runserver with DEBUG=True, in that case django will serve static files by default, in doubt use staticfiles_urlpatterns or
+    use a real httpd to serve STATIC_ROOT on STATIC_URL, in that case you should generate STATIC_ROOT
+    from STATICFILES_DIRS (and actually each app's 'static' subdir, which is the point) with the command collectstatic
+
+
+5. https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-DEBUG
+https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#django.contrib.staticfiles.views.serve
+
+It's a big ISSUE to set DEBUG or not. The config is different on dev and production env
+
+
+6. http://uwsgi-docs.readthedocs.io/en/latest/StaticFiles.html
+
+How to set uwsgi to serve static file : --static-map /static=/code/staticfiles
+Let uwsgi serve the static file, or Let web server (ngnix/apache) do that
+
+7. https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#runserver
+
+DEBUG is False, 'python manage.py runserver 0.0.0.0:8889 --insecure' can also serve static file
+

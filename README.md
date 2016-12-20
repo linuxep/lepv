@@ -8,10 +8,8 @@ We will release Docker image for LEPV soon, but before that happens, you can try
 
 1. pull the latest lepv code, and go to its root directory
 
-2. run this command to build the Docker image for LEPV:
-   ./buildDockerImage.sh
+2.  run pip install docker-compose  or 
+    $ curl -L https://github.com/docker/compose/releases/download/1.9.0/run.sh > /usr/local/bin/docker-compose
+    $ chmod +x /usr/local/bin/docker-compose
 
-3. run this command to run a Docker container for LEPV:
-   ./runDockerContainer.sh
-
-4. now visit "http://localhost:8889" from a web browser in your host machine.
+3. docker-compose up

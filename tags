@@ -1,0 +1,257 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ALLOWED_HOSTS	C:\web\lepv\web\LepViewer\settings.py	/^    ALLOWED_HOSTS = ['*']$/;"	kind:variable	line:23
+ALLOWED_HOSTS	C:\web\lepv\web\LepViewer\settings.py	/^ALLOWED_HOSTS = []$/;"	kind:variable	line:19
+BASE_DIR	C:\web\lepv\web\LepViewer\settings.py	/^BASE_DIR = os.path.dirname(os.path.dirname(__file__))$/;"	kind:variable	line:25
+CPUMonitor	C:\web\lepv\web\LepViewer\views.py	/^from backend.CPUMonitor import CPUMonitor$/;"	kind:namespace	line:14
+CPUMonitor	C:\web\lepv\web\backend\CPUMonitor.py	/^class CPUMonitor:$/;"	kind:class	line:11
+CPUMonitor	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^from backend.CPUMonitor import CPUMonitor$/;"	kind:namespace	line:5
+CPUMonitor.py	C:\web\lepv\web\backend\CPUMonitor.py	1;"	kind:file	line:1
+Context	C:\web\lepv\web\LepViewer\views.py	/^from django.template import Context$/;"	kind:namespace	line:10
+DATABASES	C:\web\lepv\web\LepViewer\settings.py	/^DATABASES = {$/;"	kind:variable	line:71
+DEBUG	C:\web\lepv\web\LepViewer\settings.py	/^    DEBUG = False  # to be changed to False after stablization$/;"	kind:variable	line:22
+DEBUG	C:\web\lepv\web\LepViewer\settings.py	/^DEBUG = True$/;"	kind:variable	line:18
+Decimal	C:\web\lepv\web\backend\CPUMonitor.py	/^from decimal import Decimal$/;"	kind:namespace	line:5
+Decimal	C:\web\lepv\web\backend\IOMonitor.py	/^from decimal import Decimal$/;"	kind:namespace	line:9
+Decimal	C:\web\lepv\web\backend\LepDClient.py	/^from decimal import Decimal$/;"	kind:namespace	line:7
+Decimal	C:\web\lepv\web\backend\MemoryMonitor.py	/^from decimal import Decimal$/;"	kind:namespace	line:6
+GetCmdIotopTest.py	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	1;"	kind:file	line:1
+GetCmdIotopTester	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^class GetCmdIotopTester(UnitTester):$/;"	kind:class	line:10
+GetProcCpuinfoTest.py	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	1;"	kind:file	line:1
+GetProcCpuinfoTester	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^class GetProcCpuinfoTester(UnitTester):$/;"	kind:class	line:9
+GetProcMeminfoTest.py	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	1;"	kind:file	line:1
+GetProcMeminfoTester	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^class GetProcMeminfoTester(UnitTester):$/;"	kind:class	line:10
+HttpResponse	C:\web\lepv\web\LepViewer\views.py	/^from django.http import HttpResponse$/;"	kind:namespace	line:4
+INSTALLED_APPS	C:\web\lepv\web\LepViewer\settings.py	/^INSTALLED_APPS = ($/;"	kind:variable	line:42
+IOMonitor	C:\web\lepv\web\LepViewer\views.py	/^from backend.IOMonitor import IOMonitor$/;"	kind:namespace	line:15
+IOMonitor	C:\web\lepv\web\backend\IOMonitor.py	/^class IOMonitor:$/;"	kind:class	line:11
+IOMonitor	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^from backend.IOMonitor import IOMonitor$/;"	kind:namespace	line:6
+IOMonitor.py	C:\web\lepv\web\backend\IOMonitor.py	1;"	kind:file	line:1
+JSONRenderer	C:\web\lepv\web\LepViewer\views.py	/^from rest_framework.renderers import JSONRenderer$/;"	kind:namespace	line:21
+JSONResponse	C:\web\lepv\web\LepViewer\views.py	/^class JSONResponse(HttpResponse):$/;"	kind:class	line:23
+LANGUAGE_CODE	C:\web\lepv\web\LepViewer\settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:85
+Languages	C:\web\lepv\web\LepViewer\views.py	/^from backend.Languages import Languages$/;"	kind:namespace	line:16
+Languages	C:\web\lepv\web\backend\Languages.py	/^class Languages:$/;"	kind:class	line:5
+Languages.py	C:\web\lepv\web\backend\Languages.py	1;"	kind:file	line:1
+LepDClient	C:\web\lepv\web\LepViewer\views.py	/^from backend.LepDClient import LepDClient$/;"	kind:namespace	line:12
+LepDClient	C:\web\lepv\web\backend\CPUMonitor.py	/^from backend.LepDClient import LepDClient$/;"	kind:namespace	line:9
+LepDClient	C:\web\lepv\web\backend\IOMonitor.py	/^from backend.LepDClient import LepDClient$/;"	kind:namespace	line:5
+LepDClient	C:\web\lepv\web\backend\LepDClient.py	/^class LepDClient:$/;"	kind:class	line:12
+LepDClient	C:\web\lepv\web\backend\LepDRequestor.py	/^from backend.LepDClient import LepDClient$/;"	kind:namespace	line:5
+LepDClient	C:\web\lepv\web\backend\LepdTests.py	/^from backend.LepDClient import LepDClient$/;"	kind:namespace	line:6
+LepDClient	C:\web\lepv\web\backend\MemoryMonitor.py	/^from backend.LepDClient import LepDClient$/;"	kind:namespace	line:5
+LepDClient	C:\web\lepv\web\backend\PerfMonitor.py	/^from backend.LepDClient import LepDClient$/;"	kind:namespace	line:5
+LepDClient.py	C:\web\lepv\web\backend\LepDClient.py	1;"	kind:file	line:1
+LepDRequestor	C:\web\lepv\web\backend\LepDRequestor.py	/^class LepDRequestor(threading.Thread):$/;"	kind:class	line:11
+LepDRequestor	C:\web\lepv\web\backend\LepdTests.py	/^from backend.LepDRequestor import LepDRequestor$/;"	kind:namespace	line:5
+LepDRequestor.py	C:\web\lepv\web\backend\LepDRequestor.py	1;"	kind:file	line:1
+LepDTests	C:\web\lepv\web\backend\LepdTests.py	/^class LepDTests:$/;"	kind:class	line:10
+LepdTests.py	C:\web\lepv\web\backend\LepdTests.py	1;"	kind:file	line:1
+MIDDLEWARE_CLASSES	C:\web\lepv\web\LepViewer\settings.py	/^MIDDLEWARE_CLASSES = ($/;"	kind:variable	line:54
+MemoryMonitor	C:\web\lepv\web\LepViewer\views.py	/^from backend.MemoryMonitor import MemoryMonitor$/;"	kind:namespace	line:13
+MemoryMonitor	C:\web\lepv\web\backend\MemoryMonitor.py	/^class MemoryMonitor:$/;"	kind:class	line:12
+MemoryMonitor	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^from backend.MemoryMonitor import MemoryMonitor$/;"	kind:namespace	line:6
+MemoryMonitor.py	C:\web\lepv\web\backend\MemoryMonitor.py	1;"	kind:file	line:1
+MethodMap	C:\web\lepv\web\LepViewer\views.py	/^from backend.MethodMap import MethodMap$/;"	kind:namespace	line:18
+MethodMap	C:\web\lepv\web\backend\MethodMap.py	/^class MethodMap:$/;"	kind:class	line:7
+MethodMap.py	C:\web\lepv\web\backend\MethodMap.py	1;"	kind:file	line:1
+PerfMonitor	C:\web\lepv\web\LepViewer\views.py	/^from backend.PerfMonitor import PerfMonitor$/;"	kind:namespace	line:17
+PerfMonitor	C:\web\lepv\web\backend\PerfMonitor.py	/^class PerfMonitor:$/;"	kind:class	line:10
+PerfMonitor.py	C:\web\lepv\web\backend\PerfMonitor.py	1;"	kind:file	line:1
+ROOT_URLCONF	C:\web\lepv\web\LepViewer\settings.py	/^ROOT_URLCONF = 'LepViewer.urls'$/;"	kind:variable	line:63
+SECRET_KEY	C:\web\lepv\web\LepViewer\settings.py	/^SECRET_KEY = 'lrcofu8j6(j!3ws=rz(0vfh64qwfu$=5jf3p!6ec71)+77r!%2'$/;"	kind:variable	line:32
+STATIC_ROOT	C:\web\lepv\web\LepViewer\settings.py	/^STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles\/")$/;"	kind:variable	line:100
+STATIC_URL	C:\web\lepv\web\LepViewer\settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:99
+TEMPLATES	C:\web\lepv\web\LepViewer\settings.py	/^TEMPLATES = [$/;"	kind:variable	line:102
+TIME_ZONE	C:\web\lepv\web\LepViewer\settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:87
+USE_I18N	C:\web\lepv\web\LepViewer\settings.py	/^USE_I18N = True$/;"	kind:variable	line:89
+USE_L10N	C:\web\lepv\web\LepViewer\settings.py	/^USE_L10N = True$/;"	kind:variable	line:91
+USE_TZ	C:\web\lepv\web\LepViewer\settings.py	/^USE_TZ = True$/;"	kind:variable	line:93
+UnitTester	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^from backend.tests.UnitTester import UnitTester$/;"	kind:namespace	line:8
+UnitTester	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^from backend.tests.UnitTester import UnitTester$/;"	kind:namespace	line:7
+UnitTester	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^from backend.tests.UnitTester import UnitTester$/;"	kind:namespace	line:8
+UnitTester	C:\web\lepv\web\backend\tests\UnitTester.py	/^class UnitTester:$/;"	kind:class	line:10
+UnitTester.py	C:\web\lepv\web\backend\tests\UnitTester.py	1;"	kind:file	line:1
+WSGI_APPLICATION	C:\web\lepv\web\LepViewer\settings.py	/^WSGI_APPLICATION = 'LepViewer.wsgi.application'$/;"	kind:variable	line:65
+__author__	C:\web\lepv\web\LepViewer\urls.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:1
+__author__	C:\web\lepv\web\LepViewer\views.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:1
+__author__	C:\web\lepv\web\backend\CPUMonitor.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\IOMonitor.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\Languages.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\LepDClient.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\LepDRequestor.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\LepDRequestor.py	/^__author__ = 'xmac'$/;"	kind:variable	line:9
+__author__	C:\web\lepv\web\backend\LepdTests.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\LepdTests.py	/^__author__ = 'xmac'$/;"	kind:variable	line:8
+__author__	C:\web\lepv\web\backend\MemoryMonitor.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\MemoryMonitor.py	/^__author__ = 'xmac'$/;"	kind:variable	line:10
+__author__	C:\web\lepv\web\backend\MethodMap.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\PerfMonitor.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\PerfMonitor.py	/^__author__ = 'xmac'$/;"	kind:variable	line:8
+__author__	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__author__	C:\web\lepv\web\backend\tests\UnitTester.py	/^__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"$/;"	kind:variable	line:2
+__copyright__	C:\web\lepv\web\LepViewer\urls.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:2
+__copyright__	C:\web\lepv\web\LepViewer\views.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:2
+__copyright__	C:\web\lepv\web\backend\CPUMonitor.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\IOMonitor.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\Languages.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\LepDClient.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\LepDRequestor.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\LepdTests.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\MemoryMonitor.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\MethodMap.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\PerfMonitor.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__copyright__	C:\web\lepv\web\backend\tests\UnitTester.py	/^__copyright__ = "Licensed under GPLv2 or later."$/;"	kind:variable	line:3
+__init__	C:\web\lepv\web\LepViewer\views.py	/^    def __init__(self, data, **kwargs):$/;"	kind:member	line:27
+__init__	C:\web\lepv\web\backend\CPUMonitor.py	/^    def __init__(self, server, config='release'):$/;"	kind:member	line:13
+__init__	C:\web\lepv\web\backend\IOMonitor.py	/^    def __init__(self, server, config='release'):$/;"	kind:member	line:13
+__init__	C:\web\lepv\web\backend\Languages.py	/^    def __init__(self):$/;"	kind:member	line:7
+__init__	C:\web\lepv\web\backend\LepDClient.py	/^    def __init__(self, server, port=12307, config='release'):$/;"	kind:member	line:14
+__init__	C:\web\lepv\web\backend\LepDRequestor.py	/^    def __init__(self, lepdCommand, server='www.linuxep.com', port=12307):$/;"	kind:member	line:13
+__init__	C:\web\lepv\web\backend\LepdTests.py	/^    def __init__(self, server):$/;"	kind:member	line:12
+__init__	C:\web\lepv\web\backend\MemoryMonitor.py	/^    def __init__(self, server, config='release'):$/;"	kind:member	line:14
+__init__	C:\web\lepv\web\backend\MethodMap.py	/^    def __init__(self):$/;"	kind:member	line:9
+__init__	C:\web\lepv\web\backend\PerfMonitor.py	/^    def __init__(self, server, config='release'):$/;"	kind:member	line:12
+__init__	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^    def __init__(self):$/;"	kind:member	line:12
+__init__	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^    def __init__(self):$/;"	kind:member	line:11
+__init__	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^    def __init__(self):$/;"	kind:member	line:12
+__init__	C:\web\lepv\web\backend\tests\UnitTester.py	/^    def __init__(self, lepdMethod):$/;"	kind:member	line:12
+__init__.py	C:\web\lepv\web\LepViewer\__init__.py	1;"	kind:file	line:1
+__init__.py	C:\web\lepv\web\backend\__init__.py	1;"	kind:file	line:1
+__init__.py	C:\web\lepv\web\backend\tests\__init__.py	1;"	kind:file	line:1
+admin	C:\web\lepv\web\LepViewer\urls.py	/^from django.contrib import admin$/;"	kind:namespace	line:6
+application	C:\web\lepv\web\LepViewer\wsgi.py	/^application = get_wsgi_application()$/;"	kind:variable	line:14
+client	C:\web\lepv\web\backend\Languages.py	/^    client = Languages()$/;"	kind:variable	line:65
+client	C:\web\lepv\web\backend\LepDClient.py	/^    client = LepDClient('www.readeeper.com', config='debug')$/;"	kind:variable	line:272
+convertKbToMb	C:\web\lepv\web\backend\MemoryMonitor.py	/^    def convertKbToMb(self, strKbValue):$/;"	kind:member	line:21
+datetime	C:\web\lepv\web\LepViewer\views.py	/^import datetime$/;"	kind:namespace	line:7
+datetime	C:\web\lepv\web\backend\IOMonitor.py	/^import datetime$/;"	kind:namespace	line:7
+datetime	C:\web\lepv\web\backend\LepDClient.py	/^import datetime$/;"	kind:namespace	line:10
+datetime	C:\web\lepv\web\backend\LepDRequestor.py	/^from datetime import datetime$/;"	kind:namespace	line:7
+execute_from_command_line	C:\web\lepv\web\manage.py	/^    from django.core.management import execute_from_command_line$/;"	kind:namespace	line:8
+getAverageLoad	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getAverageLoad(self):$/;"	kind:member	line:241
+getCapacity	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getCapacity(self):$/;"	kind:member	line:128
+getCapacity	C:\web\lepv\web\backend\IOMonitor.py	/^    def getCapacity(self):$/;"	kind:member	line:63
+getCapacity	C:\web\lepv\web\backend\MemoryMonitor.py	/^    def getCapacity(self, sampleDataLines = None):$/;"	kind:member	line:61
+getCmdMpStat	C:\web\lepv\web\backend\LepDClient.py	/^    def getCmdMpStat(self):$/;"	kind:member	line:93
+getComponentCapacity	C:\web\lepv\web\LepViewer\views.py	/^def getComponentCapacity(request, component='', server='', requestId='', config='release'):$/;"	kind:function	line:156
+getComponentStatus	C:\web\lepv\web\LepViewer\views.py	/^def getComponentStatus(request, component='', server='', requestId='', config='release'):$/;"	kind:function	line:75
+getCpuInfo	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getCpuInfo(self, cpuInfoLines = None):$/;"	kind:member	line:92
+getCpuInfoForArm	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getCpuInfoForArm(self, lines):$/;"	kind:member	line:18
+getCpuInfoForArmArch64	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getCpuInfoForArmArch64(self, lines):$/;"	kind:member	line:42
+getCpuInfoForX86	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getCpuInfoForX86(self, lines):$/;"	kind:member	line:65
+getCpuStat	C:\web\lepv\web\LepViewer\views.py	/^def getCpuStat(request, server='', requestId='', config='release'):$/;"	kind:function	line:177
+getCpuTopData	C:\web\lepv\web\LepViewer\views.py	/^def getCpuTopData(request, server='', requestId='', config='release'):$/;"	kind:function	line:201
+getIoTopData	C:\web\lepv\web\backend\IOMonitor.py	/^    def getIoTopData(self, ioTopLines = None):$/;"	kind:member	line:95
+getIostatResult	C:\web\lepv\web\backend\LepDClient.py	/^    def getIostatResult(self):$/;"	kind:member	line:78
+getLanguagePackForCN	C:\web\lepv\web\backend\Languages.py	/^    def getLanguagePackForCN(self):$/;"	kind:member	line:10
+getLanguagePackForEN	C:\web\lepv\web\backend\Languages.py	/^    def getLanguagePackForEN(self):$/;"	kind:member	line:57
+getMap	C:\web\lepv\web\backend\MethodMap.py	/^    def getMap(self):$/;"	kind:member	line:12
+getMemoryStat	C:\web\lepv\web\LepViewer\views.py	/^def getMemoryStat(request, server='', requestId='', config='release'):$/;"	kind:function	line:213
+getMethodMap	C:\web\lepv\web\LepViewer\views.py	/^def getMethodMap(request):$/;"	kind:function	line:225
+getPerfCpuClock	C:\web\lepv\web\backend\PerfMonitor.py	/^    def getPerfCpuClock(self):$/;"	kind:member	line:19
+getPerfCpuClockData	C:\web\lepv\web\LepViewer\views.py	/^def getPerfCpuClockData(request, server='', requestId='', config='release'):$/;"	kind:function	line:189
+getProcStat	C:\web\lepv\web\backend\LepDClient.py	/^    def getProcStat(self):$/;"	kind:member	line:105
+getProcrank	C:\web\lepv\web\backend\MemoryMonitor.py	/^    def getProcrank(self):$/;"	kind:member	line:137
+getResponse	C:\web\lepv\web\backend\LepDClient.py	/^    def getResponse(self, methodName):$/;"	kind:member	line:219
+getResultList	C:\web\lepv\web\backend\tests\UnitTester.py	/^    def getResultList(self, sampleData):$/;"	kind:member	line:25
+getStat	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getStat(self):$/;"	kind:member	line:202
+getStatus	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getStatus(self):$/;"	kind:member	line:187
+getStatus	C:\web\lepv\web\backend\IOMonitor.py	/^    def getStatus(self):$/;"	kind:member	line:18
+getStatus	C:\web\lepv\web\backend\MemoryMonitor.py	/^    def getStatus(self):$/;"	kind:member	line:24
+getSystemInfo	C:\web\lepv\web\backend\LepDClient.py	/^    def getSystemInfo(self):$/;"	kind:member	line:199
+getTopOutput	C:\web\lepv\web\backend\CPUMonitor.py	/^    def getTopOutput(self):$/;"	kind:member	line:263
+getTopOutput	C:\web\lepv\web\backend\LepDClient.py	/^    def getTopOutput(self):$/;"	kind:member	line:40
+getUnitTestResponse	C:\web\lepv\web\backend\LepDClient.py	/^    def getUnitTestResponse(self, commandName, arch='arm'):$/;"	kind:member	line:191
+get_template	C:\web\lepv\web\LepViewer\views.py	/^from django.template.loader import get_template$/;"	kind:namespace	line:11
+get_wsgi_application	C:\web\lepv\web\LepViewer\wsgi.py	/^from django.core.wsgi import get_wsgi_application$/;"	kind:namespace	line:13
+include	C:\web\lepv\web\LepViewer\urls.py	/^from django.conf.urls import include, url$/;"	kind:namespace	line:4
+json	C:\web\lepv\web\backend\LepDClient.py	/^import json$/;"	kind:namespace	line:5
+json	C:\web\lepv\web\backend\tests\UnitTester.py	/^import json$/;"	kind:namespace	line:5
+listAllMethods	C:\web\lepv\web\backend\LepDClient.py	/^    def listAllMethods(self):$/;"	kind:member	line:22
+loadJson	C:\web\lepv\web\backend\tests\UnitTester.py	/^    def loadJson(self):$/;"	kind:member	line:17
+manage.py	C:\web\lepv\web\manage.py	1;"	kind:file	line:1
+methods	C:\web\lepv\web\backend\MethodMap.py	/^    methods = MethodMap()$/;"	kind:variable	line:106
+monitor	C:\web\lepv\web\backend\CPUMonitor.py	/^    monitor = CPUMonitor('www.readeeper.com')$/;"	kind:variable	line:309
+monitor	C:\web\lepv\web\backend\IOMonitor.py	/^    monitor = IOMonitor('www.linuxxueyuan.com')$/;"	kind:variable	line:201
+monitor	C:\web\lepv\web\backend\MemoryMonitor.py	/^    monitor = MemoryMonitor('www.linuxxueyuan.com')$/;"	kind:variable	line:207
+monitor	C:\web\lepv\web\backend\PerfMonitor.py	/^    monitor = PerfMonitor(server='www.readeeper.com', config='debug')$/;"	kind:variable	line:68
+normalizeValue	C:\web\lepv\web\backend\MemoryMonitor.py	/^    def normalizeValue(self, valueString):$/;"	kind:member	line:92
+os	C:\web\lepv\web\LepViewer\settings.py	/^import os$/;"	kind:namespace	line:12
+os	C:\web\lepv\web\LepViewer\settings.py	/^import os.path$/;"	kind:namespace	line:13
+os	C:\web\lepv\web\LepViewer\wsgi.py	/^import os$/;"	kind:namespace	line:10
+os	C:\web\lepv\web\backend\tests\UnitTester.py	/^import os$/;"	kind:namespace	line:6
+os	C:\web\lepv\web\manage.py	/^import os$/;"	kind:namespace	line:2
+path	C:\web\lepv\web\LepViewer\settings.py	/^import os.path$/;"	kind:namespace	line:13
+ping	C:\web\lepv\web\backend\LepDClient.py	/^    def ping(self):$/;"	kind:member	line:30
+pingServer	C:\web\lepv\web\LepViewer\views.py	/^def pingServer(request, server='', requestId='', config='release'):$/;"	kind:function	line:109
+platform	C:\web\lepv\web\LepViewer\settings.py	/^import platform$/;"	kind:namespace	line:14
+platformName	C:\web\lepv\web\LepViewer\settings.py	/^platformName = platform.platform()$/;"	kind:variable	line:16
+pp	C:\web\lepv\web\backend\CPUMonitor.py	/^    pp = pprint.PrettyPrinter(indent=2)$/;"	kind:variable	line:307
+pp	C:\web\lepv\web\backend\IOMonitor.py	/^    pp = pprint.PrettyPrinter(indent=2)$/;"	kind:variable	line:204
+pp	C:\web\lepv\web\backend\LepDClient.py	/^    pp = pprint.PrettyPrinter(indent=2)$/;"	kind:variable	line:271
+pp	C:\web\lepv\web\backend\MemoryMonitor.py	/^    pp = pprint.PrettyPrinter(indent=2)$/;"	kind:variable	line:205
+pp	C:\web\lepv\web\backend\MethodMap.py	/^    pp = pprint.PrettyPrinter(indent=2)$/;"	kind:variable	line:104
+pp	C:\web\lepv\web\backend\PerfMonitor.py	/^    pp = pprint.PrettyPrinter(indent=2)$/;"	kind:variable	line:70
+pprint	C:\web\lepv\web\backend\CPUMonitor.py	/^import pprint$/;"	kind:namespace	line:7
+pprint	C:\web\lepv\web\backend\IOMonitor.py	/^import pprint$/;"	kind:namespace	line:8
+pprint	C:\web\lepv\web\backend\LepDClient.py	/^import pprint$/;"	kind:namespace	line:8
+pprint	C:\web\lepv\web\backend\MemoryMonitor.py	/^import pprint$/;"	kind:namespace	line:7
+pprint	C:\web\lepv\web\backend\MethodMap.py	/^import pprint$/;"	kind:namespace	line:5
+pprint	C:\web\lepv\web\backend\PerfMonitor.py	/^import pprint$/;"	kind:namespace	line:6
+pprint	C:\web\lepv\web\backend\tests\UnitTester.py	/^import pprint$/;"	kind:namespace	line:8
+re	C:\web\lepv\web\backend\CPUMonitor.py	/^import re$/;"	kind:namespace	line:6
+re	C:\web\lepv\web\backend\IOMonitor.py	/^import re$/;"	kind:namespace	line:6
+re	C:\web\lepv\web\backend\LepDClient.py	/^import re$/;"	kind:namespace	line:9
+re	C:\web\lepv\web\backend\MemoryMonitor.py	/^import re$/;"	kind:namespace	line:8
+re	C:\web\lepv\web\backend\tests\UnitTester.py	/^import re$/;"	kind:namespace	line:7
+render	C:\web\lepv\web\LepViewer\views.py	/^from django.shortcuts import render$/;"	kind:namespace	line:5
+report	C:\web\lepv\web\backend\LepDRequestor.py	/^    def report(self):$/;"	kind:member	line:34
+report	C:\web\lepv\web\backend\tests\UnitTester.py	/^    def report(self, sampleData):$/;"	kind:member	line:34
+requestor	C:\web\lepv\web\backend\LepDRequestor.py	/^    requestor = LepDRequestor('GetCmdIostat')$/;"	kind:variable	line:49
+responseData	C:\web\lepv\web\backend\PerfMonitor.py	/^    responseData = monitor.getPerfCpuClock()$/;"	kind:variable	line:72
+run	C:\web\lepv\web\backend\LepDRequestor.py	/^    def run(self):$/;"	kind:member	line:24
+runAllMethodConcurrently	C:\web\lepv\web\backend\LepdTests.py	/^    def runAllMethodConcurrently(self):$/;"	kind:member	line:33
+runAllMethodsRepeatedly	C:\web\lepv\web\backend\LepdTests.py	/^    def runAllMethodsRepeatedly(self):$/;"	kind:member	line:71
+runAndReport	C:\web\lepv\web\backend\LepDRequestor.py	/^    def runAndReport(self):$/;"	kind:member	line:42
+runCommand	C:\web\lepv\web\LepViewer\views.py	/^def runCommand(request, server, command):$/;"	kind:function	line:138
+runMethodConcurrently	C:\web\lepv\web\backend\LepdTests.py	/^    def runMethodConcurrently(self, command, times):$/;"	kind:member	line:15
+runMethodRepeatedly	C:\web\lepv\web\backend\LepdTests.py	/^    def runMethodRepeatedly(self, command, times):$/;"	kind:member	line:56
+sendRequest	C:\web\lepv\web\backend\LepDClient.py	/^    def sendRequest(self, methodName):$/;"	kind:member	line:232
+serve	C:\web\lepv\web\LepViewer\urls.py	/^from django.views.static import serve$/;"	kind:namespace	line:69
+server	C:\web\lepv\web\backend\LepdTests.py	/^    server = 'www.readeeper.com'$/;"	kind:variable	line:86
+settings	C:\web\lepv\web\LepViewer\urls.py	/^from django.conf import settings$/;"	kind:namespace	line:68
+settings.py	C:\web\lepv\web\LepViewer\settings.py	1;"	kind:file	line:1
+showHomepage	C:\web\lepv\web\LepViewer\views.py	/^def showHomepage(request, config='release'):$/;"	kind:function	line:33
+showLepdPerformanceTestPage	C:\web\lepv\web\LepViewer\views.py	/^def showLepdPerformanceTestPage(request):$/;"	kind:function	line:66
+showSanityTestPage	C:\web\lepv\web\LepViewer\views.py	/^def showSanityTestPage(request):$/;"	kind:function	line:57
+showTestPage	C:\web\lepv\web\LepViewer\views.py	/^def showTestPage(request):$/;"	kind:function	line:47
+socket	C:\web\lepv\web\backend\LepDClient.py	/^import socket$/;"	kind:namespace	line:6
+sys	C:\web\lepv\web\manage.py	/^import sys$/;"	kind:namespace	line:3
+test	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^    def test(self):$/;"	kind:member	line:17
+test	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^    def test(self):$/;"	kind:member	line:16
+test	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^    def test(self):$/;"	kind:member	line:17
+test	C:\web\lepv\web\backend\tests\UnitTester.py	/^    def test(self):$/;"	kind:member	line:43
+tester	C:\web\lepv\web\backend\tests\GetCmdIotopTest.py	/^    tester = GetCmdIotopTester()$/;"	kind:variable	line:34
+tester	C:\web\lepv\web\backend\tests\GetProcCpuinfoTest.py	/^    tester = GetProcCpuinfoTester()$/;"	kind:variable	line:33
+tester	C:\web\lepv\web\backend\tests\GetProcMeminfoTest.py	/^    tester = GetProcMeminfoTester()$/;"	kind:variable	line:34
+tester	C:\web\lepv\web\backend\tests\UnitTester.py	/^    tester = UnitTester()$/;"	kind:variable	line:48
+tests	C:\web\lepv\web\backend\LepdTests.py	/^    tests = LepDTests(server)$/;"	kind:variable	line:89
+threading	C:\web\lepv\web\backend\LepDRequestor.py	/^import threading$/;"	kind:namespace	line:6
+tryAllMethods	C:\web\lepv\web\backend\LepDClient.py	/^    def tryAllMethods(self):$/;"	kind:member	line:149
+url	C:\web\lepv\web\LepViewer\urls.py	/^from django.conf.urls import include, url$/;"	kind:namespace	line:4
+urlpatterns	C:\web\lepv\web\LepViewer\urls.py	/^urlpatterns = [$/;"	kind:variable	line:10
+urls.py	C:\web\lepv\web\LepViewer\urls.py	1;"	kind:file	line:1
+validateProcCpuInfo	C:\web\lepv\web\backend\CPUMonitor.py	/^    def validateProcCpuInfo(self, parsedData):$/;"	kind:member	line:114
+views.py	C:\web\lepv\web\LepViewer\views.py	1;"	kind:file	line:1
+viewsets	C:\web\lepv\web\LepViewer\views.py	/^from rest_framework import viewsets$/;"	kind:namespace	line:20
+wsgi.py	C:\web\lepv\web\LepViewer\wsgi.py	1;"	kind:file	line:1
