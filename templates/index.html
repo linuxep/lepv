@@ -548,6 +548,9 @@
     <script src="{% static "lepv/lib/lepvCpuTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/lepvAvgLoadChart.js" %}"></script>
 
+    <script src="{% static "lepv/lib/lepvGauge.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvCpuGauge.js" %}"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -597,6 +600,8 @@
 
         var perfCpuTopTable = new LepvCpuTopTable('div-cpu-top', 'cpu-top-table');
         perfCpuTopTable.start(server);
+
+        var cpuGaugeChart = new LepvCpuGauge('div-cpu-gauge');
 
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
