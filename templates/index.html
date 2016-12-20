@@ -453,8 +453,8 @@
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div>
-                                    <div id="div-perf">
-                                        <table id="perf-table" class="display compact" cellspacing="0">
+                                    <div id="div-perf-cpu">
+                                        <table id="perf-cpu-table" class="display compact" cellspacing="0">
                                         </table>
                                     </div>
                                 </div>
@@ -485,7 +485,7 @@
                     <div class="modal-body">
                         <div class="input-group">
                             <span class="input-group-addon">{{ languages.Server }}</span>
-                            <input id="txtServer" type="text" class="form-control" placeholder="www.readeeper.com" value="www.readeeper.com"/>
+                            <input id="txtServer" type="text" class="form-control" placeholder="www.linuxxueyuan.com" value="www.linuxxueyuan.com"/>
                         </div>
                         <p></p>
 
@@ -515,13 +515,10 @@
             </div>
         </div>
     </div>
-
-
-
+    
     <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
     <script src="{% static "lepv/lib/js.cookie.js" %}"></script>
     <script src="{% static "lepv/js/jquery-ui.min.js" %}"></script>
-
 
     <script src="{% static "bower_components/datatables/media/js/jquery.dataTables.min.js" %}"></script>
 
@@ -536,14 +533,11 @@
     <script src="{% static "lepv/js/lepv.js" %}"></script>
     <script src="{% static "lepv/js/timer.jquery.min.js" %}"></script>
 
-
-
     <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
     <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
     <script src="{% static "lepv/lib/memoryStatTable.js" %}"></script>
     <script src="{% static "lepv/lib/CPUTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
-    <script src="{% static "lepv/lib/perfCPUTable.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
 
     <script src="{% static "lepv/lib/lepvChartConfig.js" %}"></script>
@@ -551,6 +545,7 @@
     <script src="{% static "lepv/lib/lepvIOStatChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvMemoryChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvIOTopTable.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvPerfCpuTable.js" %}"></script>
     <script src="{% static "lepv/lib/lepvAvgLoadChart.js" %}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -597,6 +592,10 @@
 
         var avgLoadChart = new LepvAvgLoadChart('div-system-load');
         avgLoadChart.start(server);
+        
+        var perfCpuTable = new LepvPerfCpuTable('div-perf-cpu');
+        perfCpuTable.setTableDivName('#perf-cpu-table');
+        perfCpuTable.start(server);
 
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
@@ -628,11 +627,6 @@
         CPUTopTable.setTableName('#cpu-top-table');
         CPUTopTable.setRunConfig( '{{config}}' );
         CPUTopTable.start(server);
-
-        PerfCPUTable.setChartDivName('div-perf');
-        PerfCPUTable.setTableName('#perf-table');
-        PerfCPUTable.setRunConfig( '{{config}}' );
-        PerfCPUTable.start(server);
 
         $('[data-toggle="tooltip"]').tooltip();
 
