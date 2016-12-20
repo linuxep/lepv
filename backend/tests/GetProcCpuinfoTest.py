@@ -2,11 +2,6 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-import json
-import pprint
-
-import os
-
 from backend.CPUMonitor import CPUMonitor
 
 from backend.tests.UnitTester import UnitTester
@@ -35,7 +30,7 @@ class GetProcCpuinfoTester(UnitTester):
 
 if( __name__ =='__main__' ):
 
-    cpuInfoTest = GetProcCpuinfoTester()
-    cpuInfoTest.test()
+    tester = GetProcCpuinfoTester()
+    tester.test()
     
     

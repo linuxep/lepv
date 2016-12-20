@@ -92,16 +92,18 @@ class IOMonitor:
         return responseData
 
 
-    def getIoTopData(self):
+    def getIoTopData(self, ioTopLines = None):
+
+        if (ioTopLines == None):
+            ioTopLines = self.client.getResponse('GetCmdIotop')
         
-        ioTopLines = self.client.getResponse('GetCmdIotop')
         ioTopResults = {}
         ioTopResults['topData'] = {}
         ioTopResults['rawResult'] = ioTopLines[:]
         
         dataLineStartingIndex = 0
         for line in ioTopLines:
-            if (line.strip() == 'TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN      IO    COMMAND'):
+            if (re.match(r'\W*TID\W+PRIO\W+USER\W+DISK READ\W+DISK WRITE\W+SWAPIN\W+IO\W+COMMAND\W*', line.strip(), re.M|re.I)):
                 break
             else:
                 dataLineStartingIndex += 1
@@ -115,6 +117,9 @@ class IOMonitor:
             # print (line)
             if (line.strip() == ''):
                 continue
+            
+            if (self.client.LEPDENDINGSTRING in line):
+                break
 
             # find the 'M/s" or 'B/s', they are for disk read and write
             matches = re.findall('\s*\d+\.\d{2}\s*[G|M|B]\/s\s+', line)
@@ -150,46 +155,46 @@ class IOMonitor:
         
         return ioTopResults
 
-    def getIoPPData(self):
-
-        ioTopLines = self.client.getResponse('GetCmdIopp')
-        ioResults = {}
-        ioResults['data'] = {}
-        if (self.config == 'debug'):    
-            ioResults['rawResult'] = ioTopLines[:]
-        
-        headerLine = ioTopLines.pop(0)
-        # TODO: validate the header column ordering here.
-
-        # pid    rchar    wchar    syscr    syscw   rbytes   wbytes  cwbytes command
-        # 1        0        0        0        0        0        0        0 init
-        # 2        0        0        0        0        0        0        0 kthreadd
-        # 3        0        0        0        0        0        0        0 ksoftirqd/0
-        # 5        0        0        0        0        0        0        0 kworker/0:0H
-        orderIndex = 1
-        for line in ioTopLines:
-            # print (line)
-            if (line.strip() == ''):
-                continue
-
-            lineValues = line.split()
-
-            ioTopItem = {}
-            ioTopItem['pid'] = lineValues.pop(0)
-            ioTopItem['rchar'] = lineValues.pop(0)
-            ioTopItem['wchar'] = lineValues.pop(0)
-            ioTopItem['syscr'] = lineValues.pop(0)
-            ioTopItem['syscw'] = lineValues.pop(0)
-            ioTopItem['rbytes'] = lineValues.pop(0)
-            ioTopItem['wbytes'] = lineValues.pop(0)
-            ioTopItem['cwbytes'] = lineValues.pop(0)
-            ioTopItem['command'] = ' '.join([str(x) for x in lineValues])
-
-            # use an incremental int as key, so we keey the order of the items.
-            ioResults['data'][orderIndex] = ioTopItem
-            orderIndex += 1
-
-        return ioResults
+    # def getIoPPData(self):
+    # 
+    #     ioTopLines = self.client.getResponse('GetCmdIopp')
+    #     ioResults = {}
+    #     ioResults['data'] = {}
+    #     if (self.config == 'debug'):    
+    #         ioResults['rawResult'] = ioTopLines[:]
+    #     
+    #     headerLine = ioTopLines.pop(0)
+    #     # TODO: validate the header column ordering here.
+    # 
+    #     # pid    rchar    wchar    syscr    syscw   rbytes   wbytes  cwbytes command
+    #     # 1        0        0        0        0        0        0        0 init
+    #     # 2        0        0        0        0        0        0        0 kthreadd
+    #     # 3        0        0        0        0        0        0        0 ksoftirqd/0
+    #     # 5        0        0        0        0        0        0        0 kworker/0:0H
+    #     orderIndex = 1
+    #     for line in ioTopLines:
+    #         # print (line)
+    #         if (line.strip() == ''):
+    #             continue
+    # 
+    #         lineValues = line.split()
+    # 
+    #         ioTopItem = {}
+    #         ioTopItem['pid'] = lineValues.pop(0)
+    #         ioTopItem['rchar'] = lineValues.pop(0)
+    #         ioTopItem['wchar'] = lineValues.pop(0)
+    #         ioTopItem['syscr'] = lineValues.pop(0)
+    #         ioTopItem['syscw'] = lineValues.pop(0)
+    #         ioTopItem['rbytes'] = lineValues.pop(0)
+    #         ioTopItem['wbytes'] = lineValues.pop(0)
+    #         ioTopItem['cwbytes'] = lineValues.pop(0)
+    #         ioTopItem['command'] = ' '.join([str(x) for x in lineValues])
+    # 
+    #         # use an incremental int as key, so we keey the order of the items.
+    #         ioResults['data'][orderIndex] = ioTopItem
+    #         orderIndex += 1
+    # 
+    #     return ioResults
 
 
 if( __name__ =='__main__' ):
@@ -199,8 +204,8 @@ if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     
     # monitor = IOMonitor('www.linuxep.com')
-    # pp.pprint(monitor.getIoTopData())
-    pp.pprint(monitor.getIoPPData())
+    pp.pprint(monitor.getIoTopData())
+    # pp.pprint(monitor.getIoPPData())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &
 

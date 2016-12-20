@@ -16,9 +16,7 @@ class UnitTester:
 
     def loadJson(self):
         currentDir = os.path.dirname(os.path.realpath(__file__))
-        fileName = os.path.basename(os.path.realpath(__file__))
-    
-        sampleDataFilePath = os.path.join(currentDir, self.method + ".json")
+        sampleDataFilePath = os.path.join(currentDir, 'sampleDatas', self.method + ".json")
     
         with open(sampleDataFilePath) as data_file:
             jsonData = json.load(data_file)
