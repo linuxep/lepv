@@ -3,11 +3,13 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvPerfCpuTable = function(divName) {
+var LepvPerfCpuTable = function(divName, tableDivName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
     LepvChart.call(this, divName);
+
+    this.setTableDivName(tableDivName);
     
     this.chartTitle = "Perf Table";
     this.chartHeaderColor = 'blue';
@@ -76,6 +78,7 @@ LepvPerfCpuTable.prototype.updateChartData = function(data) {
                 dataItem['Shared Object'],
                 dataItem['Symbol']
             ]);
+            index = index + 1;
         });
     } else {
         var index = 0;

@@ -3,11 +3,12 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvIOTopTable = function(divName) {
+var LepvIOTopTable = function(divName, tableDivName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
     LepvChart.call(this, divName);
+    this.setTableDivName(tableDivName);
     
     this.chartTitle = "IO Top Table";
     this.chartHeaderColor = 'yellow';
@@ -91,6 +92,7 @@ LepvIOTopTable.prototype.updateChartData = function(data) {
                 ioppData['IO'],
                 ioppData['COMMAND']
             ]);
+            index = index + 1;
         });
     } else {
         var index = 0;

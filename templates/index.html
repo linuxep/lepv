@@ -536,7 +536,6 @@
     <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
     <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
     <script src="{% static "lepv/lib/memoryStatTable.js" %}"></script>
-    <script src="{% static "lepv/lib/CPUTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
 
@@ -546,6 +545,7 @@
     <script src="{% static "lepv/lib/lepvMemoryChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvIOTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/lepvPerfCpuTable.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvCpuTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/lepvAvgLoadChart.js" %}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -583,8 +583,7 @@
         var ioChart = new LepvIOStatChart('div-io-stat');
         ioChart.start(server);
 
-        var ioTopTable = new LepvIOTopTable('div-io-top');
-        ioTopTable.setTableDivName('#io-top-table');
+        var ioTopTable = new LepvIOTopTable('div-io-top', 'io-top-table');
         ioTopTable.start(server);
 
         var memChart = new LepvMemoryChart('div-memory-chart');
@@ -593,9 +592,11 @@
         var avgLoadChart = new LepvAvgLoadChart('div-system-load');
         avgLoadChart.start(server);
         
-        var perfCpuTable = new LepvPerfCpuTable('div-perf-cpu');
-        perfCpuTable.setTableDivName('#perf-cpu-table');
+        var perfCpuTable = new LepvPerfCpuTable('div-perf-cpu', 'perf-cpu-table');
         perfCpuTable.start(server);
+
+        var perfCpuTopTable = new LepvCpuTopTable('div-cpu-top', 'cpu-top-table');
+        perfCpuTopTable.start(server);
 
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
@@ -622,11 +623,6 @@
         MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
         MemoryStatTable.setRunConfig( '{{config}}' );
         MemoryStatTable.start(server);
-
-        CPUTopTable.setChartDivName('div-cpu-top');
-        CPUTopTable.setTableName('#cpu-top-table');
-        CPUTopTable.setRunConfig( '{{config}}' );
-        CPUTopTable.start(server);
 
         $('[data-toggle="tooltip"]').tooltip();
 
