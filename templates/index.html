@@ -610,8 +610,11 @@
         var procrankTable = new LepvProcrankTable('div-memory-stat',
                 'memory-stat-table', 'div-memory-pss-stat', 'div-memory-free-pss-stat');
         procrankTable.start(server);
+        
+        var cpuGauge = new LepvCpuGauge('div-cpu-gauge');
+        cpuGauge.start(server);
 
-        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
+//        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
         GaugeCharts.setComponentDivName('io', 'div-io-gauge');
         GaugeCharts.setRunConfig( '{{config}}' );
