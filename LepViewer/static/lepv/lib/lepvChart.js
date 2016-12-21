@@ -37,6 +37,11 @@ var LepvChart = function(divName) {
   this.chartData = {};
   this.timeData = ['x'];
   this.dataUrlPrefix = null;
+  
+  // if "proactive" is true, this chart will get data by sending out http requests "proactive"ly
+  // otherwise, it waits for other source ( other leader chart ) to
+  // get data by http and feed it with the data.
+  this.proactive = true;
 
   this.initializeControlElements();
 };
@@ -233,6 +238,12 @@ LepvChart.prototype.updateChartData = function(responseData) {
 };
 
 LepvChart.prototype.refresh = function() {
+  
+  if (!this.proactive) {
+    // this is NOT a "proactive" chart, it does not make http requests to feed data.
+    return;
+  }
+  
   if (this.isChartPaused) {
     return;
   }

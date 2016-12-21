@@ -535,7 +535,6 @@
 
     <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
     <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
-    <script src="{% static "lepv/lib/memoryStatTable.js" %}"></script>
     <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
 
@@ -548,8 +547,13 @@
     <script src="{% static "lepv/lib/lepvCpuTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/lepvAvgLoadChart.js" %}"></script>
 
+    <script src="{% static "lepv/lib/lepvProcrankTable.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvProcrankPssPieChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvProcrankFreeVsPssPieChart.js" %}"></script>
+    
     <script src="{% static "lepv/lib/lepvGauge.js" %}"></script>
     <script src="{% static "lepv/lib/lepvCpuGauge.js" %}"></script>
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -603,6 +607,10 @@
 
         var cpuGaugeChart = new LepvCpuGauge('div-cpu-gauge');
 
+        var procrankTable = new LepvProcrankTable('div-memory-stat',
+                'memory-stat-table', 'div-memory-pss-stat', 'div-memory-free-pss-stat');
+        procrankTable.start(server);
+
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
         GaugeCharts.setComponentDivName('io', 'div-io-gauge');
@@ -621,13 +629,6 @@
         CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
         CPUCharts.setRunConfig( '{{config}}' );
         CPUCharts.start(server);
-
-        MemoryStatTable.setChartDivName('div-memory-stat');
-        MemoryStatTable.setMemoryStatTableDivName("memory-stat-table");
-        MemoryStatTable.setMemoryPssChartDivName("div-memory-pss-stat");
-        MemoryStatTable.setMemoryFreeVsPssChartDivName("div-memory-free-pss-stat");
-        MemoryStatTable.setRunConfig( '{{config}}' );
-        MemoryStatTable.start(server);
 
         $('[data-toggle="tooltip"]').tooltip();
 

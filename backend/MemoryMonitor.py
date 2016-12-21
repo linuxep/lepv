@@ -145,10 +145,8 @@ class MemoryMonitor:
         if (self.config == 'debug'):
             procrankData['rawResult'] = resultLines[:]
 
-            for line in resultLines:
-                print(line)
-
         procrankData['data'] = {}
+        procrankData['data']['procranks'] = {}
         headerLine = resultLines.pop(0)
         lineIndex = 0
         
@@ -157,14 +155,14 @@ class MemoryMonitor:
                 break
             lineValues = line.split()
 
-            procrankData['data'][lineIndex] = {}
-            procrankData['data'][lineIndex]['pid'] = lineValues.pop(0)
-            procrankData['data'][lineIndex]['vss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
-            procrankData['data'][lineIndex]['rss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
-            procrankData['data'][lineIndex]['pss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
-            procrankData['data'][lineIndex]['uss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data']['procranks'][lineIndex] = {}
+            procrankData['data']['procranks'][lineIndex]['pid'] = lineValues.pop(0)
+            procrankData['data']['procranks'][lineIndex]['vss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data']['procranks'][lineIndex]['rss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data']['procranks'][lineIndex]['pss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data']['procranks'][lineIndex]['uss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
 
-            procrankData['data'][lineIndex]['cmdline'] = ' '.join([str(x) for x in lineValues])
+            procrankData['data']['procranks'][lineIndex]['cmdline'] = ' '.join([str(x) for x in lineValues])
             
             lineIndex += 1
 
@@ -173,7 +171,7 @@ class MemoryMonitor:
         
         # now parse from end, which contains summary info
         lastLine = resultLines[-1]
-        procrankData['sum'] = {}
+        procrankData['data']['sum'] = {}
         if (lastLine.startswith('RAM:')):
             lastLine = lastLine.replace("RAM:", '')
             lastLineValuePairs = lastLine.split(", ")
@@ -182,21 +180,21 @@ class MemoryMonitor:
                 
                 keyName = keyValuePair[1].strip()
                 keyValue = keyValuePair[0].strip()
-                
-                procrankData['sum'][keyName + "Unit"] = keyValue[-1:]
-                procrankData['sum'][keyName] = Decimal(Decimal(keyValue[:-1]))
+
+                procrankData['data']['sum'][keyName + "Unit"] = keyValue[-1:]
+                procrankData['data']['sum'][keyName] = Decimal(Decimal(keyValue[:-1]))
 
         xssSumLine = resultLines[-3].strip()
         if (xssSumLine.endswith('TOTAL')):
             xssValues = xssSumLine.split()
             
             ussTotalString = xssValues[-2]
-            procrankData['sum']['ussTotalUnit'] = ussTotalString[-1:]
-            procrankData['sum']['ussTotal'] = Decimal(Decimal(ussTotalString[:-1]))
+            procrankData['data']['sum']['ussTotalUnit'] = ussTotalString[-1:]
+            procrankData['data']['sum']['ussTotal'] = Decimal(Decimal(ussTotalString[:-1]))
             
             pssTotalString = xssValues[-3]
-            procrankData['sum']['pssTotalUnit'] = pssTotalString[-1:]
-            procrankData['sum']['pssTotal'] = Decimal(Decimal(pssTotalString[:-1]))
+            procrankData['data']['sum']['pssTotalUnit'] = pssTotalString[-1:]
+            procrankData['data']['sum']['pssTotal'] = Decimal(Decimal(pssTotalString[:-1]))
             
         return procrankData
 
@@ -207,8 +205,8 @@ if( __name__ =='__main__' ):
     monitor = MemoryMonitor('www.linuxxueyuan.com')
     monitor.config = 'debug'
     # monitor = MemoryMonitor('www.linuxep.com')
-    # monitor.getMemoryStat()
-    pp.pprint(monitor.getProcrank())
+    monitor.getMemoryStat()
+    # pp.pprint(monitor.getProcrank())
     # print(monitor.getSmemOutput())
     # print(monitor.getProcrankOutput())
     # 
