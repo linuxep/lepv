@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvIOStatChart = function(divName) {
+var LepvIOStatChart = function(divName, gaugeDivName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -19,6 +19,11 @@ var LepvIOStatChart = function(divName) {
 
     this.updateChartHeader();
     this.initialize();
+
+    this.gaugeChart = null;
+    if (gaugeDivName) {
+        this.gaugeChart = new LepvGaugeChart(gaugeDivName);
+    }
 };
 
 LepvIOStatChart.prototype = Object.create(LepvChart.prototype);
@@ -103,4 +108,9 @@ LepvIOStatChart.prototype.updateChartData = function(data) {
             value: ['']
         }
     });
+
+    // update gauge
+    if (this.gaugeChart) {
+        this.gaugeChart.updateChartData(data);
+    }
 };

@@ -550,6 +550,8 @@
     <script src="{% static "lepv/lib/lepvProcrankTable.js" %}"></script>
     <script src="{% static "lepv/lib/lepvProcrankPssPieChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvProcrankFreeVsPssPieChart.js" %}"></script>
+
+    <script src="{% static "lepv/lib/lepvGaugeChart.js" %}"></script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -558,8 +560,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
+    
     <script>
         $( document ).ready(function() {
             showConfigPage();
@@ -584,13 +585,13 @@
         Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
         Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
 
-        var ioChart = new LepvIOStatChart('div-io-stat');
+        var ioChart = new LepvIOStatChart('div-io-stat', 'div-io-gauge');
         ioChart.start(server);
 
         var ioTopTable = new LepvIOTopTable('div-io-top', 'io-top-table');
         ioTopTable.start(server);
 
-        var memChart = new LepvMemoryChart('div-memory-chart');
+        var memChart = new LepvMemoryChart('div-memory-chart', 'div-memory-gauge');
         memChart.start(server);
 
         var avgLoadChart = new LepvAvgLoadChart('div-system-load');
@@ -607,7 +608,7 @@
         procrankTable.start(server);
 
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
-        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
+//        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
         GaugeCharts.setComponentDivName('io', 'div-io-gauge');
         GaugeCharts.setRunConfig( '{{config}}' );
         GaugeCharts.start(server);

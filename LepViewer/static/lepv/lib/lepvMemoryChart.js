@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvMemoryChart = function(divName) {
+var LepvMemoryChart = function(divName, gaugeDivName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -16,9 +16,14 @@ var LepvMemoryChart = function(divName) {
     this.refreshInterval = 2;
 
     this.dataUrlPrefix = "/status/memory/";
-
+    
     this.updateChartHeader();
     this.initialize();
+
+    this.gaugeChart = null;
+    if (gaugeDivName) {
+        this.gaugeChart = new LepvGaugeChart(gaugeDivName);
+    }
 };
 
 LepvMemoryChart.prototype = Object.create(LepvChart.prototype);
@@ -120,4 +125,9 @@ LepvMemoryChart.prototype.updateChartData = function(data) {
             this.chartData['Cached'],
             this.chartData['Free']]
     });
+    
+    // update gauge
+    if (this.gaugeChart) {
+        this.gaugeChart.updateChartData(data);
+    }
 };
