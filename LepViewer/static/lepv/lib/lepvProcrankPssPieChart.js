@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvMemoryStatPssPieChart = function(divName) {
+var LepvProcrankPssPieChart = function(divName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -21,10 +21,10 @@ var LepvMemoryStatPssPieChart = function(divName) {
     this.initialize();
 };
 
-LepvMemoryStatPssPieChart.prototype = Object.create(LepvChart.prototype);
-LepvMemoryStatPssPieChart.prototype.constructor = LepvMemoryStatPssPieChart;
+LepvProcrankPssPieChart.prototype = Object.create(LepvChart.prototype);
+LepvProcrankPssPieChart.prototype.constructor = LepvProcrankPssPieChart;
 
-LepvMemoryStatPssPieChart.prototype.initialize = function() {
+LepvProcrankPssPieChart.prototype.initialize = function() {
 
     this.chart = c3.generate({
         bindto: '#' + this.chartDivName,
@@ -42,7 +42,7 @@ LepvMemoryStatPssPieChart.prototype.initialize = function() {
     });
 };
 
-LepvMemoryStatPssPieChart.prototype.updateChartData = function(pssData) {
+LepvProcrankPssPieChart.prototype.updateChartData = function(pssData) {
 
     this.chart.unload();
     this.chart.load({

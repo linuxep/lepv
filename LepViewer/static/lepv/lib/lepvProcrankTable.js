@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvMemoryStatTable = function(divName, tableDivName, pssPieDivName, freeVsPssDivName) {
+var LepvProcrankTable = function(divName, tableDivName, pssPieDivName, freeVsPssDivName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -23,14 +23,14 @@ var LepvMemoryStatTable = function(divName, tableDivName, pssPieDivName, freeVsP
 
     this.pssData = [];
     this.pssBenchmark = 200;
-    this.pssPieChart = new LepvMemoryStatPssPieChart(pssPieDivName);
-    this.FreeVsPssChart = new LepvMemoryStatFreeVsPieChart(freeVsPssDivName);
+    this.pssPieChart = new LepvProcrankPssPieChart(pssPieDivName);
+    this.FreeVsPssChart = new LepvProcrankFreeVsPieChart(freeVsPssDivName);
 };
 
-LepvMemoryStatTable.prototype = Object.create(LepvChart.prototype);
-LepvMemoryStatTable.prototype.constructor = LepvMemoryStatTable;
+LepvProcrankTable.prototype = Object.create(LepvChart.prototype);
+LepvProcrankTable.prototype.constructor = LepvProcrankTable;
 
-LepvMemoryStatTable.prototype.initialize = function() {
+LepvProcrankTable.prototype.initialize = function() {
 
     this.table = $(this.tableDivName).DataTable( {
         destroy: true,
@@ -49,7 +49,7 @@ LepvMemoryStatTable.prototype.initialize = function() {
     });
 };
 
-LepvMemoryStatTable.prototype.updateChartData = function(data) {
+LepvProcrankTable.prototype.updateChartData = function(data) {
 
     this.updateStatTableData(data.procranks);
     
@@ -57,7 +57,7 @@ LepvMemoryStatTable.prototype.updateChartData = function(data) {
     this.FreeVsPssChart.updateChartData(data.sum);
 };
 
-LepvMemoryStatTable.prototype.updateStatTableData = function(procranks) {
+LepvProcrankTable.prototype.updateStatTableData = function(procranks) {
 
     var thisChart = this;
 

@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvMemoryStatFreeVsPieChart = function(divName) {
+var LepvProcrankFreeVsPieChart = function(divName) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -21,10 +21,10 @@ var LepvMemoryStatFreeVsPieChart = function(divName) {
     this.initialize();
 };
 
-LepvMemoryStatFreeVsPieChart.prototype = Object.create(LepvChart.prototype);
-LepvMemoryStatFreeVsPieChart.prototype.constructor = LepvMemoryStatFreeVsPieChart;
+LepvProcrankFreeVsPieChart.prototype = Object.create(LepvChart.prototype);
+LepvProcrankFreeVsPieChart.prototype.constructor = LepvProcrankFreeVsPieChart;
 
-LepvMemoryStatFreeVsPieChart.prototype.initialize = function() {
+LepvProcrankFreeVsPieChart.prototype.initialize = function() {
 
     this.chart = c3.generate({
         bindto: '#' + this.chartDivName,
@@ -42,7 +42,7 @@ LepvMemoryStatFreeVsPieChart.prototype.initialize = function() {
     });
 };
 
-LepvMemoryStatFreeVsPieChart.prototype.updateChartData = function(sumData) {
+LepvProcrankFreeVsPieChart.prototype.updateChartData = function(sumData) {
     var dataColumn = [];
 
     // to show the correct % of pss against total in donut chart, we need to to set total as (total - pss)

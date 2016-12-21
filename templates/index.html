@@ -547,9 +547,9 @@
     <script src="{% static "lepv/lib/lepvCpuTopTable.js" %}"></script>
     <script src="{% static "lepv/lib/lepvAvgLoadChart.js" %}"></script>
 
-    <script src="{% static "lepv/lib/lepvMemoryStatTable.js" %}"></script>
-    <script src="{% static "lepv/lib/lepvMemoryStatPssPieChart.js" %}"></script>
-    <script src="{% static "lepv/lib/lepvMemoryStatFreeVsPssPieChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvProcrankTable.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvProcrankPssPieChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvProcrankFreeVsPssPieChart.js" %}"></script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -602,9 +602,9 @@
         var perfCpuTopTable = new LepvCpuTopTable('div-cpu-top', 'cpu-top-table');
         perfCpuTopTable.start(server);
 
-        var memoryStatTable = new LepvMemoryStatTable('div-memory-stat',
+        var procrankTable = new LepvProcrankTable('div-memory-stat',
                 'memory-stat-table', 'div-memory-pss-stat', 'div-memory-free-pss-stat');
-        memoryStatTable.start(server);
+        procrankTable.start(server);
 
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
         GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
