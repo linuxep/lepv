@@ -210,7 +210,7 @@ def getCpuTopData(request, server='', requestId='', config='release'):
         return HttpResponse(status=404)
 
 
-def getMemoryStat(request, server='', requestId='', config='release'):
+def getProcrank(request, server='', requestId='', config='release'):
     if( request.method != 'GET' ):
         return
 

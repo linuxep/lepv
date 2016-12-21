@@ -31,10 +31,10 @@ urlpatterns = [
     url(r'^perfcpu/(?P<server>.+)/$', getPerfCpuClockData),
     url(r'^perfcpu/$', getPerfCpuClockData),
 
-    url(r'^memstat/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getMemoryStat),
-    url(r'^memstat/(?P<server>.+)/(?P<config>.+)/$', getMemoryStat),
-    url(r'^memstat/(?P<server>.+)/$', getMemoryStat),
-    url(r'^memstat/$', getMemoryStat),
+    url(r'^procrank/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getProcrank),
+    url(r'^procrank/(?P<server>.+)/(?P<config>.+)/$', getProcrank),
+    url(r'^procrank/(?P<server>.+)/$', getProcrank),
+    url(r'^procrank/$', getProcrank),
 
     url(r'^ping/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', pingServer),
     url(r'^ping/(?P<server>.+)/(?P<config>.+)/$', pingServer),
