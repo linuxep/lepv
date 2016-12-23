@@ -552,6 +552,9 @@
     <script src="{% static "lepv/lib/lepvProcrankFreeVsPssPieChart.js" %}"></script>
 
     <script src="{% static "lepv/lib/lepvGaugeChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvCpuDonutChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvLineChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvCpuCharts.js" %}"></script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -608,8 +611,8 @@
         procrankTable.start(server);
 
         GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
-//        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
-        GaugeCharts.setComponentDivName('io', 'div-io-gauge');
+////        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
+////        GaugeCharts.setComponentDivName('io', 'div-io-gauge');
         GaugeCharts.setRunConfig( '{{config}}' );
         GaugeCharts.start(server);
 
@@ -619,6 +622,15 @@
         CapacityLoader.setRunConfig( '{{config}}' );
         CapacityLoader.start(server);
 
+//        var cpuCharts = new LepvCpuCharts({
+//            'donutChartDivName': 'div-cpu-stat-overall',
+//            'gaugeDivName': 'div-cpu-gauge',
+//            'idleDivName': 'div-cpu-stat-idle',
+//            'userGroupDivName': 'div-cpu-stat-userGroup',
+//            'irqGroupDivName': 'div-cpu-stat-irqGroup'
+//        });
+//        cpuCharts.start(server);
+        
         CPUCharts.setOverallDivName('div-cpu-stat-overall');
         CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
         CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
