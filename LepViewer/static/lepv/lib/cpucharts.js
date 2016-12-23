@@ -216,21 +216,13 @@ var CPUCharts = (function(){
 
     function init() {
 
-        cpuCoreCount = Cookies.get(server + ".Core.Count");
-
         statDatas = {};
-        timeData = ['x'];
-        
         statDatas['idle'] = {};
         statDatas['userGroup'] = {};
         statDatas['irqGroup'] = {};
-        
-        for ( var i = 0; i < cpuCoreCount; i++) {
-            statDatas['idle']['cpu' + i] = ['CPU' + i];
-            statDatas['userGroup']['cpu' + i] = ['CPU' + i];
-            statDatas['irqGroup']['cpu' + i] = ['CPU' + i];
-        }
-        
+
+        timeData = ['x'];
+
         initDonutChart();
         initDetailStatCharts();
     }
@@ -286,44 +278,39 @@ var CPUCharts = (function(){
         var idleChartData = [timeData];
         var userGroupChartData = [timeData];
         var irqGroupChartData = [timeData];
-        
-        var coreIndex = 0;
-        while(true) {
-            var coreName = coreIndex;
-            
-            var resultData = processedData['data'];
-            if (coreName in resultData) {
 
-                if (!(coreName in statDatas['idle'])) {
-                    statDatas['idle'][coreName] = ['CPU-' + coreName];
-                }
-                statDatas['idle'][coreName].push(resultData[coreName]['idle']);
+        var data = processedData.data;
+        $.each( data, function( coreName, coreData ) {
 
-                if (!(coreName in statDatas['userGroup'])) {
-                    statDatas['userGroup'][coreName] = ['CPU-' + coreName];
-                }
-
-                var userGroupData = (Math.round(resultData[coreName]['user'])) +
-                    + (Math.round(resultData[coreName]['system'])
-                    + (Math.round(resultData[coreName]['nice'])));
-                statDatas['userGroup'][coreName].push(userGroupData);
-
-                if (!(coreName in statDatas['irqGroup'])) {
-                    statDatas['irqGroup'][coreName] = ['CPU-' + coreName];
-                }
-                var irqGroupData = (Math.round(resultData[coreName]['irq'])) +
-                    + (Math.round(resultData[coreName]['soft']));
-                statDatas['irqGroup'][coreName].push(irqGroupData);
-
-                idleChartData.push(statDatas['idle'][coreIndex]);
-                userGroupChartData.push(statDatas['userGroup'][coreIndex]);
-                irqGroupChartData.push(statDatas['irqGroup'][coreIndex]);
-                
-                coreIndex += 1;
-            } else {
-                break;
+            if (coreName === "all") {
+                return;
             }
-        }
+
+            if (!(coreName in statDatas['idle'])) {
+                statDatas['idle'][coreName] = ['CPU-' + coreName];
+            }
+            statDatas['idle'][coreName].push(coreData.idle);
+
+            if (!(coreName in statDatas['userGroup'])) {
+                statDatas['userGroup'][coreName] = ['CPU-' + coreName];
+            }
+
+            var userGroupData = (Math.round(coreData.user)) +
+                + (Math.round(coreData.system)
+                + (Math.round(coreData.nice)));
+            statDatas['userGroup'][coreName].push(userGroupData);
+
+            if (!(coreName in statDatas['irqGroup'])) {
+                statDatas['irqGroup'][coreName] = ['CPU-' + coreName];
+            }
+            var irqGroupData = (Math.round(coreData.irq)) +
+                + (Math.round(coreData.soft));
+            statDatas['irqGroup'][coreName].push(irqGroupData);
+
+            idleChartData.push(statDatas['idle'][coreName]);
+            userGroupChartData.push(statDatas['userGroup'][coreName]);
+            irqGroupChartData.push(statDatas['irqGroup'][coreName]);
+        });
 
         chartIdle.load({
             columns: idleChartData,

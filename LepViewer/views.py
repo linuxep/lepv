@@ -121,15 +121,15 @@ def pingServer(request, server='', requestId='', config='release'):
         result = {}
         result['connected'] = client.ping()
         
-        if (result['connected']):
-            # get cpu count
-            cpuMonitor = CPUMonitor(server=server, config=config)
-            cpuCapacityData = cpuMonitor.getCapacity()
-            result['cpuCoreCount'] = cpuCapacityData['data']['coresCount']
-            
-            memMonitor = MemoryMonitor(server=server, config=config)
-            memoryCapacityData = memMonitor.getCapacity()
-            result['memoryTotal'] = memoryCapacityData['data']['capacity']
+        # if (result['connected']):
+        #     # get cpu count
+        #     cpuMonitor = CPUMonitor(server=server, config=config)
+        #     cpuCapacityData = cpuMonitor.getCapacity()
+        #     result['cpuCoreCount'] = cpuCapacityData['data']['coresCount']
+        #     
+        #     memMonitor = MemoryMonitor(server=server, config=config)
+        #     memoryCapacityData = memMonitor.getCapacity()
+        #     result['memoryTotal'] = memoryCapacityData['data']['capacity']
 
         return JSONResponse(result)
     except Exception as ex:
@@ -152,6 +152,16 @@ def runCommand(request, server, command):
         # print(ex)
         return HttpResponse(status=404)
 
+def getProcessorCount(request, server):
+    if( request.method != 'GET' ):
+        return
+
+    try:
+        monitor = CPUMonitor(server)
+        return JSONResponse(monitor.getProcessorCount())
+    except Exception as ex:
+        # print(ex)
+        return HttpResponse(status=404)
 
 def getComponentCapacity(request, component='', server='', requestId='', config='release'):
     if( request.method != 'GET' ):

@@ -37,56 +37,59 @@ LepvAvgLoadChart.prototype.constructor = LepvAvgLoadChart;
 
 LepvAvgLoadChart.prototype.initialize = function() {
 
-    this.cpuCoreCount = Cookies.get(this.server + ".Core.Count");
+    var thisChart = this;
+    $.get('/processorcount/' + thisChart.server, function(responseData, status) {
+        thisChart.cpuCoreCount = responseData.count;
 
-    this.yellowAlertValue = 0.7 * this.cpuCoreCount;
-    this.redAlertValue = 0.9 * this.cpuCoreCount;
+        thisChart.yellowAlertValue = 0.7 * thisChart.cpuCoreCount;
+        thisChart.redAlertValue = 0.9 * thisChart.cpuCoreCount;
 
-    this.maxValues = [this.cpuCoreCount];
+        thisChart.maxValues = [thisChart.cpuCoreCount];
 
-    this.chart = c3.generate({
-        bindto: '#' + this.chartDivName,
-        data: {
-            x: 'x',
-            columns: [this.timeData,
-                this.chartData['last1'],
-                this.chartData['last5'],
-                this.chartData['last15']]
+        thisChart.chart = c3.generate({
+            bindto: '#' + thisChart.chartDivName,
+            data: {
+                x: 'x',
+                columns: [thisChart.timeData,
+                    thisChart.chartData['last1'],
+                    thisChart.chartData['last5'],
+                    thisChart.chartData['last15']]
 
-        },
-        legend: {
-            show: true,
-            position: 'bottom',
-            inset: {
-                anchor: 'top-right',
-                x: 20,
-                y: 10,
-                step: 2
-            }
-        },
-        axis: {
-            x: {
-                type: 'timeseries',
-                tick: {
-                    format: '%H:%M:%S'
+            },
+            legend: {
+                show: true,
+                position: 'bottom',
+                inset: {
+                    anchor: 'top-right',
+                    x: 20,
+                    y: 10,
+                    step: 2
                 }
             },
-            y: {
-                label: {
-                    position: "inner-middle"
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%H:%M:%S'
+                    }
                 },
-                min: 0,
-                max: this.cpuCoreCount,
-                padding: {top:0, bottom:0}
-            }
-        },
-        tooltip: {
-            format: {
-                value: function (value, ratio, id) {
-                    return value;
+                y: {
+                    label: {
+                        position: "inner-middle"
+                    },
+                    min: 0,
+                    max: thisChart.cpuCoreCount,
+                    padding: {top:0, bottom:0}
+                }
+            },
+            tooltip: {
+                format: {
+                    value: function (value, ratio, id) {
+                        return value;
+                    }
                 }
             }
-        }
+        });
     });
 };
 

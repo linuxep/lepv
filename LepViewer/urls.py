@@ -43,6 +43,8 @@ urlpatterns = [
 
     url(r'^command/(?P<server>.+)/(?P<command>.+)/$', runCommand),
 
+    url(r'^processorcount/(?P<server>.+)/$', getProcessorCount),
+    
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/(?P<requestId>\d+)/(?P<config>.+)/$', getComponentCapacity),
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/(?P<config>.+)/$', getComponentCapacity),
     url(r'^capacity/(?P<component>.+)/(?P<server>.+)/$', getComponentCapacity),

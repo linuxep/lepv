@@ -108,7 +108,26 @@ class CPUMonitor:
             responseData['data'] = self.getCpuInfoForX86(cpuInfoLines)
             if ('GenuineIntel' not in secondLine):
                 responseData['data']['architecture'] = 'ARM'
+
+        responseData['data']['processorCount'] = 0
+        for line in cpuInfoLines:
+            if re.match(r'\W*processor\W*:\W*\d+', line, re.M|re.I):
+                responseData['data']['processorCount'] += 1
         
+        return responseData
+
+    def getProcessorCount(self, cpuInfoLines = None):
+
+        if (cpuInfoLines == None):
+            cpuInfoLines = self.client.getResponse('GetProcCpuinfo')
+
+        count = 0
+        for line in cpuInfoLines:
+            if re.match(r'\W*processor\W*:\W*\d+', line, re.M|re.I):
+                count += 1
+
+        responseData = {}
+        responseData['count'] = count
         return responseData
 
     def validateProcCpuInfo(self, parsedData):
@@ -309,7 +328,7 @@ if( __name__ =='__main__' ):
     monitor = CPUMonitor('www.readeeper.com')
 
     # pp.pprint(monitor.getCapacity())
-    pp.pprint(monitor.getCpuInfo())
+    pp.pprint(monitor.getProcessorCount())
     # pp.pprint(monitor.getStat())
     # pp.pprint(monitor.getAverageLoad())
     # pp.pprint(monitor.getTopOutput())

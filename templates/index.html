@@ -585,8 +585,8 @@
         }
         $('#labelBanner').text(bannerLabel);
 
-        Cookies.set(server + ".Core.Count", capacityDatas["cpuCoreCount"]);
-        Cookies.set(server + ".Memory.Total", capacityDatas["memoryTotal"]);
+        Cookies.set(server + ".Core.Count", 'xxx');
+        Cookies.set(server + ".Memory.Total", 'yyy');
 
         var ioChart = new LepvIOStatChart('div-io-stat', 'div-io-gauge');
         ioChart.start(server);
