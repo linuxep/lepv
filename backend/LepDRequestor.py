@@ -11,7 +11,7 @@ __author__ = 'xmac'
 class LepDRequestor(threading.Thread):
 
     def __init__(self, lepdCommand, server='www.linuxep.com', port=12307):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, name=lepdCommand)
         
         self.timeUsed = 0
         

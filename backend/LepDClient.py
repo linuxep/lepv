@@ -269,7 +269,7 @@ if( __name__ =='__main__' ):
     # df is now supported
 
     pp = pprint.PrettyPrinter(indent=2)
-    client = LepDClient('www.readeeper.com', config='debug')
+    client = LepDClient('www.linuxxueyuan.com', config='debug')
     
     pp.pprint(client.getSystemInfo())
     # client.listAllMethods()

@@ -73,6 +73,10 @@ class MemoryMonitor:
 
         results = {}
         for line in responseLines:
+            print(line)
+            if (self.client.LEPDENDINGSTRING in line):
+                continue
+                
             linePairs = line.split(":")
             lineKey = linePairs[0].strip()
             lineValue = linePairs[1].replace('kB', '').strip()

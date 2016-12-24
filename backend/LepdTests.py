@@ -29,6 +29,25 @@ class LepDTests:
 
         for process in processes:
             process.report()
+    
+    def checkAndReportThreads(self, lepdRequestors):
+        if (len(lepdRequestors) == 0):
+            return
+        
+        requestsCompleted = []
+        for lepdRequest in lepdRequestors:
+            if (not lepdRequest.isAlive()):
+                requestsCompleted.append(lepdRequest)
+                lepdRequest.report()
+            
+            lepdRequest.join()
+        
+        for lepdRequest in requestsCompleted:
+            lepdRequestors.remove(lepdRequest)
+        
+        if (len(lepdRequestors) > 0):
+            self.checkAndReportThreads(lepdRequestors)
+        
 
     def runAllMethodConcurrently(self):
 
@@ -44,14 +63,16 @@ class LepDTests:
             lepdRequestor = LepDRequestor(command)
             processes.append(lepdRequestor)
             lepdRequestor.start()
+        
+        self.checkAndReportThreads(processes)
 
-        print("Joining processes...")
-        for process in processes:
-            process.join()
-
-        print("Reporting...")
-        for process in processes:
-            process.report()
+        # print("Joining processes...")
+        # for process in processes:
+        #     process.join()
+        # 
+        # print("Reporting...")
+        # for process in processes:
+        #     process.report()
 
     def runMethodRepeatedly(self, command, times):
         print("Testing command '" + command + "' for " + str(times) + " times.")
@@ -83,14 +104,14 @@ class LepDTests:
 
 if( __name__ =='__main__' ):
     
-    server = 'www.readeeper.com'
+    server = 'www.linuxxueyuan.com'
     print("Testing against: " + server)
     
     tests = LepDTests(server)
     # tests.runAllMethodsRepeatedly()
     # tests.runAllMethodConcurrently()
     
-    # tests.runMethodConcurrently("GetCmdPerfCpuclock", 5)
+    # tests.runMethodConcurrently("GetCmdPerfCpuclock", 2)
     tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
 
 

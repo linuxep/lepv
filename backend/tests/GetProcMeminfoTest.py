@@ -19,8 +19,8 @@ class GetProcMeminfoTester(UnitTester):
             self.report(sampleData)
             
             resultLines = self.getResultList(sampleData)
-            for line in resultLines:
-                print(line)
+            # for line in resultLines:
+            #     print(line)
 
             monitor = MemoryMonitor('XXX')
             
