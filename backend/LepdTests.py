@@ -18,7 +18,7 @@ class LepDTests:
         processes = []
         
         while times > 0:
-            lepdRequestor = LepDRequestor(command)
+            lepdRequestor = LepDRequestor(command, self.server)
             processes.append(lepdRequestor)
             lepdRequestor.start()
             
@@ -60,7 +60,7 @@ class LepDTests:
         for command in commands:
             print("Running command: " + command)
 
-            lepdRequestor = LepDRequestor(command)
+            lepdRequestor = LepDRequestor(command, self.server)
             processes.append(lepdRequestor)
             lepdRequestor.start()
         
@@ -81,7 +81,7 @@ class LepDTests:
             print("")
             print(i)
             
-            lepdRequestor = LepDRequestor(command)
+            lepdRequestor = LepDRequestor(command, self.server)
             lepdRequestor.start()
             lepdRequestor.join()
             lepdRequestor.report()
@@ -104,15 +104,15 @@ class LepDTests:
 
 if( __name__ =='__main__' ):
     
-    server = 'www.linuxxueyuan.com'
+    server = 'localhost'
     print("Testing against: " + server)
     
     tests = LepDTests(server)
     # tests.runAllMethodsRepeatedly()
-    # tests.runAllMethodConcurrently()
+    tests.runAllMethodConcurrently()
     
     # tests.runMethodConcurrently("GetCmdPerfCpuclock", 2)
-    tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
+    # tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
 
 
 
