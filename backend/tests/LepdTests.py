@@ -2,7 +2,7 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from backend.LepDRequestor import LepDRequestor
+from backend.tests.LepDRequestor import LepDRequestor
 from backend.LepDClient import LepDClient
 
 __author__ = 'xmac'
@@ -49,30 +49,23 @@ class LepDTests:
             self.checkAndReportThreads(lepdRequestors)
         
 
-    def runAllMethodConcurrently(self):
+    def runAllMethodsConcurrently(self):
 
-        print("Testing all commands concurrently.")
+        print("Running all commands concurrently...\n")
         processes = []
 
         client = LepDClient(self.server)
         commands = client.listAllMethods()
         
         for command in commands:
-            print("Running command: " + command)
+            print(command)
 
             lepdRequestor = LepDRequestor(command, self.server)
             processes.append(lepdRequestor)
             lepdRequestor.start()
         
+        print('\nRunning and checking status...\n')
         self.checkAndReportThreads(processes)
-
-        # print("Joining processes...")
-        # for process in processes:
-        #     process.join()
-        # 
-        # print("Reporting...")
-        # for process in processes:
-        #     process.report()
 
     def runMethodRepeatedly(self, command, times):
         print("Testing command '" + command + "' for " + str(times) + " times.")
@@ -104,15 +97,15 @@ class LepDTests:
 
 if( __name__ =='__main__' ):
     
-    server = 'localhost'
+    server = 'www.linuxxueyuan.com'
     print("Testing against: " + server)
     
     tests = LepDTests(server)
     # tests.runAllMethodsRepeatedly()
-    tests.runAllMethodConcurrently()
+    tests.runAllMethodsConcurrently()
     
     # tests.runMethodConcurrently("GetCmdPerfCpuclock", 2)
-    # tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
+    tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
 
 
 

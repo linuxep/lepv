@@ -14,6 +14,7 @@ class LepDRequestor(threading.Thread):
         threading.Thread.__init__(self, name=lepdCommand)
         
         self.timeUsed = 0
+        self.succeeded = False
         
         self.command = lepdCommand
         self.lepDClient = LepDClient(server, port)
@@ -25,6 +26,8 @@ class LepDRequestor(threading.Thread):
         timeStarts = datetime.utcnow().replace()
         
         self.response = self.lepDClient.sendRequest(self.command)
+        if ("{'result': 'Hello!'}" != self.response):
+            self.succeeded = True
     
         timeEnds = datetime.utcnow().replace()
         duration = timeEnds - timeStarts
@@ -34,12 +37,29 @@ class LepDRequestor(threading.Thread):
 
     
     def report(self):
-        print("")
-        print("Command: " + self.command)
-        print("Duration: " + str(self.timeUsed) + " seconds")
-        # print("Result:")
-        # print(self.response)
         
+        reportMessage = self.command
+        # assume the longest command name is of 30 chars
+        maxLength = 30
+        reportMessage += ' ' * (maxLength - len(self.command)) + ' '
+        
+        if (self.succeeded):
+            reportMessage += "succeeded in "
+        else:
+            reportMessage += "failed in "
+        
+        reportMessage += str(self.timeUsed) + " seconds"
+        
+        print(reportMessage)
+        # print("Command: " + self.command)
+        # if (self.succeeded):
+        #     print("Status: Succeeded")
+        # else:
+        #     print("Status: Failed!!!")
+        #     print(self.response)
+        #     
+        # print("Duration: " + str(self.timeUsed) + " seconds")
+        # 
     
     def runAndReport(self):
         self.run()
@@ -48,7 +68,7 @@ class LepDRequestor(threading.Thread):
 
 
 if( __name__ =='__main__' ):
-    requestor = LepDRequestor('GetCmdIostat')
+    requestor = LepDRequestor('GetCmdIostat', 'www.linuxxueyuan.com')
     
     requestor.runAndReport()
     

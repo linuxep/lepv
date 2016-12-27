@@ -5,6 +5,8 @@
 # GetProcVersion GetProcStat GetProcModules GetCmdIopp GetCmdFree GetCmdProcrank GetCmdIostat GetCmdTop 
 # GetCmdDmesg GetCmdDf GetCmdMpstat GetCmdPerfFaults GetCmdPerfCpuclock
 
+echo "ListAllMethod"
+echo "{\"method\":\"ListAllMethod\"}" | nc localhost 12307
 
 echo "SayHello:"
 echo "{\"method\":\"SayHello\"}" | nc localhost 12307
