@@ -257,6 +257,8 @@ class LepDClient:
 
         except Exception as error:
             print(methodName + ": " + str(error))
+            if (error.strerror == 'nodename nor servname provided, or not known'):
+                print('please double check the server to monitor is reachable, and the method is supported by LEPD')
         finally:
             if (sock):
                 sock.close()
@@ -271,7 +273,7 @@ if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     client = LepDClient('www.linuxxueyuan.com', config='debug')
     
-    pp.pprint(client.getSystemInfo())
-    # client.listAllMethods()
+    # pp.pprint(client.getSystemInfo())
+    pp.pprint(client.listAllMethods())
     # pp.pprint(client.getResponse('GetCmdDf'))
 

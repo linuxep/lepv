@@ -119,15 +119,18 @@ class CPUMonitor:
     def getProcessorCount(self, cpuInfoLines = None):
 
         if (cpuInfoLines == None):
-            cpuInfoLines = self.client.getResponse('GetProcCpuinfo')
-
-        count = 0
-        for line in cpuInfoLines:
-            if re.match(r'\W*processor\W*:\W*\d+', line, re.M|re.I):
-                count += 1
+            cpuInfoLines = self.client.getResponse('GetCpuInfo')
 
         responseData = {}
-        responseData['count'] = count
+        for line in cpuInfoLines:
+            if line.startswith('cpunr'):
+                responseData['count'] = int(line.split(":")[1].strip())
+                break
+
+        if ('count' not in responseData):
+            print('failed in getting processor count by GetCpuInfo')
+            print(cpuInfoLines)
+            
         return responseData
 
     def validateProcCpuInfo(self, parsedData):
@@ -325,7 +328,7 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    monitor = CPUMonitor('www.readeeper.com')
+    monitor = CPUMonitor('www.linuxxueyuan.com')
 
     # pp.pprint(monitor.getCapacity())
     pp.pprint(monitor.getProcessorCount())
