@@ -239,8 +239,6 @@ function onPingButtonClicked(callbackFunctor) {
 
     $('#divPingResult').empty();
 
-    $('#divSettings').modal('hide');
-
     $.get("/ping/" + server).done(
         function(data, status) {
             if (data['connected']) {
