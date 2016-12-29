@@ -233,6 +233,31 @@ LepvChart.prototype.initialize = function(server) {
   console.log("initialize() method needs to be overwritten by sub-classes!")
 };
 
+LepvChart.prototype.initializeDataTable = function(headerLine) {
+  
+  var headerColumns = headerLine.split(/\s+/);
+  
+  var columns = [];
+  headerColumns.forEach(function(value, index) {
+    var columnItem = {};
+    columnItem['title'] = value;
+    columnItem['orderable'] = false;
+    
+    columns.push(columnItem);
+  });
+  
+  this.table = $(this.tableDivName).DataTable( {
+    destroy: true,
+    paging: false,
+    info: false,
+    searching: true,
+    columns: columns,
+
+    // TODO: refactor so we can allow for chart-specific sorting
+    order: []
+  });
+};
+
 LepvChart.prototype.updateChartData = function(responseData) {
   console.log("updateChartData() method needs to be overwritten by sub-classes!")
 };

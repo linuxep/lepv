@@ -14,6 +14,9 @@ class CPUMonitor:
         self.server = server
         self.client = LepDClient(self.server)
         self.config = config
+        
+        # this maxDataCount should match the one defined for UI.
+        self.maxDataCount = 25
     
     def getCpuInfoForArm(self, lines):
 
@@ -250,7 +253,8 @@ class CPUMonitor:
         responseLines = self.client.getResponse('GetProcLoadavg')
 
         responseData = {}
-        responseData['rawResult'] = responseLines[:]
+        if (self.config == 'debug'):
+            responseData['rawResult'] = responseLines[:]
         
         response = responseLines[0].split(" ")
 
@@ -268,42 +272,59 @@ class CPUMonitor:
         
         return responseData
 
-    def getTopOutput(self):
+    def getTopOutput(self, responseLines = None):
 
-        responseLines = self.client.getResponse("GetCmdTop")
+        if (responseLines == None):
+            responseLines = self.client.getResponse('GetCmdTop')
+
         if (len(responseLines) == 0):
             return {}
         
         responseData = {}
-        responseData['rawResult'] = responseLines[:]
+        if (self.config == 'debug'):
+            responseData['rawResult'] = responseLines[:]
         
         headerLine = responseLines.pop(0)
+        while ( not re.match(r'\W*PID\W+USER\W+.*', headerLine, re.M|re.I) ):
+            headerLine = responseLines.pop(0)
+
+        headerColumns = headerLine.split()
 
         result = {}
-        for responseLine in responseLines:
-            # print(responseLine)
+
+        for lineIndex, responseLine in enumerate(responseLines):
+            if (self.client.LEPDENDINGSTRING in responseLine):
+                break
+            
+            if (lineIndex > self.maxDataCount):
+                break
+ 
             lineValues = responseLine.split()
 
-            pid = lineValues[0]
-            result[pid] = {}
+            result[lineIndex] = {}
 
-            result[pid]['pid'] = pid
-            result[pid]['user'] = lineValues[1]
-            result[pid]['pri'] = lineValues[2]
-            result[pid]['ni'] = lineValues[3]
-            result[pid]['vsz'] = lineValues[4]
-            result[pid]['rss'] = lineValues[5]
-            result[pid]['s'] = lineValues[6]
-            result[pid]['cpu'] = lineValues[7]
-            result[pid]['mem'] = lineValues[8]
-            result[pid]['time'] = lineValues[9]
+            # print(headerLine)
+            for columnIndex, columnName in enumerate(headerColumns):
+                if (columnName == 'Name' or columnName == 'CMD'):
+                    result[lineIndex][columnName] = ' '.join([str(x) for x in lineValues[columnIndex:]])
+                else:
+                    result[lineIndex][columnName] = lineValues[columnIndex]
 
-            result[pid]['command'] = ' '.join([str(x) for x in lineValues[10:]])
-
-            if(len(result) >= 25):
-                break
-
-        responseData['data'] = result
+        responseData['data'] = {}
+        responseData['data']['top'] = result
+        responseData['data']['headerline'] = headerLine
+        
+        if (re.match(r'\W*PID\W+USER\W+PR\W+.*', headerLine, re.M|re.I)):
+            # android :
+            #   PID USER     PR  NI CPU% S  #THR     VSS     RSS PCY Name
+            responseData['data']['os'] = 'android'
+        elif (re.match(r'\W*PID\W+USER\W+PRI\W+NI\W+VSZ\W+RSS\W+.*', headerLine, re.M|re.I)):
+            # for Linux:
+            # PID USER     PRI  NI    VSZ   RSS S %CPU %MEM     TIME CMD
+            responseData['data']['os'] = 'linux'
+        else:
+            print("GetCmdTop command returned data from unrecognized system")
+        
         return responseData
 
 if( __name__ =='__main__' ):
@@ -317,10 +338,10 @@ if( __name__ =='__main__' ):
     monitor = CPUMonitor('www.linuxxueyuan.com')
 
     # pp.pprint(monitor.getCapacity())
-    pp.pprint(monitor.getProcessorCount())
+    # pp.pprint(monitor.getProcessorCount())
     # pp.pprint(monitor.getStat())
     # pp.pprint(monitor.getAverageLoad())
-    # pp.pprint(monitor.getTopOutput())
+    pp.pprint(monitor.getTopOutput())
     # pp.pprint(monitor.getCpuByName("kworker/u3:0"))
     # pp.pprint(monitor.getCpuByPid("4175"))
     # pp.pprint(monitor.getTopHResult())

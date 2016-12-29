@@ -66,7 +66,8 @@ class IOMonitor:
             return {}
         
         responseData = {}
-        responseData['rawResult'] = responseLines[:]
+        if (self.config == 'debug'):
+          responseData['rawResult'] = responseLines[:]
 
         diskData = {}
         for resultLine in responseLines:
@@ -154,48 +155,6 @@ class IOMonitor:
             orderIndex += 1
         
         return ioTopResults
-
-    # def getIoPPData(self):
-    # 
-    #     ioTopLines = self.client.getResponse('GetCmdIopp')
-    #     ioResults = {}
-    #     ioResults['data'] = {}
-    #     if (self.config == 'debug'):    
-    #         ioResults['rawResult'] = ioTopLines[:]
-    #     
-    #     headerLine = ioTopLines.pop(0)
-    #     # TODO: validate the header column ordering here.
-    # 
-    #     # pid    rchar    wchar    syscr    syscw   rbytes   wbytes  cwbytes command
-    #     # 1        0        0        0        0        0        0        0 init
-    #     # 2        0        0        0        0        0        0        0 kthreadd
-    #     # 3        0        0        0        0        0        0        0 ksoftirqd/0
-    #     # 5        0        0        0        0        0        0        0 kworker/0:0H
-    #     orderIndex = 1
-    #     for line in ioTopLines:
-    #         # print (line)
-    #         if (line.strip() == ''):
-    #             continue
-    # 
-    #         lineValues = line.split()
-    # 
-    #         ioTopItem = {}
-    #         ioTopItem['pid'] = lineValues.pop(0)
-    #         ioTopItem['rchar'] = lineValues.pop(0)
-    #         ioTopItem['wchar'] = lineValues.pop(0)
-    #         ioTopItem['syscr'] = lineValues.pop(0)
-    #         ioTopItem['syscw'] = lineValues.pop(0)
-    #         ioTopItem['rbytes'] = lineValues.pop(0)
-    #         ioTopItem['wbytes'] = lineValues.pop(0)
-    #         ioTopItem['cwbytes'] = lineValues.pop(0)
-    #         ioTopItem['command'] = ' '.join([str(x) for x in lineValues])
-    # 
-    #         # use an incremental int as key, so we keey the order of the items.
-    #         ioResults['data'][orderIndex] = ioTopItem
-    #         orderIndex += 1
-    # 
-    #     return ioResults
-
 
 if( __name__ =='__main__' ):
     monitor = IOMonitor('www.linuxxueyuan.com')

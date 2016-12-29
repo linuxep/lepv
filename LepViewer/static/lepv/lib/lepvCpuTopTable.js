@@ -32,107 +32,45 @@ LepvCpuTopTable.prototype.initialize = function() {
         console.log("The table div name was not specified for " + this.chartDivName);
         return;
     }
-    
-    this.table = $(this.tableDivName).DataTable( {
-        destroy: true,
-        paging: false,
-        info: false,
-        searching: true,
-        columns: [
-            {
-                title: "PID",
-                orderable: false
-            },
-            {
-                title: "User",
-                orderable: false
-            },
-            {
-                title: "PRI",
-                orderable: false
-            },
-            {
-                title: "NI",
-                orderable: false
-            },
-            {
-                title: "VSZ",
-                orderable: false
-            },
-            {
-                title: "RSS",
-                orderable: false
-            },
-            {
-                title: "S",
-                orderable: false
-            },
-            {
-                title: "%CPU"
-            },
-            {
-                title: "%MEM",
-                orderable: false
-            },
-            {
-                title: "Time",
-                orderable: false
-            },
-            {
-                title: "Command",
-                orderable: false
-            }
-        ],
-        order: [[ 7, "desc" ]],
-    });
 };
 
 LepvCpuTopTable.prototype.updateChartData = function(data) {
 
     var thisChart = this;
     
+    if (!this.table) {
+        this.initializeDataTable(data.headerline);
+    }
+    
     this.table.rows().remove().draw( true );
-    var lineCount = 0;
-    if (data != null) {
-        $.each( data, function( processId, dataItem ) {
 
-            if (lineCount >= thisChart.maxDataCount) {
+    var headerColumns = data.headerline.split(/\s+/);
+
+    var topData = data.top;
+    if (topData) {
+        $.each( topData, function( lineIndex, dataItem ) {
+
+            if (lineIndex >= thisChart.maxDataCount) {
                 return;
             }
+            
+            var rowData = [];
+            headerColumns.forEach(function(value, index) {
+                rowData.push(dataItem[value]);
+            });
 
-            thisChart.table.row.add([
-                processId,
-                dataItem['user'],
-                dataItem['pri'],
-                dataItem['ni'],
-                dataItem['vsz'],
-                dataItem['rss'],
-                dataItem['s'],
-                dataItem['cpu'],
-                dataItem['mem'],
-                dataItem['time'],
-                dataItem['command']
-            ]);
+            thisChart.table.row.add(rowData);
 
-            lineCount = lineCount + 1;
         });
     } else {
-        while(lineCount < thisChart.maxDataCount) {
-            thisChart.table.row.add([
-                "--",
-                "--",
-                "--",
-                "--",
-                "--",
-                "--",
-                "--",
-                "--",
-                "--",
-                "--",
-                "--"
-            ]);
-            lineCount = lineCount + 1;
+        var rowData = [];
+        var columnCount = headerColumns.size();
+        while(columnCount--) {
+            rowData.push("--")
         }
+
+        thisChart.table.row.add(rowData);
     }
+    
     this.table.draw(true);
 };

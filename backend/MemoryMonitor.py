@@ -69,7 +69,8 @@ class MemoryMonitor:
             return {}
         
         responseData = {}
-        responseData['rawResult'] = responseLines[:]
+        if (self.config == 'debug'):
+            responseData['rawResult'] = responseLines[:]
 
         results = {}
         for line in responseLines:
