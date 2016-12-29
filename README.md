@@ -15,3 +15,5 @@ We will release Docker image for LEPV soon, but before that happens, you can try
    ./runDockerContainer.sh
 
 4. now visit "http://localhost:8889" from a web browser in your host machine.
+
+* For this moment, we support x86_64 to run LEPV; For x86_32, it is not supported yet *
