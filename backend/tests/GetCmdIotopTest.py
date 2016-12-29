@@ -5,13 +5,13 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.IOMonitor import IOMonitor
 
-from backend.tests.UnitTester import UnitTester
+from backend.tests.LepUnitTester import LepUnitTester
 
-class GetCmdIotopTester(UnitTester):
+class GetCmdIotopTester(LepUnitTester):
 
     def __init__(self):
 
-        UnitTester.__init__(self, 'GetCmdIotop')
+        LepUnitTester.__init__(self, 'GetCmdIotop')
         self.loadJson()
     
     def test(self):

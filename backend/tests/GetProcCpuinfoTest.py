@@ -4,14 +4,31 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.CPUMonitor import CPUMonitor
 
-from backend.tests.UnitTester import UnitTester
+from backend.tests.LepUnitTester import LepUnitTester
 
-class GetProcCpuinfoTester(UnitTester):
+class GetProcCpuinfoTester(LepUnitTester):
 
     def __init__(self):
 
-        UnitTester.__init__(self, 'GetProcCpuinfo')
+        LepUnitTester.__init__(self, 'GetProcCpuinfo')
         self.loadJson()
+    
+    def validate(self, parsedData):
+
+        print("\n----------------------------------------------------\n")
+
+        print("[Validating parsing result:]")
+        self.validateBasics(parsedData)
+
+        self.lepAssertIn('processorsxxx', parsedData['data'], "processorsxxx was expected as a root element of result['data']")
+        
+        self.assertEqual(True, 'processors' in parsedData['data'])
+        self.assertEqual(True, 'architecture' in parsedData['data'])
+        self.assertEqual(True, 'processorCount' in parsedData['data'])
+
+        for processorId in parsedData['data']['processors'].keys():
+            self.assertEqual(True, self.isInteger(processorId))
+        
     
     def test(self):
         for sampleData in self.sampleDatas:
@@ -21,10 +38,12 @@ class GetProcCpuinfoTester(UnitTester):
             for line in resultLines:
                 print(line)
 
-            monitor = CPUMonitor('www.readeeper.com')
+            monitor = CPUMonitor('xxx')
             
             parsedData = monitor.getCpuInfo(resultLines)
             self.pp.pprint(parsedData)
+            
+            self.validate(parsedData)
 
         
 

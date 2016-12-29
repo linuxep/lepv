@@ -133,20 +133,6 @@ class CPUMonitor:
             
         return responseData
 
-    def validateProcCpuInfo(self, parsedData):
-
-        print("Validating parsed data for GetProcCpuinfo")
-        if (parsedData == None):
-            print("parsed data is None!")
-            return False
-
-        if ('data' not in parsedData):
-            print('"data" section was not found')
-            return False
-        
-        # TODO: need to do more
-        return True
-
     def getCapacity(self):
         
         cpuInfoData = self.getCpuInfo()

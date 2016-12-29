@@ -7,7 +7,7 @@ from backend.LepDClient import LepDClient
 
 __author__ = 'xmac'
 
-class LepDTests:
+class LepDTests():
 
     def __init__(self, server):
         self.server = server

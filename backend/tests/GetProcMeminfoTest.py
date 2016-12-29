@@ -5,13 +5,13 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.MemoryMonitor import MemoryMonitor
 
-from backend.tests.UnitTester import UnitTester
+from backend.tests.LepUnitTester import LepUnitTester
 
-class GetProcMeminfoTester(UnitTester):
+class GetProcMeminfoTester(LepUnitTester):
 
     def __init__(self):
 
-        UnitTester.__init__(self, 'GetProcMeminfo')
+        LepUnitTester.__init__(self, 'GetProcMeminfo')
         self.loadJson()
     
     def test(self):
