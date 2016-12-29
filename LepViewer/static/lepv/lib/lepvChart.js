@@ -289,9 +289,6 @@ LepvChart.prototype.refresh = function() {
       return;
     }
 
-    //var endTime = new Date().getTime();
-    //var totalTime = (endTime - startTime) / 1000;
-    
     thisChart.responseId = responseData['requestId'];
     
     thisChart.updateChartData(responseData['data']);
