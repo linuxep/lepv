@@ -4,7 +4,9 @@
 
 LEPV is a web-based application which visualizes the profiling of Linux based system, it's powerful yet intuitive to understand and easy to use.
 
-We will release Docker image for LEPV soon, but before that happens, you can try build the image yourself, it's easy:
+For this moment, we support x86_64 to run LEPV; x86_32 is not supported yet.
+
+You can try build the image yourself, it's easy:
 
 1. pull the latest lepv code, and go to its root directory
 
@@ -15,3 +17,4 @@ We will release Docker image for LEPV soon, but before that happens, you can try
    ./runDockerContainer.sh
 
 4. now visit "http://localhost:8889" from a web browser in your host machine.
+
