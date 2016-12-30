@@ -3,9 +3,9 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvCpuDonutChart = function(chartDivNames) {
+var LepvCpuDonutChart = function(chartDivName) {
     
-    LepvChart.call(this, chartDivNames.donutChartDivName);
+    LepvChart.call(this, chartDivName);
     
     this.chartTitle = "CPU Chart";
     this.chartHeaderColor = 'orange';
@@ -13,7 +13,7 @@ var LepvCpuDonutChart = function(chartDivNames) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
 
-    //this.dataUrlPrefix = "/cpustat/";
+    this.proactive = false;
 
     this.updateChartHeader();
     this.initialize();
@@ -59,19 +59,19 @@ LepvCpuDonutChart.prototype.initialize = function() {
     });
 };
 
-LepvCpuDonutChart.prototype.updateChartData = function(data) {
+LepvCpuDonutChart.prototype.updateChartData = function(overallData) {
     this.chart.load({
         columns: [
-            ['user', data.all.user],
-            ['nice', data.all.nice],
-            ['system', data.all.system],
-            ['idle', data.all.idle],
-            ['iowait', data.all.iowait],
-            ['irq', data.all.irq],
-            ['softirq', data.all.soft],
-            ['steal', data.all.steal],
-            ['guest', data.all.guest],
-            ['guestnice', data.all.gnice]
+            ['user', overallData.user],
+            ['nice', overallData.nice],
+            ['system', overallData.system],
+            ['idle', overallData.idle],
+            ['iowait', overallData.iowait],
+            ['irq', overallData.irq],
+            ['softirq', overallData.soft],
+            ['steal', overallData.steal],
+            ['guest', overallData.guest],
+            ['guestnice', overallData.gnice]
         ],
         keys: {
             value: ['']

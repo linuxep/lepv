@@ -10,38 +10,61 @@ var LepvCpuCharts = function(chartDivNames) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
 
+    this.proactive = true;
+    this.maxRequestIdGap = 2;
+
     this.dataUrlPrefix = "/cpustat/";
 
-    //this.donutChart = new LepvCpuDonutChart(chartDivNames.donutChartDivName);
+    this.donutChart = new LepvCpuDonutChart(chartDivNames.donutChartDivName);
+    
+    this.idleChart = new LepvCpuLineChart(chartDivNames.idleDivName, 'CPU Stat; Idle');
+    this.userGroupChart = new LepvCpuLineChart(chartDivNames.userGroupDivName, 'CPU Stat: User+Sys+Nice');
+    this.irqGroupChart = new LepvCpuLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ + SoftIRQ');
+    
     this.gaugeChart = new LepvGaugeChart(chartDivNames.gaugeDivName);
-    this.idleChart = new LepvLineChart(chartDivNames.idleDivName, 'CPU Stat: Idle', this.chartHeaderColor);
-    this.userGroupChart = new LepvLineChart(chartDivNames.userGroupDivName, 'CPU Stat: User+Sys+Nice', this.chartHeaderColor);
-    this.irqGroupChart = new LepvLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ + SoftIRQ', this.chartHeaderColor);
 };
 
 LepvCpuCharts.prototype = Object.create(LepvChart.prototype);
 LepvCpuCharts.prototype.constructor = LepvCpuCharts;
 
 LepvCpuCharts.prototype.initializeControlElements = function() {
-    //this.donutChart.initializeControlElements();
+    this.donutChart.initializeControlElements();
     this.idleChart.initializeControlElements();
     this.userGroupChart.initializeControlElements();
     this.irqGroupChart.initializeControlElements();
 };
 
 LepvCpuCharts.prototype.initialize = function() {
-    
-    //this.donutChart.initialize();
+
     this.gaugeChart.initialize();
+    
+    this.donutChart.initialize();
     this.idleChart.initialize();
     this.userGroupChart.initialize();
     this.irqGroupChart.initialize();
 };
 
 LepvCpuCharts.prototype.updateChartData = function(data) {
-    //this.donutChart.updateChartData(data);
-    this.gaugeChart.updateChartData(data.ratio);
-    this.idleChart.updateChartData(data);
-    this.userGroupChart.updateChartData(data);
-    this.irqGroupChart.updateChartData(data);
+    
+    this.donutChart.updateChartData(data['all']);
+    
+    var cpuOccupationRatio = 100 - data['all']['idle'];
+    this.gaugeChart.updateChartData(cpuOccupationRatio);
+    
+    delete data['all'];
+
+    var idleStatData = {};
+    var userGroupStatData = {};
+    var irqGroupStatData = {};
+    
+    $.each( data, function( coreName, coreStatData ) {
+        idleStatData[coreName] = coreStatData.idle;
+        userGroupStatData[coreName] = coreStatData.user + coreStatData.system + coreStatData.nice;
+        irqGroupStatData[coreName] = coreStatData.irq + coreStatData.soft;
+    });
+    
+    this.idleChart.updateChartData(idleStatData);
+    
+    this.userGroupChart.updateChartData(userGroupStatData);
+    this.irqGroupChart.updateChartData(irqGroupStatData);
 };

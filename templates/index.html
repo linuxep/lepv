@@ -534,8 +534,6 @@
     <script src="{% static "lepv/js/timer.jquery.min.js" %}"></script>
 
     <script src="{% static "lepv/lib/capacityLoader.js" %}"></script>
-    <script src="{% static "lepv/lib/cpucharts.js" %}"></script>
-    <script src="{% static "lepv/lib/gaugecharts.js" %}"></script>
     <script src="{% static "lepv/lib/config.js" %}"></script>
 
     <script src="{% static "lepv/lib/lepvChartConfig.js" %}"></script>
@@ -553,7 +551,7 @@
 
     <script src="{% static "lepv/lib/lepvGaugeChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvCpuDonutChart.js" %}"></script>
-    <script src="{% static "lepv/lib/lepvLineChart.js" %}"></script>
+    <script src="{% static "lepv/lib/lepvCpuLineChart.js" %}"></script>
     <script src="{% static "lepv/lib/lepvCpuCharts.js" %}"></script>
     
 
@@ -610,34 +608,21 @@
                 'memory-stat-table', 'div-memory-pss-stat', 'div-memory-free-pss-stat');
         procrankTable.start(server);
 
-        GaugeCharts.setComponentDivName('cpu', 'div-cpu-gauge');
-////        GaugeCharts.setComponentDivName('memory', 'div-memory-gauge');
-////        GaugeCharts.setComponentDivName('io', 'div-io-gauge');
-        GaugeCharts.setRunConfig( '{{config}}' );
-        GaugeCharts.start(server);
-
         CapacityLoader.setComponent('memory', 'div-memory-summary');
         CapacityLoader.setComponent('cpu', 'div-cpu-summary');
         CapacityLoader.setComponent('io', 'div-io-summary');
         CapacityLoader.setRunConfig( '{{config}}' );
         CapacityLoader.start(server);
 
-//        var cpuCharts = new LepvCpuCharts({
-//            'donutChartDivName': 'div-cpu-stat-overall',
-//            'gaugeDivName': 'div-cpu-gauge',
-//            'idleDivName': 'div-cpu-stat-idle',
-//            'userGroupDivName': 'div-cpu-stat-userGroup',
-//            'irqGroupDivName': 'div-cpu-stat-irqGroup'
-//        });
-//        cpuCharts.start(server);
+        var cpuCharts = new LepvCpuCharts({
+            'donutChartDivName': 'div-cpu-stat-overall',
+            'gaugeDivName': 'div-cpu-gauge',
+            'idleDivName': 'div-cpu-stat-idle',
+            'userGroupDivName': 'div-cpu-stat-userGroup',
+            'irqGroupDivName': 'div-cpu-stat-irqGroup'
+        });
+        cpuCharts.start(server);
         
-        CPUCharts.setOverallDivName('div-cpu-stat-overall');
-        CPUCharts.setIdleStatDivName('div-cpu-stat-idle');
-        CPUCharts.setUserStatDivName("#div-cpu-stat-userGroup");
-        CPUCharts.setIrqStatDivName('#div-cpu-stat-irqGroup');
-        CPUCharts.setRunConfig( '{{config}}' );
-        CPUCharts.start(server);
-
         $('[data-toggle="tooltip"]').tooltip();
 
         //http://jquerytimer.com/
