@@ -256,9 +256,10 @@ class LepDClient:
             return responseJsonDecoded
 
         except Exception as error:
-            print(methodName + ": " + str(error))
-            if (error.strerror == 'nodename nor servname provided, or not known'):
-                print('please double check the server to monitor is reachable, and the method is supported by LEPD')
+            pass
+            # print(methodName + ": " + str(error))
+            # if (error.strerror == 'nodename nor servname provided, or not known'):
+            #     print('please double check the server to monitor is reachable, and the method is supported by LEPD')
         finally:
             if (sock):
                 sock.close()

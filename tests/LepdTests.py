@@ -2,8 +2,9 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from backend.tests.LepDRequestor import LepDRequestor
+from tests.LepDRequestor import LepDRequestor
 from backend.LepDClient import LepDClient
+from datetime import datetime
 
 __author__ = 'xmac'
 
@@ -14,7 +15,7 @@ class LepDTests():
     
     def runMethodConcurrently(self, command, times):
         
-        print("Testing command '" + command + "' with " + str(times) + " threads concurrently.")
+        # print("Testing command '" + command + "' with " + str(times) + " threads concurrently.")
         processes = []
         
         while times > 0:
@@ -38,7 +39,7 @@ class LepDTests():
         for lepdRequest in lepdRequestors:
             if (not lepdRequest.isAlive()):
                 requestsCompleted.append(lepdRequest)
-                lepdRequest.report()
+                # lepdRequest.report()
             
             lepdRequest.join()
         
@@ -51,21 +52,31 @@ class LepDTests():
 
     def runAllMethodsConcurrently(self):
 
-        print("Running all commands concurrently...\n")
+        # print("Running all commands concurrently...\n")
         processes = []
 
         client = LepDClient(self.server)
         commands = client.listAllMethods()
-        
+
+        timeStarts = datetime.utcnow().replace()
+
         for command in commands:
-            print(command)
+            # print(command)
 
             lepdRequestor = LepDRequestor(command, self.server)
             processes.append(lepdRequestor)
             lepdRequestor.start()
         
-        print('\nRunning and checking status...\n')
+        # print('\nRunning and checking status...\n')
         self.checkAndReportThreads(processes)
+
+        timeEnds = datetime.utcnow().replace()
+        duration = timeEnds - timeStarts
+
+        durationInSeconds = duration.seconds + duration.microseconds / 1000000
+        timeUsed = "{:.3f}".format(durationInSeconds)
+        
+        print("\nAll done in " + timeUsed + " Seconds\n")
 
     def runMethodRepeatedly(self, command, times):
         print("Testing command '" + command + "' for " + str(times) + " times.")
@@ -97,15 +108,17 @@ class LepDTests():
 
 if( __name__ =='__main__' ):
     
-    server = 'www.linuxxueyuan.com'
+    server = 'www.linuxep.com'
     print("Testing against: " + server)
     
     tests = LepDTests(server)
     # tests.runAllMethodsRepeatedly()
-    tests.runAllMethodsConcurrently()
+    
+    while True:
+        tests.runAllMethodsConcurrently()
     
     # tests.runMethodConcurrently("GetCmdPerfCpuclock", 2)
-    tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
+    # tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)
 
 
 

@@ -4,13 +4,13 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.CPUMonitor import CPUMonitor
 
-from backend.tests.LepUnitTester import LepUnitTester
+from tests.LepUnitTester import LepUnitTester
 
-class GetProcCpuinfoTester(LepUnitTester):
+class GetCmdTopTester(LepUnitTester):
 
     def __init__(self):
 
-        LepUnitTester.__init__(self, 'GetProcCpuinfo')
+        LepUnitTester.__init__(self, 'GetCmdTop')
         self.loadJson()
     
     def validate(self, parsedData):
@@ -20,14 +20,14 @@ class GetProcCpuinfoTester(LepUnitTester):
         print("[Validating parsing result:]")
         self.validateBasics(parsedData)
 
-        self.lepAssertIn('processorsxxx', parsedData['data'], "processorsxxx was expected as a root element of result['data']")
-        
-        self.assertEqual(True, 'processors' in parsedData['data'])
-        self.assertEqual(True, 'architecture' in parsedData['data'])
-        self.assertEqual(True, 'processorCount' in parsedData['data'])
-
-        for processorId in parsedData['data']['processors'].keys():
-            self.assertEqual(True, self.isInteger(processorId))
+        # self.lepAssertIn('processorsxxx', parsedData['data'], "processorsxxx was expected as a root element of result['data']")
+        # 
+        # self.assertEqual(True, 'processors' in parsedData['data'])
+        # self.assertEqual(True, 'architecture' in parsedData['data'])
+        # self.assertEqual(True, 'processorCount' in parsedData['data'])
+        # 
+        # for processorId in parsedData['data']['processors'].keys():
+        #     self.assertEqual(True, self.isInteger(processorId))
         
     
     def test(self):
@@ -40,7 +40,7 @@ class GetProcCpuinfoTester(LepUnitTester):
 
             monitor = CPUMonitor('xxx')
             
-            parsedData = monitor.getCpuInfo(resultLines)
+            parsedData = monitor.getTopOutput(resultLines)
             self.pp.pprint(parsedData)
             
             self.validate(parsedData)
@@ -49,7 +49,7 @@ class GetProcCpuinfoTester(LepUnitTester):
 
 if( __name__ =='__main__' ):
 
-    tester = GetProcCpuinfoTester()
+    tester = GetCmdTopTester()
     tester.test()
     
     

@@ -5,7 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.MemoryMonitor import MemoryMonitor
 
-from backend.tests.LepUnitTester import LepUnitTester
+from tests.LepUnitTester import LepUnitTester
 
 class GetProcMeminfoTester(LepUnitTester):
 

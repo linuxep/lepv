@@ -32,7 +32,7 @@ class LepDRequestor(threading.Thread):
         timeEnds = datetime.utcnow().replace()
         duration = timeEnds - timeStarts
         
-        durationInSeconds = duration.microseconds / 1000000
+        durationInSeconds = duration.seconds + duration.microseconds / 1000000
         self.timeUsed = "{:.3f}".format(durationInSeconds)
 
     
@@ -68,7 +68,7 @@ class LepDRequestor(threading.Thread):
 
 
 if( __name__ =='__main__' ):
-    requestor = LepDRequestor('GetCmdIostat', 'www.linuxxueyuan.com')
+    requestor = LepDRequestor('GetCmdIostat', 'www.linuxep.com')
     
     requestor.runAndReport()
     
