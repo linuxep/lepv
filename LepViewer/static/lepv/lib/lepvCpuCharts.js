@@ -49,7 +49,7 @@ LepvCpuCharts.prototype.updateChartData = function(data) {
     this.donutChart.updateChartData(data['all']);
     
     var cpuOccupationRatio = 100 - data['all']['idle'];
-    this.gaugeChart.updateChartData(cpuOccupationRatio);
+    this.gaugeChart.updateChartData({'ratio': cpuOccupationRatio});
     
     delete data['all'];
 
