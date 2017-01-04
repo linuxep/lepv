@@ -36,6 +36,13 @@ class LepDClient:
             return True
         else:
             return False
+    
+    def toDecimal(self, val, precision='0.00'):
+        try:
+            return Decimal(val).quantize(Decimal(precision))
+        except:
+            return 0.00
+                                        
         
     def getTopOutput(self):
         response = self.sendRequest("GetCmdTop")

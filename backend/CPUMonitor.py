@@ -230,17 +230,16 @@ class CPUMonitor:
             lineValues = line.split()
 
             cpuStat = {}
-            cpuStat['idle'] = lineValues[-1]
-            cpuStat['gnice'] = lineValues[-2]
-            cpuStat['guest'] = lineValues[-3]
-            cpuStat['steal'] = lineValues[-4]
-            cpuStat['soft'] = lineValues[-5]
-            cpuStat['irq'] = lineValues[-6]
-            cpuStat['iowait'] = lineValues[-7]
-            cpuStat['system'] = lineValues[-8]
-            cpuStat['nice'] = lineValues[-9]
-            cpuStat['user'] = lineValues[-10]
-            cpuStat['name'] = lineValues[-11]
+            cpuStat['idle'] = self.client.toDecimal(lineValues[-1])
+            cpuStat['gnice'] = self.client.toDecimal(lineValues[-2])
+            cpuStat['guest'] = self.client.toDecimal(lineValues[-3])
+            cpuStat['steal'] = self.client.toDecimal(lineValues[-4])
+            cpuStat['soft'] = self.client.toDecimal(lineValues[-5])
+            cpuStat['irq'] = self.client.toDecimal(lineValues[-6])
+            cpuStat['iowait'] = self.client.toDecimal(lineValues[-7])
+            cpuStat['system'] = self.client.toDecimal(lineValues[-8])
+            cpuStat['nice'] = self.client.toDecimal(lineValues[-9])
+            cpuStat['user'] = self.client.toDecimal(lineValues[-10])
 
             cpuName = lineValues[-11]
             statData['data'][cpuName] = cpuStat
@@ -339,9 +338,9 @@ if( __name__ =='__main__' ):
 
     # pp.pprint(monitor.getCapacity())
     # pp.pprint(monitor.getProcessorCount())
-    # pp.pprint(monitor.getStat())
+    pp.pprint(monitor.getStat())
     # pp.pprint(monitor.getAverageLoad())
-    pp.pprint(monitor.getTopOutput())
+    # pp.pprint(monitor.getTopOutput())
     # pp.pprint(monitor.getCpuByName("kworker/u3:0"))
     # pp.pprint(monitor.getCpuByPid("4175"))
     # pp.pprint(monitor.getTopHResult())
