@@ -59,7 +59,7 @@ class LepDRequestor(threading.Thread):
         #     print(self.response)
         #     
         # print("Duration: " + str(self.timeUsed) + " seconds")
-        # 
+        
     
     def runAndReport(self):
         self.run()

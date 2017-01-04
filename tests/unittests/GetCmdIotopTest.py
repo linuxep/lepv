@@ -5,7 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.IOMonitor import IOMonitor
 
-from tests.LepUnitTester import LepUnitTester
+from tests.unittests.LepUnitTester import LepUnitTester
 
 class GetCmdIotopTester(LepUnitTester):
 

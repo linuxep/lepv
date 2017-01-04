@@ -2,7 +2,7 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from tests.LepDRequestor import LepDRequestor
+from tests.unittests.LepDRequestor import LepDRequestor
 from backend.LepDClient import LepDClient
 from datetime import datetime
 
@@ -39,7 +39,7 @@ class LepDTests():
         for lepdRequest in lepdRequestors:
             if (not lepdRequest.isAlive()):
                 requestsCompleted.append(lepdRequest)
-                # lepdRequest.report()
+                lepdRequest.report()
             
             lepdRequest.join()
         
@@ -113,9 +113,9 @@ if( __name__ =='__main__' ):
     
     tests = LepDTests(server)
     # tests.runAllMethodsRepeatedly()
-    
-    while True:
-        tests.runAllMethodsConcurrently()
+
+    tests.runAllMethodsConcurrently()
+        
     
     # tests.runMethodConcurrently("GetCmdPerfCpuclock", 2)
     # tests.runMethodRepeatedly("GetCmdPerfCpuclock", 20)

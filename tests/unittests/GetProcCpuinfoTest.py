@@ -4,7 +4,8 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from backend.CPUMonitor import CPUMonitor
 
-from tests.LepUnitTester import LepUnitTester
+from tests.unittests.LepUnitTester import LepUnitTester
+
 
 class GetProcCpuinfoTester(LepUnitTester):
 
@@ -20,7 +21,7 @@ class GetProcCpuinfoTester(LepUnitTester):
         print("[Validating parsing result:]")
         self.validateBasics(parsedData)
 
-        self.lepAssertIn('processorsxxx', parsedData['data'], "processorsxxx was expected as a root element of result['data']")
+        self.lepAssertIn('processors', parsedData['data'], "processors was expected as a root element of result['data']")
         
         self.assertEqual(True, 'processors' in parsedData['data'])
         self.assertEqual(True, 'architecture' in parsedData['data'])
