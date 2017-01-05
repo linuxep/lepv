@@ -198,7 +198,7 @@ class CPUMonitor:
     def getStatus(self):
 
         statData = self.getStat()
-        allIdleRatio = Decimal(statData['data']['all']['idle'])
+        allIdleRatio = self.client.toDecimal(statData['data']['all']['idle'])
 
         componentInfo = {}
         componentInfo["name"] = "cpu"
@@ -263,9 +263,9 @@ class CPUMonitor:
         # B is the total process count.
         # last number, like 24750 is the ID of the most recently running process.
         resultData = {}
-        resultData['last1'] = Decimal(response[0])
-        resultData['last5'] = Decimal(response[1])
-        resultData['last15'] = Decimal(response[2])
+        resultData['last1'] = self.client.toDecimal(response[0])
+        resultData['last5'] = self.client.toDecimal(response[1])
+        resultData['last15'] = self.client.toDecimal(response[2])
 
         responseData['data'] = resultData
         

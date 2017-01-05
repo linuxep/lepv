@@ -567,12 +567,71 @@
             showConfigPage();
         });
     </script>
+    
+    <script>
+        function loadIoChart(server) {
+            var ioChart = new LepvIOStatChart('div-io-stat', 'div-io-gauge');
+            ioChart.start(server);
+        }
+        
+        function loadIoTopTable(server) {
+            var ioTopTable = new LepvIOTopTable('div-io-top', 'io-top-table');
+            ioTopTable.start(server);
+        }
+
+        function loadMemoryChart(server) {
+            var memChart = new LepvMemoryChart('div-memory-chart', 'div-memory-gauge');
+            memChart.start(server);
+        }
+        
+        function loadAverageLoadChart(server) {
+            var avgLoadChart = new LepvAvgLoadChart('div-system-load');
+            avgLoadChart.start(server);
+        }
+        
+        function loadPerfCpuTable(server) {
+            var perfCpuTable = new LepvPerfCpuTable('div-perf-cpu', 'perf-cpu-table');
+            perfCpuTable.start(server);
+        }
+        
+        function loadCpuTopTable(server) {
+            var cpuTopTable = new LepvCpuTopTable('div-cpu-top', 'cpu-top-table');
+            cpuTopTable.start(server);
+        }
+        
+        function loadProcrankCharts(server) {
+            var procrankTable = new LepvProcrankTable('div-memory-stat',
+                    'memory-stat-table', 'div-memory-pss-stat', 'div-memory-free-pss-stat');
+            procrankTable.start(server);
+        }
+        
+        function loadCapacityData(server) {
+            CapacityLoader.setComponent('memory', 'div-memory-summary');
+            CapacityLoader.setComponent('cpu', 'div-cpu-summary');
+            CapacityLoader.setComponent('io', 'div-io-summary');
+            CapacityLoader.setRunConfig( '{{config}}' );
+            CapacityLoader.start(server);
+        }
+        
+        function loadCpuCharts(server) {
+            var cpuCharts = new LepvCpuCharts({
+                'donutChartDivName': 'div-cpu-stat-overall',
+                'gaugeDivName': 'div-cpu-gauge',
+                'idleDivName': 'div-cpu-stat-idle',
+                'userGroupDivName': 'div-cpu-stat-userGroup',
+                'irqGroupDivName': 'div-cpu-stat-irqGroup'
+            });
+            cpuCharts.start(server);
+        }
+        
+        
+    </script>
 
     <script>
         function initializeAndLoadCharts(server, capacityDatas) {
             // save the language pack in cookie so chart components can use it.
-            {% autoescape off %}
-            Cookies.set('languagePack', {{ languages }});
+        {% autoescape off %}
+            Cookies.set('languagePack', {{ languages }} );
         {% endautoescape %}
 
         var bannerLabel = "LEPV - LEP Visualizer and Analyzer | ";
@@ -583,45 +642,16 @@
         }
         $('#labelBanner').text(bannerLabel);
 
-        Cookies.set(server + ".Core.Count", 'xxx');
-        Cookies.set(server + ".Memory.Total", 'yyy');
-
-        var ioChart = new LepvIOStatChart('div-io-stat', 'div-io-gauge');
-        ioChart.start(server);
-
-        var ioTopTable = new LepvIOTopTable('div-io-top', 'io-top-table');
-        ioTopTable.start(server);
-
-        var memChart = new LepvMemoryChart('div-memory-chart', 'div-memory-gauge');
-        memChart.start(server);
-
-        var avgLoadChart = new LepvAvgLoadChart('div-system-load');
-        avgLoadChart.start(server);
+        loadCpuCharts(server);
+        loadCapacityData(server);
+        loadCpuTopTable(server);
         
-        var perfCpuTable = new LepvPerfCpuTable('div-perf-cpu', 'perf-cpu-table');
-        perfCpuTable.start(server);
-
-        var perfCpuTopTable = new LepvCpuTopTable('div-cpu-top', 'cpu-top-table');
-        perfCpuTopTable.start(server);
-
-        var procrankTable = new LepvProcrankTable('div-memory-stat',
-                'memory-stat-table', 'div-memory-pss-stat', 'div-memory-free-pss-stat');
-        procrankTable.start(server);
-
-        CapacityLoader.setComponent('memory', 'div-memory-summary');
-        CapacityLoader.setComponent('cpu', 'div-cpu-summary');
-        CapacityLoader.setComponent('io', 'div-io-summary');
-        CapacityLoader.setRunConfig( '{{config}}' );
-        CapacityLoader.start(server);
-
-        var cpuCharts = new LepvCpuCharts({
-            'donutChartDivName': 'div-cpu-stat-overall',
-            'gaugeDivName': 'div-cpu-gauge',
-            'idleDivName': 'div-cpu-stat-idle',
-            'userGroupDivName': 'div-cpu-stat-userGroup',
-            'irqGroupDivName': 'div-cpu-stat-irqGroup'
-        });
-        cpuCharts.start(server);
+        loadIoChart(server);
+        loadIoTopTable(server);
+        loadMemoryChart(server);
+        loadAverageLoadChart(server);
+        loadPerfCpuTable(server);
+        loadProcrankCharts(server);
         
         $('[data-toggle="tooltip"]').tooltip();
 

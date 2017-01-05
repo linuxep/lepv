@@ -47,7 +47,7 @@ class IOMonitor:
             ioStatus['disks'][deviceName]['wkbs'] = lineValues[6]
             ioStatus['disks'][deviceName]['ratio'] = lineValues[-1]
             
-            thisDiskRatio = Decimal(lineValues[-1])
+            thisDiskRatio = self.client.toDecimal(lineValues[-1])
             if (thisDiskRatio > ioStatus['ratio']):
                 ioStatus['ratio'] = thisDiskRatio
 
