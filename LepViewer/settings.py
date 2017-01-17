@@ -34,7 +34,7 @@ SECRET_KEY = 'lrcofu8j6(j!3ws=rz(0vfh64qwfu$=5jf3p!6ec71)+77r!%2'
 # production env
 # DEBUG = False
 # set your allowed hosts
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
