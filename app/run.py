@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def index():
+   return render_template("index.html", server = "www.linuxxueyuan.com")
 
 
 @app.route('/command/<cmd>')
@@ -16,8 +16,6 @@ def sendRawCommand(cmd):
 @app.route('/cpu/count/<server>')
 def getCpuCount(server):
    return 'Getting CPU processor count for server: %s!' % server
-
-
 
 
 if __name__ == '__main__':
