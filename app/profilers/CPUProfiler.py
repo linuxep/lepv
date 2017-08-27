@@ -2,13 +2,13 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
+from app.profilers.LepDClient import LepDClient
+
 from decimal import Decimal
 import re
 import pprint
 
-from app.monitors.LepDClient import LepDClient
-
-class CPUMonitor:
+class CPUProfiler:
 
     def __init__(self, server, config='release'):
         self.server = server
@@ -334,7 +334,7 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    monitor = CPUMonitor('www.linuxxueyuan.com')
+    monitor = CPUProfiler('www.linuxxueyuan.com')
 
     # pp.pprint(monitor.getCapacity())
     # pp.pprint(monitor.getProcessorCount())

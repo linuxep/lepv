@@ -2,12 +2,12 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from app.monitors.LepDClient import LepDClient
+from app.profilers.LepDClient import LepDClient
 import pprint
 
 __author__ = 'xmac'
 
-class PerfMonitor:
+class PerfProfiler:
 
     def __init__(self, server, config='release'):
         self.server = server
@@ -65,7 +65,7 @@ class PerfMonitor:
         return responseData
 
 if( __name__ =='__main__' ):
-    monitor = PerfMonitor(server='www.readeeper.com', config='debug')
+    monitor = PerfProfiler(server='www.readeeper.com', config='debug')
 
     pp = pprint.PrettyPrinter(indent=2)
     

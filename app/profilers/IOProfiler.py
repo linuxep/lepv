@@ -2,13 +2,13 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from app.monitors.LepDClient import LepDClient
+from app.profilers.LepDClient import LepDClient
+
 import re
 import datetime
 import pprint
-from decimal import Decimal
 
-class IOMonitor:
+class IOProfiler:
 
     def __init__(self, server, config='release'):
         self.server = server
@@ -157,7 +157,7 @@ class IOMonitor:
         return ioTopResults
 
 if( __name__ =='__main__' ):
-    monitor = IOMonitor('www.linuxxueyuan.com')
+    monitor = IOProfiler('www.linuxxueyuan.com')
     monitor.config = 'debug'
 
     pp = pprint.PrettyPrinter(indent=2)

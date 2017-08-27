@@ -2,14 +2,14 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from app.monitors.LepDClient import LepDClient
+from app.profilers.LepDClient import LepDClient
 from decimal import Decimal
 import pprint
 import re
 
 __author__ = 'xmac'
 
-class MemoryMonitor:
+class MemoryProfiler:
 
     def __init__(self, server, config='release'):
         self.server = server
@@ -207,7 +207,7 @@ class MemoryMonitor:
 if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     
-    monitor = MemoryMonitor('www.linuxxueyuan.com')
+    monitor = MemoryProfiler('www.linuxxueyuan.com')
     monitor.config = 'debug'
     # monitor = MemoryMonitor('www.linuxep.com')
     monitor.getMemoryStat()

@@ -13,6 +13,12 @@ def sendRawCommand(cmd):
    return 'Sending raw command: %s!' % cmd
 
 
+@app.route('/cpu/count/<server>')
+def getCpuCount(server):
+   return 'Getting CPU processor count for server: %s!' % server
+
+
+
 
 if __name__ == '__main__':
     app.run()
