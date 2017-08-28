@@ -206,14 +206,14 @@ class MemoryProfiler:
 
 if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
-    
-    monitor = MemoryProfiler('www.linuxxueyuan.com')
-    monitor.config = 'debug'
+
+    profiler = MemoryProfiler('www.linuxxueyuan.com')
+    profiler.config = 'debug'
     # monitor = MemoryMonitor('www.linuxep.com')
-    monitor.getMemoryStat()
-    # pp.pprint(monitor.getProcrank())
-    # print(monitor.getSmemOutput())
-    # print(monitor.getProcrankOutput())
+    profiler.getMemoryStat()
+    # pp.pprint(profiler.getProcrank())
+    # print(profiler.getSmemOutput())
+    # print(profiler.getProcrankOutput())
     # 
-    # print(monitor.getCapacity())
+    # print(profiler.getCapacity())
 

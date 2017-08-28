@@ -157,14 +157,14 @@ class IOProfiler:
         return ioTopResults
 
 if( __name__ =='__main__' ):
-    monitor = IOProfiler('www.linuxxueyuan.com')
-    monitor.config = 'debug'
+    profiler = IOProfiler('www.linuxxueyuan.com')
+    profiler.config = 'debug'
 
     pp = pprint.PrettyPrinter(indent=2)
     
     # monitor = IOMonitor('www.linuxep.com')
-    pp.pprint(monitor.getIoTopData())
-    # pp.pprint(monitor.getIoPPData())
+    pp.pprint(profiler.getIoTopData())
+    # pp.pprint(profiler.getIoPPData())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &
 

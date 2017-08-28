@@ -65,10 +65,10 @@ class PerfProfiler:
         return responseData
 
 if( __name__ =='__main__' ):
-    monitor = PerfProfiler(server='www.readeeper.com', config='debug')
+    profiler = PerfProfiler(server='www.readeeper.com', config='debug')
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    responseData = monitor.getPerfCpuClock()
+    responseData = profiler.getPerfCpuClock()
     pp.pprint(responseData)
 

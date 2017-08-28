@@ -334,13 +334,13 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    monitor = CPUProfiler('www.linuxxueyuan.com')
+    profiler = CPUProfiler('www.linuxxueyuan.com')
 
-    # pp.pprint(monitor.getCapacity())
-    # pp.pprint(monitor.getProcessorCount())
-    pp.pprint(monitor.getStat())
-    # pp.pprint(monitor.getAverageLoad())
-    # pp.pprint(monitor.getTopOutput())
-    # pp.pprint(monitor.getCpuByName("kworker/u3:0"))
-    # pp.pprint(monitor.getCpuByPid("4175"))
-    # pp.pprint(monitor.getTopHResult())
+    # pp.pprint(profiler.getCapacity())
+    pp.pprint(profiler.getProcessorCount())
+    # pp.pprint(profiler.getStat())
+    # pp.pprint(profiler.getAverageLoad())
+    # pp.pprint(profiler.getTopOutput())
+    # pp.pprint(profiler.getCpuByName("kworker/u3:0"))
+    # pp.pprint(profiler.getCpuByPid("4175"))
+    # pp.pprint(profiler.getTopHResult())
