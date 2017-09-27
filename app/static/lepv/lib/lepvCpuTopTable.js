@@ -17,7 +17,7 @@ var LepvCpuTopTable = function(divName, tableDivName) {
     this.maxDataCount = 25;
     this.refreshInterval = 5;
 
-    this.dataUrlPrefix = "/cputop/";
+    this.dataUrlPrefix = "/api/cpu/top/";
 
     this.updateChartHeader();
     this.initialize();

@@ -15,7 +15,7 @@ var LepvAvgLoadChart = function(divName) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
 
-    this.dataUrlPrefix = "/status/avgload/";
+    this.dataUrlPrefix = "/api/cpu/avgload/";
 
     this.chartData['last1'] = ['Last minute'];
     this.chartData['last5'] = ['Last 5 minutes'];
@@ -38,7 +38,7 @@ LepvAvgLoadChart.prototype.constructor = LepvAvgLoadChart;
 LepvAvgLoadChart.prototype.initialize = function() {
 
     var thisChart = this;
-    $.get('/processorcount/' + thisChart.server, function(responseData, status) {
+    $.get('/api/cpu/count/' + thisChart.server, function(responseData, status) {
         thisChart.cpuCoreCount = responseData.count;
 
         thisChart.yellowAlertValue = 0.7 * thisChart.cpuCoreCount;

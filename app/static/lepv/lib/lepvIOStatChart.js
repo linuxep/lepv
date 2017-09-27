@@ -15,7 +15,7 @@ var LepvIOStatChart = function(divName, gaugeDivName) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
 
-    this.dataUrlPrefix = "/status/io/";
+    this.dataUrlPrefix = "/api/io/status/";
 
     this.updateChartHeader();
     this.initialize();

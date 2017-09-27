@@ -1,8 +1,10 @@
 from flask import Flask, render_template
 
 from app.modules.language.Languages import Languages
+from app.modules.utils.simpleJson import MyJSONEncoder
 
 app = Flask(__name__)
+app.json_encoder = MyJSONEncoder
 
 @app.route('/')
 def index():

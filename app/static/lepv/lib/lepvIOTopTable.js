@@ -16,7 +16,7 @@ var LepvIOTopTable = function(divName, tableDivName) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
 
-    this.dataUrlPrefix = "/status/iotop/";
+    this.dataUrlPrefix = "/api/io/top/";
 
     this.updateChartHeader();
     this.initialize();

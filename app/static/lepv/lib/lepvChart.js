@@ -282,14 +282,14 @@ LepvChart.prototype.refresh = function() {
 
   //this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
   var thisChart = this;
-  var url = thisChart.dataUrlPrefix + thisChart.server + "/" + thisChart.requestId;
+  var url = thisChart.dataUrlPrefix + thisChart.server; // + "/" + thisChart.requestId;
   
   $.get(url, function(responseData, status) {
     if (this.isChartPaused) {
       return;
     }
 
-    thisChart.responseId = responseData['requestId'];
+    thisChart.responseId = 1; //responseData['requestId'];
     
     thisChart.updateChartData(responseData['data']);
   });

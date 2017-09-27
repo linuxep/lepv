@@ -52,3 +52,12 @@ def getCpuTop(server):
     data = profiler.getTopOutput()
 
     return jsonify(data)
+
+
+@cpuAPI.route('/avgload/<server>', methods=['GET'])
+def getAverageLoad(server):
+
+    profiler = CPUProfiler(server)
+    data = profiler.getAverageLoad()
+
+    return jsonify(data)

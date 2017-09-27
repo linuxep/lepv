@@ -16,7 +16,7 @@ var LepvProcrankTable = function(divName, tableDivName, pssPieDivName, freeVsPss
     this.maxDataCount = 25;
     this.refreshInterval = 5;
 
-    this.dataUrlPrefix = "/procrank/";
+    this.dataUrlPrefix = "/api/memory/procrank/";
     
     this.updateChartHeader();
     this.initialize();

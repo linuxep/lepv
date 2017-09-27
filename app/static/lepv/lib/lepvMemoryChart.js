@@ -15,7 +15,7 @@ var LepvMemoryChart = function(divName, gaugeDivName) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
 
-    this.dataUrlPrefix = "/status/memory/";
+    this.dataUrlPrefix = "/api/memory/status/";
     
     this.updateChartHeader();
     this.initialize();

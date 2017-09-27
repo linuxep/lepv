@@ -17,7 +17,7 @@ var LepvPerfCpuTable = function(divName, tableDivName) {
     this.maxDataCount = 25;
     this.refreshInterval = 5;
 
-    this.dataUrlPrefix = "/perfcpu/";
+    this.dataUrlPrefix = "/api/perf/cpu/";
 
     this.updateChartHeader();
     this.initialize();
