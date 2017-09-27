@@ -17,6 +17,7 @@ def getCpuCapacity(server):
 
     return jsonify(data)
 
+
 @cpuAPI.route('/count/<server>', methods=['GET'])
 def getCpuCount(server):
 
