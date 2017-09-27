@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #####  APP specific variables  #######
-DOCKER_USER=macxxn
+DOCKER_USER=linuxep
 IMAGE_NAME=lepv
 IMAGE_TAG=flask
 ######################################

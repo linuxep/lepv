@@ -1,13 +1,13 @@
 #!/bin/bash  
 
 #####  APP specific variables  #######
-DOCKER_USER=macxxn
+DOCKER_USER=linuxep
 IMAGE_NAME=lepv
 IMAGE_TAG=flask
 
 CONTAINER_NAME=lepv
-CONTAINER_PORT=5000
-HOST_BIND_PORT=9955
+CONTAINER_PORT=8889
+HOST_BIND_PORT=8889
 ######################################
 
 echo "running containers:"
