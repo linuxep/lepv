@@ -4,7 +4,7 @@
 
 from flask import Blueprint, jsonify
 
-from app.modules.cpu.CPUProfiler import CPUProfiler
+from modules.cpu.CPUProfiler import CPUProfiler
 
 cpuAPI = Blueprint('cpuAPI', __name__, url_prefix='/api/cpu')
 

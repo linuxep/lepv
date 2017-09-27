@@ -4,8 +4,8 @@
 
 from flask import Blueprint, jsonify
 
-from app.modules.lepd.LepDClient import LepDClient
-from app.modules.methodMap.MethodMap import MethodMap
+from modules.lepd.LepDClient import LepDClient
+from modules.methodMap.MethodMap import MethodMap
 
 utilAPI = Blueprint('utilAPI', __name__, url_prefix='/api/util')
 

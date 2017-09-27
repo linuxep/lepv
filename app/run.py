@@ -1,39 +1,44 @@
+import sys 
+reload(sys) 
+sys.setdefaultencoding('utf8')
+
 from flask import Flask, render_template
 
-from app.modules.language.Languages import Languages
-from app.modules.utils.simpleJson import MyJSONEncoder
+from modules.language.Languages import Languages
+from modules.utils.simpleJson import MyJSONEncoder
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
+
 @app.route('/')
 def index():
     languages = Languages().getLanguagePackForCN()
-    return render_template("index.html", languages = languages)
+    return render_template("index.html", languages=languages)
 
 
 # CPU
-from app.modules.cpu.views import cpuAPI
+from modules.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
 
 
 # IO
-from app.modules.io.views import ioAPI
+from modules.io.views import ioAPI
 app.register_blueprint(ioAPI)
 
 
 # Memory
-from app.modules.memory.views import memoryAPI
+from modules.memory.views import memoryAPI
 app.register_blueprint(memoryAPI)
 
 
 # Perf
-from app.modules.perf.views import perfAPI
+from modules.perf.views import perfAPI
 app.register_blueprint(perfAPI)
 
 
 # Util
-from app.modules.utils.views import utilAPI
+from modules.utils.views import utilAPI
 app.register_blueprint(utilAPI)
 
 

@@ -4,7 +4,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 import pprint
 
-from app.modules.lepd.LepDClient import LepDClient
+from modules.lepd.LepDClient import LepDClient
 
 __author__ = 'xmac'
 

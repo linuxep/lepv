@@ -4,7 +4,7 @@
 
 from flask import Blueprint, jsonify
 
-from app.modules.memory.MemoryProfiler import MemoryProfiler
+from modules.memory.MemoryProfiler import MemoryProfiler
 
 memoryAPI = Blueprint('memoryAPI', __name__, url_prefix='/api/memory')
 

@@ -1,3 +1,4 @@
+#encoding: utf-8
 """Module for internationalization"""
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."

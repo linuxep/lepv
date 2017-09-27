@@ -4,7 +4,7 @@
 
 from flask import Blueprint, jsonify
 
-from app.modules.perf.PerfProfiler import PerfProfiler
+from modules.perf.PerfProfiler import PerfProfiler
 
 perfAPI = Blueprint('perfAPI', __name__, url_prefix='/api/perf')
 

@@ -4,7 +4,7 @@
 
 from flask import Blueprint, jsonify
 
-from app.modules.io.IOProfiler import IOProfiler
+from modules.io.IOProfiler import IOProfiler
 
 ioAPI = Blueprint('ioAPI', __name__, url_prefix='/api/io')
 

@@ -6,7 +6,7 @@ import pprint
 import re
 from decimal import Decimal
 
-from app.modules.lepd.LepDClient import LepDClient
+from modules.lepd.LepDClient import LepDClient
 
 
 class CPUProfiler:
