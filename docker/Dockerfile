@@ -4,9 +4,8 @@ FROM python:3.5
 # docker build -f DockerBasic/Dockerfile -t mxu/lepv0.1 .
 
 RUN apt-get update
-RUN apt-get -y install vim less
 
-RUN pip install django djangorestframework uwsgi
+RUN pip install django==1.10.8 djangorestframework==3.5.4 uwsgi==2.0.1
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
