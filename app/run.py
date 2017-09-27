@@ -1,8 +1,6 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 
-from app.profilers.CPUProfiler import CPUProfiler
-from app.profilers.Languages import Languages
-
+from app.modules.language.Languages import Languages
 
 app = Flask(__name__)
 
@@ -12,18 +10,30 @@ def index():
     return render_template("index.html", languages = languages)
 
 
+#---------  CPU  ---------
+from app.modules.cpu.views import cpuAPI
+app.register_blueprint(cpuAPI)
+
+
+#---------  IO  ---------
+from app.modules.io.views import ioAPI
+app.register_blueprint(ioAPI)
+
+
+#---------  MEMORY ---------
+from app.modules.memory.views import memoryAPI
+app.register_blueprint(memoryAPI)
+
+
+#---------  PERF ---------
+from app.modules.perf.views import perfAPI
+app.register_blueprint(perfAPI)
+
+
 @app.route('/command/<cmd>')
 def sendRawCommand(cmd):
     return 'Sending raw command: %s!' % cmd
 
 
-@app.route('/cpu/count/<server>')
-def getCpuCount(server):
-
-    profiler = CPUProfiler(server)
-    data = profiler.getProcessorCount()
-
-    return jsonify(data)
-
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host='0.0.0.0', port=8889)

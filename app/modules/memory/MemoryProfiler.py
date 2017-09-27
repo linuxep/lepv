@@ -2,10 +2,11 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from app.profilers.LepDClient import LepDClient
-from decimal import Decimal
 import pprint
 import re
+from decimal import Decimal
+
+from app.modules.lepd.LepDClient import LepDClient
 
 __author__ = 'xmac'
 

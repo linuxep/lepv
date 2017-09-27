@@ -2,11 +2,12 @@
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from app.profilers.LepDClient import LepDClient
-
-import re
 import datetime
 import pprint
+import re
+
+from app.modules.lepd.LepDClient import LepDClient
+
 
 class IOProfiler:
 
