@@ -10,22 +10,22 @@ def index():
     return render_template("index.html", languages = languages)
 
 
-#---------  CPU  ---------
+# CPU
 from app.modules.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
 
 
-#---------  IO  ---------
+# IO
 from app.modules.io.views import ioAPI
 app.register_blueprint(ioAPI)
 
 
-#---------  MEMORY ---------
+# Memory
 from app.modules.memory.views import memoryAPI
 app.register_blueprint(memoryAPI)
 
 
-#---------  PERF ---------
+# Perf
 from app.modules.perf.views import perfAPI
 app.register_blueprint(perfAPI)
 

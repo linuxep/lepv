@@ -1,5 +1,5 @@
 
-"""Module for CPU data parsing"""
+"""Module for CPU Profiler"""
 
 
 from flask import Blueprint, jsonify

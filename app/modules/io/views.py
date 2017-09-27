@@ -1,5 +1,5 @@
 
-"""Module for IO data parsing"""
+"""Module for IO Profiler"""
 
 
 from flask import Blueprint, jsonify
@@ -14,5 +14,22 @@ def getIOCapacity(server):
 
     profiler = IOProfiler(server)
     data = profiler.getCapacity()
+
+    return jsonify(data)
+
+
+@ioAPI.route('/status/<server>', methods=['GET'])
+def getIOStatus(server):
+
+    profiler = IOProfiler(server)
+    data = profiler.getStatus()
+
+    return jsonify(data)
+
+
+@ioAPI.route('/top/<server>', methods=['GET'])
+def getIOStatus(server):
+    profiler = IOProfiler(server)
+    data = profiler.getIoTopData()
 
     return jsonify(data)

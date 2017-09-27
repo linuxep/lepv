@@ -1,5 +1,5 @@
 
-"""Module for IO data parsing"""
+"""Module for Perf profiling"""
 
 
 from flask import Blueprint, jsonify

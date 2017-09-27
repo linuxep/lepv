@@ -1,5 +1,5 @@
 
-"""Module for IO data parsing"""
+"""Module for Memory profiler"""
 
 
 from flask import Blueprint, jsonify
@@ -14,5 +14,23 @@ def getMemoryCapacity(server):
 
     profiler = MemoryProfiler(server)
     data = profiler.getCapacity()
+
+    return jsonify(data)
+
+
+@memoryAPI.route('/status/<server>', methods=['GET'])
+def getMemoryStatus(server):
+
+    profiler = MemoryProfiler(server)
+    data = profiler.getStatus()
+
+    return jsonify(data)
+
+
+@memoryAPI.route('/procrank/<server>', methods=['GET'])
+def getMemoryProcrank(server):
+
+    profiler = MemoryProfiler(server)
+    data = profiler.getProcrank()
 
     return jsonify(data)

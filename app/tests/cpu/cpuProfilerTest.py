@@ -7,7 +7,7 @@ import unittest
 from app.modules.cpu.CPUProfiler import CPUProfiler
 
 
-class CpuTest(unittest.TestCase):
+class CpuProfilerTest(unittest.TestCase):
 
     def setUp(self):
         self.server = 'www.linuxxueyuan.com'
@@ -15,9 +15,12 @@ class CpuTest(unittest.TestCase):
 
     def test_getCpuCount(self):
 
-        cpuCountData = self.profiler.getProcessorCount()
+        returnedData = self.profiler.getProcessorCount()
 
-        self.assertTrue(cpuCountData, "XXXXXXX")
+        self.assertIn('count', returnedData, "'count' is not a key in the returned object")
+
+        count = returnedData['count']
+        self.assertTrue(isinstance(count, int), "CPU processor count '%s' is not an integer" % count)
 
 
 if( __name__ =='__main__' ):
