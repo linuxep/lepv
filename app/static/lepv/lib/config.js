@@ -239,7 +239,7 @@ function onPingButtonClicked(callbackFunctor) {
 
     $('#divPingResult').empty();
 
-    $.get("/ping/" + server).done(
+    $.get("/api/util/ping/" + server).done(
         function(data, status) {
             if (data['connected']) {
                 var resultButton = $("<button></button>").text("Connection succeeded!").addClass("btn btn-success");

@@ -28,7 +28,7 @@ def getIOStatus(server):
 
 
 @ioAPI.route('/top/<server>', methods=['GET'])
-def getIOStatus(server):
+def getIOTop(server):
     profiler = IOProfiler(server)
     data = profiler.getIoTopData()
 

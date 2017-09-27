@@ -30,9 +30,9 @@ from app.modules.perf.views import perfAPI
 app.register_blueprint(perfAPI)
 
 
-@app.route('/command/<cmd>')
-def sendRawCommand(cmd):
-    return 'Sending raw command: %s!' % cmd
+# Util
+from app.modules.utils.views import utilAPI
+app.register_blueprint(utilAPI)
 
 
 if __name__ == '__main__':
