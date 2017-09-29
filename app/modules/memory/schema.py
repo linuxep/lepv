@@ -1,6 +1,6 @@
+import json
 from model.db import DBclient
 import graphene
-import json
 
 
 class Memory(graphene.ObjectType):
@@ -19,19 +19,22 @@ class Query(graphene.ObjectType):
 
     def resolve_memory(self, args, context, info):
         result = DBclient.query('select * from memory;')
-        # for item in result.items():
-        #     print(list(item[1]))
+        data = []
+        if not result:
+            return data
+        # print(json.dumps(result.raw['series'][0]))
+        # print(json.dumps([ value for value in result.raw['series'][0]['values'] ]))
         items = list(result.items()[0][1])
-        json = []
         for item in items:
+            # print(item)
             mem = Memory()
             mem.host = format(item["host"])
             mem.free = item["free"]
             mem.buffers = item["buffers"]
             mem.cached = item["caches"]
             mem.total = item["total"]
-            json.append(mem)
-        return json
+            data.append(mem)
+        return data
 
 
 MemorySchema = graphene.Schema(query=Query)
