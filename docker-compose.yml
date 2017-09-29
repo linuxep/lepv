@@ -1,0 +1,12 @@
+version: "2.0"
+services:
+  db:
+    image: influxdb
+  web:
+    image: linuxep/lepv:flask
+    volumes:
+     - ./influxdb:/var/lib/influxdb
+    ports:
+      - "8889:8889"
+    links:
+      - "db:database"

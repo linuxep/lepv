@@ -1,5 +1,5 @@
 """Core module for interacting with LEPD"""
-__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
+__author__ = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import json
@@ -9,6 +9,7 @@ import pprint
 import re
 import datetime
 
+
 class LepDClient:
 
     def __init__(self, server, port=12307, config='release'):
@@ -16,7 +17,7 @@ class LepDClient:
         self.port = port
         self.bufferSize = 2048
         self.config = config
-        
+
         self.LEPDENDINGSTRING = 'lepdendstring'
 
     def listAllMethods(self):
@@ -30,29 +31,28 @@ class LepDClient:
     def ping(self):
         print('Send "SayHello" command to LEPD')
         response = self.sendRequest("SayHello")
-            
+
         print(response)
         if (response != None and 'result' in response and response['result'].startswith('Hello')):
             return True
         else:
             return False
-    
+
     def toDecimal(self, val, precision='0.00'):
         try:
             return Decimal(val).quantize(Decimal(precision))
         except:
             return 0.00
-                                        
-        
+
     def getTopOutput(self):
         response = self.sendRequest("GetCmdTop")
         if (response == None or 'result' not in response):
-             return None
+            return None
 
         response = response['result'].strip().split("\n")
-        
+
         headerLine = response.pop(0)
-        
+
         result = {}
         for responseLine in response:
             # print(responseLine)
@@ -61,9 +61,9 @@ class LepDClient:
 
             if(len(result) >= 25):
                 break
-                
+
             lineValues = responseLine.split()
-            
+
             pid = lineValues[0]
             result[pid] = {}
 
@@ -78,7 +78,8 @@ class LepDClient:
             result[pid]['mem'] = lineValues[8]
             result[pid]['time'] = lineValues[9]
 
-            result[pid]['command'] = ' '.join([str(x) for x in lineValues[10:]])
+            result[pid]['command'] = ' '.join(
+                [str(x) for x in lineValues[10:]])
 
         return result
 
@@ -94,7 +95,7 @@ class LepDClient:
         for i in range(len(resultLines)):
             if (not resultLines[i].startswith('Device:')):
                 continue
-            
+
             return resultLines[i:]
 
     def getCmdMpStat(self):
@@ -107,7 +108,6 @@ class LepDClient:
         lines.pop(0)
         lines.pop(0)
         return lines
-
 
     def getProcStat(self):
         response = self.sendRequest("GetProcStat")
@@ -136,40 +136,53 @@ class LepDClient:
                 procStat['guest'] = Decimal(data[9])
                 procStat['guestnice'] = Decimal(data[10])
 
-                total = procStat['user'] + procStat['nice'] + procStat['system'] + procStat['idle'] + procStat['iowait'] + procStat['irq'] + procStat['softirq'] + procStat['steal'] + procStat['guest'] + procStat['guestnice']
+                total = procStat['user'] + procStat['nice'] + procStat['system'] + procStat['idle'] + procStat['iowait'] + \
+                    procStat['irq'] + procStat['softirq'] + procStat['steal'] + \
+                    procStat['guest'] + procStat['guestnice']
 
-                procStat['user.ratio'] = Decimal(procStat['user'] / total * 100).quantize(Decimal('0.00'))
-                procStat['nice.ratio'] = Decimal(procStat['nice'] / total * 100).quantize(Decimal('0.00'))
-                procStat['system.ratio'] = Decimal(procStat['system'] / total * 100).quantize(Decimal('0.00'))
-                procStat['idle.ratio'] = Decimal(procStat['idle'] / total * 100).quantize(Decimal('0.00'))
-                procStat['iowait.ratio'] = Decimal(procStat['iowait'] / total * 100).quantize(Decimal('0.00'))
-                procStat['irq.ratio'] = Decimal(procStat['irq'] / total * 100).quantize(Decimal('0.00'))
-                procStat['softirq.ratio'] = Decimal(procStat['softirq'] / total * 100).quantize(Decimal('0.00'))
-                procStat['steal.ratio'] = Decimal(procStat['steal'] / total * 100).quantize(Decimal('0.00'))
-                procStat['guest.ratio'] = Decimal(procStat['guest'] / total * 100).quantize(Decimal('0.00'))
-                procStat['guestnice.ratio'] = Decimal(procStat['guestnice'] / total * 100).quantize(Decimal('0.00'))
+                procStat['user.ratio'] = Decimal(
+                    procStat['user'] / total * 100).quantize(Decimal('0.00'))
+                procStat['nice.ratio'] = Decimal(
+                    procStat['nice'] / total * 100).quantize(Decimal('0.00'))
+                procStat['system.ratio'] = Decimal(
+                    procStat['system'] / total * 100).quantize(Decimal('0.00'))
+                procStat['idle.ratio'] = Decimal(
+                    procStat['idle'] / total * 100).quantize(Decimal('0.00'))
+                procStat['iowait.ratio'] = Decimal(
+                    procStat['iowait'] / total * 100).quantize(Decimal('0.00'))
+                procStat['irq.ratio'] = Decimal(
+                    procStat['irq'] / total * 100).quantize(Decimal('0.00'))
+                procStat['softirq.ratio'] = Decimal(
+                    procStat['softirq'] / total * 100).quantize(Decimal('0.00'))
+                procStat['steal.ratio'] = Decimal(
+                    procStat['steal'] / total * 100).quantize(Decimal('0.00'))
+                procStat['guest.ratio'] = Decimal(
+                    procStat['guest'] / total * 100).quantize(Decimal('0.00'))
+                procStat['guestnice.ratio'] = Decimal(
+                    procStat['guestnice'] / total * 100).quantize(Decimal('0.00'))
 
                 procStats[procStat['id']] = procStat
 
         return procStats
-    
+
     def tryAllMethods(self):
         methods = self.listAllMethods()
-        
+
         executionResuts = {}
         for methodName in methods:
 
             print('')
             print('<[ ' + methodName + " ]>")
-            
+
             executionResuts[methodName] = {}
 
             startTime = datetime.datetime.now()
             response = self.sendRequest(methodName)
             endTime = datetime.datetime.now()
-            executionResuts[methodName]['duration'] = "%.1f" % ((endTime - startTime).total_seconds())
+            executionResuts[methodName]['duration'] = "%.1f" % (
+                (endTime - startTime).total_seconds())
             print('duration:=' + executionResuts[methodName]['duration'])
-            
+
             if (response == None or 'result' not in response):
                 executionResuts[methodName]['return'] = None
                 print('Return:= Failed!')
@@ -178,75 +191,78 @@ class LepDClient:
                 executionResuts[methodName]['return'] = lines
                 for line in lines:
                     print(line)
-        
-        
+
         print("")
         print("Summary:")
 
         for methodName, executionResult in executionResuts.items():
             resultSumamry = "[" + methodName + "]("
             if (executionResult['return'] == None):
-                resultSumamry += "Failed) in " 
+                resultSumamry += "Failed) in "
             else:
                 resultSumamry += "Succeeded) in "
-            
+
             resultSumamry += executionResult['duration'] + ' seconds'
             print(resultSumamry)
-        
+
         return executionResuts
 
     def getUnitTestResponse(self, commandName, arch='arm'):
-        
+
         currentDir = os.path.dirname(os.path.realpath(__file__))
-        jsonFilePath = os.path.join(currentDir, 'tests', commandName, 'raw', arch + ".txt")
-        
+        jsonFilePath = os.path.join(
+            currentDir, 'tests', commandName, 'raw', arch + ".txt")
+
         with open(jsonFilePath) as data_file:
             return json.load(data_file)
-    
+
     def getSystemInfo(self):
         responseLines = self.getResponse('GetProcVersion')
         if (len(responseLines) == 0):
             return {}
-        
+
         # it has just one line
         # a line like this:
-        # Linux version 3.13.0-86-generic (buildd@lgw01-19) (gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ) #130-Ubuntu SMP Mon Apr 18 18:27:15 UTC 2016
+        # Linux version 3.13.0-86-generic (buildd@lgw01-19) (gcc version 4.8.2
+        # (Ubuntu 4.8.2-19ubuntu1) ) #130-Ubuntu SMP Mon Apr 18 18:27:15 UTC
+        # 2016
         responseLine = responseLines.pop(0)
-        
+
         sysInfo = {}
         sysInfo['os'] = 'linux'
         sysInfo['kernel'] = '3.13.0-86-generic'
         sysInfo['gcc'] = '4.8.2'
         sysInfo['distribution'] = 'ubuntu'
         sysInfo['version'] = '4.8.2'
-        
+
         return sysInfo
-        
-    
+
     def getResponse(self, methodName):
         if (self.config != 'unittest'):
             response = self.sendRequest(methodName)
         else:
             response = self.getUnitTestResponse(methodName)
-            
+
         if (response == None or 'result' not in response):
             return []
 
         lines = re.split(r'\\n|\n', response['result'].strip())
         return lines
-        
-        
+
     def sendRequest(self, methodName):
         sock = None
 
         try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # initialise our socket
-            sock.connect((self.server, self.port)) # connect to host <HOST> to port <PORT>
+            # initialise our socket
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            # connect to host <HOST> to port <PORT>
+            sock.connect((self.server, self.port))
 
             input_data = {}
             input_data['method'] = methodName
 
-            dumped_data = json.dumps(input_data) # Dump the input dictionary to proper json
+            # Dump the input dictionary to proper json
+            dumped_data = json.dumps(input_data)
 
             sock.send(dumped_data.encode())
             serverResponse = str.encode("")
@@ -254,11 +270,12 @@ class LepDClient:
             while True:
                 data = sock.recv(self.bufferSize)
                 if end in data:
-                    data = data.replace(end,str.encode(""))
+                    data = data.replace(end, str.encode(""))
                     serverResponse = serverResponse + data
                     break
                 serverResponse = serverResponse + data
-            responseJsonDecoded = json.loads(serverResponse.decode()) # decode the data received
+            responseJsonDecoded = json.loads(
+                serverResponse.decode())  # decode the data received
 
             return responseJsonDecoded
 
@@ -271,8 +288,8 @@ class LepDClient:
             if (sock):
                 sock.close()
 
-if( __name__ =='__main__' ):
-    
+if(__name__ == '__main__'):
+
     # MEMO:
     # procrank is to replace smem, ( smem will retire )
     # iopp is to replace iotop, ( iotop is to retire )
@@ -280,8 +297,7 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     client = LepDClient('www.linuxxueyuan.com', config='debug')
-    
+
     # pp.pprint(client.getSystemInfo())
     pp.pprint(client.listAllMethods())
     # pp.pprint(client.getResponse('GetCmdDf'))
-

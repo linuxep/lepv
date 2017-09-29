@@ -1,6 +1,6 @@
 from influxdb import InfluxDBClient
 
-DBclient = InfluxDBClient('localhost', 8086, 'root', 'root', 'mydb')
+DBclient = InfluxDBClient('db', 8086, 'root', 'root123', 'mydb')
 DBclient.create_database('mydb')
 
 #  INSERT memory,host=127.0.0.0 total=1000,free=865,buffers=78,caches=69
@@ -22,4 +22,6 @@ if(__name__ == '__main__'):
     ]
     DBclient.write_points(json_body)
     result = DBclient.query('select value from cpu_load_short;')
+    print("Result: {0}".format(result))
+    result = DBclient.query('select * from memory;')
     print("Result: {0}".format(result))

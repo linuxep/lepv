@@ -1,5 +1,5 @@
 import json
-from model.db import DBclient
+from app.model.db import DBclient
 import graphene
 
 
@@ -17,12 +17,12 @@ class Query(graphene.ObjectType):
     #                          name=graphene.String(default_value="stranger"))
     memory = graphene.List(Memory)
 
-    def resolve_memory(self, args, context, info):
+    def resolve_memory(self, args):
         result = DBclient.query('select * from memory;')
         data = []
         if not result:
             return data
-        # print(json.dumps(result.raw['series'][0]))
+        print(json.dumps(result.raw['series'][0]))
         # print(json.dumps([ value for value in result.raw['series'][0]['values'] ]))
         items = list(result.items()[0][1])
         for item in items:

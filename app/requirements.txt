@@ -1,2 +1,5 @@
 Flask==0.12.2
 requests===2.18.4
+graphene>=2.0.dev
+flask_graphql
+influxdb
