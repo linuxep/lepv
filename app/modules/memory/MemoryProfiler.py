@@ -211,8 +211,7 @@ if( __name__ =='__main__' ):
 
     profiler = MemoryProfiler('www.linuxxueyuan.com')
     profiler.config = 'debug'
-    # monitor = MemoryMonitor('www.linuxep.com')
-    profiler.getMemoryStat()
+    pp.pprint(profiler.getStatus())
     # pp.pprint(profiler.getProcrank())
     # print(profiler.getSmemOutput())
     # print(profiler.getProcrankOutput())
