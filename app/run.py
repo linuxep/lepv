@@ -1,17 +1,18 @@
 from flask import Flask, render_template
-
+from flask_graphql import GraphQLView
 from modules.language.Languages import Languages
 from modules.utils.simpleJson import MyJSONEncoder
+from modules.memory.schema import MemorySchema
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
-
+app.add_url_rule(
+    '/graphql', view_func=GraphQLView.as_view('graphql', schema=MemorySchema, graphiql=True))
 
 @app.route('/')
 def index():
     languages = Languages().getLanguagePackForCN()
     return render_template("index.html", languages=languages)
-
 
 # CPU
 from modules.cpu.views import cpuAPI
