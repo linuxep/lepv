@@ -3,7 +3,7 @@
 #####  APP specific variables  #######
 DOCKER_USER=linuxep
 IMAGE_NAME=lepv
-IMAGE_TAG=flask
+IMAGE_TAG=latest
 
 CONTAINER_NAME=lepv
 CONTAINER_PORT=8889
