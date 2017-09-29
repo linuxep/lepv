@@ -4,7 +4,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
 
-from app.modules.cpu.CPUProfiler import CPUProfiler
+from modules.cpu.CPUProfiler import CPUProfiler
 
 
 class CpuProfilerTest(unittest.TestCase):
