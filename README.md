@@ -1,20 +1,24 @@
-# lepv
 
-**LEPV**, Linux Easy Profiling, is the front-end of LEP ( whose back-end is LEPD )
+# LEP
 
-LEPV is a web-based application which visualizes the profiling of Linux based system, it's powerful yet intuitive to understand and easy to use.
 
-For this moment, we support x86_64 to run LEPV; x86_32 is not supported yet.
+## Preferred development environment
+- Windows/Mac OX/Linux, either works
+- IDE: Pycharm Community
 
-You can try build the image yourself, it's easy:
+## Technology Keywords
+- Git
+- Python 3.6
+- Flask web framework
+- Docker
+- Javascript
+- Restful API
+- Web charts
 
-1. pull the latest lepv code, and go to its root directory
+## How to set up development environment
+1. TODO
 
-2. run this command to build the Docker image for LEPV:
-   ./buildDockerImage.sh
+## How to run in docker
+1. TODO
 
-3. run this command to run a Docker container for LEPV:
-   ./runDockerContainer.sh
-
-4. now visit "http://localhost:8889" from a web browser in your host machine.
 

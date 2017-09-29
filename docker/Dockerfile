@@ -1,28 +1,16 @@
-FROM python:3.5
+FROM python
 
-# build this image from the the root directory of this project:
-# docker build -f DockerBasic/Dockerfile -t mxu/lepv0.1 .
+RUN mkdir /web
+WORKDIR /web
 
-RUN apt-get update
+RUN mkdir /web/app
 
-RUN pip install django==1.10.8 djangorestframework==3.5.4 uwsgi==2.0.1
+ADD ./app /web/app/
 
-ENV PYTHONUNBUFFERED 1
-RUN mkdir /code
-WORKDIR /code
-USER root
-ADD . /code/
+EXPOSE 8889
 
-RUN python ./manage.py  migrate
-# triage way to check static files are there:
-# python manage.py findstatic admin/css/base.css --verbosity 2
-RUN python ./manage.py collectstatic --noinput
+WORKDIR /web/app
 
-ENTRYPOINT ["uwsgi", "--ini", "lepv_docker_uwsgi.ini", "--static-map", "/static=/code/staticfiles"]
+RUN ["pip", "install", "-r", "requirements.txt"]
 
-# run a container with this command:
-# docker run -t -p 8889:8889 mxu/lepv0.1
-# or:
-# docker run -it -p 8889:8889 mxu/lepv0.1 bash
-# uwsgi --ini lepv_docker_uwsgi.ini --static-map /static=/code/staticfiles
-# now open your Chrome from your host machine, and visit: http://localhost:8889
+CMD ["python", "/web/app/run.py"]
