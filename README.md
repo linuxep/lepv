@@ -16,9 +16,14 @@
 - Web charts
 
 ## How to set up development environment
-1. TODO
+1. Setup aliyun mirror and install docker
+Access https://cr.console.aliyun.com/#/accelerator and follow steps there
+2. Verify docker installation
+$ docker run hello-world
+
+## Build Contiainer
+$ ./buildImage.sh
 
 ## How to run in docker
-1. TODO
-
+$ ./runContainer.sh
 
