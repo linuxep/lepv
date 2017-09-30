@@ -22,7 +22,7 @@
     2. Docker
         install faster click [here](http://get.daocloud.io/)
     3. Flask  
-        pip install Flask `(pip install maybe  faster for append [ ** -i http://pypi.douban.com/simple** ] or config /etc/pip.conf)`
+        pip install Flask `(pip install maybe  faster for append [ -i http://pypi.douban.com/simple ] or config /etc/pip.conf)`
 - Start
     1. Run on VM
     ```bash
