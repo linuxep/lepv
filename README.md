@@ -37,7 +37,7 @@
     $ ./buildImage.sh
     $ ./runContainer.sh
     ```
-    3. Open browser [http:127.0.0.1:8889](http:127.0.0.1:8889)
+    3. Open browser [127.0.0.1:8889](http://192.168.156.90:8889)
 
 ## How to run in docker
 1. TODO
