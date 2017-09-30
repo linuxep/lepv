@@ -16,7 +16,7 @@ class IOProfiler:
         self.client = LepDClient(self.server)
         self.config = config
 
-    def getStatus(self):
+    def get_status(self):
 
         startTime = datetime.datetime.now()
         
@@ -61,7 +61,7 @@ class IOProfiler:
         responseData['rawResult'] = rawResult
         return responseData
     
-    def getCapacity(self):
+    def get_capacity(self):
         responseLines = self.client.getResponse("GetCmdDf")
         if (len(responseLines) == 0):
             return {}
@@ -94,7 +94,7 @@ class IOProfiler:
         return responseData
 
 
-    def getIoTopData(self, ioTopLines = None):
+    def get_io_top(self, ioTopLines = None):
 
         if (ioTopLines == None):
             ioTopLines = self.client.getResponse('GetCmdIotop')
@@ -164,7 +164,7 @@ if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     
     # monitor = IOMonitor('www.linuxep.com')
-    pp.pprint(profiler.getIoTopData())
+    pp.pprint(profiler.get_io_top())
     # pp.pprint(profiler.getIoPPData())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &
