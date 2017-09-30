@@ -10,6 +10,7 @@ class Memory(graphene.ObjectType):
     free = graphene.Float()
     buffers = graphene.Float()
     cached = graphene.Float()
+    time = graphene.String()
 
 
 class Query(graphene.ObjectType):
@@ -33,6 +34,7 @@ class Query(graphene.ObjectType):
             mem.buffers = item["buffers"]
             mem.cached = item["caches"]
             mem.total = item["total"]
+            mem.time = item["time"]
             data.append(mem)
         return data
 

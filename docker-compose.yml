@@ -2,10 +2,19 @@ version: "2.0"
 services:
   db:
     image: influxdb
+    ports:
+      - "8083:8083"
+    environment:
+      - INFLUXDB_ADMIN_ENABLED=true
+      - INFLUXDB_ADMIN_USER=admin 
+      - INFLUXDB_ADMIN_USER=admin123
+      - INFLUXDB_DB=mydb
+      - INFLUXDB_USER=root
+      - INFLUXDB_USER_PASSWORD=root123
+    volumes:
+      - ./influxdb:/var/lib/influxdb
   web:
     image: linuxep/lepv:flask
-    volumes:
-     - ./influxdb:/var/lib/influxdb
     ports:
       - "8889:8889"
     links:
