@@ -3,8 +3,8 @@ from influxdb import InfluxDBClient
 DBclient = InfluxDBClient('db', 8086, 'root', 'root123', 'mydb')
 DBclient.create_database('mydb')
 
-#  INSERT memory,host=127.0.0.0 total=1000,free=865,buffers=78,caches=69
-#  INSERT memory,host=127.0.0.0 total=1000,free=875,buffers=78,caches=96
+#  INSERT memory,host=127.0.0.1 total=1000,free=865,buffers=78,caches=69
+#  INSERT memory,host=127.0.0.1 total=1000,free=875,buffers=78,caches=96
 
 if(__name__ == '__main__'):
     json_body = [
