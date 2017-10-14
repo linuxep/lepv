@@ -18,48 +18,51 @@ class IOProfiler:
 
     def get_status(self):
 
-        startTime = datetime.datetime.now()
+        start_time = datetime.datetime.now()
         
         result = self.client.getIostatResult()
         
-        endTime = datetime.datetime.now()
+        end_time = datetime.datetime.now()
         
-        rawResult = result[:]
+        raw_results = result[:]
         
-        headerLine = result.pop(0)
+        headerline = result.pop(0)
 
-        duration = "%.1f" % ((endTime - startTime).total_seconds())
-        ioStatus = {}
-        ioStatus['lepdDuration'] = duration
-        ioStatus['disks'] = {}
-        ioStatus['diskCount'] = 0
-        ioStatus['ratio'] = 0
+        duration = "%.1f" % ((end_time - start_time).total_seconds())
+        io_status = {
+            'lepdDuration': duration,
+            'disks': {},
+            'diskCount': 0,
+            'ratio': 0
+        }
+
         for line in result:
             if (line.strip() == ""):
                 continue
 
-            lineValues = line.split()
+            line_values = line.split()
 
-            deviceName = lineValues[0]
-            ioStatus['diskCount'] += 1
-            ioStatus['disks'][deviceName] = {}
+            device_name = line_values[0]
+            io_status['diskCount'] += 1
+            io_status['disks'][device_name] = {}
 
-            ioStatus['disks'][deviceName]['rkbs'] = lineValues[5]
-            ioStatus['disks'][deviceName]['wkbs'] = lineValues[6]
-            ioStatus['disks'][deviceName]['ratio'] = lineValues[-1]
+            io_status['disks'][device_name]['rkbs'] = line_values[5]
+            io_status['disks'][device_name]['wkbs'] = line_values[6]
+            io_status['disks'][device_name]['ratio'] = line_values[-1]
             
-            thisDiskRatio = self.client.toDecimal(lineValues[-1])
-            if (thisDiskRatio > ioStatus['ratio']):
-                ioStatus['ratio'] = thisDiskRatio
+            this_disk_ratio = self.client.toDecimal(line_values[-1])
+            if this_disk_ratio > io_status['ratio']:
+                io_status['ratio'] = this_disk_ratio
 
-        endTime2 = datetime.datetime.now()
-        duration = "%.1f" % ((endTime2 - endTime).total_seconds())
-        ioStatus['lepvParsingDuration'] = duration
+        end_time_2 = datetime.datetime.now()
+        duration = "%.1f" % ((end_time_2 - end_time).total_seconds())
+        io_status['lepvParsingDuration'] = duration
         
-        responseData = {}
-        responseData['data'] = ioStatus
-        responseData['rawResult'] = rawResult
-        return responseData
+        response_data = {
+            'data': io_status,
+            'rawResult': raw_results
+        }
+        return response_data
     
     def get_capacity(self):
         responseLines = self.client.getResponse("GetCmdDf")

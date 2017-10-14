@@ -339,7 +339,7 @@ if( __name__ =='__main__' ):
     
     profiler = CPUProfiler('www.linuxep.com')
 
-    # pp.pprint(profiler.getCapacity())
+    pp.pprint(profiler.getCapacity())
     pp.pprint(profiler.getProcessorCount())
     # pp.pprint(profiler.getStat())
     # pp.pprint(profiler.getAverageLoad())
