@@ -147,6 +147,7 @@ class CPUProfiler:
         responseData = {}
         if (self.config == 'debug'):
             responseData['rawResult'] = cpuInfoData['rawResult']
+            responseData['lepd_command'] = 'GetProcCpuinfo'
         
         capacity = {}
         capacity['processors'] = cpuInfoData['data']['processors']
@@ -249,12 +250,13 @@ class CPUProfiler:
         
         return statData
 
-    def getAverageLoad(self):
+    def getAverageLoad(self, options=None):
         responseLines = self.client.getResponse('GetProcLoadavg')
 
         responseData = {}
-        if (self.config == 'debug'):
+        if (options and options.debug == True):
             responseData['rawResult'] = responseLines[:]
+            responseData['lepd_command'] = 'GetProcLoadavg'
         
         response = responseLines[0].split(" ")
 
@@ -335,7 +337,7 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    profiler = CPUProfiler('www.linuxxueyuan.com')
+    profiler = CPUProfiler('www.linuxep.com')
 
     # pp.pprint(profiler.getCapacity())
     pp.pprint(profiler.getProcessorCount())

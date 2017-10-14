@@ -158,7 +158,7 @@ class IOProfiler:
         return ioTopResults
 
 if( __name__ =='__main__' ):
-    profiler = IOProfiler('www.linuxxueyuan.com')
+    profiler = IOProfiler('www.linuxep.com')
     profiler.config = 'debug'
 
     pp = pprint.PrettyPrinter(indent=2)
