@@ -250,17 +250,19 @@ class CPUProfiler:
             cpu_name = line_values[-11]
             stat_data['data'][cpu_name] = cpu_stat
 
-        # Analysis data, for notification and alert
-        stat_data['message'] = {}
-        for cpu_name in stat_data['data']:
-            if cpu_name == 'all':
-                continue
-
-            stat_data['message'][cpu_name] = {
+        # TODO: Analysis data, for notification and alert
+        stat_data['message'] = {
+            '0': {
                 'error': '',
-                'warning': 'Load NOT balanced!',
+                'warning': 'Load NOT balanced, this core is over loaded!',
+                'info': ''
+            },
+            '1': {
+                'error': '',
+                'warning': 'Load NOT balanced, this core is over idled!',
                 'info': ''
             }
+        }
 
         return stat_data
 

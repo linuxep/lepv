@@ -290,8 +290,13 @@ LepvChart.prototype.refresh = function() {
     }
 
     thisChart.responseId = 1; //responseData['requestId'];
+
+    var dataMessages = {}
+    if ('message' in responseData) {
+        dataMessages = responseData['message']
+    }
     
-    thisChart.updateChartData(responseData['data']);
+    thisChart.updateChartData(responseData['data'], dataMessages);
   });
 };
 
