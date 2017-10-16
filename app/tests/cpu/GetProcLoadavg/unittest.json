@@ -1,0 +1,22 @@
+{
+  "description": "GetProcLoadavg",
+
+  "cases": [
+
+    {
+      "kernel": "",
+      "os": "linux",
+      "cpu": "x86",
+      "note": "data from www.linuxxueyuan.com",
+      "lepdResult":	"0.18 0.19 0.12 1/77 11132\nlepdendstring",
+      "expected": {
+        "data": {
+          "last1": 0.18,
+          "last5": 0.19,
+          "last15": 0.12
+        }
+      }
+    }
+
+  ]
+}
