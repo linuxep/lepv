@@ -337,7 +337,7 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    profiler = CPUProfiler('www.linuxep.com')
+    profiler = CPUProfiler('www.rmlink.cn')
 
     pp.pprint(profiler.getCapacity())
     pp.pprint(profiler.getProcessorCount())

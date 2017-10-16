@@ -161,12 +161,12 @@ class IOProfiler:
         return ioTopResults
 
 if( __name__ =='__main__' ):
-    profiler = IOProfiler('www.linuxep.com')
+    profiler = IOProfiler('www.rmlink.cn')
     profiler.config = 'debug'
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    # monitor = IOMonitor('www.linuxep.com')
+    # monitor = IOMonitor('www.rmlink.cn')
     pp.pprint(profiler.get_io_top())
     # pp.pprint(profiler.getIoPPData())
 

@@ -10,7 +10,7 @@ from modules.cpu.CPUProfiler import CPUProfiler
 class CpuProfilerTest(unittest.TestCase):
 
     def setUp(self):
-        self.server = 'www.linuxep.com'
+        self.server = 'www.rmlink.cn'
         self.profiler = CPUProfiler(self.server)
 
     def test_getCpuCount(self):

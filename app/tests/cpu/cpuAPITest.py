@@ -9,7 +9,7 @@ import requests
 class CpuAPITest(unittest.TestCase):
 
     def setUp(self):
-        self.server = 'www.linuxep.com'
+        self.server = 'www.rmlink.cn'
         self.apiPrefix = '/api/cpu'
 
     # /api/cpu/count

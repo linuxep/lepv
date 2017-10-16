@@ -209,7 +209,7 @@ class MemoryProfiler:
 if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
 
-    profiler = MemoryProfiler('www.linuxep.com')
+    profiler = MemoryProfiler('www.rmlink.cn')
     profiler.config = 'debug'
     pp.pprint(profiler.getStatus())
     # pp.pprint(profiler.getProcrank())
