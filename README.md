@@ -15,8 +15,6 @@
 - Restful API
 - Web charts
 
-## How to set up development environment
-
 - Software Tools
     1. Python
     2. Docker
@@ -39,7 +37,8 @@
     ```
     3. Open browser [127.0.0.1:8889](http://192.168.156.90:8889)
 
-## How to run in docker
-1. TODO
+## Setup aliyun mirror and install docker
+Access https://cr.console.aliyun.com/#/accelerator and follow steps there
 
-
+## Verify docker installation
+$ docker run hello-world
