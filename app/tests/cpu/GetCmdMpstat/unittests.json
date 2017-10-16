@@ -1,8 +1,4 @@
-{
-  "description": "GetCmdMpstat",
-
-  "cases": [
-
+[
     {
       "kernel": "",
       "os": "linux",
@@ -30,5 +26,4 @@
       }
     }
 
-  ]
-}
+]
