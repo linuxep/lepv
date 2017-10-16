@@ -47,7 +47,7 @@ def getCpuStatus(server):
 def getCpuStat(server):
 
     profiler = CPUProfiler(server)
-    data = profiler.getStat()
+    data = profiler.get_stat()
 
     return jsonify(data)
 
