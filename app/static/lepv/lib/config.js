@@ -56,6 +56,7 @@ function createControlElements(chartElement, headingParentColor) {
 
     elementPauseResumeLink.append(elementPauseResumeDiv);
     divHeadingPanel.append(elementPauseResumeLink);
+
     createdElements['pauseResumeLink'] = elementPauseResumeLink;
     createdElements['pauseResumeDiv'] = elementPauseResumeDiv;
     createdElements['headingParentDiv'] = divHeadingParentPanel;

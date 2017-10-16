@@ -201,6 +201,22 @@ LepvChart.prototype.createControlElements = function() {
   elementPauseResumeLink.append(elementPauseResumeDiv);
   divHeadingPanel.append(elementPauseResumeLink);
 
+    // bell button for notification
+    //<a href="#" title="Header" data-toggle="popover" data-placement="bottom" data-content="Content">Bottom</a>
+    var bellLink = $("<a></a>").attr("data-toggle", "popover")
+                               .attr("data-placement", "bottom")
+                               .attr("data-content", "Content")
+                               .attr("title", "Header");
+//                               .attr("href", "#");
+    var bellIconDiv = $("<div></div>")
+      .attr("data-toggle", "tooltip")
+      .attr("data-placement", "auto bottom")
+      .addClass('pull-right glyphicon glyphicon-white glyphicon-bell')
+
+    bellLink.append(bellIconDiv);
+    divHeadingPanel.append(bellLink);
+    bellLink.popover();
+
   this.controlElements['pauseResumeLink'] = elementPauseResumeLink;
   this.controlElements['pauseResumeDiv'] = elementPauseResumeDiv;
   this.controlElements['headingParentDiv'] = divHeadingParentPanel;
