@@ -1,0 +1,4 @@
+
+# Ignore Python bytecode files
+*.pyc
+
