@@ -1,0 +1,75 @@
+{
+  "description": "GetCmdIotop",
+
+  "cases": [
+
+    {
+      "kernel": "",
+      "os": "linux",
+      "cpu": "x86",
+      "note": "provided by Chen Song",
+      "lepdResult":	"Total DISK READ:    -nan B/s | Total DISK WRITE:    -nan B/s\n  TID PRIO     USER   DISK READ  DISK WRITE SWAPIN     IO COMMAND\n    1  -/0 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % /sbin/init\n    2  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [kthread]\n    3  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [ksoftirqd/]\n    4  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/0:]\n    5  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/0:0]\n    6  -/0 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/u256:]\n    7  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcu_sche]\n    8  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n    9  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   10  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   11  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   12  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   13  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   14  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   15  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   16  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   17  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/]\n   18  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   19  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   20  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   21  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   22  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   23  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   24  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   25  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   26  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   27  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/1]\n   28  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   29  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   30  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   31  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   32  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   33  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   34  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   35  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   36  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   37  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/2]\n   38  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   39  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   40  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   41  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   42  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   43  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   44  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   45  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   46  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   47  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/3]\n   48  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/4]\n   49  -/4 root          0.00 B/s    0.00 B/s 0.00 % 0.00 % [rcuos/4]\nlepdendstring",
+      "expected": {
+        "data": [
+          {
+            "rowIndex": 1,
+            "TID": "1",
+            "PRIO": "-/0",
+            "USER": "root",
+            "READ": "0.00 B/s",
+            "WRITE": "0.00 B/s",
+            "SWAPIN": "0.00 %",
+            "IO": "0.00 %",
+            "COMMAND": "/sbin/init"
+          },
+          {
+            "rowIndex": 2,
+            "TID": "2",
+            "PRIO": "-/4",
+            "USER": "root",
+            "READ": "0.00 B/s",
+            "WRITE": "0.00 B/s",
+            "SWAPIN": "0.00 %",
+            "IO": "0.00 %",
+            "COMMAND": "[kthread]"
+          }
+        ]
+      }
+    },
+
+    {
+      "kernel": "",
+      "os": "android",
+      "cpu": "arm",
+      "note": "PCDuino, provided by Chen Song",
+      "lepdResult":	"Total DISK READ:     nan B/s | Total DISK WRITE:     nan B/s\n  TID PRIO     USER   DISK READ  DISK WRITE SWAPIN     IO COMMAND\n    1  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % /sbin/init\n    2  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kthread]\n    3  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [ksoftirqd/]\n    4  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/0:]\n    5  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/u:]\n    6  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [migration/]\n    7  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [migration/]\n    8  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/1:]\n    9  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [ksoftirqd/]\n   10  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [cpuse]\n   11  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [khelpe]\n   12  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kdevtmpf]\n   13  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [netn]\n   14  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [sync_super]\n   15  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [bdi-defaul]\n   16  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kintegrity]\n   17  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kblock]\n   18  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [ata_sf]\n   19  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [khub]\n   20  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [rpcio]\n   21  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/0:]\n   22  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [khungtask]\n   23  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kswapd]\n   24  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [ksm]\n   25  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [fsnotify_mar]\n   26  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [nfsio]\n   27  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [cifsio]\n   28  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [crypt]\n   41  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [hdmi pro]\n   42  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/1:]\n   43  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [nand]\n   44  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [nfmt]\n   45  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [scsi_eh_]\n   46  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kworker/u:]\n   47  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [sun7i-spi.]\n   48  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [sun7i-spi.]\n   49  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kpsmouse]\n   50  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [binde]\n   51  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [codec_resum]\n   52  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kpktgend_]\n   53  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kpktgend_]\n   54  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [krfcomm]\n   55  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [deferw]\n   69  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [flush-93:]\n   71  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % [kjournal]\n  170  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % upstart-udev-bridge --daemon\n  174  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % /usr/sbin/sshd -D\n  177  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % /sbin/udevd --daemon\n  184  -/4 UNKNOWN       0.00 B/s    0.00 B/s 0.00 % 0.00 % rsyslogd -c5\nlepdendstring",
+      "expected": {
+        "data": [
+          {
+            "rowIndex": 1,
+            "TID": "1",
+            "PRIO": "-/4",
+            "USER": "UNKNOWN",
+            "READ": "0.00 B/s",
+            "WRITE": "0.00 B/s",
+            "SWAPIN": "0.00 %",
+            "IO": "0.00 %",
+            "COMMAND": "/sbin/init"
+          },
+          {
+            "rowIndex": 2,
+            "TID": "2",
+            "PRIO": "-/4",
+            "USER": "UNKNOWN",
+            "READ": "0.00 B/s",
+            "WRITE": "0.00 B/s",
+            "SWAPIN": "0.00 %",
+            "IO": "0.00 %",
+            "COMMAND": "[kthread]"
+          }
+        ]
+      }
+    }
+
+  ]
+}

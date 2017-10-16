@@ -1,5 +1,5 @@
 """Module for CPU related data parsing Testing"""
-__author__    = "Copyright (c) 2017, Marin Software>"
+__author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
@@ -10,7 +10,7 @@ from modules.cpu.CPUProfiler import CPUProfiler
 class CpuProfilerTest(unittest.TestCase):
 
     def setUp(self):
-        self.server = 'www.linuxxueyuan.com'
+        self.server = 'www.rmlink.cn'
         self.profiler = CPUProfiler(self.server)
 
     def test_getCpuCount(self):

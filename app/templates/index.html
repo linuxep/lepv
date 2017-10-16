@@ -21,8 +21,6 @@
 
     <link href="/static/lepv/css/sb-admin.css" rel="stylesheet">
 
-    <link href="/static/lepv/css/plugins/morris.css" rel="stylesheet">
-
     <link href="/static/lepv/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="/static/lepv/js/jquery-ui.min.css" rel="stylesheet" type="text/css">
@@ -189,13 +187,19 @@
                     <div class="col-lg-6">
                         <div id="div-cpu-stat-overall-container" class="panel panel-default">
                             <div class="panel-heading">
+
+
                                 <i class="icon-cpu-processor"></i>
                                 {% if config == 'debug' %}
                                 <span class="spanTitle">{{ languages.cpuStatRatioChartTitle }} - [GetCmdMpstat] </span>
                                 {% else %}
                                 <span class="spanTitle" fullTitle="{{ languages.cpuStatRatioChartTitleFull }}" shortTitle="{{ languages.cpuStatRatioChartTitle }}">{{ languages.cpuStatRatioChartTitle }}</span>
                                 {% endif %}
-                                
+
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-fw fa-bell"></i>
+                                </a>
+
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -484,7 +488,7 @@
                     <div class="modal-body">
                         <div class="input-group">
                             <span class="input-group-addon">{{ languages.Server }}</span>
-                            <input id="txtServer" type="text" class="form-control" placeholder="www.linuxxueyuan.com" value="www.linuxxueyuan.com"/>
+                            <input id="txtServer" type="text" class="form-control" placeholder="www.rmlink.cn" value="www.rmlink.cn"/>
                         </div>
                         <p></p>
 

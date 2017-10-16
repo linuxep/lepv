@@ -147,6 +147,7 @@ class CPUProfiler:
         responseData = {}
         if (self.config == 'debug'):
             responseData['rawResult'] = cpuInfoData['rawResult']
+            responseData['lepd_command'] = 'GetProcCpuinfo'
         
         capacity = {}
         capacity['processors'] = cpuInfoData['data']['processors']
@@ -198,7 +199,7 @@ class CPUProfiler:
 
     def getStatus(self):
 
-        statData = self.getStat()
+        statData = self.get_stat()
         allIdleRatio = self.client.toDecimal(statData['data']['all']['idle'])
 
         componentInfo = {}
@@ -211,50 +212,65 @@ class CPUProfiler:
 
         return componentInfo
 
-    def getStat(self):
+    def get_stat(self):
 
         results = self.client.getCmdMpStat()
-        if (results == None):
+        if not results:
             return None
-
-        statData = {}
-        
         results.pop(0)
-        statData['rawResult'] = results
-        
-        statData['data'] = {}
+
+        # Basic data, basically for debugging
+        stat_data = {
+            "lepd_command": "GetCmdMpstat",
+            "rawResult": results,
+            "server": self.server
+        }
+
+        # Core data, for displaying
+        stat_data['data'] = {}
         for line in results:
             
             if (line.strip() == ''):
                 break
             
-            lineValues = line.split()
+            line_values = line.split()
 
-            cpuStat = {}
-            cpuStat['idle'] = self.client.toDecimal(lineValues[-1])
-            cpuStat['gnice'] = self.client.toDecimal(lineValues[-2])
-            cpuStat['guest'] = self.client.toDecimal(lineValues[-3])
-            cpuStat['steal'] = self.client.toDecimal(lineValues[-4])
-            cpuStat['soft'] = self.client.toDecimal(lineValues[-5])
-            cpuStat['irq'] = self.client.toDecimal(lineValues[-6])
-            cpuStat['iowait'] = self.client.toDecimal(lineValues[-7])
-            cpuStat['system'] = self.client.toDecimal(lineValues[-8])
-            cpuStat['nice'] = self.client.toDecimal(lineValues[-9])
-            cpuStat['user'] = self.client.toDecimal(lineValues[-10])
+            cpu_stat = {}
+            cpu_stat['idle'] = self.client.toDecimal(line_values[-1])
+            cpu_stat['gnice'] = self.client.toDecimal(line_values[-2])
+            cpu_stat['guest'] = self.client.toDecimal(line_values[-3])
+            cpu_stat['steal'] = self.client.toDecimal(line_values[-4])
+            cpu_stat['soft'] = self.client.toDecimal(line_values[-5])
+            cpu_stat['irq'] = self.client.toDecimal(line_values[-6])
+            cpu_stat['iowait'] = self.client.toDecimal(line_values[-7])
+            cpu_stat['system'] = self.client.toDecimal(line_values[-8])
+            cpu_stat['nice'] = self.client.toDecimal(line_values[-9])
+            cpu_stat['user'] = self.client.toDecimal(line_values[-10])
 
-            cpuName = lineValues[-11]
-            statData['data'][cpuName] = cpuStat
-        
-        statData['server'] = self.server
-        
-        return statData
+            cpu_name = line_values[-11]
+            stat_data['data'][cpu_name] = cpu_stat
 
-    def getAverageLoad(self):
+        # Analysis data, for notification and alert
+        stat_data['message'] = {}
+        for cpu_name in stat_data['data']:
+            if cpu_name == 'all':
+                continue
+
+            stat_data['message'][cpu_name] = {
+                'error': '',
+                'warning': 'Load NOT balanced!',
+                'info': ''
+            }
+
+        return stat_data
+
+    def getAverageLoad(self, options=None):
         responseLines = self.client.getResponse('GetProcLoadavg')
 
         responseData = {}
-        if (self.config == 'debug'):
+        if (options and options.debug == True):
             responseData['rawResult'] = responseLines[:]
+            responseData['lepd_command'] = 'GetProcLoadavg'
         
         response = responseLines[0].split(" ")
 
@@ -335,9 +351,9 @@ if( __name__ =='__main__' ):
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    profiler = CPUProfiler('www.linuxxueyuan.com')
+    profiler = CPUProfiler('www.rmlink.cn')
 
-    # pp.pprint(profiler.getCapacity())
+    pp.pprint(profiler.getCapacity())
     pp.pprint(profiler.getProcessorCount())
     # pp.pprint(profiler.getStat())
     # pp.pprint(profiler.getAverageLoad())

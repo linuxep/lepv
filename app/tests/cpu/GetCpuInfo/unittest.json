@@ -1,0 +1,34 @@
+{
+  "description": "GetCpuInfo, this command should return unified format of response regardless of CPU architecture",
+
+  "cases": [
+
+    {
+      "kernel": "",
+      "os": "Linux",
+      "cpu": "x86",
+      "note": "data from www.linuxxueyuan.com",
+      "lepdResult":	"cpunr: 2\ncpu_name: AuthenticAMD\nlepdendstring",
+      "expected": {
+        "data": {
+          "cpunr": 2,
+          "cpu_name": "AuthenticAMD"
+        }
+      }
+    },
+
+    {
+      "kernel": "",
+      "os": "Linux",
+      "cpu": "x86",
+      "note": "data from www.linuxep.com",
+      "lepdResult":	"cpunr: 4\ncpu_name: AuthenticAMD\nlepdendstring",
+      "expected": {
+        "data": {
+          "cpunr": 4,
+          "cpu_name": "AuthenticAMD"
+        }
+      }
+    }
+  ]
+}

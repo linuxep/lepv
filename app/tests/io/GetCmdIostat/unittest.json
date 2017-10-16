@@ -1,0 +1,25 @@
+{
+  "description": "GetCmdIostat",
+
+  "cases": [
+
+    {
+      "kernel": "",
+      "os": "linux",
+      "cpu": "x86",
+      "note": "data from linuxxueyuan.com",
+      "lepdResult":	"Linux 3.13.0-77-generic (ubuntu) \t03/19/17 \t_x86_64_\t(2 CPU)\n\nDevice:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util\nsda               0.03     0.12    0.65    0.09    11.71     3.39    40.89     0.03   43.25    9.60  275.81   5.91   0.44\n\nlepdendstring",
+      "expected": {
+        "data": {
+          "disks": {
+            "sda": {
+              "rkbs": 11.71,
+              "wkbs": 3.39,
+              "ratio": 0.44
+            }
+          }
+        }
+      }
+    }
+  ]
+}

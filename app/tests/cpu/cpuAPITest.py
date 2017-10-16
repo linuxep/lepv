@@ -1,5 +1,5 @@
 """Module for CPU related data parsing Testing"""
-__author__    = "Copyright (c) 2017, Marin Software>"
+__author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
@@ -9,7 +9,7 @@ import requests
 class CpuAPITest(unittest.TestCase):
 
     def setUp(self):
-        self.server = 'www.linuxxueyuan.com'
+        self.server = 'www.rmlink.cn'
         self.apiPrefix = '/api/cpu'
 
     # /api/cpu/count

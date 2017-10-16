@@ -48,7 +48,7 @@ LepvCpuCharts.prototype.updateChartData = function(data) {
     
     this.donutChart.updateChartData(data['all']);
     
-    var cpuOccupationRatio = (100 - data['all']['idle']).toFixed(2);
+    var cpuOccupationRatio = （100 - parseFloat(data['all']['idle'])).toFixed(2);
     this.gaugeChart.updateChartData({'ratio': cpuOccupationRatio});
     
     delete data['all'];
@@ -59,8 +59,8 @@ LepvCpuCharts.prototype.updateChartData = function(data) {
     
     $.each( data, function( coreName, coreStatData ) {
         idleStatData[coreName] = coreStatData.idle;
-        userGroupStatData[coreName] = coreStatData.user + coreStatData.system + coreStatData.nice;
-        irqGroupStatData[coreName] = coreStatData.irq + coreStatData.soft;
+        userGroupStatData[coreName] = parseFloat(coreStatData.user) + parseFloat(coreStatData.system) + parseFloat(coreStatData.nice);
+        irqGroupStatData[coreName] = parseFloat(coreStatData.irq) + parseFloat(coreStatData.soft);
     });
     
     this.idleChart.updateChartData(idleStatData);
