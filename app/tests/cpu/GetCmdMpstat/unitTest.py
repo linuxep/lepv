@@ -3,7 +3,7 @@ __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
-from ddt import ddt, data, file_data, unpack
+from app.tests.jsondt import ddt, data, file_data, unpack
 
 from modules.cpu.CPUProfiler import CPUProfiler
 
@@ -23,8 +23,7 @@ class CpuProfilerTest(unittest.TestCase):
         count = returnedData['count']
         self.assertTrue(isinstance(count, int), "CPU processor count '%s' is not an integer" % count)
 
-    @file_data("try.json")
-    @unpack
+    @file_data("unittests.json")
     def test_parsing(self, test_case):
         print(test_case)
 
