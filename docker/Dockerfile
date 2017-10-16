@@ -1,16 +1,17 @@
-FROM python
+# https://hub.docker.com/r/tiangolo/uwsgi-nginx-flask/
 
-RUN mkdir /web
-WORKDIR /web
+FROM tiangolo/uwsgi-nginx-flask:python3.6
 
-RUN mkdir /web/app
+ADD ./app /app
 
-ADD ./app /web/app/
+EXPOSE 80
 
-EXPOSE 8889
-
-WORKDIR /web/app
+WORKDIR /app
 
 RUN ["pip", "install", "-r", "requirements.txt"]
 
-CMD ["python", "/web/app/run.py"]
+# PYTHONPATH is required, otherwise Python complains about module not found
+#ENV PYTHONPATH /app
+
+#CMD [/etc/init.d/nginx start]
+##CMD ["python", "/web/app/run.py"]
