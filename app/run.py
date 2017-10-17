@@ -13,6 +13,11 @@ def index():
     return render_template("index.html", languages=languages)
 
 
+@app.route('/swagger')
+def swagger():
+    return render_template("swagger.html")
+
+
 # CPU
 from modules.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)

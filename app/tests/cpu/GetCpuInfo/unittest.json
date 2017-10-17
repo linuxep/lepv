@@ -7,7 +7,7 @@
       "kernel": "",
       "os": "Linux",
       "cpu": "x86",
-      "note": "data from www.linuxxueyuan.com",
+      "note": "data from www.rmlink.cn",
       "lepdResult":	"cpunr: 2\ncpu_name: AuthenticAMD\nlepdendstring",
       "expected": {
         "data": {
