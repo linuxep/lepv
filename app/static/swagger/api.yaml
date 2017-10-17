@@ -2,8 +2,8 @@
 # as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
-  title: LEPV API
-  description: LEPV Rest API powered by Node
+  title: LEPV Rest APIs
+  description: LEPV Rest API powered by Flask
   version: "0.1.1"
 # the domain of the service
 host: localhost:8889
@@ -21,7 +21,6 @@ paths:
       description: |
         - The cpu/status endpoint returns information about the cpu of the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdMpstat".
-        - It deprecates the old url of http://www.rmlink.cn:8889/status/cpu/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -37,13 +36,6 @@ paths:
           required: false
           type: number
           format: double
-        - name: debug
-          in: query
-          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
-          required: false
-          type: boolean
-          format: boolean
-          default: true
       tags:
         - CPU
       responses:
@@ -57,13 +49,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /cpu/avgload/{server}:
+  /api/cpu/avgload/{server}:
     get:
       summary: Get CPU average load
       description: |
         - The cpu/avgload endpoint returns the CPU average load of the system being monitored by LEPD.
         - It talks to LEPD command of "GetProcLoadavg".
-        - It deprecates the old url of http://www.rmlink.cn:8889/??/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -99,13 +90,12 @@ paths:
           description: LEPD or LEPV error
           schema:
             $ref: '#/definitions/Error'
-  /cpu/count/{server}:
+  /api/cpu/count/{server}:
     get:
       summary: Get CPU count
       description: |
         - The cpu/status endpoint returns cpu count the system being monitored by LEPD.
         - It talks to LEPD command of "GetCpuInfo".
-        - It deprecates the old url of http://www.rmlink.cn:8889/??/cpu/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -141,13 +131,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /cpu/top/{server}:
+  /api/cpu/top/{server}:
     get:
       summary: Get the Top status sorted by cpu ratio
       description: |
         - The cpu/top endpoint returns the top status of each process (sorted by it cpu ratio) the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdTop".
-        - It deprecates the old url of http://www.rmlink.cn:8889/cputop/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -183,13 +172,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /cpu/capacity/{server}:
+  /api/cpu/capacity/{server}:
     get:
       summary: Get CPU capacity
       description: |
         - The cpu/status endpoint returns information about the cpu capacity of the system being monitored by LEPD.
         - It talks to LEPD command of "GetProcCpuinfo".
-        - It deprecates the old url of http://www.rmlink.cn:8889/capacity/cpu/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -225,13 +213,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /io/top/{server}:
+  /api/io/top/{server}:
     get:
       summary: Get the IO Top status
       description: |
         - The cpu/status endpoint returns information about the io top status of the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdIotop".
-        - It deprecates the old url of http://www.rmlink.cn:8889/status/io/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -267,13 +254,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /io/status/{server}:
+  /api/io/status/{server}:
     get:
       summary: Get IO status
       description: |
         - The io/status endpoint returns information about the io of the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdIostat".
-        - It deprecates the old url of http://www.rmlink.cn:8889/status/io/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -309,13 +295,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /io/capacity/{server}:
+  /api/io/capacity/{server}:
     get:
       summary: Get IO capacity
       description: |
         - The io/status endpoint returns IO capacity of the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdDf".
-        - It deprecates the old url of http://www.rmlink.cn:8889/capacity/io/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -351,13 +336,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /memory/procrank/{server}:
+  /api/memory/procrank/{server}:
     get:
       summary: Get the information of each process ranked by the memory usage
       description: |
         - The memory/procrank endpoint returns information about each process (ranked by the memory usage) of the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdProcrank".
-        - It deprecates the old url of http://www.rmlink.cn:8889/procrank/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -393,13 +377,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /memory/status/{server}:
+  /api/memory/status/{server}:
     get:
       summary: Get Memory status
       description: |
         - The cpu/status endpoint returns information about the memory of the system being monitored by LEPD.
         - It talks to LEPD command of "GetProcMeminfo".
-        - It deprecates the old url of http://www.rmlink.cn:8889/status/memory/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -435,13 +418,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /memory/capacity/{server}:
+  /api/memory/capacity/{server}:
     get:
       summary: Get Memory capacity
       description: |
         - The cpu/status endpoint returns capacity about the memory of the system being monitored by LEPD.
         - It talks to LEPD command of "GetProcMeminfo".
-        - It deprecates the old url of http://www.rmlink.cn:8889/capacity/memory/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -477,13 +459,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /perf/cpuclock/{server}:
+  /api/perf/cpuclock/{server}:
     get:
       summary: Get the Perf status sorted by cpu clock
       description: |
         - The perf/cpuclock endpoint returns Perf status of the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdPerfCpuclock".
-        - It deprecates the old url of http://www.rmlink.cn:8889/perfcpu/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -519,7 +500,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /ping/{server}:
+  /api/ping/{server}:
     get:
       summary: Ping the server
       description: |
@@ -553,7 +534,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /command/{command}/{server}:
+  /api/command/{command}/{server}:
     get:
       summary: call a LEPD command agains the server
       description: |
