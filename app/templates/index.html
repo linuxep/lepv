@@ -22,6 +22,7 @@
     <link href="/static/lepv/css/sb-admin.css" rel="stylesheet">
 
     <link href="/static/lepv/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/lepv/font-awesome/css/font-awesome-animation.min.css" rel="stylesheet">
 
     <link href="/static/lepv/js/jquery-ui.min.css" rel="stylesheet" type="text/css">
     <link href="/static/lepv/css/language/languages.min.css" rel="stylesheet" type="text/css">
@@ -196,9 +197,12 @@
                                 <span class="spanTitle" fullTitle="{{ languages.cpuStatRatioChartTitleFull }}" shortTitle="{{ languages.cpuStatRatioChartTitle }}">{{ languages.cpuStatRatioChartTitle }}</span>
                                 {% endif %}
 
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-fw fa-bell"></i>
-                                </a>
+                                <!--<i data-toggle="popover"-->
+                                   <!--title="<b>Example popover</b> - title"-->
+                                   <!--data-content="<div><b>Example popover</b> - content</div>"-->
+                                   <!--class="fa fa-bell faa-ring ffa-fast animated pull-right">-->
+                                <!--</i>-->
+
 
                             </div>
                             <!-- /.panel-heading -->
@@ -567,6 +571,13 @@
     
     <script>
         $( document ).ready(function() {
+
+            $('[data-toggle="popover"]').popover();
+
+            $('.popover-dismiss').popover({
+              trigger: 'focus'
+            })
+
             showConfigPage();
         });
     </script>
