@@ -1,8 +1,11 @@
+import sys
 from flask import Flask, render_template
 
 from modules.language.Languages import Languages
 from modules.utils.simpleJson import MyJSONEncoder
 
+reload(sys)
+sys.setdefaultencoding('utf8')
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
