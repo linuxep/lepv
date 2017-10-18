@@ -76,7 +76,7 @@ class MemoryProfiler:
 
         results = {}
         for line in responseLines:
-            print(line)
+            # print(line)
             if (self.client.LEPDENDINGSTRING in line):
                 continue
                 

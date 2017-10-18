@@ -28,10 +28,10 @@ class LepDClient:
         return lines
 
     def ping(self):
-        print('Send "SayHello" command to LEPD')
+        # print('Send "SayHello" command to LEPD')
         response = self.sendRequest("SayHello")
             
-        print(response)
+        # print(response)
         if (response != None and 'result' in response and response['result'].startswith('Hello')):
             return True
         else:

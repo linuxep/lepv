@@ -32,7 +32,7 @@ def getCpuStatus(server):
     profiler = CPUProfiler(server)
     data = profiler.getStatus()
 
-    if not request.args['request_id']:
+    if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']
     return jsonify(data)
 
@@ -43,7 +43,7 @@ def getCpuStat(server):
     profiler = CPUProfiler(server)
     data = profiler.get_stat()
 
-    if not request.args['request_id']:
+    if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']
     return jsonify(data)
 
@@ -54,23 +54,23 @@ def getCpuTop(server):
     profiler = CPUProfiler(server)
     data = profiler.getTopOutput()
 
-    if not request.args['request_id']:
+    if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']
     return jsonify(data)
 
 
 @cpuAPI.route('/avgload/<server>')
 def get_average_load(server):
-    options = {
-        'is_debug': False,
-    }
-    if not request.args['debug']:
-        options['is_debug'] = request.args['debug']
+    # options = {
+    #     'is_debug': False,
+    # }
+    # if not request.args['debug']:
+    #     options['is_debug'] = request.args['debug']
 
     profiler = CPUProfiler(server)
-    data = profiler.get_average_load(options)
+    data = profiler.get_average_load()
 
-    if not request.args['request_id']:
+    if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']
     return jsonify(data)
 

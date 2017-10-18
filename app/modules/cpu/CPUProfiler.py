@@ -270,9 +270,9 @@ class CPUProfiler:
         response_lines = self.client.getResponse('GetProcLoadavg')
 
         response_data = {}
-        if options['debug']:
-            response_data['rawResult'] = response_lines[:]
-            response_data['lepd_command'] = 'GetProcLoadavg'
+        # if options['debug']:
+        #     response_data['rawResult'] = response_lines[:]
+        #     response_data['lepd_command'] = 'GetProcLoadavg'
         
         response = response_lines[0].split(" ")
 

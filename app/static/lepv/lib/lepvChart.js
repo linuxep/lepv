@@ -273,23 +273,23 @@ LepvChart.prototype.refresh = function() {
     return;
   }
 
-  if (this.requestId - this.responseId >= this.maxRequestIdGap) {
-    return;
-  }
+//  if (this.requestId - this.responseId >= this.maxRequestIdGap) {
+//    return;
+//  }
 
-  this.requestId += 1;
+  this.requestId++;
   //var startTime= new Date().getTime();
 
   //this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
   var thisChart = this;
-  var url = thisChart.dataUrlPrefix + thisChart.server + "?request_id=" + thisChart.requestId;
+  var url = thisChart.dataUrlPrefix + thisChart.server; // + "?request_id=" + thisChart.requestId;
   
   $.get(url, function(responseData, status) {
     if (this.isChartPaused) {
       return;
     }
 
-    thisChart.responseId = 1; //responseData['requestId'];
+    thisChart.responseId++;
 
     var dataMessages = {}
     if ('message' in responseData) {
