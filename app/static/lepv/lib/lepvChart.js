@@ -282,7 +282,7 @@ LepvChart.prototype.refresh = function() {
 
   //this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
   var thisChart = this;
-  var url = thisChart.dataUrlPrefix + thisChart.server; // + "/" + thisChart.requestId;
+  var url = thisChart.dataUrlPrefix + thisChart.server + "?request_id=" + thisChart.requestId;
   
   $.get(url, function(responseData, status) {
     if (this.isChartPaused) {

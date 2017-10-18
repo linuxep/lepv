@@ -42,7 +42,7 @@ LepvAvgLoadChart.prototype.initialize = function() {
         return;
     }
 
-    $.get(this.dataUrlPrefix + thisChart.server, function(responseData, status) {
+    $.get("/api/cpu/count/" + thisChart.server, function(responseData, status) {
         thisChart.cpuCoreCount = responseData.count;
 
         thisChart.yellowAlertValue = 0.7 * thisChart.cpuCoreCount;

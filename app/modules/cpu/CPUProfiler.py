@@ -266,29 +266,30 @@ class CPUProfiler:
 
         return stat_data
 
-    def getAverageLoad(self, options=None):
-        responseLines = self.client.getResponse('GetProcLoadavg')
+    def get_average_load(self, options={}):
+        response_lines = self.client.getResponse('GetProcLoadavg')
 
-        responseData = {}
-        if (options and options.debug == True):
-            responseData['rawResult'] = responseLines[:]
-            responseData['lepd_command'] = 'GetProcLoadavg'
+        response_data = {}
+        if options['debug']:
+            response_data['rawResult'] = response_lines[:]
+            response_data['lepd_command'] = 'GetProcLoadavg'
         
-        response = responseLines[0].split(" ")
+        response = response_lines[0].split(" ")
 
         # '0.00 0.01 0.05 1/103 24750
         # 'avg system load of 1 minute ago, 5 minutes ago, 15 minutes ago,
         # the fourth is A/B, A is the number of running processes
         # B is the total process count.
         # last number, like 24750 is the ID of the most recently running process.
-        resultData = {}
-        resultData['last1'] = self.client.toDecimal(response[0])
-        resultData['last5'] = self.client.toDecimal(response[1])
-        resultData['last15'] = self.client.toDecimal(response[2])
+        result_data = {
+            'last1': self.client.toDecimal(response[0]),
+            'last5': self.client.toDecimal(response[1]),
+            'last15': self.client.toDecimal(response[2])
+        }
 
-        responseData['data'] = resultData
+        response_data['data'] = result_data
         
-        return responseData
+        return response_data
 
     def getTopOutput(self, responseLines = None):
 
