@@ -291,8 +291,9 @@ def main(server, method, config, out):
     func = getattr(client, method)
     results = func()
     if out:
-        fp = open(out, 'w')
+        fp = open(out, 'a')
         fp.write(json.dumps(results))
+        fp.write('\n')
         fp.flush()
         fp.close()
     pp.pprint(results)
