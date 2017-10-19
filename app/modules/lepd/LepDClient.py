@@ -156,26 +156,26 @@ class LepDClient:
     def tryAllMethods(self):
         methods = self.listAllMethods()
         
-        executionResuts = {}
+        executionResults = {}
         for methodName in methods:
 
             print('')
             print('<[ ' + methodName + " ]>")
             
-            executionResuts[methodName] = {}
+            executionResults[methodName] = {}
 
             startTime = datetime.datetime.now()
             response = self.sendRequest(methodName)
             endTime = datetime.datetime.now()
-            executionResuts[methodName]['duration'] = "%.1f" % ((endTime - startTime).total_seconds())
-            print('duration:=' + executionResuts[methodName]['duration'])
+            executionResults[methodName]['duration'] = "%.1f" % ((endTime - startTime).total_seconds())
+            print('duration:=' + executionResults[methodName]['duration'])
             
             if (response == None or 'result' not in response):
-                executionResuts[methodName]['return'] = None
+                executionResults[methodName]['return'] = None
                 print('Return:= Failed!')
             else:
                 lines = response['result'].strip().split("\n")
-                executionResuts[methodName]['return'] = lines
+                executionResults[methodName]['return'] = lines
                 for line in lines:
                     print(line)
         
@@ -183,7 +183,7 @@ class LepDClient:
         print("")
         print("Summary:")
 
-        for methodName, executionResult in executionResuts.items():
+        for methodName, executionResult in executionResults.items():
             resultSumamry = "[" + methodName + "]("
             if (executionResult['return'] == None):
                 resultSumamry += "Failed) in " 
@@ -193,7 +193,7 @@ class LepDClient:
             resultSumamry += executionResult['duration'] + ' seconds'
             print(resultSumamry)
         
-        return executionResuts
+        return executionResults
 
     def getUnitTestResponse(self, commandName, arch='arm'):
         
