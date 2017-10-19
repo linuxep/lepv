@@ -8,6 +8,7 @@ from decimal import Decimal
 import pprint
 import re
 import datetime
+import click
 
 class LepDClient:
 
@@ -271,7 +272,12 @@ class LepDClient:
             if (sock):
                 sock.close()
 
-if( __name__ =='__main__' ):
+@click.command()
+@click.option('--server', default='www.rmlink.cn', help='Lepd server')
+@click.option('--method', default='listAllMethods', help='LepDClient method')
+@click.option('--config', default='debug', help='config setting')
+@click.option('--out', default=None, help='Log output file')
+def main(server, method, config, out):
     
     # MEMO:
     # procrank is to replace smem, ( smem will retire )
@@ -279,9 +285,20 @@ if( __name__ =='__main__' ):
     # df is now supported
 
     pp = pprint.PrettyPrinter(indent=2)
-    client = LepDClient('www.rmlink.cn', config='debug')
+    client = LepDClient(server, config=config)
     
     # pp.pprint(client.getSystemInfo())
-    pp.pprint(client.listAllMethods())
+    func = getattr(client, method)
+    results = func()
+    if out:
+        fp = open(out, 'w')
+        fp.write(json.dumps(results))
+        fp.flush()
+        fp.close()
+    pp.pprint(results)
     # pp.pprint(client.getResponse('GetCmdDf'))
 
+
+if( __name__ =='__main__' ):
+    main()
+    sys.exit(0)
