@@ -36,11 +36,15 @@ class LepDClient:
             return True
         else:
             return False
-    
+
+    # Decimal is not supported by JSON !!!
+    # We need to convert it to Float
+    # need to refactor later on.
     def toDecimal(self, val, precision='0.00'):
         try:
-            return Decimal(val).quantize(Decimal(precision))
+            return "{:.2f}".format(str(val))  #Decimal(val).quantize(Decimal(precision))
         except:
+            print("failed in converting this value to float: " + val)
             return 0.00
                                         
         

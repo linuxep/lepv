@@ -3,11 +3,15 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvAvgLoadChart = function(divName) {
+var LepvAvgLoadChart = function(divName, socketio=None) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
     LepvChart.call(this, divName);
+
+    this.socketio = socketio;
+    this.socket_request_message = 'cpu.avgload.request';
+    this.socket_response_message = 'cpu.avgload.response';
     
     this.chartTitle = "Average Load Chart";
     this.chartHeaderColor = 'orange';
@@ -41,6 +45,8 @@ LepvAvgLoadChart.prototype.initialize = function() {
     if (thisChart.server == null) {
         return;
     }
+
+    thisChart.setupSocketIo();
 
     $.get("/api/cpu/count/" + thisChart.server, function(responseData, status) {
         thisChart.cpuCoreCount = responseData.count;
@@ -96,6 +102,27 @@ LepvAvgLoadChart.prototype.initialize = function() {
         });
     });
 };
+
+LepvAvgLoadChart.prototype.setupSocketIo = function() {
+
+    var thisChart = this;
+
+    this.socketio.on(this.socket_response_message, function(response) {
+
+        console.log(response);
+        console.log(response['data']);
+
+        thisChart.updateChartData(response);
+
+    });
+
+};
+
+
+LepvAvgLoadChart.prototype.refresh = function() {
+    this.socketio.emit(this.socket_request_message, {server: this.server});
+};
+
 
 LepvAvgLoadChart.prototype.updateChartData = function(data) {
 

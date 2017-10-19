@@ -527,6 +527,8 @@
     <script src="/static/lepv/lib/js.cookie.js"></script>
     <script src="/static/lepv/js/jquery-ui.min.js"></script>
 
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
     <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 
     <!-- Load d3.js and c3.js -->
@@ -578,9 +580,42 @@
               trigger: 'focus'
             })
 
+            vara socketConnectionString =
+            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
             showConfigPage();
+
+            //setupSocket();
         });
     </script>
+
+    <!--<script>-->
+        <!--function setupSocket() {-->
+
+            <!--&lt;!&ndash;var namespace = "";&ndash;&gt;-->
+
+
+
+            <!--&lt;!&ndash;socket.emit('client_connected', {data: 'New client!'});&ndash;&gt;-->
+
+            <!--&lt;!&ndash;&lt;!&ndash;var socket = io.connect('http://localhost:2906');&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;socket.on('connect', function() {&ndash;&gt;-->
+                <!--&lt;!&ndash;// we emit a connected message to let know the client that we are connected.&ndash;&gt;-->
+                <!--&lt;!&ndash;socket.emit('client_connected', {server: 'New client!'});&ndash;&gt;-->
+
+                <!--&lt;!&ndash;socket.emit('cpu.avgload.request', {server: 'www.rmlink.cn'});&ndash;&gt;-->
+
+                <!--&lt;!&ndash;&lt;!&ndash;socket.emit('echo', {data: 'echo'});&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;});&ndash;&gt;-->
+
+            <!--&lt;!&ndash;socket.on('cpu.avgload.respond', function(response) {&ndash;&gt;-->
+                <!--&lt;!&ndash;// we emit a connected message to let know the client that we are connected.&ndash;&gt;-->
+                <!--&lt;!&ndash;console.log(response);&ndash;&gt;-->
+                <!--&lt;!&ndash;console.log(response['data']);&ndash;&gt;-->
+            <!--&lt;!&ndash;});&ndash;&gt;-->
+
+        <!--}-->
+    <!--</script>-->
     
     <script>
         function loadIoChart(server) {
@@ -599,7 +634,7 @@
         }
         
         function loadAverageLoadChart(server) {
-            var avgLoadChart = new LepvAvgLoadChart('div-system-load');
+            var avgLoadChart = new LepvAvgLoadChart('div-system-load', socket);
             avgLoadChart.start(server);
         }
         

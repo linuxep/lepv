@@ -1,10 +1,19 @@
 from flask import Flask, render_template
+from flask_socketio import SocketIO, emit
 
 from modules.language.Languages import Languages
-from modules.utils.simpleJson import MyJSONEncoder
+from modules.utils.jsonencoder import MyJSONEncoder
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
+
+socketio = SocketIO(app)
+
+
+@socketio.on('client_connected')
+def handle_my_custom_event(json):
+    print('received json: ' + str(json))
+    emit('server_confirmed', "socket io response!!!!!")
 
 
 @app.route('/')
@@ -19,22 +28,25 @@ def swagger():
 
 
 # CPU
-from modules.cpu.views import cpuAPI
+from modules.profilers.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
+
+from modules.profilers.cpu.blueprint import cpu_blueprint
+cpu_blueprint.init_io(socketio)
 
 
 # IO
-from modules.io.views import ioAPI
+from modules.profilers.io.views import ioAPI
 app.register_blueprint(ioAPI)
 
 
 # Memory
-from modules.memory.views import memoryAPI
+from modules.profilers.memory.views import memoryAPI
 app.register_blueprint(memoryAPI)
 
 
 # Perf
-from modules.perf.views import perfAPI
+from modules.profilers.perf.views import perfAPI
 app.register_blueprint(perfAPI)
 
 

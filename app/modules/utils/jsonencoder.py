@@ -9,3 +9,6 @@ class MyJSONEncoder(flask.json.JSONEncoder):
             # Convert decimal instances to strings.
             return str(obj)
         return super(MyJSONEncoder, self).default(obj)
+
+
+
