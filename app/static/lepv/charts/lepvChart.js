@@ -33,9 +33,6 @@ LepvChart.prototype.setupSocketIO = function() {
         console.log("Socket Message received: " + thisChart.socket_message_key + ".res");
 
         thisChart.updateChartData(response);
-
-        thisChart.requestData();
-
     });
 
     this.requestData();
