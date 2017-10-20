@@ -2,298 +2,735 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>SB Admin - Start Bootstrap Template</title>
-  <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+
+    <title>LEP - Linux Performance Visualizer & Analyzer</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/lepv/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lepv/whhg-font/css/whhg.css" rel="stylesheet">
+    <link href="/static/lepv/css/bootstrap-language.min.css" rel="stylesheet">
+
+    <link href="/static/lepv/css/sb-admin.css" rel="stylesheet">
+
+    <link href="/static/lepv/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/lepv/font-awesome/css/font-awesome-animation.min.css" rel="stylesheet">
+
+    <link href="/static/lepv/js/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/lepv/css/language/languages.min.css" rel="stylesheet" type="text/css">
+
+    <!-- DataTable -->
+    <link href="/static/bower_components/datatables/media/css/jquery.dataTables.min.css " rel="stylesheet">
+
+    <link href="/static/bower_components/c3/c3.min.css" rel="stylesheet" type="text/css">
+
+    <link href="/static/lepv/css/lepv.css" rel="stylesheet" type="text/css">
+
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-  <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="index.html">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
-            <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Charts</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
-            <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Tables</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-wrench"></i>
-            <span class="nav-link-text">Components</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <li>
-              <a href="navbar.html">Navbar</a>
-            </li>
-            <li>
-              <a href="cards.html">Cards</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file"></i>
-            <span class="nav-link-text">Example Pages</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-            <li>
-              <a href="login.html">Login Page</a>
-            </li>
-            <li>
-              <a href="register.html">Registration Page</a>
-            </li>
-            <li>
-              <a href="forgot-password.html">Forgot Password Page</a>
-            </li>
-            <li>
-              <a href="blank.html">Blank Page</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-sitemap"></i>
-            <span class="nav-link-text">Menu Levels</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseMulti">
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-              <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-          <a class="nav-link" href="#">
-            <i class="fa fa-fw fa-link"></i>
-            <span class="nav-link-text">Link</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-envelope"></i>
-            <span class="d-lg-none">Messages
-              <span class="badge badge-pill badge-primary">12 New</span>
-            </span>
-            <span class="indicator text-primary d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-            <h6 class="dropdown-header">New Messages:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>David Miller</strong>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>Jane Smith</strong>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>John Doe</strong>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item small" href="#">View all messages</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-bell"></i>
-            <span class="d-lg-none">Alerts
-              <span class="badge badge-pill badge-warning">6 New</span>
-            </span>
-            <span class="indicator text-warning d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-header">New Alerts:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-danger">
-                <strong>
-                  <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item small" href="#">View all alerts</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <form class="form-inline my-2 my-lg-0 mr-lg-2">
-            <div class="input-group">
-              <input class="form-control" type="text" placeholder="Search for...">
-              <span class="input-group-btn">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search"></i>
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-              </span>
+                <a id='labelBanner' class="navbar-brand" href="#">LEP - Linux Performance Profiler</a>
             </div>
-          </form>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div class="content-wrapper">
-    <div class="container-fluid">
-      <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Navbar</li>
-      </ol>
-      <h1>Navbar</h1>
-      <hr>
-      <p>The SB Admin navbar can be either fixed or static, and it supports the navbar-light and navbar-dark Bootstrap 4 classes.</p>
-      <a class="btn btn-primary" href="#" id="toggleNavPosition">Toggle Fixed/Static Navbar</a>
-      <a class="btn btn-primary" href="#" id="toggleNavColor">Toggle Navbar Color</a>
-      <!-- Blank div to give the page height to preview the fixed vs. static navbar-->
-      <div style="height: 1000px;"></div>
-    </div>
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
-    <footer class="sticky-footer">
-      <div class="container">
-        <div class="text-center">
-          <small>Copyright © Your Website 2017</small>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li>
+                    <a class="dropdown-toggle" data-toggle="modal" href="#" data-target="#divSettings">
+                        <i class="fa fa-fw fa-gear"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="#Summary"><i class="fa fa-fw fa-dashboard"></i> {{ languages.Summary }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#CPUCharts"><i class="icon-cpu-processor"></i> {{ languages.CPU }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#MemoryCharts"><i class="icon-ram"></i> {{ languages.Memory }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#IOCharts"><i class="icon-syncalt"></i> {{ languages.IO }}</a>
+                    </li>
+
+                    <li>
+                        <a href="#PerfCharts"><i class="glyphicon glyphicon-tasks"></i> {{ languages.Perf }}</a>
+                    </li>
+
+                    <li>
+                        <div class="panel-heading btn-info btn-block sidebar-clock" id="divClock">
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <div id='Summary' class="row anchor_div">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="panel panel-primary">
+                                            <div id="div-cpu-gauge"></div>
+
+                                            <div class="panel-footer text-center">
+                                                {% if config == 'debug' %}
+                                                处理器 - [GetCmdMpstat]
+                                                {% else %}
+                                                处理器
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="panel panel-primary">
+                                            <div id="div-memory-gauge"></div>
+                                            <div class="panel-footer text-center">
+                                                {% if config == 'debug' %}
+                                                内存 - [GetProcMeminfo]
+                                                {% else %}
+                                                内存
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="panel panel-primary">
+                                            <div id="div-io-gauge"></div>
+                                            <div class="panel-footer text-center">
+                                                {% if config == 'debug' %}
+                                                磁盘 - [GetCmdIostat]
+                                                {% else %}
+                                                磁盘
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        {% if config == 'debug' %}
+                                        <div>[GetProcCpuinfo]</div>
+                                        {% endif %}
+                                        <div id="div-cpu-summary" class="panel panel-green">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        {% if config == 'debug' %}
+                                        <div>[GetProcMeminfo]</div>
+                                        {% endif %}
+                                        <div id="div-memory-summary" class="panel panel-green">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        {% if config == 'debug' %}
+                                        <div>[GetCmdDf]</div>
+                                        {% endif %}
+                                        <div id="div-io-summary" class="panel panel-green">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-8 -->
+                    <!-- /.col-lg-4 -->
+                </div>
+
+
+                <div id='CPUCharts' class="row anchor_div">
+                    <div class="col-lg-6">
+                        <div id="div-cpu-stat-overall-container" class="panel panel-default">
+                            <div class="panel-heading">
+
+
+                                <i class="icon-cpu-processor"></i>
+                                {% if config == 'debug' %}
+                                <span class="spanTitle">{{ languages.cpuStatRatioChartTitle }} - [GetCmdMpstat] </span>
+                                {% else %}
+                                <span class="spanTitle" fullTitle="{{ languages.cpuStatRatioChartTitleFull }}" shortTitle="{{ languages.cpuStatRatioChartTitle }}">{{ languages.cpuStatRatioChartTitle }}</span>
+                                {% endif %}
+
+                                <!--<i data-toggle="popover"-->
+                                   <!--title="<b>Example popover</b> - title"-->
+                                   <!--data-content="<div><b>Example popover</b> - content</div>"-->
+                                   <!--class="fa fa-bell faa-ring ffa-fast animated pull-right">-->
+                                <!--</i>-->
+
+
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="div-cpu-stat-overall"></div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="div-cpu-stat-idle-container" class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle">{{ languages.cpuIdleGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-idle" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle">{{ languages.cpuUserGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-userGroup" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle">{{ languages.cpuIrqGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-irqGroup" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                {% if config == 'debug' %}
+                                <span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>
+                                {% else %}
+                                <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-system-load" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-cpu-processor"></i> CPU TOP -[GetCmdTop]
+                                {% else %}
+                                <i class="icon-cpu-processor"></i> CPU TOP
+                                {% endif %}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-cpu-top">
+                                        <table id="cpu-top-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div id='MemoryCharts' class="row anchor_div">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.ramChartTitle }} -[GetProcMeminfo]
+                                {% else %}
+                                <i class="icon-ram"></i> {{ languages.ramChartTitle }}
+                                {% endif %}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-memory-chart" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }} -[GetCmdProcrank]
+                                {% else %}
+                                <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }}
+                                {% endif %}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-memory-stat">
+                                        <table id="memory-stat-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }} -[GetCmdProcrank]
+                                {% else %}
+                                <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }}
+                                {% endif %}
+                            </div>
+                            <div class="panel-body">
+                                <div id="div-memory-free-pss-stat">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }} -[GetCmdProcrank]
+                                {% else %}
+                                <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }}
+                                {% endif %}
+                            </div>
+                            <div class="panel-body">
+                                <div id="div-memory-pss-stat"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id='IOCharts' class="row anchor_div">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]
+                                {% else %}
+                                <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
+                                {% endif %}
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-io-stat" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {% if config == 'debug' %}
+                                <i class="icon-syncalt"></i> I/O Top Table -[GetCmdIotop]
+                                {% else %}
+                                <i class="icon-syncalt"></i> I/O Top Table
+                                {% endif %}
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-io-top">
+                                        <table id="io-top-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="PerfCharts" class="row anchor_div">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="glyphicon glyphicon-tasks"></i>
+                                {% if config == 'debug' %}
+                                <span class="spanTitle">{{ languages.perfTableTitle }}</span> -[GetCmdPerfCpuclock]
+                                {% else %}
+                                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">{{ languages.perfTableTitle }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div>
+                                    <div id="div-perf-cpu">
+                                        <table id="perf-cpu-table" class="display compact" cellspacing="0">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
         </div>
-      </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
+        <!-- /#page-wrapper -->
+
+        <div class="modal fade" id="divSettings" tabindex="-1"
+             role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true" on>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">{{ languages.Settings }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">{{ languages.Server }}</span>
+                            <input id="txtServer" type="text" class="form-control" placeholder="www.rmlink.cn" value="www.rmlink.cn"/>
+                        </div>
+                        <p></p>
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon">{{ languages.Language }}</span>
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="lang-sm lang-lbl-full" lang="zh"></span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><span class="lang-sm lang-lbl-full" lang="zh"></span></li>
+                                    <li><span class="lang-sm lang-lbl-full" lang="en"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p></p>
+
+                        <div id='divPingResult' class="input-group">
+                        </div>
+                        <p></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="onPingButtonClicked(initializeAndLoadCharts)">{{ languages.Connect }}</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <!-- Toggle between fixed and static navbar-->
+
+    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/static/lepv/lib/js.cookie.js"></script>
+    <script src="/static/lepv/js/jquery-ui.min.js"></script>
+
+    <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+
+    <!-- Load d3.js and c3.js -->
+
+    <script src="/static/bower_components/c3/d3.min.js" charset="utf-8"></script>
+    <script src="/static/bower_components/c3/c3.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="/static/lepv/js/lepv.js"></script>
+    <script src="/static/lepv/js/timer.jquery.min.js"></script>
+
+    <script src="/static/lepv/lib/capacityLoader.js"></script>
+    <script src="/static/lepv/lib/config.js"></script>
+
+    <script src="/static/lepv/lib/lepvChartConfig.js"></script>
+    <script src="/static/lepv/lib/lepvChart.js"></script>
+    <script src="/static/lepv/lib/lepvIOStatChart.js"></script>
+    <script src="/static/lepv/lib/lepvMemoryChart.js"></script>
+    <script src="/static/lepv/lib/lepvIOTopTable.js"></script>
+    <script src="/static/lepv/lib/lepvPerfCpuTable.js"></script>
+    <script src="/static/lepv/lib/lepvCpuTopTable.js"></script>
+    <script src="/static/lepv/lib/lepvAvgLoadChart.js"></script>
+
+    <script src="/static/lepv/lib/lepvProcrankTable.js"></script>
+    <script src="/static/lepv/lib/lepvProcrankPssPieChart.js"></script>
+    <script src="/static/lepv/lib/lepvProcrankFreeVsPssPieChart.js"></script>
+
+    <script src="/static/lepv/lib/lepvGaugeChart.js"></script>
+    <script src="/static/lepv/lib/lepvCpuDonutChart.js"></script>
+    <script src="/static/lepv/lib/lepvCpuLineChart.js"></script>
+    <script src="/static/lepv/lib/lepvCpuCharts.js"></script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     <script>
-    $('#toggleNavPosition').click(function() {
-      $('body').toggleClass('fixed-nav');
-      $('nav').toggleClass('fixed-top static-top');
-    });
+        $( document ).ready(function() {
+
+            $('[data-toggle="popover"]').popover();
+
+            $('.popover-dismiss').popover({
+              trigger: 'focus'
+            })
+
+            showConfigPage();
+        });
+    </script>
+
+    <script>
+        function loadIoChart(server) {
+            var ioChart = new LepvIOStatChart('div-io-stat', 'div-io-gauge');
+            ioChart.start(server);
+        }
+
+        function loadIoTopTable(server) {
+            var ioTopTable = new LepvIOTopTable('div-io-top', 'io-top-table');
+            ioTopTable.start(server);
+        }
+
+        function loadMemoryChart(server) {
+            var memChart = new LepvMemoryChart('div-memory-chart', 'div-memory-gauge');
+            memChart.start(server);
+        }
+
+        function loadAverageLoadChart(server) {
+            var avgLoadChart = new LepvAvgLoadChart('div-system-load');
+            avgLoadChart.start(server);
+        }
+
+        function loadPerfCpuTable(server) {
+            var perfCpuTable = new LepvPerfCpuTable('div-perf-cpu', 'perf-cpu-table');
+            perfCpuTable.start(server);
+        }
+
+        function loadCpuTopTable(server) {
+            var cpuTopTable = new LepvCpuTopTable('div-cpu-top', 'cpu-top-table');
+            cpuTopTable.start(server);
+        }
+
+        function loadProcrankCharts(server) {
+            var procrankTable = new LepvProcrankTable('div-memory-stat',
+                    'memory-stat-table', 'div-memory-pss-stat', 'div-memory-free-pss-stat');
+            procrankTable.start(server);
+        }
+
+        function loadCapacityData(server) {
+            CapacityLoader.setComponent('memory', 'div-memory-summary');
+            CapacityLoader.setComponent('cpu', 'div-cpu-summary');
+            CapacityLoader.setComponent('io', 'div-io-summary');
+            CapacityLoader.setRunConfig( '{{config}}' );
+            CapacityLoader.start(server);
+        }
+
+        function loadCpuCharts(server) {
+            var cpuCharts = new LepvCpuCharts({
+                'donutChartDivName': 'div-cpu-stat-overall',
+                'gaugeDivName': 'div-cpu-gauge',
+                'idleDivName': 'div-cpu-stat-idle',
+                'userGroupDivName': 'div-cpu-stat-userGroup',
+                'irqGroupDivName': 'div-cpu-stat-irqGroup'
+            });
+            cpuCharts.start(server);
+        }
+
 
     </script>
-    <!-- Toggle between dark and light navbar-->
-    <script>
-    $('#toggleNavColor').click(function() {
-      $('nav').toggleClass('navbar-dark navbar-light');
-      $('nav').toggleClass('bg-dark bg-light');
-      $('body').toggleClass('bg-dark bg-light');
-    });
 
+    <script>
+        function initializeAndLoadCharts(server, capacityDatas) {
+            // save the language pack in cookie so chart components can use it.
+        {% autoescape off %}
+            Cookies.set('languagePack', {{ languages }} );
+        {% endautoescape %}
+
+        var bannerLabel = "LEPV - LEP Visualizer and Analyzer | ";
+        if (Cookies.get("language") == "zh") {
+            bannerLabel += "监测对象: " + server;
+        } else {
+            bannerLabel += "Watching " + server;
+        }
+        $('#labelBanner').text(bannerLabel);
+
+        loadCpuCharts(server);
+        loadCapacityData(server);
+        loadCpuTopTable(server);
+
+        loadIoChart(server);
+        loadIoTopTable(server);
+        loadMemoryChart(server);
+        loadAverageLoadChart(server);
+        loadPerfCpuTable(server);
+        loadProcrankCharts(server);
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        //http://jquerytimer.com/
+        $('#divClock').empty();
+        $('#divClock').timer(
+                {
+                    format: '%m 分 %s 秒'  //Display time as 3 minutes 45 seconds
+                }
+        );
+
+        $(".panel-heading").mouseover(function() {
+
+            var spans = this.getElementsByTagName('span');
+            if (spans.length == 0) {
+                return;
+            }
+
+            var titleSpan = spans[0];
+            if (titleSpan.getAttribute('fullTitle') != null) {
+                titleSpan.textContent = titleSpan.getAttribute('fullTitle');
+            }
+
+        }).mouseout(function(){
+            var spans = this.getElementsByTagName('span');
+            if (spans.length == 0) {
+                return;
+            }
+            var titleSpan = spans[0];
+
+            if (titleSpan.getAttribute('shortTitle') != null) {
+                titleSpan.textContent = titleSpan.getAttribute('shortTitle');
+            }
+        });
+
+        $(".nav a").on("click", function(){
+            $(".nav").find(".active").removeClass("active");
+            $(this).parent().addClass("active");
+        });
+
+        }
     </script>
-  </div>
+
+    <script>
+        function startWatching() {
+
+            {#            if(Cookies.get('server') == null) {#}
+                {#                showConfigPage();#}
+                {#            } else {#}
+                {#                $.get("/ping/" + Cookies.get('server'), function(data, status){#}
+                    {#                    if (data['result']) {#}
+                        {#                        initializeAndLoadCharts();#}
+                        {#                    } else {#}
+                        {#                        showConfigPage();#}
+                        {##}
+                        {#                        var resultButton = $("<button></button>").text("Connection failed!").addClass("btn btn-danger");#}
+                        {#                        $('#divPingResult').append(resultButton);#}
+                        {#                    }#}
+                    {#                });#}
+                {#            }#}
+        }
+    </script>
+
+
+
 </body>
 
 </html>
