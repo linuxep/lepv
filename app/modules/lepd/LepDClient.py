@@ -8,6 +8,7 @@ from decimal import Decimal
 import pprint
 import re
 import datetime
+import click
 
 class LepDClient:
 
@@ -156,26 +157,26 @@ class LepDClient:
     def tryAllMethods(self):
         methods = self.listAllMethods()
         
-        executionResuts = {}
+        executionResults = {}
         for methodName in methods:
 
             print('')
             print('<[ ' + methodName + " ]>")
             
-            executionResuts[methodName] = {}
+            executionResults[methodName] = {}
 
             startTime = datetime.datetime.now()
             response = self.sendRequest(methodName)
             endTime = datetime.datetime.now()
-            executionResuts[methodName]['duration'] = "%.1f" % ((endTime - startTime).total_seconds())
-            print('duration:=' + executionResuts[methodName]['duration'])
+            executionResults[methodName]['duration'] = "%.1f" % ((endTime - startTime).total_seconds())
+            print('duration:=' + executionResults[methodName]['duration'])
             
             if (response == None or 'result' not in response):
-                executionResuts[methodName]['return'] = None
+                executionResults[methodName]['return'] = None
                 print('Return:= Failed!')
             else:
                 lines = response['result'].strip().split("\n")
-                executionResuts[methodName]['return'] = lines
+                executionResults[methodName]['return'] = lines
                 for line in lines:
                     print(line)
         
@@ -183,7 +184,7 @@ class LepDClient:
         print("")
         print("Summary:")
 
-        for methodName, executionResult in executionResuts.items():
+        for methodName, executionResult in executionResults.items():
             resultSumamry = "[" + methodName + "]("
             if (executionResult['return'] == None):
                 resultSumamry += "Failed) in " 
@@ -193,7 +194,7 @@ class LepDClient:
             resultSumamry += executionResult['duration'] + ' seconds'
             print(resultSumamry)
         
-        return executionResuts
+        return executionResults
 
     def getUnitTestResponse(self, commandName, arch='arm'):
         
@@ -271,7 +272,12 @@ class LepDClient:
             if (sock):
                 sock.close()
 
-if( __name__ =='__main__' ):
+@click.command()
+@click.option('--server', default='www.rmlink.cn', help='Lepd server')
+@click.option('--method', default='listAllMethods', help='LepDClient method')
+@click.option('--config', default='debug', help='config setting')
+@click.option('--out', default=None, help='Log output file')
+def main(server, method, config, out):
     
     # MEMO:
     # procrank is to replace smem, ( smem will retire )
@@ -279,9 +285,21 @@ if( __name__ =='__main__' ):
     # df is now supported
 
     pp = pprint.PrettyPrinter(indent=2)
-    client = LepDClient('www.rmlink.cn', config='debug')
+    client = LepDClient(server, config=config)
     
     # pp.pprint(client.getSystemInfo())
-    pp.pprint(client.listAllMethods())
+    func = getattr(client, method)
+    results = func()
+    if out:
+        fp = open(out, 'a')
+        fp.write(json.dumps(results))
+        fp.write('\n')
+        fp.flush()
+        fp.close()
+    pp.pprint(results)
     # pp.pprint(client.getResponse('GetCmdDf'))
 
+
+if( __name__ =='__main__' ):
+    main()
+    sys.exit(0)
