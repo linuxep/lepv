@@ -3,16 +3,32 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvChart = function(rootDivName) {
+var LepvChart = function(rootDivName, socket) {
 
   this.rootDiv = $("#" + rootDivName);
 
-  this.initialize();
+  this.socketIO = socket;
+
+  this.initializeChart();
+  this.setupSocketIO();
+
+};
+
+LepvChart.prototype.setupSocketIO = function() {
+
+    this.socket.on('cpu.stat.res', function(response) {
+
+        console.log("cpu.stat.res received: " + response);
+
+
+    });
+
+    emit("cpu.stat.req", {'data': "haha"})
 
 };
 
 
-LepvChart.prototype.initialize = function() {
+LepvChart.prototype.initializeChart = function() {
   $('#' + this.chartDivName).empty();
 
     this.chart = c3.generate({

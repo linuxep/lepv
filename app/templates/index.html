@@ -214,6 +214,8 @@
               trigger: 'focus'
             })
 
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+
             startWatching();
         });
     </script>
@@ -221,7 +223,7 @@
     <script>
       function startWatching() {
 
-        var cpuStatChart = new LepvChart("div-cpu-stat");
+        var cpuStatChart = new LepvChart("div-cpu-stat", socket);
 
       }
     </script>
