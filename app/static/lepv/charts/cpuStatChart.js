@@ -16,17 +16,24 @@ var LepvChart = function(rootDivName, socket) {
 
 LepvChart.prototype.setupSocketIO = function() {
 
-    this.socket.on('cpu.stat.res', function(response) {
+    var thisChart = this;
+
+    this.socketIO.on('cpu.stat.res', function(response) {
 
         console.log("cpu.stat.res received: " + response);
 
+        thisChart.updateChartData(response['data']['all']);
 
     });
 
-    emit("cpu.stat.req", {'data': "haha"})
+
 
 };
 
+
+LepvChart.prototype.requestData = function() {
+    this.socketIO.emit("cpu.stat.req", {'server': "www.rmlink.cn"})
+};
 
 LepvChart.prototype.initializeChart = function() {
   $('#' + this.chartDivName).empty();
@@ -63,4 +70,29 @@ LepvChart.prototype.initializeChart = function() {
         }
     });
 };
+
+
+LepvChart.prototype.updateChartData = function(overallData) {
+    this.chart.load({
+        columns: [
+            ['user', overallData.user],
+            ['nice', overallData.nice],
+            ['system', overallData.system],
+            ['idle', overallData.idle],
+            ['iowait', overallData.iowait],
+            ['irq', overallData.irq],
+            ['softirq', overallData.soft],
+            ['steal', overallData.steal],
+            ['guest', overallData.guest],
+            ['guestnice', overallData.gnice]
+        ],
+        keys: {
+            value: ['']
+        }
+    });
+
+    this.requestData();
+
+};
+
 

@@ -1,10 +1,13 @@
 from flask import Flask, render_template
+from flask_socketio import SocketIO, emit
 
 from modules.language.Languages import Languages
 from modules.utils.simpleJson import MyJSONEncoder
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
+
+socketio = SocketIO(app)
 
 
 @app.route('/')
@@ -21,6 +24,9 @@ def swagger():
 # CPU
 from modules.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
+
+from modules.profilers.cpu.blueprint import cpu_blueprint
+cpu_blueprint.init_io(socketio)
 
 
 # IO

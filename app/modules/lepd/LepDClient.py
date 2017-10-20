@@ -40,7 +40,7 @@ class LepDClient:
     
     def toDecimal(self, val, precision='0.00'):
         try:
-            return Decimal(val).quantize(Decimal(precision))
+            return float(val)
         except:
             return 0.00
                                         
