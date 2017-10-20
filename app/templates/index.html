@@ -211,7 +211,9 @@
      <script>
 
          var socket = null;
-        $( document ).ready(function() {
+         var serverToWatch = 'www.rmlink.cn';
+
+         $( document ).ready(function() {
 
             $('[data-toggle="popover"]').popover();
 
@@ -234,7 +236,7 @@
     <script>
       function startWatching() {
 
-        var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket);
+        var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
 
       }
     </script>

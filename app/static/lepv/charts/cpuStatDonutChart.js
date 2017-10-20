@@ -3,9 +3,9 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuStatDonutChart = function(rootDivName, socket) {
+var CpuStatDonutChart = function(rootDivName, socket, server) {
 
-  LepvChart.call(this, rootDivName, socket);
+  LepvChart.call(this, rootDivName, socket, server);
 
   this.socket_message_key = 'cpu.stat';
   this.socket_response = null;

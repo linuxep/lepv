@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvChart = function(rootDivName, socket) {
+var LepvChart = function(rootDivName, socket, server) {
 
   this.rootDiv = $("#" + rootDivName);
   this.socketIO = socket;
@@ -11,13 +11,17 @@ var LepvChart = function(rootDivName, socket) {
    this.headerDiv = null;
    this.mainDiv = null;
 
-   this.serverToWatch = 'www.rmlink.cn';
+   this.serverToWatch = server;
 
   this.socket_message_key = null;
-  this.socket_request = null;
-  this.socket_response = null;
+  this.socket_request_id = 0;
+  this.socket_response_id = 0;
   this.chart = null;
   this.chartData = null;
+
+  // if this is a leading chart, it will send socket message to backend proactively
+  // otherwise, it just listen to message, but not send.
+  this.isLeadingChart = true;
 
   this.initializeChart();
   this.setupSocketIO();
@@ -35,7 +39,10 @@ LepvChart.prototype.setupSocketIO = function() {
         thisChart.updateChartData(response);
     });
 
-    this.requestData();
+    if (this.isLeadingChart) {
+        this.requestData();
+    }
+
 };
 
 
@@ -45,6 +52,11 @@ LepvChart.prototype.requestData = function() {
         return;
     }
 
+    if (! this.isLeadingChart) {
+        return;
+    }
+
+    console.log("sending ")
     this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch})
 };
 
