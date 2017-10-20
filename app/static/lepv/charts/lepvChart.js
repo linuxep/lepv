@@ -3,263 +3,62 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvChart = function(rootDivName) {
+var LepvChart = function(rootDivName, socket) {
 
-  this.setDivName(divName);
+  this.rootDiv = $("#" + rootDivName);
+  this.socketIO = socket;
+
+   this.headerDiv = null;
+   this.mainDiv = null;
+
+   this.serverToWatch = 'www.rmlink.cn';
+
+  this.socket_message_key = null;
+  this.socket_request = null;
+  this.socket_response = null;
+  this.chart = null;
+  this.chartData = null;
+
+  this.initializeChart();
+  this.setupSocketIO();
 
 };
 
-LepvChart.prototype.setDivName = function(divName) {
-  if (divName.startsWith('#')) {
-    this.chartDivName = divName.substr(1);
-  } else {
-    this.chartDivName = divName;
-  }
+LepvChart.prototype.setupSocketIO = function() {
+
+    var thisChart = this;
+
+    this.socketIO.on(thisChart.socket_message_key + ".res", function(response) {
+
+        console.log("Socket Message received: " + thisChart.socket_message_key + ".res");
+
+        thisChart.updateChartData(response);
+
+        thisChart.requestData();
+
+    });
+
+    this.requestData();
 };
 
-LepvChart.prototype.setTableDivName = function(tableDivName) {
-  if (tableDivName.startsWith('#')) {
-    this.tableDivName = tableDivName;
-  } else {
-    this.tableDivName = '#' + tableDivName;
-  }
-};
 
-LepvChart.prototype.updateChartHeader = function() {
+LepvChart.prototype.requestData = function() {
 
-  var divHeadingParentPanelColorClass = 'panel-' + this.chartHeaderColor;
-  
-  if (this.isChartPaused) {
-    this.controlElements.pauseResumeDiv.removeClass("glyphicon-pause");
-    this.controlElements.pauseResumeDiv.addClass("glyphicon-play");
-
-    this.controlElements.pauseResumeDiv.tooltip('hide').attr("data-original-title", "点击以继续刷新");
-
-    this.controlElements.headingParentDiv.removeClass(divHeadingParentPanelColorClass);
-    this.controlElements.headingParentDiv.addClass('panel-grey');
-    
-  } else {
-    this.controlElements.pauseResumeDiv.removeClass("glyphicon-play");
-    this.controlElements.pauseResumeDiv.addClass("glyphicon-pause");
-
-    this.controlElements.pauseResumeDiv.tooltip('hide').attr("data-original-title", "点击可暂停刷新");
-
-    this.controlElements.headingParentDiv.removeClass('panel-grey');
-    this.controlElements.headingParentDiv.addClass(divHeadingParentPanelColorClass);
-  }
-};
-
-LepvChart.prototype.onPauseResume = function() {
-  // Inside an event handler, "this" is the object that created the event!!!!!
-  // unless we bind event???
-  if (this.controlElements == null) {
-    return;
-  }
-  
-  this.isChartPaused = !this.isChartPaused;
-  
-  this.updateChartHeader();
-};
-
-LepvChart.prototype.onConfig = function() {
-
-  if (this.controlElements == null) {
-    return;
-  }
-
-  if (this.configDialog == null) {
-    this.configDialog = new LepvChartConfig(this.updateConfigs, this);
-    this.configDialog.saveButton.on("click", $.proxy(this.updateConfigs, this));
-  }
-
-  this.configDialog.show({'refreshInterval': this.refreshInterval, 'maxDataCount': this.maxDataCount});
-  
-};
-
-LepvChart.prototype.updateConfigs = function(newConfigs) {
-  if (newConfigs.maxDataCount != null) {
-    this.maxDataCount = newConfigs.maxDataCount;
-  }
-  
-  if (newConfigs.refreshInterval != null) {
-    var updatedRefreshInterval = newConfigs.refreshInterval;
-    if (updatedRefreshInterval != this.refreshInterval) {
-      this.refreshInterval = newConfigs.refreshInterval;
-
-      var thisChart = this;
-      clearInterval(this.intervalId);
-      this.intervalId = setInterval(function () {
-        thisChart.refresh();
-      }, this.refreshInterval * 1000);
+    if (this.socket_message_key == null) {
+        return;
     }
-  }
+
+    this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch})
 };
 
-LepvChart.prototype.initializeControlElements = function() {
-  if (this.chartDiv == null) {
-    return;
-  }
 
-  this.createControlElements();
-
-  // IMPORTANT:  $.proxy() is the way to get the event bind work here
-  this.controlElements.pauseResumeLink.on("click", $.proxy(this.onPauseResume, this));
-  this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
+LepvChart.prototype.initializeChart = function() {
+    console.log("initializeChart() method needs to be overwritten by sub-classes!")
 };
 
-LepvChart.prototype.createControlElements = function() {
-  if (this.chartDiv == null) {
-    return;
-  }
-
-  //  // navigate to the title div
-  var panelBodyDiv = this.chartDiv.parent();
-  if ( ! panelBodyDiv.hasClass('panel-body')) {
-    panelBodyDiv = panelBodyDiv.parent();
-  }
-
-  var divHeadingPanel = panelBodyDiv.siblings("div").first();
-  if ( ! divHeadingPanel.hasClass('panel-heading')) {
-    console.log("Failed to locate panel-heading div, not able to create control elements for " + this.chartDiv.getId());
-    return;
-  }
-
-  // remove all the "a" children of the heading panel
-  divHeadingPanel.children('a').remove();
-
-  var divHeadingParentPanel = divHeadingPanel.parent();
-  if (this.chartHeaderColor != null) {
-    var divHeadingParentPanelColorClass = 'panel-' + this.chartHeaderColor;
-    if (!divHeadingParentPanel.hasClass(divHeadingParentPanelColorClass)) {
-      divHeadingParentPanel.addClass(divHeadingParentPanelColorClass);
-    }
-  }
-
-  this.controlElements = {};
-
-  //// config button
-  var elementConfigLink = $("<a></a>");
-  var elementConfigDiv = $("<div></div>")
-      .attr("data-toggle", "tooltip")
-      .attr("data-placement", "auto bottom")
-      .attr("title", '设置');
-
-  elementConfigDiv.addClass("pull-right glyphicon glyphicon-cog glyphicon-white");
-  elementConfigLink.append(elementConfigDiv);
-  divHeadingPanel.append(elementConfigLink);
-
-  this.controlElements['configLink'] = elementConfigLink;
-  this.controlElements['configDiv'] = elementConfigDiv;
-
-  // pause/resume button
-  var elementPauseResumeLink = $("<a></a>").attr("isPaused", this.isChartPaused);
-  var elementPauseResumeDiv = $("<div></div>")
-      .attr("data-toggle", "tooltip")
-      .attr("data-placement", "auto bottom");
-  elementPauseResumeDiv.addClass("pull-right glyphicon glyphicon-white");
-
-  elementPauseResumeDiv.addClass("glyphicon-pause");
-  elementPauseResumeDiv.attr("title", "点击可暂停刷新");
-
-  elementPauseResumeLink.append(elementPauseResumeDiv);
-  divHeadingPanel.append(elementPauseResumeLink);
-
-  this.controlElements['pauseResumeLink'] = elementPauseResumeLink;
-  this.controlElements['pauseResumeDiv'] = elementPauseResumeDiv;
-  this.controlElements['headingParentDiv'] = divHeadingParentPanel;
-
-};
-
-LepvChart.prototype.start = function(serverToMonitor) {
-  if (!serverToMonitor) {
-    console.log("Please specify the server to monitor for " + this.chartDivName);
-    return;
-  }
-  if (serverToMonitor == this.server) {
-    return;
-  }
-
-  this.server = serverToMonitor;
-  this.requestId = 0;
-  this.responseId = 0;
-  
-  this.initialize();
-  this.refresh();
-
-  var thisChart = this;
-  this.intervalId = setInterval(function () {
-    thisChart.refresh();
-  }, this.refreshInterval * 1000);
-};
-
-LepvChart.prototype.initialize = function(server) {
-  console.log("initialize() method needs to be overwritten by sub-classes!")
-};
-
-LepvChart.prototype.initializeDataTable = function(headerLine) {
-  
-  var headerColumns = headerLine.split(/\s+/);
-  
-  var columns = [];
-  headerColumns.forEach(function(value, index) {
-    var columnItem = {};
-    columnItem['title'] = value;
-    columnItem['orderable'] = false;
-    
-    columns.push(columnItem);
-  });
-  
-  this.table = $(this.tableDivName).DataTable( {
-    destroy: true,
-    paging: false,
-    info: false,
-    searching: true,
-    columns: columns,
-
-    // TODO: refactor so we can allow for chart-specific sorting
-    order: []
-  });
-};
 
 LepvChart.prototype.updateChartData = function(responseData) {
-  console.log("updateChartData() method needs to be overwritten by sub-classes!")
+    console.log("updateChartData() method needs to be overwritten by sub-classes!")
 };
 
-LepvChart.prototype.refresh = function() {
-  
-  if (!this.proactive) {
-    // this is NOT a "proactive" chart, it does not make http requests to feed data.
-    return;
-  }
-  
-  if (this.isChartPaused) {
-    return;
-  }
-
-//  if (this.requestId - this.responseId >= this.maxRequestIdGap) {
-//    return;
-//  }
-
-  this.requestId++;
-  //var startTime= new Date().getTime();
-
-  //this.controlElements.configLink.on("click", $.proxy(this.onConfig, this));
-  var thisChart = this;
-  var url = thisChart.dataUrlPrefix + thisChart.server; // + "?request_id=" + thisChart.requestId;
-  
-  $.get(url, function(responseData, status) {
-    if (this.isChartPaused) {
-      return;
-    }
-
-    thisChart.responseId++;
-
-    var dataMessages = {}
-    if ('message' in responseData) {
-        dataMessages = responseData['message']
-    }
-    
-    thisChart.updateChartData(responseData['data'], dataMessages);
-  });
-};
 

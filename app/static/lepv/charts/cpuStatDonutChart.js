@@ -3,40 +3,25 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var LepvChart = function(rootDivName, socket) {
+var CpuStatDonutChart = function(rootDivName, socket) {
 
-  this.rootDiv = $("#" + rootDivName);
+  LepvChart.call(this, rootDivName, socket);
 
-  this.socketIO = socket;
+  this.socket_message_key = 'cpu.stat';
+  this.socket_response = null;
+  this.chart = null;
+  this.chartData = null;
 
   this.initializeChart();
   this.setupSocketIO();
 
 };
 
-LepvChart.prototype.setupSocketIO = function() {
-
-    var thisChart = this;
-
-    this.socketIO.on('cpu.stat.res', function(response) {
-
-        console.log("cpu.stat.res received: " + response);
-
-        thisChart.updateChartData(response['data']['all']);
-
-    });
+CpuStatDonutChart.prototype = Object.create(LepvChart.prototype);
+CpuStatDonutChart.prototype.constructor = CpuStatDonutChart;
 
 
-
-};
-
-
-LepvChart.prototype.requestData = function() {
-    this.socketIO.emit("cpu.stat.req", {'server': "www.rmlink.cn"})
-};
-
-LepvChart.prototype.initializeChart = function() {
-  $('#' + this.chartDivName).empty();
+CpuStatDonutChart.prototype.initializeChart = function() {
 
     this.chart = c3.generate({
         bindto: '#div-cpu-stat-panel',
@@ -72,7 +57,10 @@ LepvChart.prototype.initializeChart = function() {
 };
 
 
-LepvChart.prototype.updateChartData = function(overallData) {
+CpuStatDonutChart.prototype.updateChartData = function(responseData) {
+
+    var overallData = responseData['data']['all'];
+
     this.chart.load({
         columns: [
             ['user', overallData.user],
