@@ -119,32 +119,20 @@
 
 
 
-
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-area-chart"></i> Area Chart Example</div>
-        <div class="card-body">
-          <div id="div-perf-cpu">
-              <table id="perf-cpu-table" class="display compact" cellspacing="0">
-              </table>
+      <div class="col-md-6">
+        <div id="div-cpu-stat" class="card mb-3">
+          <div class="card-header">
+            <i class="icon-cpu-processor"></i> CPU Stat</div>
+          <div class="card-body">
+            <div id="div-cpu-stat-panel">
+            </div>
           </div>
+          <!--<div class="card-footer small text-muted">Everything looks good</div>-->
         </div>
-        <!--<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>-->
       </div>
 
 
 
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-area-chart"></i> Area Chart Example</div>
-        <div class="card-body">
-          <div>
-              <table class="display compact" cellspacing="0">
-              </table>
-          </div>
-        </div>
-        <!--<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>-->
-      </div>
 
 
 
@@ -190,6 +178,14 @@
     <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="/static/vendor/sb-admin/js/sb-admin.min.js"></script>
+
+    <script src="/static/bower_components/c3/d3.min.js" charset="utf-8"></script>
+    <script src="/static/bower_components/c3/c3.min.js"></script>
+
+
+    <script src="/static/lepv/charts/cpuStatChart.js"></script>
+
+
     <!-- Custom scripts for this page-->
     <!-- Toggle between fixed and static navbar-->
     <script>
@@ -218,8 +214,16 @@
               trigger: 'focus'
             })
 
-            //showConfigPage();
+            startWatching();
         });
+    </script>
+
+    <script>
+      function startWatching() {
+
+        var cpuStatChart = new LepvChart("div-cpu-stat");
+
+      }
     </script>
 
   </div>
