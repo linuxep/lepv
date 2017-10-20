@@ -57,7 +57,7 @@ CpuStatIdleChart.prototype.initializeChart = function() {
                     position: "inner-middle"
                 },
                 min: 0,
-                max: 100,
+                max: 105,
                 padding: {top:0, bottom:0}
             }
         },
@@ -96,7 +96,7 @@ CpuStatIdleChart.prototype.updateChartData = function(response) {
 
     this.timeData.push(new Date());
     $.each( data, function( coreName, statValue ) {
-        thisChart.chartData['CPU-' + coreName].push(statValue);
+        thisChart.chartData['CPU-' + coreName].push(statValue['idle']);
     });
 
     var columnDatas = [];
