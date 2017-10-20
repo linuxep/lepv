@@ -9,6 +9,7 @@ var LepvChart = function(rootDivName, socket, server) {
   this.socketIO = socket;
 
    this.headerDiv = null;
+   this.mainDiv = null;
    this.mainDivName = null;
 
    this.serverToWatch = server;
@@ -24,8 +25,19 @@ var LepvChart = function(rootDivName, socket, server) {
   // otherwise, it just listen to message, but not send.
   this.isLeadingChart = true;
 
+  this.locateUIElements();
+
   this.initializeChart();
   this.setupSocketIO();
+
+};
+
+LepvChart.prototype.locateUIElements = function() {
+
+    var thisChart = this;
+
+//    this.mainDiv = this.rootDiv.children("div.chart-panel").attr('id', 'sdfsfsdf');
+//    this.mainDivName = this.mainDiv.getAttribute('name');
 
 };
 
