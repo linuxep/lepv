@@ -152,6 +152,22 @@
       </div>
 
 
+      <div class="col-md-12">
+        <div id="div-cpu-stat-user-group" class="card mb-3">
+          <div class="card-header">
+            <i class="icon-cpu-processor"></i> CPU Stat: User + System + Nice</div>
+          <div class="card-body">
+            <div>
+              <div id="div-cpu-stat-user-group-panel">
+              </div>
+            </div>
+
+          </div>
+          <!--<div class="card-footer small text-muted">Everything looks good</div>-->
+        </div>
+      </div>
+
+
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
@@ -203,6 +219,7 @@
     <script src="/static/lepv/charts/lepvChart.js"></script>
     <script src="/static/lepv/charts/cpuStatDonutChart.js"></script>
     <script src="/static/lepv/charts/cpuStatIdleChart.js"></script>
+    <script src="/static/lepv/charts/cpuStatUserGroupChart.js"></script>
 
 
     <!-- Custom scripts for this page-->
@@ -254,6 +271,7 @@
 
         var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
         var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);
+        var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);
 
       }
     </script>
