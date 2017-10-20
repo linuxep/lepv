@@ -133,6 +133,20 @@
 
 
 
+      <div class="col-md-12">
+        <div id="div-cpu-stat-idle" class="card mb-3">
+          <div class="card-header">
+            <i class="icon-cpu-processor"></i> CPU Stat</div>
+          <div class="card-body">
+            <div id="div-cpu-stat-idle-panel">
+            </div>
+          </div>
+          <!--<div class="card-footer small text-muted">Everything looks good</div>-->
+        </div>
+      </div>
+
+
+
 
 
 
@@ -187,6 +201,7 @@
 
     <script src="/static/lepv/charts/lepvChart.js"></script>
     <script src="/static/lepv/charts/cpuStatDonutChart.js"></script>
+    <script src="/static/lepv/charts/cpuStatIdleChart.js"></script>
 
 
     <!-- Custom scripts for this page-->
@@ -237,6 +252,7 @@
       function startWatching() {
 
         var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
+        var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);
 
       }
     </script>

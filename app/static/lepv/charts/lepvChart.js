@@ -17,7 +17,8 @@ var LepvChart = function(rootDivName, socket, server) {
   this.socket_request_id = 0;
   this.socket_response_id = 0;
   this.chart = null;
-  this.chartData = null;
+  this.chartData = {};
+  this.timeData = ['x'];
 
   // if this is a leading chart, it will send socket message to backend proactively
   // otherwise, it just listen to message, but not send.
