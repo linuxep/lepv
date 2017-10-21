@@ -21,14 +21,16 @@ var LepvChart = function(rootDivName, socket, server) {
   this.chartData = {};
   this.timeData = ['x'];
 
+  this.maxDataCount = 150;
+  this.refreshInterval = 2;
+
   // if this is a leading chart, it will send socket message to backend proactively
   // otherwise, it just listen to message, but not send.
   this.isLeadingChart = true;
 
   this.locateUIElements();
 
-  this.initializeChart();
-  this.setupSocketIO();
+
 
 };
 
@@ -69,7 +71,7 @@ LepvChart.prototype.requestData = function() {
         return;
     }
 
-    console.log("sending ")
+    console.log("sending " + this.socket_message_key + ".req" + " to " + this.serverToWatch)
     this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch})
 };
 

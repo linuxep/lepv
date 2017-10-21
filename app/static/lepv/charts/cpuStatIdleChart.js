@@ -5,16 +5,13 @@
 
 var CpuStatIdleChart = function(rootDivName, socket, server) {
 
+
+
   LepvChart.call(this, rootDivName, socket, server);
 
   this.socket_message_key = 'cpu.stat';
-  this.chart = null;
-
   this.isLeadingChart = false;
 
-  this.maxDataCount = 150;
-  this.refreshInterval = 2;
-  this.timeData = ['x'];
 
   this.initializeChart();
   this.setupSocketIO();

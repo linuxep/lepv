@@ -5,12 +5,11 @@
 
 var CpuStatDonutChart = function(rootDivName, socket, server) {
 
+
+
   LepvChart.call(this, rootDivName, socket, server);
 
   this.socket_message_key = 'cpu.stat';
-  this.socket_response = null;
-  this.chart = null;
-  this.chartData = null;
 
   this.initializeChart();
   this.setupSocketIO();
