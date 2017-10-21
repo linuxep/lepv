@@ -201,20 +201,6 @@ LepvChart.prototype.createControlElements = function() {
   elementPauseResumeLink.append(elementPauseResumeDiv);
   divHeadingPanel.append(elementPauseResumeLink);
 
-
-  // information bell
-    var elementPauseResumeLink2 = $("<a></a>");
-    var elementPauseResumeDiv2 = $("<div></div>")
-        .attr("data-toggle", "tooltip")
-        .attr("data-placement", "auto bottom");
-    elementPauseResumeDiv2.addClass("pull-right glyphicon glyphicon-white");
-
-    elementPauseResumeDiv2.addClass("glyphicon-pause");
-    elementPauseResumeDiv2.attr("title", "点击可暂停刷新");
-
-    elementPauseResumeLink2.append(elementPauseResumeDiv2);
-    divHeadingPanel.append(elementPauseResumeLink2);
-
   this.controlElements['pauseResumeLink'] = elementPauseResumeLink;
   this.controlElements['pauseResumeDiv'] = elementPauseResumeDiv;
   this.controlElements['headingParentDiv'] = divHeadingParentPanel;
