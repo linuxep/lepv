@@ -31,19 +31,30 @@
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Summary">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="#">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Summary</span>
           </a>
         </li>
 
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="CPU">
-          <a class="nav-link" href="charts.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCpuMenu" data-parent="#exampleAccordion">
             <i class="icon-cpu-processor"></i>
             <span class="nav-link-text">CPU</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="collapseCpuMenu">
+            <li>
+              <a href="navbar.html">Stat</a>
+            </li>
+            <li>
+              <a href="cards.html">Average Load</a>
+            </li>
+          </ul>
         </li>
+
+
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
             <i class="icon-ram"></i>
@@ -51,40 +62,39 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseComponents">
             <li>
-              <a href="navbar.html">Navbar</a>
+              <a href="navbar.html">Stat</a>
             </li>
             <li>
-              <a href="cards.html">Cards</a>
+              <a href="cards.html">PSS/VSS</a>
             </li>
           </ul>
         </li>
 
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="IO">
-          <a class="nav-link" href="tables.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseIOMenu" data-parent="#exampleAccordion">
             <i class="icon-syncalt"></i>
             <span class="nav-link-text">IO</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="collapseIOMenu">
+            <li>
+              <a href="navbar.html">Stat</a>
+            </li>
+            <li>
+              <a href="cards.html">Table</a>
+            </li>
+          </ul>
         </li>
 
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perf">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePerfMenu" data-parent="#exampleAccordion">
             <i class="icon-rawaccesslogs"></i>
             <span class="nav-link-text">Perf</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+          <ul class="sidenav-second-level collapse" id="collapsePerfMenu">
             <li>
-              <a href="login.html">Login Page</a>
-            </li>
-            <li>
-              <a href="register.html">Registration Page</a>
-            </li>
-            <li>
-              <a href="forgot-password.html">Forgot Password Page</a>
-            </li>
-            <li>
-              <a href="blank.html">Blank Page</a>
+              <a href="#">Perf CPU</a>
             </li>
           </ul>
         </li>
