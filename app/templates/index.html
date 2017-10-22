@@ -219,7 +219,6 @@
                     <div class="col-lg-12">
                         <div id="div-cpu-stat-idle-container" class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="glyphicon glyphicon-bell" data-hidden="hidden"></i>
                                 <i class="icon-cpu-processor"></i>
                                 <span class="spanTitle">{{ languages.cpuIdleGroupChartTitle }}</span>
                             </div>
@@ -229,7 +228,10 @@
                                     <div id="div-cpu-stat-idle" class="flot-chart-content"></div>
                                 </div>
                             </div>
-                            <!-- /.panel-body -->
+                            <div class="panel-footer" data-hidden="hidden">
+                                <i class="glyphicon glyphicon-bell"></i>
+                                <span class="spanTitle">Load NOT Balanced!!!</span>
+                            </div>
                         </div>
                         <!-- /.panel -->
                     </div>
