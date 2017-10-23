@@ -5,7 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 import unittest
 from app.tests.jsondt import ddt, data, file_data, unpack
 
-from modules.cpu.CPUProfiler import CPUProfiler
+from app.modules.cpu.CPUProfiler import CPUProfiler
 
 @ddt
 class CpuProfilerTest(unittest.TestCase):

@@ -6,7 +6,7 @@ import pprint
 import re
 from decimal import Decimal
 
-from modules.lepd.LepDClient import LepDClient
+from app.modules.lepd.LepDClient import LepDClient
 
 
 class CPUProfiler:
@@ -356,10 +356,10 @@ if( __name__ =='__main__' ):
     
     profiler = CPUProfiler('www.rmlink.cn')
 
-    pp.pprint(profiler.getCapacity())
-    pp.pprint(profiler.getProcessorCount())
-    # pp.pprint(profiler.getStat())
-    # pp.pprint(profiler.getAverageLoad())
+    # pp.pprint(profiler.getCapacity())
+    # pp.pprint(profiler.getProcessorCount())
+    # pp.pprint(profiler.get_stat())
+    pp.pprint(profiler.get_average_load())
     # pp.pprint(profiler.getTopOutput())
     # pp.pprint(profiler.getCpuByName("kworker/u3:0"))
     # pp.pprint(profiler.getCpuByPid("4175"))

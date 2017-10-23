@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
-from modules.language.Languages import Languages
-from modules.utils.simpleJson import MyJSONEncoder
+from app.modules.language.Languages import Languages
+from app.modules.utils.simpleJson import MyJSONEncoder
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
@@ -19,27 +19,27 @@ def swagger():
 
 
 # CPU
-from modules.cpu.views import cpuAPI
+from app.modules.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
 
 
 # IO
-from modules.io.views import ioAPI
+from app.modules.io.views import ioAPI
 app.register_blueprint(ioAPI)
 
 
 # Memory
-from modules.memory.views import memoryAPI
+from app.modules.memory.views import memoryAPI
 app.register_blueprint(memoryAPI)
 
 
 # Perf
-from modules.perf.views import perfAPI
+from app.modules.perf.views import perfAPI
 app.register_blueprint(perfAPI)
 
 
 # Util
-from modules.utils.views import utilAPI
+from app.modules.utils.views import utilAPI
 app.register_blueprint(utilAPI)
 
 

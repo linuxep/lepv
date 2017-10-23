@@ -3,7 +3,9 @@
 
 
 from flask import Blueprint, jsonify, request
-from modules.cpu.CPUProfiler import CPUProfiler
+from app.modules.cpu.CPUProfiler import CPUProfiler
+from app.influxDbUtil.dbUtil import myInfluxDbClient
+
 
 cpuAPI = Blueprint('cpuAPI', __name__, url_prefix='/api/cpu')
 
@@ -72,5 +74,6 @@ def get_average_load(server):
 
     if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']
+    client = myInfluxDbClient()
+    client.write_points(str(data))
     return jsonify(data)
-

@@ -1,4 +1,6 @@
 """Core module for interacting with LEPD"""
+import os
+
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
