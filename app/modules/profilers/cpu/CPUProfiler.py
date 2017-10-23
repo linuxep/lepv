@@ -197,6 +197,58 @@ class CPUProfiler:
         responseData['data'] = capacity
         return responseData
 
+    def getIrqInfo(self):
+        statData = self.get_stat()
+        if len(statData['rawResult']) < 11:
+            return None
+        results = statData['rawResult'][10:len(statData['rawResult'])]
+        responseData = {}
+        responseData['data'] = {}
+        for line in results:
+
+            if (line.strip() == ''):
+                break
+
+            line_values = line.split()            
+            cpu_name = line_values[1]
+            
+            irq_value = 0
+            for index, value in enumerate(line_values):
+                if index < 2:
+                    continue
+                irq_value = irq_value + \
+                    self.client.toDecimal(value)
+            responseData['data'][cpu_name] = irq_value
+        # print(responseData)
+        return responseData
+
+    def getSoftIrqInfo(self):
+        statData = self.get_stat()
+        if len(statData['rawResult']) < 14:
+            return None
+
+        results = statData['rawResult'][10:len(statData['rawResult'])]
+        responseData = {}
+        responseData['data'] = {}
+        for line in results:
+
+            if (line.strip() == ''):
+                break
+
+            line_values = line.split()        
+            cpu_name = line_values[1]
+
+            irq_value = 0
+
+            for index, value in enumerate(line_values):
+                if index < 2:
+                    continue
+                irq_value = irq_value + \
+                    self.client.toDecimal(value)
+            responseData['data'][cpu_name] = irq_value
+        # print(responseData)
+        return responseData
+
     def getStatus(self):
 
         statData = self.get_stat()
@@ -356,8 +408,10 @@ if( __name__ =='__main__' ):
     
     profiler = CPUProfiler('www.rmlink.cn')
 
-    pp.pprint(profiler.getCapacity())
-    pp.pprint(profiler.getProcessorCount())
+    pp.pprint(profiler.getSoftIrqInfo())
+    pp.pprint(profiler.getIrqInfo())
+    # pp.pprint(profiler.getCapacity())
+    # pp.pprint(profiler.getProcessorCount())
     # pp.pprint(profiler.getStat())
     # pp.pprint(profiler.getAverageLoad())
     # pp.pprint(profiler.getTopOutput())
