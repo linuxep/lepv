@@ -61,19 +61,25 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
 
     var irqGroupStatData = {};
     var irqGroupStatMessages = {};
-    
-    $.each( data, function( coreName, coreStatData ) {
+
+    cpuStatData = data['cpu_stat'];
+    $.each(cpuStatData, function(coreName, coreStatData ) {
         idleStatData[coreName] = coreStatData.idle;
         userGroupStatData[coreName] = parseFloat(coreStatData.user) + parseFloat(coreStatData.system) + parseFloat(coreStatData.nice);
-        irqGroupStatData[coreName] = parseFloat(coreStatData.irq) + parseFloat(coreStatData.soft);
+        // irqGroupStatData[coreName] = parseFloat(coreStatData.irq) + parseFloat(coreStatData.soft);
 
         idleStatMessages[coreName] = messages[coreName];
-        irqGroupStatMessages[coreName] = messages[coreName];
+        // irqGroupStatMessages[coreName] = messages[coreName];
     });
     
     this.idleChart.updateChartData(idleStatData, idleStatMessages);
     
     this.userGroupChart.updateChartData(userGroupStatData);
 
+    irqGroupStatData = data['irq']
+    $.each(irqGroupStatData, function(coreName, coreStatData ) {
+        irqGroupStatMessages[coreName] = messages[coreName];
+    });
+    console.log(irqGroupStatData)
     this.irqGroupChart.updateChartData(irqGroupStatData, irqGroupStatMessages);
 };

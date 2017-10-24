@@ -197,7 +197,10 @@ class CPUProfiler:
         responseData['data'] = capacity
         return responseData
 
-    def getIrqInfo(self):
+    def getIrqInfo(self, irqInfoLines = None):
+        if (irqInfoLines == None):
+            irqInfoLines = self.get_stat()
+        statData = irqInfoLines;
         statData = self.get_stat()
         if len(statData['rawResult']) < 11:
             return None
@@ -222,8 +225,10 @@ class CPUProfiler:
         # print(responseData)
         return responseData
 
-    def getSoftIrqInfo(self):
-        statData = self.get_stat()
+    def getSoftIrqInfo(self, irqInfoLines = None):
+        if (irqInfoLines == None):
+            irqInfoLines = self.get_stat()
+        statData = irqInfoLines;
         if len(statData['rawResult']) < 14:
             return None
 
@@ -280,6 +285,7 @@ class CPUProfiler:
 
         # Core data, for displaying
         stat_data['data'] = {}
+        stat_data['data']['cpu_stat'] = {}
         for line in results:
             
             if (line.strip() == ''):
@@ -300,7 +306,17 @@ class CPUProfiler:
             cpu_stat['user'] = self.client.toDecimal(line_values[-10])
 
             cpu_name = line_values[-11]
-            stat_data['data'][cpu_name] = cpu_stat
+            stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
+
+        #get irq info from stat_data
+        irq_info = self.getIrqInfo(stat_data)
+        if (irq_info != None):
+            stat_data['data']['irq'] = irq_info['data']
+
+        #get soft irq info from stat_data
+        softirq_info = self.getSoftIrqInfo(stat_data)
+        if (softirq_info != None):
+            stat_data['data']['softirq'] = softirq_info['data']
 
         # TODO: Analysis data, for notification and alert
         stat_data['message'] = {
