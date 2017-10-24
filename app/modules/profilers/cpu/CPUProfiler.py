@@ -197,14 +197,14 @@ class CPUProfiler:
         responseData['data'] = capacity
         return responseData
 
-    def getIrqInfo(self, irqInfoLines = None):
-        if (irqInfoLines == None):
-            irqInfoLines = self.get_stat()
-        statData = irqInfoLines;
-        statData = self.get_stat()
-        if len(statData['rawResult']) < 11:
+    def getIrqInfo(self, statData = None):
+        if (statData == None):
+            statData = self.get_stat();
+            statData = statData['rawResult'];
+        if len(statData) < 10:
             return None
-        results = statData['rawResult'][10:len(statData['rawResult'])]
+
+        results = statData[10:len(statData)]
         responseData = {}
         responseData['data'] = {}
         for line in results:
@@ -225,14 +225,14 @@ class CPUProfiler:
         # print(responseData)
         return responseData
 
-    def getSoftIrqInfo(self, irqInfoLines = None):
-        if (irqInfoLines == None):
-            irqInfoLines = self.get_stat()
-        statData = irqInfoLines;
-        if len(statData['rawResult']) < 14:
+    def getSoftIrqInfo(self, statData = None):
+        if (statData == None):
+            statData = self.get_stat();
+            statData = statData['rawResult'];
+        if len(statData) < 14:
             return None
 
-        results = statData['rawResult'][10:len(statData['rawResult'])]
+        results = statData[14:len(statData)]
         responseData = {}
         responseData['data'] = {}
         for line in results:
@@ -257,7 +257,7 @@ class CPUProfiler:
     def getStatus(self):
 
         statData = self.get_stat()
-        allIdleRatio = self.client.toDecimal(statData['data']['all']['idle'])
+        allIdleRatio = self.client.toDecimal(statData['data']['cpu_stat']['all']['idle'])
 
         componentInfo = {}
         componentInfo["name"] = "cpu"
@@ -309,12 +309,12 @@ class CPUProfiler:
             stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
 
         #get irq info from stat_data
-        irq_info = self.getIrqInfo(stat_data)
+        irq_info = self.getIrqInfo(results)
         if (irq_info != None):
             stat_data['data']['irq'] = irq_info['data']
 
         #get soft irq info from stat_data
-        softirq_info = self.getSoftIrqInfo(stat_data)
+        softirq_info = self.getSoftIrqInfo(results)
         if (softirq_info != None):
             stat_data['data']['softirq'] = softirq_info['data']
 
@@ -424,11 +424,12 @@ if( __name__ =='__main__' ):
     
     profiler = CPUProfiler('www.rmlink.cn')
 
-    pp.pprint(profiler.getSoftIrqInfo())
-    pp.pprint(profiler.getIrqInfo())
+    pp.pprint(profiler.get_stat())
+    # pp.pprint(profiler.getIrqInfo())
+    # pp.pprint(profiler.getSoftIrqInfo())
     # pp.pprint(profiler.getCapacity())
     # pp.pprint(profiler.getProcessorCount())
-    # pp.pprint(profiler.getStat())
+    # pp.pprint(profiler.getStatus())
     # pp.pprint(profiler.getAverageLoad())
     # pp.pprint(profiler.getTopOutput())
     # pp.pprint(profiler.getCpuByName("kworker/u3:0"))

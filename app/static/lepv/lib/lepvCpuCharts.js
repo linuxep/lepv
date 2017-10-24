@@ -19,8 +19,8 @@ var LepvCpuCharts = function(chartDivNames) {
     
     this.idleChart = new LepvCpuLineChart(chartDivNames.idleDivName, 'CPU Stat; Idle');
     this.userGroupChart = new LepvCpuLineChart(chartDivNames.userGroupDivName, 'CPU Stat: User+Sys+Nice');
-    this.irqGroupChart = new LepvCpuLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ');
-    this.softIrqGroupChart = new LepvCpuLineChart(chartDivNames.softIrqGroupDivName, 'CPU Stat: SoftIRQ');
+    this.irqGroupChart = new LepvIrqLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ');
+    this.softIrqGroupChart = new LepvIrqLineChart(chartDivNames.softIrqGroupDivName, 'CPU Stat: SoftIRQ');
     
     this.gaugeChart = new LepvGaugeChart(chartDivNames.gaugeDivName);
 };
@@ -48,13 +48,13 @@ LepvCpuCharts.prototype.initialize = function() {
 };
 
 LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
+    // console.log(data)
+    this.donutChart.updateChartData(data['cpu_stat']['all']);
     
-    this.donutChart.updateChartData(data['all']);
-    
-    var cpuOccupationRatio = 100 - parseFloat(data['all']['idle']);
+    var cpuOccupationRatio = 100 - parseFloat(data['cpu_stat']['all']['idle']);
     this.gaugeChart.updateChartData({'ratio': cpuOccupationRatio.toFixed(2)});
     
-    delete data['all'];
+    delete data['cpu_stat']['all'];
 
     var idleStatData = {};
     var idleStatMessages = {};
