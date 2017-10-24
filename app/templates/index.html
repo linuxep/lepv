@@ -280,12 +280,69 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle">{{ languages.cpuSoftIrqGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuNettxIrqGroupChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="flot-chart">
-                                    <div id="div-cpu-stat-softIrqGroup" class="flot-chart-content"></div>
+                                    <div id="div-cpu-stat-nettxIrqGroup" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle">{{ languages.cpuNetrxIrqGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-netrxIrqGroup" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle">{{ languages.cpuTaskletIrqGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-taskletIrqGroup" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                <span class="spanTitle">{{ languages.cpuHrtimerIrqGroupChartTitle }}</span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-cpu-stat-hrtimerIrqGroup" class="flot-chart-content"></div>
                                 </div>
                             </div>
                             <!-- /.panel-body -->
@@ -656,7 +713,10 @@
                 'idleDivName': 'div-cpu-stat-idle',
                 'userGroupDivName': 'div-cpu-stat-userGroup',
                 'irqGroupDivName': 'div-cpu-stat-irqGroup',
-                'softIrqGroupDivName': 'div-cpu-stat-softIrqGroup'
+                'nettxIrqGroupDivName': 'div-cpu-stat-nettxIrqGroup',
+                'netrxIrqGroupDivName': 'div-cpu-stat-netrxIrqGroup',
+                'taskletIrqGroupDivName': 'div-cpu-stat-taskletIrqGroup',
+                'hrtimerIrqGroupDivName': 'div-cpu-stat-hrtimerIrqGroup'
             });
             cpuCharts.start(server);
         }

@@ -25,7 +25,7 @@ var LepvIrqLineChart = function(divName, chartTitle) {
 LepvIrqLineChart.prototype = Object.create(LepvChart.prototype);
 LepvIrqLineChart.prototype.constructor = LepvIrqLineChart;
 
-LepvIrqLineChart.prototype.initialize = function() {
+LepvIrqLineChart.prototype.initialize = function(max) {
     
     this.chart = c3.generate({
         bindto: '#' + this.chartDivName,
@@ -55,7 +55,7 @@ LepvIrqLineChart.prototype.initialize = function() {
                     position: "inner-middle"
                 },
                 min: 0,
-                max: 250,
+                max: max,
                 padding: {top:0, bottom:0}
             }
         },

@@ -197,10 +197,7 @@ class CPUProfiler:
         responseData['data'] = capacity
         return responseData
 
-    def getIrqInfo(self, statData = None):
-        if (statData == None):
-            statData = self.get_stat();
-            statData = statData['rawResult'];
+    def get_irq(self, statData):
         if len(statData) < 10:
             return None
 
@@ -225,10 +222,7 @@ class CPUProfiler:
         # print(responseData)
         return responseData
 
-    def getSoftIrqInfo(self, statData = None):
-        if (statData == None):
-            statData = self.get_stat();
-            statData = statData['rawResult'];
+    def get_soft_irq(self, statData):
         if len(statData) < 14:
             return None
 
@@ -242,15 +236,11 @@ class CPUProfiler:
 
             line_values = line.split()        
             cpu_name = line_values[1]
-
-            irq_value = 0
-
-            for index, value in enumerate(line_values):
-                if index < 2:
-                    continue
-                irq_value = irq_value + \
-                    self.client.toDecimal(value)
-            responseData['data'][cpu_name] = irq_value
+            responseData['data'][cpu_name] = {}
+            responseData['data'][cpu_name]['HRTIMER'] = self.client.toDecimal(line_values[-2])
+            responseData['data'][cpu_name]['TASKLET'] = self.client.toDecimal(line_values[-4])
+            responseData['data'][cpu_name]['NET_RX'] = self.client.toDecimal(line_values[-7])
+            responseData['data'][cpu_name]['NET_TX'] = self.client.toDecimal(line_values[-8])
         # print(responseData)
         return responseData
 
@@ -309,14 +299,15 @@ class CPUProfiler:
             stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
 
         #get irq info from stat_data
-        irq_info = self.getIrqInfo(results)
+        irq_info = self.get_irq(results)
         if (irq_info != None):
             stat_data['data']['irq'] = irq_info['data']
 
         #get soft irq info from stat_data
-        softirq_info = self.getSoftIrqInfo(results)
+        softirq_info = self.get_soft_irq(results)
         if (softirq_info != None):
             stat_data['data']['softirq'] = softirq_info['data']
+
 
         # TODO: Analysis data, for notification and alert
         stat_data['message'] = {
