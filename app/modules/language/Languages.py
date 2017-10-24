@@ -47,8 +47,11 @@ class Languages:
         pack['cpuIdleGroupChartTitle'] = 'CPU Stat: Idle'
         pack['cpuIdleGroupChartTitleFull'] = 'CPU Stat: Idle; 系统空闲占据的时间比例，如果是多核，可由此观察CPU的负载均衡'
         
-        pack['cpuIrqGroupChartTitle'] = 'CPU Stat: IRQ + SoftIRQ'
-        pack['cpuIrqGroupChartTitleFull'] = 'CPU Stat: IRQ + SoftIRQ; 中断/软中断占据的时间比例，如果是多核，可由此观察中断/软中断的负载均衡'
+        pack['cpuIrqGroupChartTitle'] = 'CPU Stat: IRQ'
+        pack['cpuIrqGroupChartTitleFull'] = 'CPU Stat: IRQ; 中断/软中断占据的时间比例，如果是多核，可由此观察中断的负载均衡'
+
+        pack['cpuSoftIrqGroupChartTitle'] = 'CPU Stat: SoftIRQ'
+        pack['cpuSoftIrqGroupChartTitleFull'] = 'CPU Stat: SoftIRQ; 软中断/软中断占据的时间比例，如果是多核，可由此观察软中断的负载均衡'
         
         pack['cpuStatRatioChartTitle'] = 'CPU Stat'
         pack['cpuStatRatioChartTitleFull'] = 'CPU Stat; 各种上下文占据的时间'

@@ -19,7 +19,8 @@ var LepvCpuCharts = function(chartDivNames) {
     
     this.idleChart = new LepvCpuLineChart(chartDivNames.idleDivName, 'CPU Stat; Idle');
     this.userGroupChart = new LepvCpuLineChart(chartDivNames.userGroupDivName, 'CPU Stat: User+Sys+Nice');
-    this.irqGroupChart = new LepvCpuLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ + SoftIRQ');
+    this.irqGroupChart = new LepvCpuLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ');
+    this.softIrqGroupChart = new LepvCpuLineChart(chartDivNames.softIrqGroupDivName, 'CPU Stat: SoftIRQ');
     
     this.gaugeChart = new LepvGaugeChart(chartDivNames.gaugeDivName);
 };
@@ -32,6 +33,7 @@ LepvCpuCharts.prototype.initializeControlElements = function() {
     this.idleChart.initializeControlElements();
     this.userGroupChart.initializeControlElements();
     this.irqGroupChart.initializeControlElements();
+    his.softIrqGroupChart.initializeControlElements();
 };
 
 LepvCpuCharts.prototype.initialize = function() {
@@ -42,6 +44,7 @@ LepvCpuCharts.prototype.initialize = function() {
     this.idleChart.initialize();
     this.userGroupChart.initialize();
     this.irqGroupChart.initialize();
+    this.softIrqGroupChart.initialize();
 };
 
 LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
@@ -61,6 +64,9 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
 
     var irqGroupStatData = {};
     var irqGroupStatMessages = {};
+
+    var softIrqGroupStatData = {};
+    var softIrqGroupStatMessages = {};
 
     cpuStatData = data['cpu_stat'];
     $.each(cpuStatData, function(coreName, coreStatData ) {
@@ -82,4 +88,11 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
     });
     console.log(irqGroupStatData)
     this.irqGroupChart.updateChartData(irqGroupStatData, irqGroupStatMessages);
+
+    softIrqGroupStatData = data['softirq']
+    $.each(softIrqGroupStatData, function(coreName, coreStatData ) {
+        softIrqGroupStatMessages[coreName] = messages[coreName];
+    });
+    console.log(softIrqGroupStatData)
+    this.softIrqGroupChart.updateChartData(softIrqGroupStatData, softIrqGroupStatMessages);
 };
