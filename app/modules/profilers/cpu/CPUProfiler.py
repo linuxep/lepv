@@ -266,8 +266,11 @@ class CPUProfiler:
 
         return stat_data
 
-    def get_average_load(self, options={}):
-        response_lines = self.client.getResponse('GetProcLoadavg')
+    def get_average_load(self, response_lines = None):
+        if not response_lines:
+            response_lines = self.client.getResponse('GetProcLoadavg')
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
 
         response_data = {}
         # if options['debug']:
@@ -356,8 +359,8 @@ if( __name__ =='__main__' ):
     
     profiler = CPUProfiler('www.rmlink.cn')
 
-    pp.pprint(profiler.getCapacity())
-    pp.pprint(profiler.getProcessorCount())
+    pp.pprint(profiler.get_average_load())
+    # pp.pprint(profiler.getProcessorCount())
     # pp.pprint(profiler.getStat())
     # pp.pprint(profiler.getAverageLoad())
     # pp.pprint(profiler.getTopOutput())

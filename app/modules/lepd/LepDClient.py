@@ -233,9 +233,11 @@ class LepDClient:
         if (response == None or 'result' not in response):
             return []
 
-        lines = re.split(r'\\n|\n', response['result'].strip())
+        lines = self.split_to_lines(response['result'])
         return lines
-        
+
+    def split_to_lines(self, longString):
+        return re.split(r'\\n|\n', longString.strip())
         
     def sendRequest(self, methodName):
         sock = None
