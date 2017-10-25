@@ -37,7 +37,7 @@
 
 #### Run in Docker ( with one single command, without having to clone LEPV code )
     ```bash
-    $ docker run -d -p 8889:8889 linuxep/lepv
+    $ docker run -d -p 8889:80 linuxep/lepv
     ```
 
 
