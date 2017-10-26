@@ -49,11 +49,11 @@ LepvCpuCharts.prototype.initialize = function() {
     this.donutChart.initialize();
     this.idleChart.initialize();
     this.userGroupChart.initialize();
-    this.irqGroupChart.initialize(300);
-    this.nettxIrqGroupChart.initialize(100);
-    this.netrxIrqGroupChart.initialize(100);
-    this.taskletIrqGroupChart.initialize(100);
-    this.hrtimerIrqGroupChart.initialize(100);
+    this.irqGroupChart.initialize();
+    this.nettxIrqGroupChart.initialize();
+    this.netrxIrqGroupChart.initialize();
+    this.taskletIrqGroupChart.initialize();
+    this.hrtimerIrqGroupChart.initialize();
 };
 
 LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
