@@ -52,7 +52,8 @@ LepvCpuLineChart.prototype.initialize = function() {
             },
             y: {
                 label: {
-                    position: "inner-middle"
+                    text: ' %',
+                    position: "outter-middle"
                 },
                 min: 0,
                 max: 100,

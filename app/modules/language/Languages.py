@@ -46,21 +46,24 @@ class Languages:
         
         pack['cpuIdleGroupChartTitle'] = 'CPU Stat: Idle'
         pack['cpuIdleGroupChartTitleFull'] = 'CPU Stat: Idle; 系统空闲占据的时间比例，如果是多核，可由此观察CPU的负载均衡'
+
+        pack['cpuIrqGroupChartTitle'] = 'CPU Stat: IRQ + SoftIRQ'
+        pack['cpuIrqGroupChartTitleFull'] = 'CPU Stat: IRQ + SoftIRQ; 中断/软中断占据的时间比例，如果是多核，可由此观察中断/软中断的负载均衡'
         
-        pack['cpuIrqGroupChartTitle'] = 'CPU Stat: IRQ'
-        pack['cpuIrqGroupChartTitleFull'] = 'CPU Stat: IRQ; 中断/软中断占据的时间比例，如果是多核，可由此观察中断的负载均衡'
+        pack['cpuIrqChartTitle'] = 'CPU Stat: IRQ'
+        pack['cpuIrqChartTitleFull'] = 'CPU Stat: IRQ; 中断/软中断占据的时间比例，如果是多核，可由此观察中断的负载均衡'
 
-        pack['cpuNettxIrqGroupChartTitle'] = 'CPU Stat: SoftIRQ - NET_TX'
-        pack['cpuNettxIrqGroupChartTitleFull'] = 'CPU Stat: SoftIRQ - NET_TX'
+        pack['cpuNettxIrqChartTitle'] = 'CPU Stat: SoftIRQ - NET_TX'
+        pack['cpuNettxIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - NET_TX'
 
-        pack['cpuNetrxIrqGroupChartTitle'] = 'CPU Stat: SoftIRQ - NET_RX'
-        pack['cpuNetrxIrqGroupChartTitleFull'] = 'CPU Stat: SoftIRQ - NET_RX'
+        pack['cpuNetrxIrqChartTitle'] = 'CPU Stat: SoftIRQ - NET_RX'
+        pack['cpuNetrxIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - NET_RX'
 
-        pack['cpuTaskletIrqGroupChartTitle'] = 'CPU Stat: SoftIRQ - TASKLET'
-        pack['cpuTaskletIrqGroupChartTitleFull'] = 'CPU Stat: SoftIRQ - TASKLET'
+        pack['cpuTaskletIrqChartTitle'] = 'CPU Stat: SoftIRQ - TASKLET'
+        pack['cpuTaskletIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - TASKLET'
 
-        pack['cpuHrtimerIrqGroupChartTitle'] = 'CPU Stat: SoftIRQ - HRTIMER'
-        pack['cpuHrtimerIrqGroupChartTitleFull'] = 'CPU Stat: SoftIRQ - HRTIMER'
+        pack['cpuHrtimerIrqChartTitle'] = 'CPU Stat: SoftIRQ - HRTIMER'
+        pack['cpuHrtimerIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - HRTIMER'
         
         pack['cpuStatRatioChartTitle'] = 'CPU Stat'
         pack['cpuStatRatioChartTitleFull'] = 'CPU Stat; 各种上下文占据的时间'

@@ -19,11 +19,13 @@ var LepvCpuCharts = function(chartDivNames) {
     
     this.idleChart = new LepvCpuLineChart(chartDivNames.idleDivName, 'CPU Stat; Idle');
     this.userGroupChart = new LepvCpuLineChart(chartDivNames.userGroupDivName, 'CPU Stat: User+Sys+Nice');
-    this.irqGroupChart = new LepvIrqLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ');
-    this.nettxIrqGroupChart = new LepvIrqLineChart(chartDivNames.nettxIrqGroupDivName, 'CPU Stat: SoftIRQ- NET_TX');
-    this.netrxIrqGroupChart = new LepvIrqLineChart(chartDivNames.netrxIrqGroupDivName, 'CPU Stat: SoftIRQ- NET_RX');
-    this.taskletIrqGroupChart = new LepvIrqLineChart(chartDivNames.taskletIrqGroupDivName, 'CPU Stat: SoftIRQ- TASKLET');
-    this.hrtimerIrqGroupChart = new LepvIrqLineChart(chartDivNames.hrtimerIrqGroupDivName, 'CPU Stat: SoftIRQ- HRTIMER');
+
+    this.irqGroupChart = new LepvCpuLineChart(chartDivNames.irqGroupDivName, 'CPU Stat: IRQ + SoftIRQ');
+    this.irqChart = new LepvIrqLineChart(chartDivNames.irqDivName, 'CPU Stat: IRQ');
+    this.nettxIrqChart = new LepvIrqLineChart(chartDivNames.nettxIrqDivName, 'CPU Stat: SoftIRQ- NET_TX');
+    this.netrxIrqChart = new LepvIrqLineChart(chartDivNames.netrxIrqDivName, 'CPU Stat: SoftIRQ- NET_RX');
+    this.taskletIrqChart = new LepvIrqLineChart(chartDivNames.taskletIrqDivName, 'CPU Stat: SoftIRQ- TASKLET');
+    this.hrtimerIrqChart = new LepvIrqLineChart(chartDivNames.hrtimerIrqDivName, 'CPU Stat: SoftIRQ- HRTIMER');
     
     this.gaugeChart = new LepvGaugeChart(chartDivNames.gaugeDivName);
 };
@@ -36,10 +38,11 @@ LepvCpuCharts.prototype.initializeControlElements = function() {
     this.idleChart.initializeControlElements();
     this.userGroupChart.initializeControlElements();
     this.irqGroupChart.initializeControlElements();
-    this.nettxIrqGroupChart.initializeControlElements();
-    this.netrxIrqGroupChart.initializeControlElements();
-    this.taskletIrqGroupChart.initializeControlElements();
-    this.hrtimerIrqGroupChart.initializeControlElements();
+    this.irqChart.initializeControlElements();
+    this.nettxIrqChart.initializeControlElements();
+    this.netrxIrqChart.initializeControlElements();
+    this.taskletIrqChart.initializeControlElements();
+    this.hrtimerIrqChart.initializeControlElements();
 };
 
 LepvCpuCharts.prototype.initialize = function() {
@@ -50,10 +53,11 @@ LepvCpuCharts.prototype.initialize = function() {
     this.idleChart.initialize();
     this.userGroupChart.initialize();
     this.irqGroupChart.initialize();
-    this.nettxIrqGroupChart.initialize();
-    this.netrxIrqGroupChart.initialize();
-    this.taskletIrqGroupChart.initialize();
-    this.hrtimerIrqGroupChart.initialize();
+    this.irqChart.initialize();
+    this.nettxIrqChart.initialize();
+    this.netrxIrqChart.initialize();
+    this.taskletIrqChart.initialize();
+    this.hrtimerIrqChart.initialize();
 };
 
 LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
@@ -78,41 +82,43 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
     $.each(cpuStatData, function(coreName, coreStatData ) {
         idleStatData[coreName] = coreStatData.idle;
         userGroupStatData[coreName] = parseFloat(coreStatData.user) + parseFloat(coreStatData.system) + parseFloat(coreStatData.nice);
-        // irqGroupStatData[coreName] = parseFloat(coreStatData.irq) + parseFloat(coreStatData.soft);
+        irqGroupStatData[coreName] = parseFloat(coreStatData.irq) + parseFloat(coreStatData.soft);
 
         idleStatMessages[coreName] = messages[coreName];
-        // irqGroupStatMessages[coreName] = messages[coreName];
+        irqGroupStatMessages[coreName] = messages[coreName];
     });
     
     this.idleChart.updateChartData(idleStatData, idleStatMessages);
     
     this.userGroupChart.updateChartData(userGroupStatData);
-
-    var irqGroupStatMessages = {};
-    irqGroupStatData = data['irq']
-    $.each(irqGroupStatData, function(coreName, coreStatData ) {
-        irqGroupStatMessages[coreName] = messages[coreName];
-    });
-    // console.log(irqGroupStatData)
     this.irqGroupChart.updateChartData(irqGroupStatData, irqGroupStatMessages);
 
-    var nettxIrqGroupStatData = {};
-    var netrxIrqGroupStatData = {};
-    var taskletIrqGroupStatData = {};
-    var hrtimerIrqGroupStatData = {};
-    var softIrqGroupStatMessages = {};
-    softIrqGroupStatData = data['softirq']
-
-    $.each(softIrqGroupStatData, function(coreName, coreStatData ) {
-        nettxIrqGroupStatData[coreName] = coreStatData['NET_TX'];
-        netrxIrqGroupStatData[coreName] = coreStatData['NET_RX'];
-        taskletIrqGroupStatData[coreName] = coreStatData['TASKLET'];
-        hrtimerIrqGroupStatData[coreName] = coreStatData['HRTIMER'];
-        softIrqGroupStatMessages[coreName] = messages[coreName];
+    var irqStatMessages = {};
+    var irqStatMessages = {};
+    irqStatData = data['irq']
+    $.each(irqStatData, function(coreName, coreStatData ) {
+        irqStatMessages[coreName] = messages[coreName];
     });
-    // console.log(softIrqGroupStatData)
-    this.netrxIrqGroupChart.updateChartData(netrxIrqGroupStatData, softIrqGroupStatMessages);
-    this.nettxIrqGroupChart.updateChartData(nettxIrqGroupStatData, softIrqGroupStatMessages);
-    this.taskletIrqGroupChart.updateChartData(taskletIrqGroupStatData, softIrqGroupStatMessages);
-    this.hrtimerIrqGroupChart.updateChartData(hrtimerIrqGroupStatData, softIrqGroupStatMessages);
+    // console.log(irqGroupStatData)
+    this.irqChart.updateChartData(irqStatData, irqStatMessages);
+
+    var nettxIrqStatData = {};
+    var netrxIrqStatData = {};
+    var taskletIrqStatData = {};
+    var hrtimerIrqStatData = {};
+    var softIrqStatMessages = {};
+    softIrqStatData = data['softirq']
+
+    $.each(softIrqStatData, function(coreName, coreStatData ) {
+        nettxIrqStatData[coreName] = coreStatData['NET_TX'];
+        netrxIrqStatData[coreName] = coreStatData['NET_RX'];
+        taskletIrqStatData[coreName] = coreStatData['TASKLET'];
+        hrtimerIrqStatData[coreName] = coreStatData['HRTIMER'];
+        softIrqStatMessages[coreName] = messages[coreName];
+    });
+    // console.log(softIrqStatData)
+    this.netrxIrqChart.updateChartData(netrxIrqStatData, softIrqStatMessages);
+    this.nettxIrqChart.updateChartData(nettxIrqStatData, softIrqStatMessages);
+    this.taskletIrqChart.updateChartData(taskletIrqStatData, softIrqStatMessages);
+    this.hrtimerIrqChart.updateChartData(hrtimerIrqStatData, softIrqStatMessages);
 };
