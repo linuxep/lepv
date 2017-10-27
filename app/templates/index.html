@@ -217,6 +217,29 @@
 
                 <div class="row">
                     <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="icon-cpu-processor"></i>
+                                {% if config == 'debug' %}
+                                <span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>
+                                {% else %}
+                                <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div id="div-system-load" class="flot-chart-content"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
                         <div id="div-cpu-stat-idle-container" class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
@@ -280,12 +303,12 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle">{{ languages.cpuNettxIrqGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuIrqChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="flot-chart">
-                                    <div id="div-cpu-stat-nettxIrqGroup" class="flot-chart-content"></div>
+                                    <div id="div-cpu-stat-irq" class="flot-chart-content"></div>
                                 </div>
                             </div>
                             <!-- /.panel-body -->
@@ -299,12 +322,12 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle">{{ languages.cpuNetrxIrqGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="flot-chart">
-                                    <div id="div-cpu-stat-netrxIrqGroup" class="flot-chart-content"></div>
+                                    <div id="div-cpu-stat-nettxIrq" class="flot-chart-content"></div>
                                 </div>
                             </div>
                             <!-- /.panel-body -->
@@ -318,12 +341,12 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle">{{ languages.cpuTaskletIrqGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuNetrxIrqChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="flot-chart">
-                                    <div id="div-cpu-stat-taskletIrqGroup" class="flot-chart-content"></div>
+                                    <div id="div-cpu-stat-netrxIrq" class="flot-chart-content"></div>
                                 </div>
                             </div>
                             <!-- /.panel-body -->
@@ -337,12 +360,12 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                <span class="spanTitle">{{ languages.cpuHrtimerIrqGroupChartTitle }}</span>
+                                <span class="spanTitle">{{ languages.cpuTaskletIrqChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="flot-chart">
-                                    <div id="div-cpu-stat-hrtimerIrqGroup" class="flot-chart-content"></div>
+                                    <div id="div-cpu-stat-taskletIrq" class="flot-chart-content"></div>
                                 </div>
                             </div>
                             <!-- /.panel-body -->
@@ -356,16 +379,12 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="icon-cpu-processor"></i>
-                                {% if config == 'debug' %}
-                                <span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>
-                                {% else %}
-                                <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
-                                {% endif %}
+                                <span class="spanTitle">{{ languages.cpuHrtimerIrqChartTitle }}</span>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="flot-chart">
-                                    <div id="div-system-load" class="flot-chart-content"></div>
+                                    <div id="div-cpu-stat-hrtimerIrq" class="flot-chart-content"></div>
                                 </div>
                             </div>
                             <!-- /.panel-body -->
@@ -713,10 +732,11 @@
                 'idleDivName': 'div-cpu-stat-idle',
                 'userGroupDivName': 'div-cpu-stat-userGroup',
                 'irqGroupDivName': 'div-cpu-stat-irqGroup',
-                'nettxIrqGroupDivName': 'div-cpu-stat-nettxIrqGroup',
-                'netrxIrqGroupDivName': 'div-cpu-stat-netrxIrqGroup',
-                'taskletIrqGroupDivName': 'div-cpu-stat-taskletIrqGroup',
-                'hrtimerIrqGroupDivName': 'div-cpu-stat-hrtimerIrqGroup'
+                'irqDivName': 'div-cpu-stat-irq',
+                'nettxIrqDivName': 'div-cpu-stat-nettxIrq',
+                'netrxIrqDivName': 'div-cpu-stat-netrxIrq',
+                'taskletIrqDivName': 'div-cpu-stat-taskletIrq',
+                'hrtimerIrqDivName': 'div-cpu-stat-hrtimerIrq'
             });
             cpuCharts.start(server);
         }

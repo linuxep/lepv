@@ -52,7 +52,8 @@ LepvIrqLineChart.prototype.initialize = function() {
             },
             y: {
                 label: {
-                    position: "inner-middle"
+                    text: "Times/s",
+                    position: "outter-middle"
                 },
                 min: 0,
                 max: undefined,
@@ -62,7 +63,7 @@ LepvIrqLineChart.prototype.initialize = function() {
         tooltip: {
             format: {
                 value: function (value, ratio, id) {
-                    return value + " ";
+                    return value + " times ";
                 }
             }
         }
