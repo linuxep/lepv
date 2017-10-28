@@ -70,7 +70,7 @@ LepvIrqLineChart.prototype.initialize = function() {
     });
 };
 
-LepvIrqLineChart.prototype.updateChartData = function(data, messages) {
+LepvIrqLineChart.prototype.updateChartData = function(data, messages=[]) {
 
     var thisChart = this;
     if ( !( 'CPU-0' in this.chartData) ) {
@@ -102,4 +102,31 @@ LepvIrqLineChart.prototype.updateChartData = function(data, messages) {
     this.chart.load({
         columns: columnDatas
     });
+
+    var panelFooter = thisChart.controlElements['panelFooter'];
+    if (messages.length > 0) {
+
+        if (panelFooter != null) {
+
+            if (panelFooter.children('i').length == 0 ) {
+                var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
+                panelFooter.append(icon);
+                thisChart.controlElements['footerIcon'] = icon;
+            }
+
+            if (panelFooter.children('span').length == 0 ) {
+                var span = $("<span></span>").addClass("spanTitle");
+                panelFooter.append(span);
+                thisChart.controlElements['footerSpan'] = span;
+            }
+            thisChart.controlElements['footerSpan'].text(messages[0].message)
+
+        }
+    } else {
+
+        if (panelFooter != null) {
+            panelFooter.empty();
+        }
+
+    }
 };

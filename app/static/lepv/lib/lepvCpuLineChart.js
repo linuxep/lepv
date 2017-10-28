@@ -70,7 +70,7 @@ LepvCpuLineChart.prototype.initialize = function() {
     });
 };
 
-LepvCpuLineChart.prototype.updateChartData = function(data, messages) {
+LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
 
     var thisChart = this;
     if ( !( 'CPU-0' in this.chartData) ) {
@@ -102,4 +102,6 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages) {
     this.chart.load({
         columns: columnDatas
     });
+
+
 };

@@ -60,7 +60,7 @@ LepvCpuCharts.prototype.initialize = function() {
     this.hrtimerIrqChart.initialize();
 };
 
-LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
+LepvCpuCharts.prototype.updateChartData = function(data, messages=[]) {
     // console.log(data)
     this.donutChart.updateChartData(data['cpu_stat']['all']);
     
@@ -76,7 +76,7 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
     var userGroupStatMessages = {};
 
     var irqGroupStatData = {};
-    var irqGroupStatMessages = {};
+    var irqGroupStatMessages = [];
 
     cpuStatData = data['cpu_stat'];
     $.each(cpuStatData, function(coreName, coreStatData ) {
@@ -84,14 +84,13 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
         userGroupStatData[coreName] = parseFloat(coreStatData.user) + parseFloat(coreStatData.system) + parseFloat(coreStatData.nice);
         irqGroupStatData[coreName] = parseFloat(coreStatData.irq) + parseFloat(coreStatData.soft);
 
-        idleStatMessages[coreName] = messages[coreName];
-        irqGroupStatMessages[coreName] = messages[coreName];
     });
+    irqGroupStatMessages = messages;
     
     this.idleChart.updateChartData(idleStatData, idleStatMessages);
     
     this.userGroupChart.updateChartData(userGroupStatData);
-    this.irqGroupChart.updateChartData(irqGroupStatData, irqGroupStatMessages);
+    this.irqGroupChart.updateChartData(irqGroupStatData);
 
     var irqStatMessages = {};
     var irqStatMessages = {};
@@ -100,7 +99,7 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages={}) {
         irqStatMessages[coreName] = messages[coreName];
     });
     // console.log(irqGroupStatData)
-    this.irqChart.updateChartData(irqStatData, irqStatMessages);
+    this.irqChart.updateChartData(irqStatData, messages);
 
     var nettxIrqStatData = {};
     var netrxIrqStatData = {};

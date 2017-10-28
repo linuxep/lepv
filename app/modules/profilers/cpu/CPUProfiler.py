@@ -5,6 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 import pprint
 import re
 from decimal import Decimal
+from time import gmtime, strftime
 
 from modules.lepd.LepDClient import LepDClient
 
@@ -347,10 +348,10 @@ class CPUProfiler:
 
             variance = abs((irqValue - nextIrqValue) / irqValue)
             print("variance: " + str(variance))
-            if variance > Decimal('0.2'):
+            if variance > Decimal('0.01'):
                 return {
                     'level': "warning",
-                    "message": "Load NOT balanced"
+                    "message": "Load NOT balanced! " + strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 }
 
         return None
