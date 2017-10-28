@@ -119,7 +119,7 @@ LepvIrqLineChart.prototype.updateChartData = function(data, messages=[]) {
                 panelFooter.append(span);
                 thisChart.controlElements['footerSpan'] = span;
             }
-            thisChart.controlElements['footerSpan'].text(messages[0].message)
+            thisChart.controlElements['footerSpan'].text(' ' + messages[0].message)
 
         }
     } else {

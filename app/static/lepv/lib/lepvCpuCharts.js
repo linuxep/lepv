@@ -95,9 +95,9 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages=[]) {
     var irqStatMessages = {};
     var irqStatMessages = {};
     irqStatData = data['irq']
-    $.each(irqStatData, function(coreName, coreStatData ) {
-        irqStatMessages[coreName] = messages[coreName];
-    });
+//    $.each(irqStatData, function(coreName, coreStatData ) {
+//        irqStatMessages[coreName] = messages[coreName];
+//    });
     // console.log(irqGroupStatData)
     this.irqChart.updateChartData(irqStatData, messages);
 
@@ -113,11 +113,11 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages=[]) {
         netrxIrqStatData[coreName] = coreStatData['NET_RX'];
         taskletIrqStatData[coreName] = coreStatData['TASKLET'];
         hrtimerIrqStatData[coreName] = coreStatData['HRTIMER'];
-        softIrqStatMessages[coreName] = messages[coreName];
+//        softIrqStatMessages[coreName] = messages[coreName];
     });
     // console.log(softIrqStatData)
-    this.netrxIrqChart.updateChartData(netrxIrqStatData, softIrqStatMessages);
-    this.nettxIrqChart.updateChartData(nettxIrqStatData, softIrqStatMessages);
-    this.taskletIrqChart.updateChartData(taskletIrqStatData, softIrqStatMessages);
-    this.hrtimerIrqChart.updateChartData(hrtimerIrqStatData, softIrqStatMessages);
+    this.netrxIrqChart.updateChartData(netrxIrqStatData, []);
+    this.nettxIrqChart.updateChartData(nettxIrqStatData, []);
+    this.taskletIrqChart.updateChartData(taskletIrqStatData, []);
+    this.hrtimerIrqChart.updateChartData(hrtimerIrqStatData, []);
 };
