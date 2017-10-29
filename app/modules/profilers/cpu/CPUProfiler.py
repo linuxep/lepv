@@ -351,10 +351,14 @@ class CPUProfiler:
             variance = abs(irqValue - nextIrqValue)
             print("variance: " + str(variance))
             if variance >= Decimal('0.3'):
+                print("IRQ variance=" + variance + ">=0.3, load NOT balanced")
                 return {
                     'level': "warning",
-                    "message": "Load NOT balanced! " + strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                    "message": "Load NOT balanced! ",
+                    "time": strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 }
+            else:
+                print("IRQ variance less than 0.3, load balanced")
 
         return None
 

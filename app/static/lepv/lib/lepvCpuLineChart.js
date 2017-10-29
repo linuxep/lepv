@@ -17,6 +17,9 @@ var LepvCpuLineChart = function(divName, chartTitle) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
     this.timeData = ['x'];
+
+    this.panelFooter = this.controlElements['panelFooter'];
+    this.warningOccurrences = 0;
     
     this.updateChartHeader();
     this.initialize();
@@ -106,31 +109,32 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
         columns: columnDatas
     });
 
-    var panelFooter = thisChart.controlElements['panelFooter'];
+    // temp logic, not every chart has a footer yet.
+    if (this.panelFooter == null) {
+        return;
+    }
+
     if (messages.length > 0) {
 
-        if (panelFooter != null) {
+        thisChart.warningOccurrences++;
 
-            if (panelFooter.children('i').length == 0 ) {
-                var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
-                panelFooter.append(icon);
-                thisChart.controlElements['footerIcon'] = icon;
-            }
-
-            if (panelFooter.children('span').length == 0 ) {
-                var span = $("<span></span>").addClass("spanTitle");
-                panelFooter.append(span);
-                thisChart.controlElements['footerSpan'] = span;
-            }
-            thisChart.controlElements['footerSpan'].text(' ' + messages[0].message)
-
+        if (this.panelFooter.children('i').length == 0 ) {
+            var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
+            this.panelFooter.append(icon);
+            thisChart.controlElements['footerIcon'] = icon;
         }
+
+        if (this.panelFooter.children('span').length == 0 ) {
+            var span = $("<span></span>").addClass("spanTitle");
+            this.panelFooter.append(span);
+            thisChart.controlElements['footerSpan'] = span;
+        }
+        thisChart.controlElements['footerSpan'].text(' ' + messages[0].message);
+
     } else {
 
-        if (panelFooter != null) {
-            panelFooter.empty();
-        }
-
+        console.log("Load is balanced, no warning, will clear alert on UI");
+        this.panelFooter.empty();
     }
 
 
