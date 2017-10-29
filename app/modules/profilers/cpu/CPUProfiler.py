@@ -303,19 +303,19 @@ class CPUProfiler:
             cpu_name = line_values[-11]
             stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
 
+        # analysis for load balance
+        analysis_report = self.analyze_irq_for_load_balance(stat_data['data']['cpu_stat'])
+        if analysis_report:
+            if 'messages' not in stat_data:
+                stat_data['messages'] = []
+
+            analysis_report['source'] = 'irq'
+            stat_data['messages'].append(analysis_report)
+
         #get irq info from stat_data
         irq_info = self.get_irq(results)
         if (irq_info != None):
             stat_data['data']['irq'] = irq_info['data']
-
-            # analysis for load balance
-            analysis_report = self.analyze_irq_for_load_balance(irq_info['data'])
-            if analysis_report:
-                if 'messages' not in stat_data:
-                    stat_data['messages'] = []
-
-                analysis_report['source'] = 'irq'
-                stat_data['messages'].append(analysis_report)
 
         #get soft irq info from stat_data
         softirq_info = self.get_soft_irq(results)
@@ -325,17 +325,19 @@ class CPUProfiler:
         return stat_data
 
 
-    def analyze_irq_for_load_balance(self, irq_data):
+    def analyze_irq_for_load_balance(self, cpu_stat_data):
 
-        if not irq_data:
+        if not cpu_stat_data:
             return None
 
-        if len(irq_data) < 2:
+        if len(cpu_stat_data) < 2:
             return None
 
         irq_list = []
-        for core_name in irq_data:
-            irq_list.append(irq_data[core_name])
+        for core_name in cpu_stat_data:
+            if core_name == 'all':
+                continue
+            irq_list.append(cpu_stat_data[core_name])
 
         # TODO: will refactor in the future, the logic below is just for demo
         # a very simple logic: if any two irq values has a difference of over 30% variance, we say it's not load balanced.
@@ -343,21 +345,18 @@ class CPUProfiler:
             if index == len(irq_list) - 1:
                 break
 
-            irqValue = item
-            nextIrqValue = irq_list[index+1]
+            irqValue = item['irq'] + item['soft']
+            nextIrqValue = irq_list[index+1]['irq'] + irq_list[index+1]['soft']
 
-            variance = abs((irqValue - nextIrqValue) / irqValue)
+            variance = abs(irqValue - nextIrqValue)
             print("variance: " + str(variance))
-            if variance > Decimal('0.01'):
+            if variance >= Decimal('0.0'):
                 return {
                     'level': "warning",
                     "message": "Load NOT balanced! " + strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 }
 
         return None
-
-
-
 
 
     def get_average_load(self, response_lines = None):
