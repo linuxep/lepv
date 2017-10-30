@@ -19,7 +19,7 @@ var LepvCpuLineChart = function(divName, chartTitle) {
     this.timeData = ['x'];
 
     this.panelFooter = this.controlElements['panelFooter'];
-    this.warningOccurrences = 0;
+    this.isWarningAlerted = false;
     
     this.updateChartHeader();
     this.initialize();
@@ -116,8 +116,6 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
 
     if (messages.length > 0) {
 
-        thisChart.warningOccurrences++;
-
         if (this.panelFooter.children('i').length == 0 ) {
             var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
             this.panelFooter.append(icon);
@@ -131,9 +129,21 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
         }
         thisChart.controlElements['footerSpan'].text(' ' + messages[0].message);
 
+        if (!thisChart.isWarningAlerted) {
+            thisChart.isWarningAlerted = true;
+            alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart");
+        }
+
+
     } else {
 
         console.log("Load is balanced, no warning, will clear alert on UI");
+
+        if (thisChart.isWarningAlerted) {
+            thisChart.isWarningAlerted = false;
+            alert("Load is now balanced!");
+        }
+
         this.panelFooter.empty();
     }
 
