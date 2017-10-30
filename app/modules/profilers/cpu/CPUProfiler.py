@@ -21,6 +21,8 @@ class CPUProfiler:
         
         # this maxDataCount should match the one defined for UI.
         self.maxDataCount = 25
+
+        self.loadBalanceBenchMark = Decimal(0.4)
     
     def getCpuInfoForArm(self, lines):
 
@@ -352,9 +354,9 @@ class CPUProfiler:
 
             variance = abs(irqValue - nextIrqValue)
             print("variance: " + str(variance))
-            if variance >= Decimal('0.3'):
+            if variance >= self.loadBalanceBenchMark:
             # if randrange(10) > 4:   # this is just for mocking
-                print("IRQ variance=" + str(variance) + ">=0.3, load NOT balanced")
+                print("IRQ variance=" + str(variance) + ">=0.4, load NOT balanced")
                 return {
                     'level': "warning",
                     "message": "Load NOT balanced! ",
