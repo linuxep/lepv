@@ -1,4 +1,6 @@
 """Module for CPU related data parsing"""
+from random import randrange
+
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
@@ -351,7 +353,8 @@ class CPUProfiler:
             variance = abs(irqValue - nextIrqValue)
             print("variance: " + str(variance))
             if variance >= Decimal('0.3'):
-                print("IRQ variance=" + variance + ">=0.3, load NOT balanced")
+            # if randrange(10) > 4:   # this is just for mocking
+                print("IRQ variance=" + str(variance) + ">=0.3, load NOT balanced")
                 return {
                     'level': "warning",
                     "message": "Load NOT balanced! ",
