@@ -19,7 +19,9 @@ var LepvCpuLineChart = function(divName, chartTitle) {
     this.timeData = ['x'];
 
     this.panelFooter = this.controlElements['panelFooter'];
-    this.isWarningAlerted = false;
+    this.loadBalanceWatchers = [true];  // true or false, where true for load balance, and false for NOT balance
+    this.loadBalanceLimit = 10;
+    this.UnBalanceHappened = false;
     
     this.updateChartHeader();
     this.initialize();
@@ -116,46 +118,57 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
 
     if (messages.length > 0) {
 
-        if (this.panelFooter.children('i').length == 0 ) {
-            var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
-            this.panelFooter.append(icon);
-            thisChart.controlElements['footerIcon'] = icon;
-        }
+        // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
+        if (this.loadBalanceWatchers[0] == false) {
 
-        if (this.panelFooter.children('span').length == 0 ) {
-            var span = $("<span></span>").addClass("spanTitle");
-            this.panelFooter.append(span);
-            thisChart.controlElements['footerSpan'] = span;
+            this.loadBalanceWatchers.push(false);
+            if (this.loadBalanceWatchers.length == this.loadBalanceLimit) {
+
+                if (this.panelFooter.children('i').length == 0 ) {
+                    var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
+                    this.panelFooter.append(icon);
+                    thisChart.controlElements['footerIcon'] = icon;
+                }
+
+                if (this.panelFooter.children('span').length == 0 ) {
+                    var span = $("<span></span>").addClass("spanTitle");
+                    this.panelFooter.append(span);
+                    thisChart.controlElements['footerSpan'] = span;
+                }
+                thisChart.controlElements['footerSpan'].text(' ' + messages[0].message);
+
+                this.UnBalanceHappened = true;
+                alert(messages[0].message);
+            }
+
+        } else {
+            // previous snapshots are "balanced"
+            this.loadBalanceWatchers = [true];
         }
-        thisChart.controlElements['footerSpan'].text(' ' + messages[0].message);
 
         console.log("Load is NOT balanced!");
         if (!thisChart.isWarningAlerted) {
             console.log("    -- alert now!");
             thisChart.isWarningAlerted = true;
 
-            setTimeout(function() { alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart"); }, 1);
+            alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart");
         } else {
             console.log("    -- alerted already");
         }
-
-
     } else {
 
-        console.log("Load is balanced, no warning, will clear alert on UI");
+        // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
+        if (this.loadBalanceWatchers[0] == true) {
 
-        if (thisChart.isWarningAlerted) {
-            console.log("    -- alert now!");
-            thisChart.isWarningAlerted = false;
-
-            setTimeout(function() { alert("Load is now balanced!"); }, 1);
-
+            this.loadBalanceWatchers.push(true);
+            if (this.loadBalanceWatchers.length == this.loadBalanceLimit && this.UnBalanceHappened) {
+                this.panelFooter.empty();
+                this.UnBalanceHappened = false;   // clear the flag
+                alert("Load is now balanced!");
+            }
         } else {
-            console.log("    -- alerted already!");
+            // previous snapshots are "NOT balanced"
+            this.loadBalanceWatchers = [false];
         }
-
-        this.panelFooter.empty();
     }
-
-
 };
