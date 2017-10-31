@@ -8,6 +8,7 @@ import pprint
 import re
 from decimal import Decimal
 from time import gmtime, strftime
+from datetime import datetime
 
 from modules.lepd.LepDClient import LepDClient
 
@@ -22,7 +23,7 @@ class CPUProfiler:
         # this maxDataCount should match the one defined for UI.
         self.maxDataCount = 25
 
-        self.loadBalanceBenchMark = Decimal(0.4)
+        self.loadBalanceBenchMark = Decimal(40)
     
     def getCpuInfoForArm(self, lines):
 
@@ -305,6 +306,17 @@ class CPUProfiler:
             cpu_stat['user'] = self.client.toDecimal(line_values[-10])
 
             cpu_name = line_values[-11]
+
+            # this is for mocking data
+            # current_minute = datetime.now().minute
+            # if current_minute == 12:
+            #     if cpu_name == '0':
+            #         cpu_stat['irq'] = Decimal(80)
+            #     else:
+            #         cpu_stat['irq'] = Decimal(20)
+
+
+
             stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
 
         # analysis for load balance
@@ -456,6 +468,8 @@ if( __name__ =='__main__' ):
     # run "stress" command on the server to make data change
     # stress -c 2 -i 1 -m 1 --vm-bytes 128M -t 30s
     # mpstat -P ALL
+
+    now = gmtime()
 
     pp = pprint.PrettyPrinter(indent=2)
     

@@ -150,7 +150,7 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
                 thisChart.controlElements['footerSpan'].text(' ' + messages[0].message);
 
                 this.UnBalanceHappened = true;
-                alert(messages[0].message);
+                alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart");
             }
 
         } else {
@@ -161,15 +161,6 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
             }
         }
 
-        console.log("Load is NOT balanced!");
-        if (!thisChart.isWarningAlerted) {
-            console.log("    -- alert now!");
-            thisChart.isWarningAlerted = true;
-
-            alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart");
-        } else {
-            console.log("    -- alerted already");
-        }
     } else {
 
         console.log("    ~ Load Balanced snapshot");
