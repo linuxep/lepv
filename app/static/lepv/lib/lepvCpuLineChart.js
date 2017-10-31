@@ -120,7 +120,7 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
         return;
     }
 
-    if (this.chartDivName != 'div-cpu-stat-irqGroup') {
+    if (this.chartDivName != 'div-cpu-stat-irqGroup' && this.chartDivName != 'div-cpu-stat-idle'){
         return;
     }
 
@@ -150,7 +150,9 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
                 thisChart.controlElements['footerSpan'].text(' ' + messages[0].message);
 
                 this.UnBalanceHappened = true;
-                alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart");
+                if (this.chartDivName != 'div-cpu-stat-irqGroup') {
+                    alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart");
+                }
             }
 
         } else {

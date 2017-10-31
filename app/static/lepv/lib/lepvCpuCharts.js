@@ -87,7 +87,7 @@ LepvCpuCharts.prototype.updateChartData = function(data, messages=[]) {
     });
     irqGroupStatMessages = messages;
     
-    this.idleChart.updateChartData(idleStatData, idleStatMessages);
+    this.idleChart.updateChartData(idleStatData, messages);
     
     this.userGroupChart.updateChartData(userGroupStatData);
     this.irqGroupChart.updateChartData(irqGroupStatData, messages);
