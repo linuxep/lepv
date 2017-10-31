@@ -102,6 +102,10 @@ LepvAvgLoadChart.prototype.initialize = function() {
 
 LepvAvgLoadChart.prototype.updateChartData = function(data) {
 
+    if (this.chart == null) {
+        return;
+    }
+
     if (this.chartData['last1'].length > this.maxDataCount) {
         this.timeData.splice(1, 1);
         this.chartData['last1'].splice(1, 1);
@@ -117,7 +121,6 @@ LepvAvgLoadChart.prototype.updateChartData = function(data) {
 
     // max values are the max values of each group of data, it determines the max of y axis.
     this.maxValues.push(Math.max.apply(Math,[data['last1'], data['last5'], data['last15'], this.cpuCoreCount]));
-
 
     this.chart.axis.max(Math.max.apply(Math, this.maxValues) + 0.1);
     this.chart.load({

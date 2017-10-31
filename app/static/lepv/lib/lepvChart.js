@@ -220,6 +220,8 @@ LepvChart.prototype.createControlElements = function() {
         this.controlElements['footerIcon'] = footerIcon;
     }
 
+  } else {
+    this.controlElements['panelFooter'] = null;
   }
 
 };

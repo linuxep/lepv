@@ -116,12 +116,20 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
         return;
     }
 
+    if (this.chartDivName != 'div-cpu-stat-irqGroup') {
+        return;
+    }
+
+    console.log("Irq+SoftIrq: " + data['0'] + "-" + data['1']);
+
     if (messages.length > 0) {
+        console.log("    - Load NOT Balanced snapshot, warning detected");
 
         // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
         if (this.loadBalanceWatchers[0] == false) {
 
             this.loadBalanceWatchers.push(false);
+            console.log("    - Load NOT Balanced snapshot - " + this.loadBalanceWatchers.length + " occurrences in a row");
             if (this.loadBalanceWatchers.length == this.loadBalanceLimit) {
 
                 if (this.panelFooter.children('i').length == 0 ) {
@@ -157,10 +165,13 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
         }
     } else {
 
+        console.log("    ~ Load Balanced snapshot");
+
         // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
         if (this.loadBalanceWatchers[0] == true) {
 
             this.loadBalanceWatchers.push(true);
+            console.log("    - Load Balanced snapshot - " + this.loadBalanceWatchers.length + " occurrences in a row");
             if (this.loadBalanceWatchers.length == this.loadBalanceLimit && this.UnBalanceHappened) {
                 this.panelFooter.empty();
                 this.UnBalanceHappened = false;   // clear the flag
