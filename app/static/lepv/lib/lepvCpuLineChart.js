@@ -24,7 +24,7 @@ var LepvCpuLineChart = function(divName, chartTitle) {
         "count": 0
     };  // true or false, where true for load balance, and false for NOT balance
 
-    this.loadBalanceLimit = 10;
+    this.loadBalanceLimit = 3;
     this.UnBalanceHappened = false;
     
     this.updateChartHeader();
