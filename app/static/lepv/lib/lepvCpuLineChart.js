@@ -19,7 +19,11 @@ var LepvCpuLineChart = function(divName, chartTitle) {
     this.timeData = ['x'];
 
     this.panelFooter = this.controlElements['panelFooter'];
-    this.loadBalanceWatchers = [true];  // true or false, where true for load balance, and false for NOT balance
+    this.loadBalanceWatcher = {
+        "balanced": true,
+        "count": 0
+    };  // true or false, where true for load balance, and false for NOT balance
+
     this.loadBalanceLimit = 10;
     this.UnBalanceHappened = false;
     
@@ -126,11 +130,11 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
         console.log("    - Load NOT Balanced snapshot, warning detected");
 
         // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
-        if (this.loadBalanceWatchers[0] == false) {
+        if (this.loadBalanceWatcher['balanced'] == false) {
 
-            this.loadBalanceWatchers.push(false);
-            console.log("    - Load NOT Balanced snapshot - " + this.loadBalanceWatchers.length + " occurrences in a row");
-            if (this.loadBalanceWatchers.length == this.loadBalanceLimit) {
+            this.loadBalanceWatcher['count'] = this.loadBalanceWatcher['count'] + 1;
+            console.log("    - Load NOT Balanced snapshot - " + this.loadBalanceWatcher['count'] + " occurrences in a row");
+            if (this.loadBalanceWatcher['count'] == this.loadBalanceLimit) {
 
                 if (this.panelFooter.children('i').length == 0 ) {
                     var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
@@ -151,7 +155,10 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
 
         } else {
             // previous snapshots are "balanced"
-            this.loadBalanceWatchers = [true];
+            this.loadBalanceWatcher = {
+                "balanced": false,
+                 "count": 1
+            }
         }
 
         console.log("Load is NOT balanced!");
@@ -168,18 +175,21 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
         console.log("    ~ Load Balanced snapshot");
 
         // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
-        if (this.loadBalanceWatchers[0] == true) {
+        if (this.loadBalanceWatcher['balanced'] == true) {
 
-            this.loadBalanceWatchers.push(true);
-            console.log("    - Load Balanced snapshot - " + this.loadBalanceWatchers.length + " occurrences in a row");
-            if (this.loadBalanceWatchers.length == this.loadBalanceLimit && this.UnBalanceHappened) {
+            this.loadBalanceWatcher['count'] = this.loadBalanceWatcher['count'] + 1;
+            console.log("    ~ Load Balanced snapshot - " + this.loadBalanceWatcher['count'] + " occurrences in a row");
+            if (this.loadBalanceWatcher['count'] == this.loadBalanceLimit && this.UnBalanceHappened) {
                 this.panelFooter.empty();
                 this.UnBalanceHappened = false;   // clear the flag
                 alert("Load is now balanced!");
             }
         } else {
-            // previous snapshots are "NOT balanced"
-            this.loadBalanceWatchers = [false];
+            // previous snapshots are "NOT balanced", this is a status switch
+            this.loadBalanceWatcher = {
+                "balanced": true,
+                 "count": 1
+            }
         }
     }
 };
