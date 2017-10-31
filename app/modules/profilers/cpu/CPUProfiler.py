@@ -309,7 +309,7 @@ class CPUProfiler:
 
             # this is for mocking data
             # current_minute = datetime.now().minute
-            # if current_minute == 12:
+            # if current_minute % 2 == 0:
             #     if cpu_name == '0':
             #         cpu_stat['irq'] = Decimal(80)
             #     else:
