@@ -136,7 +136,7 @@
             <i class="icon-cpu-processor"></i> CPU Stat: Overall</div>
           <div class="card-body">
             <div>
-              <div id="div-cpu-stat-panel"></div>
+              <div id="div-cpu-stat-panel" style="height: 400px"></div>
             </div>
 
           </div>
@@ -152,7 +152,7 @@
             <i class="icon-cpu-processor"></i> CPU Stat: Idle</div>
           <div class="card-body">
             <div>
-              <div id="div-cpu-stat-idle-panel" class="chart-panel">
+              <div id="div-cpu-stat-idle-panel" class="chart-panel" style="height: 300px">
               </div>
             </div>
 
@@ -214,22 +214,15 @@
     <script src="/static/vendor/jquery/jquery.min.js"></script>
     <script src="/static/vendor/popper/popper.min.js"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
     <!-- Custom scripts for all pages-->
     <script src="/static/vendor/sb-admin/js/sb-admin.min.js"></script>
     <!--<script src="/static/vendor/sb-admin/js/sb-admin-2.js"></script>-->
 
-    <script src="/static/bower_components/c3/d3.min.js" charset="utf-8"></script>
-    <script src="/static/bower_components/c3/c3.min.js"></script>
+    <script src="/static/vendor/baidu/echarts.common.min.js"></script>
+
 
     <script src="/static/vendor/socket-io/socket-io-slim.js"></script>
-
-
-    <script src="/static/lepv/charts/lepvChart.js"></script>
-    <script src="/static/lepv/charts/cpuStatDonutChart.js"></script>
-    <script src="/static/lepv/charts/cpuStatIdleChart.js"></script>
-    <script src="/static/lepv/charts/cpuStatUserGroupChart.js"></script>
 
 
     <!-- Custom scripts for this page-->
@@ -253,8 +246,8 @@
 
      <script>
 
-         var socket = null;
-         var serverToWatch = null;
+         <!--var socket = null;-->
+         <!--var serverToWatch = null;-->
 
          $( document ).ready(function() {
 
@@ -264,30 +257,115 @@
               trigger: 'focus'
             })
 
-            console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
+          var myChart = echarts.init(document.getElementById('div-cpu-stat-idle-panel'));
 
-            socket = io.connect('http://' + document.domain + ':' + location.port);
-
-            if (socket != null ) {
-                console.log("socket connected");
+          option = {
+    title: {
+        text: '未来一周气温变化',
+        subtext: '纯属虚构'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['最高气温','最低气温']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis:  {
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis: {
+        type: 'value',
+        axisLabel: {
+            formatter: '{value} °C'
+        }
+    },
+    series: [
+        {
+            name:'最高气温',
+            type:'line',
+            data:[11, 11, 15, 13, 12, 13, 10],
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
             }
-        });
+        },
+        {
+            name:'最低气温',
+            type:'line',
+            data:[1, -2, 2, 5, 3, 2, 0],
+            markPoint: {
+                data: [
+                    {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'},
+                    [{
+                        symbol: 'none',
+                        x: '90%',
+                        yAxis: 'max'
+                    }, {
+                        symbol: 'circle',
+                        label: {
+                            normal: {
+                                position: 'start',
+                                formatter: '最大值'
+                            }
+                        },
+                        type: 'max',
+                        name: '最高点'
+                    }]
+                ]
+            }
+        }
+    ]
+};
+
+          // 使用刚指定的配置项和数据显示图表。
+          myChart.setOption(option);
+
+
+         });
+
+
     </script>
 
     <script>
       function startWatching() {
 
-        if (serverToWatch == null || serverToWatch == '') {
-          serverToWatch = $('#input_server_to_watch').val();
-        } else if (serverToWatch == $('#input_server_to_watch').val()) {
-          return;
-        } else {
-          serverToWatch = $('#input_server_to_watch').val();
-        }
+        <!--if (serverToWatch == null || serverToWatch == '') {-->
+          <!--serverToWatch = $('#input_server_to_watch').val();-->
+        <!--} else if (serverToWatch == $('#input_server_to_watch').val()) {-->
+          <!--return;-->
+        <!--} else {-->
+          <!--serverToWatch = $('#input_server_to_watch').val();-->
+        <!--}-->
 
-        var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
-        var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);
-        var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);
+        <!--var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);-->
+        <!--var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);-->
+        <!--var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);-->
 
       }
     </script>
