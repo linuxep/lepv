@@ -114,9 +114,9 @@
         <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
-              <input class="form-control" type="text" placeholder="www.rmlink.cn">
+              <input id='txt_server_to_watch' class="form-control" type="text" placeholder="www.rmlink.cn" value="www.rmlink.cn">
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" onclick="startWatching()">
                   <i class="fa fa-play"></i>
                 </button>
               </span>
@@ -256,7 +256,7 @@
      <script>
 
          var socket = null;
-         var serverToWatch = 'www.rmlink.cn';
+         var serverToWatch = null;
 
          $( document ).ready(function() {
 
@@ -266,21 +266,28 @@
               trigger: 'focus'
             })
 
-            console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
-
-            socket = io.connect('http://' + document.domain + ':' + location.port);
-
-            if (socket != null ) {
-                console.log("socket connected");
-            }
-
-            startWatching();
         });
     </script>
 
     <script>
       function startWatching() {
 
+        console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
+
+        socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        if (socket != null ) {
+            console.log("socket connected");
+        } else {
+            alert("Socket not connected");
+            return;
+        }
+
+        serverToWatch = $("#txt_server_to_watch").val();
+        if (serverToWatch == null) {
+          return;
+        }
+        
         var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
         var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);
         var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);
