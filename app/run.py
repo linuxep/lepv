@@ -22,7 +22,7 @@ def swagger():
 
 
 # CPU
-from modules.cpu.views import cpuAPI
+from modules.profilers.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
 
 from modules.profilers.cpu.blueprint import cpu_blueprint
@@ -30,17 +30,17 @@ cpu_blueprint.init_io(socketio)
 
 
 # IO
-from modules.io.views import ioAPI
+from modules.profilers.io.views import ioAPI
 app.register_blueprint(ioAPI)
 
 
 # Memory
-from modules.memory.views import memoryAPI
+from modules.profilers.memory.views import memoryAPI
 app.register_blueprint(memoryAPI)
 
 
 # Perf
-from modules.perf.views import perfAPI
+from modules.profilers.perf.views import perfAPI
 app.register_blueprint(perfAPI)
 
 
