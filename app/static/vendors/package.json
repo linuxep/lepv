@@ -1,0 +1,15 @@
+{
+  "name": "lepv",
+  "version": "0.0.1",
+  "dependencies": {
+
+    "bootstrap": "4.0.0-beta.2",
+    "jquery": "3.2.1",
+    "c3": "0.4.18",
+    "datatables": "1.10.13",
+    "font-awesome": "4.7.0",
+    "startbootstrap-sb-admin": "4.0.0-beta",
+    "socket.io": "2.0.4"
+
+  }
+}
