@@ -25,7 +25,7 @@ def swagger():
 from modules.profilers.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
 
-from modules.profilers.cpu.blueprint import cpu_blueprint
+from modules.profilers.cpu.socketBlueprint import cpu_blueprint
 cpu_blueprint.init_io(socketio)
 
 
