@@ -233,6 +233,8 @@
     <script src="/static/lepv/charts/cpuStatIdleChart.js"></script>
     <script src="/static/lepv/charts/cpuStatUserGroupChart.js"></script>
 
+    <script src="/static/lepv/ts-charts/lepvChart.js"></script>
+
 
     <!-- Custom scripts for this page-->
     <!-- Toggle between fixed and static navbar-->
@@ -280,6 +282,8 @@
 
     <script>
       function startWatching() {
+
+        var tsChart = new TsLepvChart("haha");
 
         var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
         var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);
