@@ -37,12 +37,28 @@ LepvChart.prototype.locateUIElements = function() {
 
     var thisChart = this;
 
+//    <div id="div-cpu-stat-idle" class="card mb-3">
+//      <div class="card-header">
+//        <i class="icon-cpu-processor"></i> CPU Stat: Idle</div>
+//      <div class="card-body">
+//        <div id="div-cpu-stat-idle-panel" class="chart-panel"></div>
+//      </div>
+//      <div class="card-footer small text-muted" hidden>
+//        <span></span>
+//      </div>
+//    </div>
+
     var rootDivName = 'div-root-cpu-stat-donut';
 
     var rootDiv = $("#" + rootDivName);
 
     var headerDiv = rootDiv.children("div.card-header")[0];
+
     var footerDiv = rootDiv.children("div.card-footer")[0];
+    var footerIcon = footerDiv.firstElementChild;
+    footerIcon.text("dfjaskldfjalskdjfalskdjflasdjf");
+
+    var chartDiv =  rootDiv.children("chart-panel")[0];
 
     // TODO, locate the control elements
 
