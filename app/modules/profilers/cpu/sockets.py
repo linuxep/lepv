@@ -1,4 +1,4 @@
-from modules.io_blueprint import SocketIOBlueprint
+from modules.utils.socketIOBlueprint import SocketIOBlueprint
 from flask_socketio import emit
 from modules.profilers.cpu.CPUProfiler import CPUProfiler
 
