@@ -9,7 +9,8 @@ var LepvChart = function(rootDivName, socket, server) {
   this.socketIO = socket;
 
    this.headerDiv = null;
-   this.mainDiv = null;
+   this.chartDiv = null;
+   this.footerDiv = null;
    this.mainDivName = null;
 
    this.serverToWatch = server;
@@ -35,6 +36,15 @@ var LepvChart = function(rootDivName, socket, server) {
 LepvChart.prototype.locateUIElements = function() {
 
     var thisChart = this;
+
+    var rootDivName = 'div-root-cpu-stat-donut';
+
+    var rootDiv = $("#" + rootDivName);
+
+    var headerDiv = rootDiv.children("div.card-header")[0];
+    var footerDiv = rootDiv.children("div.card-footer")[0];
+
+    // TODO, locate the control elements
 
 //    this.mainDiv = this.rootDiv.children("div.chart-panel").attr('id', 'sdfsfsdf');
 //    this.mainDivName = this.mainDiv.getAttribute('name');
