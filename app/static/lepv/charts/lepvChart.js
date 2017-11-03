@@ -56,7 +56,7 @@ LepvChart.prototype.locateUIElements = function() {
 
     var footerDiv = rootDiv.children("div.card-footer")[0];
     var footerIcon = footerDiv.firstElementChild;
-    footerIcon.text("dfjaskldfjalskdjfalskdjflasdjf");
+//    footerIcon.text("dfjaskldfjalskdjfalskdjflasdjf");
 
     var chartDiv =  rootDiv.children("chart-panel")[0];
 
