@@ -95,18 +95,18 @@ LepvChart.prototype.requestData = function() {
         return;
     }
 
-    console.log("sending ")
-    this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch})
+    console.log("sending " + this.socket_message_key + ".req" + " for " + this.serverToWatch);
+    this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch});
 };
 
 
 LepvChart.prototype.initializeChart = function() {
-    console.log("initializeChart() method needs to be overwritten by sub-classes!")
+    console.log("initializeChart() method needs to be overwritten by sub-classes!");
 };
 
 
 LepvChart.prototype.updateChartData = function(responseData) {
-    console.log("updateChartData() method needs to be overwritten by sub-classes!")
+    console.log("updateChartData() method needs to be overwritten by sub-classes!");
 };
 
 
