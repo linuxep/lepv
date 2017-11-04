@@ -76,7 +76,7 @@ CpuStatIdleChart.prototype.updateChartData = function(response) {
 
     var thisChart = this;
 
-    var data = response['data'];
+    var data = response['data']['cpu_stat'];
     delete data['all'];
 
     if ( !( 'CPU-0' in this.chartData) ) {

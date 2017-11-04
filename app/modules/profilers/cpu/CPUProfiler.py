@@ -1,10 +1,14 @@
 """Module for CPU related data parsing"""
+from random import randrange
+
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import pprint
 import re
 from decimal import Decimal
+from time import gmtime, strftime
+from datetime import datetime
 
 from modules.lepd.LepDClient import LepDClient
 
@@ -18,6 +22,8 @@ class CPUProfiler:
         
         # this maxDataCount should match the one defined for UI.
         self.maxDataCount = 25
+
+        self.loadBalanceBenchMark = Decimal(40)
     
     def getCpuInfoForArm(self, lines):
 
@@ -197,10 +203,57 @@ class CPUProfiler:
         responseData['data'] = capacity
         return responseData
 
+    def get_irq(self, statData):
+        if len(statData) < 10:
+            return None
+
+        results = statData[10:len(statData)]
+        responseData = {}
+        responseData['data'] = {}
+        for line in results:
+
+            if (line.strip() == ''):
+                break
+
+            line_values = line.split()            
+            cpu_name = line_values[1]
+            
+            irq_value = 0
+            for index, value in enumerate(line_values):
+                if index < 2:
+                    continue
+                irq_value = irq_value + \
+                    self.client.toDecimal(value)
+            responseData['data'][cpu_name] = irq_value
+        # print(responseData)
+        return responseData
+
+    def get_soft_irq(self, statData):
+        if len(statData) < 14:
+            return None
+
+        results = statData[14:len(statData)]
+        responseData = {}
+        responseData['data'] = {}
+        for line in results:
+
+            if (line.strip() == ''):
+                break
+
+            line_values = line.split()        
+            cpu_name = line_values[1]
+            responseData['data'][cpu_name] = {}
+            responseData['data'][cpu_name]['HRTIMER'] = self.client.toDecimal(line_values[-2])
+            responseData['data'][cpu_name]['TASKLET'] = self.client.toDecimal(line_values[-4])
+            responseData['data'][cpu_name]['NET_RX'] = self.client.toDecimal(line_values[-7])
+            responseData['data'][cpu_name]['NET_TX'] = self.client.toDecimal(line_values[-8])
+        # print(responseData)
+        return responseData
+
     def getStatus(self):
 
         statData = self.get_stat()
-        allIdleRatio = self.client.toDecimal(statData['data']['all']['idle'])
+        allIdleRatio = self.client.toDecimal(statData['data']['cpu_stat']['all']['idle'])
 
         componentInfo = {}
         componentInfo["name"] = "cpu"
@@ -226,8 +279,13 @@ class CPUProfiler:
             "server": self.server
         }
 
+        # this is for analysis
+        irq_numbers = []
+        softirq_numbers = []
+
         # Core data, for displaying
         stat_data['data'] = {}
+        stat_data['data']['cpu_stat'] = {}
         for line in results:
             
             if (line.strip() == ''):
@@ -248,26 +306,85 @@ class CPUProfiler:
             cpu_stat['user'] = self.client.toDecimal(line_values[-10])
 
             cpu_name = line_values[-11]
-            stat_data['data'][cpu_name] = cpu_stat
 
-        # TODO: Analysis data, for notification and alert
-        stat_data['message'] = {
-            '0': {
-                'error': '',
-                'warning': 'Load NOT balanced, this core is over loaded!',
-                'info': ''
-            },
-            '1': {
-                'error': '',
-                'warning': 'Load NOT balanced, this core is over idled!',
-                'info': ''
-            }
-        }
+            # this is for mocking data
+            # current_minute = datetime.now().minute
+            # if current_minute % 2 == 0:
+            #     if cpu_name == '0':
+            #         cpu_stat['irq'] = Decimal(80)
+            #     else:
+            #         cpu_stat['irq'] = Decimal(20)
+
+
+
+            stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
+
+        # analysis for load balance
+        analysis_report = self.analyze_irq_for_load_balance(stat_data['data']['cpu_stat'])
+        if analysis_report:
+            if 'messages' not in stat_data:
+                stat_data['messages'] = []
+
+            analysis_report['source'] = 'irq'
+            stat_data['messages'].append(analysis_report)
+
+        #get irq info from stat_data
+        irq_info = self.get_irq(results)
+        if (irq_info != None):
+            stat_data['data']['irq'] = irq_info['data']
+
+        #get soft irq info from stat_data
+        softirq_info = self.get_soft_irq(results)
+        if (softirq_info != None):
+            stat_data['data']['softirq'] = softirq_info['data']
 
         return stat_data
 
-    def get_average_load(self, options={}):
-        response_lines = self.client.getResponse('GetProcLoadavg')
+
+    def analyze_irq_for_load_balance(self, cpu_stat_data):
+
+        if not cpu_stat_data:
+            return None
+
+        if len(cpu_stat_data) < 2:
+            return None
+
+        irq_list = []
+        for core_name in cpu_stat_data:
+            if core_name == 'all':
+                continue
+            irq_list.append(cpu_stat_data[core_name])
+
+        # TODO: will refactor in the future, the logic below is just for demo
+        # a very simple logic: if any two irq values has a difference of over 30% variance, we say it's not load balanced.
+        for index, item in enumerate(irq_list):
+            if index == len(irq_list) - 1:
+                break
+
+            irqValue = item['irq'] + item['soft']
+            nextIrqValue = irq_list[index+1]['irq'] + irq_list[index+1]['soft']
+
+            variance = abs(irqValue - nextIrqValue)
+            print("variance: " + str(variance))
+            if variance >= self.loadBalanceBenchMark:
+            # if randrange(10) > 4:   # this is just for mocking
+                print("IRQ variance=" + str(variance) + ">=0.4, load NOT balanced")
+                return {
+                    'level': "warning",
+                    "message": "Load NOT balanced! ",
+                    "time": strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                }
+            else:
+                print("IRQ variance less than 0.3, load balanced")
+
+        return None
+
+
+    def get_average_load(self, response_lines = None):
+        if not response_lines:
+            response_lines = self.client.getResponse('GetProcLoadavg')
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
 
         response_data = {}
         # if options['debug']:
@@ -352,13 +469,18 @@ if( __name__ =='__main__' ):
     # stress -c 2 -i 1 -m 1 --vm-bytes 128M -t 30s
     # mpstat -P ALL
 
+    now = gmtime()
+
     pp = pprint.PrettyPrinter(indent=2)
     
     profiler = CPUProfiler('www.rmlink.cn')
 
-    pp.pprint(profiler.getCapacity())
-    pp.pprint(profiler.getProcessorCount())
-    # pp.pprint(profiler.getStat())
+    pp.pprint(profiler.get_stat())
+    # pp.pprint(profiler.getIrqInfo())
+    # pp.pprint(profiler.getSoftIrqInfo())
+    # pp.pprint(profiler.getCapacity())
+    # pp.pprint(profiler.getProcessorCount())
+    # pp.pprint(profiler.getStatus())
     # pp.pprint(profiler.getAverageLoad())
     # pp.pprint(profiler.getTopOutput())
     # pp.pprint(profiler.getCpuByName("kworker/u3:0"))
