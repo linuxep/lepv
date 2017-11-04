@@ -3,31 +3,31 @@ __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
+from ddt import ddt, data, file_data, unpack
+from pprint import pprint
 
 from modules.profilers.cpu.CPUProfiler import CPUProfiler
 
-
+@ddt
 class GetCmdMpstatTestCase(unittest.TestCase):
 
     def setUp(self):
         self.profiler = CPUProfiler('')
 
-    def testGoldenPass(self):
+    def describe(self, kernel, os, cpu, note):
+        print(kernel)
+        print(os)
+        print(cpu)
+        print(note)
 
-        test_data = {
-          "kernel": "",
-          "os": "linux",
-          "cpu": "x86",
-          "note": "data from www.rmlink.cn",
-          "lepdResult":	"0.18 0.19 0.12 1/77 11132\nlepdendstring",
-          "expected": {
-            "data": {
-              "last1": 0.18,
-              "last5": 0.19,
-              "last15": 0.12
-            }
-          }
-        }
+
+    @file_data("unittests.json")
+    def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
+        self.describe(kernel, os, cpu, note)
+
+        print(lepdResult)
+        print(expectedMatchType)
+        pprint(expected)
 
 
 if( __name__ =='__main__' ):

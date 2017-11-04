@@ -5,6 +5,7 @@
       "cpu": "x86",
       "note": "data from www.rmlink.cn",
       "lepdResult":	"Linux 3.13.0-77-generic (ubuntu) \t03/19/17 \t_x86_64_\t(2 CPU)\n\n13:04:55     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle\n13:04:56     all    0.00    0.00    1.00    0.00    0.00    0.50    0.00    0.00    0.00   98.50\n13:04:56       0    0.00    0.00    1.98    0.00    0.00    0.99    0.00    0.00    0.00   97.03\n13:04:56       1    0.98    0.00    0.98    0.00    0.00    0.00    0.00    0.00    0.00   98.04\n\nAverage:     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle\nAverage:     all    0.00    0.00    1.00    0.00    0.00    0.50    0.00    0.00    0.00   98.50\nAverage:       0    0.00    0.00    1.98    0.00    0.00    0.99    0.00    0.00    0.00   97.03\nAverage:       1    0.98    0.00    0.98    0.00    0.00    0.00    0.00    0.00    0.00   98.04\nlepdendstring",
+      "expectedMatchType": "contains",
       "expected": {
         "data": {
           "0": {
