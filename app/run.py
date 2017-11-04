@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 
-from modules.language.Languages import Languages
+from modules.utils.localization import Languages
 from modules.utils.simpleJson import MyJSONEncoder
 
 app = Flask(__name__)

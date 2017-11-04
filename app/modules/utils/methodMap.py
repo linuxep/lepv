@@ -10,6 +10,9 @@ class MethodMap:
         pass
         
     def getMap(self):
+
+        # TODO: this class is OUT OF DATE!!!
+
         methodMap = []
 
         methodMapItem = {}
