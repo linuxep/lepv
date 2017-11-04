@@ -15,7 +15,9 @@ class LepDClient:
     def __init__(self, server, port=12307, config='release'):
         self.server = server
         self.port = port
+
         self.bufferSize = 2048
+
         self.config = config
         
         self.LEPDENDINGSTRING = 'lepdendstring'
@@ -265,7 +267,7 @@ class LepDClient:
 
         except Exception as error:
             pass
-            # print(methodName + ": " + str(error))
+            print(methodName + ": " + str(error))
             # if (error.strerror == 'nodename nor servname provided, or not known'):
             #     print('please double check the server to monitor is reachable, and the method is supported by LEPD')
         finally:
