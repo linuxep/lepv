@@ -30,27 +30,48 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+      <ul class="navbar-nav navbar-sidenav" id="sideBarAccordion">
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Summary">
-          <a class="nav-link" href="#">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title=" Summary">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSummaryMenu" data-parent="#sideBarAccordion">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Summary</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="collapseSummaryMenu">
+            <li>
+              <a href="#">CPU</a>
+            </li>
+            <li>
+              <a href="#">CPU</a>
+            </li>
+            <li>
+              <a href="#">IO</a>
+            </li>
+          </ul>
         </li>
 
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCpuMenu" data-parent="#exampleAccordion">
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="CPU">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCpuMenu" data-parent="#sideBarAccordion">
             <i class="icon-cpu-processor"></i>
             <span class="nav-link-text">CPU</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseCpuMenu">
             <li>
-              <a href="navbar.html">Stat</a>
+              <a href="#">Stat: Overall</a>
             </li>
             <li>
-              <a href="cards.html">Average Load</a>
+              <a href="#">Stat: Idle</a>
+            </li>
+            <li>
+              <a href="#">Stat: User+System+Nice</a>
+            </li>
+            <li>
+              <a href="#">Stat: Irq + SoftIrq</a>
+            </li>
+            <li>
+              <a href="#">Average Load</a>
             </li>
           </ul>
         </li>
@@ -58,7 +79,7 @@
 
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#sideBarAccordion">
             <i class="icon-ram"></i>
             <span class="nav-link-text">Memory</span>
           </a>
@@ -74,7 +95,7 @@
 
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseIOMenu" data-parent="#exampleAccordion">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseIOMenu" data-parent="#sideBarAccordion">
             <i class="icon-syncalt"></i>
             <span class="nav-link-text">IO</span>
           </a>
@@ -90,7 +111,7 @@
 
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perf">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePerfMenu" data-parent="#exampleAccordion">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePerfMenu" data-parent="#sideBarAccordion">
             <i class="icon-rawaccesslogs"></i>
             <span class="nav-link-text">Perf</span>
           </a>
