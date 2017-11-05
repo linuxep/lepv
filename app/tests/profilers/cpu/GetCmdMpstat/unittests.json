@@ -8,21 +8,24 @@
       "expectedMatchType": "contains",
       "expected": {
         "data": {
-          "0": {
-            "sys": 1.98,
-            "iowait": 0,
-            "idle": 97.03
-          },
-          "1": {
-            "usr": 0.98,
-            "sys": 0.98,
-            "irq": 0,
-            "idle": 98.04
-          },
-          "all": {
-            "gnice": 0,
-            "idle": 98.5
+          "cpu_stat": {
+            "0": {
+              "sys": 1.98,
+              "iowait": 0,
+              "idle": 97.03
+            },
+            "1": {
+              "usr": 0.98,
+              "sys": 0.98,
+              "irq": 0,
+              "idle": 98.04
+            },
+            "all": {
+              "gnice": 0,
+              "idle": 98.5
+            }
           }
+
         }
       }
     }

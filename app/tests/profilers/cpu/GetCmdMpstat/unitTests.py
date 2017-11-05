@@ -1,4 +1,4 @@
-"""Tests for CPU profiler method: GetProcLoadavg"""
+"""Tests for CPU profiler method: GetCmdMpstat"""
 from tests.profilers.cpu.lepvTestCase import LepvTestCase
 
 __author__    = "Copyright (c) 2017, LEP>"
@@ -16,13 +16,30 @@ class GetCmdMpstatTestCase(LepvTestCase):
     def setUp(self):
         self.profiler = CPUProfiler('')
 
+
+    def validateCpuStats(self, expected, actual, expectedMatchType):
+        print("Expected:")
+        pprint(expected)
+
+        print("Actual:")
+        pprint(actual)
+
+        compare_result = self.compare_dicts(actual, expected)
+
+        if expectedMatchType == 'equals':
+            self.assertEqual(compare_result, 0, "Expected and Actual does not match")
+        elif expectedMatchType == 'contains':
+            self.assertIn(compare_result, [0, 1], "Actual does not contain the expected")
+        else:
+            print("")
+
+
     @file_data("unittests.json")
     def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
         self.describe(kernel, os, cpu, note)
 
-        actual = self.profiler.get_stat()
-        print(expectedMatchType)
-        pprint(expected)
+        actual = self.profiler.get_stat(lepdResult)
+        self.validateCpuStats(expected, actual, expectedMatchType)
 
 
 if( __name__ =='__main__' ):

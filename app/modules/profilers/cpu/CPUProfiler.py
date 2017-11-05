@@ -265,17 +265,26 @@ class CPUProfiler:
 
         return componentInfo
 
-    def get_stat(self):
+    def get_stat(self, response_lines=[]):
 
-        results = self.client.getCmdMpStat()
-        if not results:
+        if not response_lines:
+            response_lines = self.client.getResponse('GetCmdMpstat')
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
+
+
+        # discard the first two lines
+        response_lines.pop(0)
+        response_lines.pop(0)
+
+        if not response_lines:
             return None
-        results.pop(0)
+            response_lines.pop(0)
 
         # Basic data, basically for debugging
         stat_data = {
             "lepd_command": "GetCmdMpstat",
-            "rawResult": results,
+            "rawResult": response_lines,
             "server": self.server
         }
 
@@ -286,7 +295,7 @@ class CPUProfiler:
         # Core data, for displaying
         stat_data['data'] = {}
         stat_data['data']['cpu_stat'] = {}
-        for line in results:
+        for line in response_lines:
             
             if (line.strip() == ''):
                 break
@@ -329,12 +338,12 @@ class CPUProfiler:
             stat_data['messages'].append(analysis_report)
 
         #get irq info from stat_data
-        irq_info = self.get_irq(results)
+        irq_info = self.get_irq(response_lines)
         if (irq_info != None):
             stat_data['data']['irq'] = irq_info['data']
 
         #get soft irq info from stat_data
-        softirq_info = self.get_soft_irq(results)
+        softirq_info = self.get_soft_irq(response_lines)
         if (softirq_info != None):
             stat_data['data']['softirq'] = softirq_info['data']
 

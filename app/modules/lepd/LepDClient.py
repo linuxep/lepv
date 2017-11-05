@@ -98,18 +98,6 @@ class LepDClient:
             
             return resultLines[i:]
 
-    def getCmdMpStat(self):
-        response = self.sendRequest("GetCmdMpstat")
-        if (response == None or 'result' not in response):
-            return None
-
-        lines = response['result'].strip().split("\n")
-
-        lines.pop(0)
-        lines.pop(0)
-        return lines
-
-
     def getProcStat(self):
         response = self.sendRequest("GetProcStat")
         if (response == None or 'result' not in response):
