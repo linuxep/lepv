@@ -17,7 +17,6 @@ var LepvChart = function(rootDivName, socket, server) {
 
   this.socket_message_key = null;
   this.socket_request_id = 0;
-  this.socket_response_id = 0;
   this.chart = null;
   this.chartData = {};
   this.timeData = ['x'];
@@ -73,7 +72,7 @@ LepvChart.prototype.setupSocketIO = function() {
 
     this.socketIO.on(thisChart.socket_message_key + ".res", function(response) {
 
-        console.log("Socket Message received: " + thisChart.socket_message_key + ".res");
+        console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
 
         thisChart.updateChartData(response);
     });
@@ -95,8 +94,9 @@ LepvChart.prototype.requestData = function() {
         return;
     }
 
-    console.log("sending " + this.socket_message_key + ".req" + " for " + this.serverToWatch);
-    this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch});
+    this.socket_request_id++;
+    console.log(" ->   " + this.socket_message_key + ".req(" + (this.socket_request_id) + ") for " + this.serverToWatch);
+    this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch, "request_id": this.socket_request_id});
 };
 
 

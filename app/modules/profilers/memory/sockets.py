@@ -13,6 +13,9 @@ def get_memory_status(request):
     profiler = MemoryProfiler(server)
     data = profiler.getStatus()
 
+    if "request_id" in request:
+        data['response_id'] = request['request_id']
+
     emit('memory.status.res',  data)
 
 
@@ -23,5 +26,8 @@ def get_proc_rank(request):
     server = request['server']
     profiler = MemoryProfiler(server)
     data = profiler.getProcrank()
+
+    if "request_id" in request:
+        data['response_id'] = request['request_id']
 
     emit('memory.procrank.res',  data)

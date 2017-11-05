@@ -13,6 +13,9 @@ def get_cpu_stat(request):
     profiler = CPUProfiler(server)
     data = profiler.get_stat()
 
+    if "request_id" in request:
+        data['response_id'] = request['request_id']
+
     emit('cpu.stat.res',  data)
 
 
@@ -23,6 +26,9 @@ def get_cpu_status(request):
     server = request['server']
     profiler = CPUProfiler(server)
     data = profiler.getStatus()
+
+    if "request_id" in request:
+        data['response_id'] = request['request_id']
 
     emit('cpu.status.res',  data)
 
@@ -35,6 +41,9 @@ def get_avg_load(request):
     profiler = CPUProfiler(server)
     data = profiler.get_average_load()
 
+    if "request_id" in request:
+        data['response_id'] = request['request_id']
+
     emit('cpu.avgload.res',  data)
 
 
@@ -45,5 +54,8 @@ def get_top(request):
     server = request['server']
     profiler = CPUProfiler(server)
     data = profiler.getTopOutput()
+
+    if "request_id" in request:
+        data['response_id'] = request['request_id']
 
     emit('cpu.top.res',  data)

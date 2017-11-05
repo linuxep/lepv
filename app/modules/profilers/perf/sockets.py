@@ -13,4 +13,7 @@ def get_perf_cpu_clock(request):
     profiler = PerfProfiler(server)
     data = profiler.getPerfCpuClock()
 
+    if "request_id" in request:
+        data['response_id'] = request['request_id']
+
     emit('perf.cpuclock.res',  data)
