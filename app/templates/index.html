@@ -149,7 +149,80 @@
   </nav>
   <div class="content-wrapper">
     <div class="container-fluid">
+      <div class="col-md-12">
+        <div id='Summary' class="card mb-3">
+          <div class="card-header">
+              <i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}
+          </div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-3">
+                      <div class="card-body">
+                          <div id="div-cpu-gauge"></div>
 
+                          <div class="panel-footer text-center">
+                              {% if config == 'debug' %}
+                              处理器 - [GetCmdMpstat]
+                              {% else %}
+                              处理器
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="card-body">
+                          <div id="div-memory-gauge"></div>
+                          <div class="panel-footer text-center">
+                              {% if config == 'debug' %}
+                              内存 - [GetProcMeminfo]
+                              {% else %}
+                              内存
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="card-body">
+                          <div id="div-io-gauge"></div>
+                          <div class="panel-footer text-center">
+                              {% if config == 'debug' %}
+                              磁盘 - [GetCmdIostat]
+                              {% else %}
+                              磁盘
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-3">
+                      {% if config == 'debug' %}
+                      <div>[GetProcCpuinfo]</div>
+                      {% endif %}
+                      <div id="div-cpu-summary" class="panel panel-green">
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      {% if config == 'debug' %}
+                      <div>[GetProcMeminfo]</div>
+                      {% endif %}
+                      <div id="div-memory-summary" class="panel panel-green">
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      {% if config == 'debug' %}
+                      <div>[GetCmdDf]</div>
+                      {% endif %}
+                      <div id="div-io-summary" class="panel panel-green">
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -196,6 +269,26 @@
             <i class="fa fa-bell" aria-hidden="true"> </i>
           </div>
         </div>
+      </div>
+
+      <div class="col-md-12">
+          <div id='IOCharts' class="card mb-3">
+              <div class="card-header">
+                  {% if config == 'debug' %}
+                  <i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]
+                  {% else %}
+                  <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
+                  {% endif %}
+              </div>
+              <div class="card-body">
+                  <div class="flot-chart">
+                      <div id="div-io-stat" class="flot-chart-content"></div>
+                  </div>
+              </div>
+              <div class="card-footer small text-muted" hidden>
+                <i class="fa fa-bell" aria-hidden="true"> </i>
+              </div>
+          </div>
       </div>
 
 
@@ -248,9 +341,11 @@
 
 
     <script src="/static/lepv/charts/lepvChart.js"></script>
+    <script src="/static/lepv/charts/lepvGaugeChart.js"></script>
     <script src="/static/lepv/charts/cpu/cpuStatDonutChart.js"></script>
     <script src="/static/lepv/charts/cpu/cpuStatIdleChart.js"></script>
     <script src="/static/lepv/charts/cpu/cpuStatUserGroupChart.js"></script>
+    <script src="/static/lepv/charts/io/ioStatChart.js"></script>
 
 
     <!-- Custom scripts for this page-->
@@ -307,6 +402,8 @@
           return;
         }
         
+
+        var ioChart = new IOStatChart('div-io-stat', 'div-io-gauge', socket, serverToWatch);
         var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
         var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);
         var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);
