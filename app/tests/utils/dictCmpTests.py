@@ -1,4 +1,4 @@
-from modules.utils.dictCmp import DictCmp
+from modules.utils.dictUtil import DictUtil
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
@@ -18,7 +18,7 @@ class DictCmpTests(unittest.TestCase):
             "project": "lepv"
         }
 
-        comp_result = DictCmp.compare(dict_1, dict_2)
+        comp_result = DictUtil.compare(dict_1, dict_2)
         self.assertEqual(comp_result, 0, 'the comparison result of two identical flat dicts should be 0')
 
 

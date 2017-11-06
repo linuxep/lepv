@@ -1,5 +1,5 @@
 
-class DictCmp:
+class DictUtil:
 
     '''
     Compare two dicts.
