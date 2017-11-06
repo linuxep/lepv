@@ -1,5 +1,6 @@
 """Tests for CPU profiler method: GetCmdMpstat"""
-from tests.profilers.cpu.lepvTestCase import LepvTestCase
+from modules.utils.dictCmp import DictCmp
+from tests.profilers.lepvTestCase import LepvTestCase
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
@@ -16,7 +17,6 @@ class GetCmdMpstatTestCase(LepvTestCase):
     def setUp(self):
         self.profiler = CPUProfiler('')
 
-
     def validateCpuStats(self, expected, actual, expectedMatchType):
         print("Expected:")
         pprint(expected)
@@ -24,7 +24,7 @@ class GetCmdMpstatTestCase(LepvTestCase):
         print("Actual:")
         pprint(actual)
 
-        compare_result = self.compare_dicts(actual, expected)
+        compare_result = DictCmp.compare(actual, expected)
 
         if expectedMatchType == 'equals':
             self.assertEqual(compare_result, 0, "Expected and Actual does not match")
