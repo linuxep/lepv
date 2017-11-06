@@ -6,6 +6,8 @@
 var LepvChart = function(rootDivName, socket, server) {
 
   this.rootDiv = $("#" + rootDivName);
+  this.setDivName(rootDivName);
+  
   this.socketIO = socket;
 
    this.headerDiv = null;
@@ -72,7 +74,7 @@ LepvChart.prototype.setupSocketIO = function() {
 
     this.socketIO.on(thisChart.socket_message_key + ".res", function(response) {
 
-        console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
+        // console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
 
         thisChart.updateChartData(response);
     });
@@ -95,7 +97,7 @@ LepvChart.prototype.requestData = function() {
     }
 
     this.socket_request_id++;
-    console.log(" ->   " + this.socket_message_key + ".req(" + (this.socket_request_id) + ") for " + this.serverToWatch);
+    // console.log(" ->   " + this.socket_message_key + ".req(" + (this.socket_request_id) + ") for " + this.serverToWatch);
     this.socketIO.emit(this.socket_message_key + ".req", {'server': this.serverToWatch, "request_id": this.socket_request_id});
 };
 
@@ -107,6 +109,14 @@ LepvChart.prototype.initializeChart = function() {
 
 LepvChart.prototype.updateChartData = function(responseData) {
     console.log("updateChartData() method needs to be overwritten by sub-classes!");
+};
+
+LepvChart.prototype.setDivName = function(divName) {
+  if (divName.startsWith('#')) {
+    this.chartDivName = divName.substr(1);
+  } else {
+    this.chartDivName = divName;
+  }
 };
 
 
