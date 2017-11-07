@@ -18,14 +18,17 @@ class DictCmpTests(unittest.TestCase):
             "project": "lepv"
         }
 
-        dict_3 = {}
+        comp_result = DictUtil.compare(dict_1, dict_2)
+        self.assertEqual(comp_result, 0, 'the comparison result of two identical flat dicts should be 0')
 
-        dict_4 = {}
+    def two_empty_dicts_should_equal(self):
+        
+        dict_1 = {}
 
-        comp_result_1 = DictUtil.compare(dict_1, dict_2)
-        comp_result_2 = DictUtil.compare(dict_3, dict_4)
-        self.assertEqual(comp_result_1, 0, 'the comparison result of two identical flat dicts should be 0')
-        self.assertEqual(comp_result_2, 0, 'the comparison result of two identical flat dicts should be 0')
+        dict_2 = {}
+
+        comp_result = DictUtil.compare(dict_1, dict_2)
+        self.assertEqual(comp_result, 0, 'the comparison result of two identical flat dicts should be 0')
 
     def test_two_flat_dicts_contains(self):
         
