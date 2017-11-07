@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var IOStatChart = function(divName, gaugeDivName, socket, server) {
+var IOStatChart = function(divName, socket, server) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -24,11 +24,6 @@ var IOStatChart = function(divName, gaugeDivName, socket, server) {
 
     // this.updateChartHeader();
     this.initializeChart();
-
-    this.gaugeChart = null;
-    if (gaugeDivName) {
-        this.gaugeChart = new LepvGaugeChart(gaugeDivName);
-    }
 
     this.setupSocketIO();
 };
@@ -86,7 +81,7 @@ IOStatChart.prototype.updateChartData = function(response) {
 
     var data = response['data'];
     var diskDatas = data['disks'];
-    console.log(diskDatas)
+    // console.log(diskDatas)
     
     var thisChart = this;
     $.each(diskDatas, function( diskName, diskData ) {
@@ -123,9 +118,5 @@ IOStatChart.prototype.updateChartData = function(response) {
         }
     });
 
-    // update gauge
-    if (this.gaugeChart) {
-        this.gaugeChart.updateChartData(data);
-    }
     this.requestData();
 };

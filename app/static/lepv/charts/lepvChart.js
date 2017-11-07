@@ -10,12 +10,12 @@ var LepvChart = function(rootDivName, socket, server) {
   
   this.socketIO = socket;
 
-   this.headerDiv = null;
-   this.chartDiv = null;
-   this.footerDiv = null;
-   this.mainDivName = null;
+  this.headerDiv = null;
+  this.chartDiv = null;
+  this.footerDiv = null;
+  this.mainDivName = null;
 
-   this.serverToWatch = server;
+  this.serverToWatch = server;
 
   this.socket_message_key = null;
   this.socket_request_id = 0;

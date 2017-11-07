@@ -374,7 +374,7 @@ class CPUProfiler:
             nextIrqValue = irq_list[index+1]['irq'] + irq_list[index+1]['soft']
 
             variance = abs(irqValue - nextIrqValue)
-            print("variance: " + str(variance))
+            # print("variance: " + str(variance))
             if variance >= self.loadBalanceBenchMark:
             # if randrange(10) > 4:   # this is just for mocking
                 print("IRQ variance=" + str(variance) + ">=0.4, load NOT balanced")
@@ -383,8 +383,8 @@ class CPUProfiler:
                     "message": "Load NOT balanced! ",
                     "time": strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 }
-            else:
-                print("IRQ variance less than 0.3, load balanced")
+            # else:
+                # print("IRQ variance less than 0.3, load balanced")
 
         return None
 
