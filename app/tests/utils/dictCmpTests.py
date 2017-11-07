@@ -28,7 +28,7 @@ class DictCmpTests(unittest.TestCase):
         dict_2 = {}
 
         comp_result = DictUtil.compare(dict_1, dict_2)
-        self.assertEqual(comp_result, 0, 'the comparison result of two identical flat dicts should be 0')
+        self.assertEqual(comp_result, 0, 'the comparison result of two empty dicts should be 0')
 
     def test_two_flat_dicts_contains(self):
         
@@ -55,8 +55,8 @@ class DictCmpTests(unittest.TestCase):
 
         comp_result_1 = DictUtil.compare(dict_2, dict_1)
         comp_result_2 = DictUtil.compare(dict_4, dict_3)
-        self.assertEqual(comp_result_1, 1, 'the comparison result of two identical flat dicts should be 1')
-        self.assertEqual(comp_result_2, 1, 'the comparison result of two identical flat dicts should be 1')
+        self.assertEqual(comp_result_1, 1, 'if the first dict contains second, the result should be 1')
+        self.assertEqual(comp_result_2, 1, 'if the first dict contains second, the result should be 1')
 
     def test_two_flat_dicts_contained(self):
         
@@ -71,7 +71,7 @@ class DictCmpTests(unittest.TestCase):
         }
 
         comp_result = DictUtil.compare(dict_1, dict_2)
-        self.assertEqual(comp_result, -1, 'the comparison result of two identical flat dicts should be -1')
+        self.assertEqual(comp_result, -1, 'if the second dict contains first, the result should be -1')
 
     def test_two_flat_dicts_other(self):
 
@@ -97,8 +97,8 @@ class DictCmpTests(unittest.TestCase):
 
         comp_result_1 = DictUtil.compare(dict_1, dict_2)
         comp_result_2 = DictUtil.compare(dict_3, dict_4)
-        self.assertEqual(comp_result_1, 2, 'the comparison result of two identical flat dicts should be 2')
-        self.assertEqual(comp_result_2, 2, 'the comparison result of two identical flat dicts should be 2')
+        self.assertEqual(comp_result_1, 2, 'if there is no inclusion relationship, the result should be 2')
+        self.assertEqual(comp_result_2, 2, 'if there is no inclusion relationship, the result should be 2')
 
 
 if __name__ =='__main__':
