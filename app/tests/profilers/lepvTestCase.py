@@ -11,7 +11,3 @@ class LepvTestCase(unittest.TestCase):
         print(os)
         print(cpu)
         print(note)
-
-    def compare_dicts(self, dict_first, dict_second):
-
-        return 0
