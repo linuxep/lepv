@@ -10,6 +10,16 @@ class DictUtil:
     '''
     @staticmethod
     def compare(dict_1, dict_2):
+
+        if not dict_1 and not dict_2:
+            return 0
+
+        if not dict_1:
+            return -1
+
+        if not dict_2:
+            return 1
+
         # Store the keys of the dictionary in the collection,
         # if dict_1 is None, set(dict_1) will return empty collection.
         tdict_1 = set(dict_1)
