@@ -8,6 +8,7 @@ var IOGauguChart = function(divName, socket, server) {
     LepvChart.call(this, divName, socket, server);
 
     this.socket_message_key = 'io.status';
+    this.isLeadingChart = false;
 
     this.socket_response = null;
     this.chart = null;

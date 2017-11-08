@@ -49,6 +49,21 @@ class Languages:
         
         pack['cpuIrqGroupChartTitle'] = 'CPU Stat: IRQ + SoftIRQ'
         pack['cpuIrqGroupChartTitleFull'] = 'CPU Stat: IRQ + SoftIRQ; 中断/软中断占据的时间比例，如果是多核，可由此观察中断/软中断的负载均衡'
+
+        pack['cpuIrqChartTitle'] = 'CPU Stat: IRQ'
+        pack['cpuIrqChartTitleFull'] = 'CPU Stat: IRQ; 中断/软中断占据的时间比例，如果是多核，可由此观察中断的负载均衡'
+
+        pack['cpuNettxIrqChartTitle'] = 'CPU Stat: SoftIRQ - NET_TX'
+        pack['cpuNettxIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - NET_TX'
+
+        pack['cpuNetrxIrqChartTitle'] = 'CPU Stat: SoftIRQ - NET_RX'
+        pack['cpuNetrxIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - NET_RX'
+
+        pack['cpuTaskletIrqChartTitle'] = 'CPU Stat: SoftIRQ - TASKLET'
+        pack['cpuTaskletIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - TASKLET'
+
+        pack['cpuHrtimerIrqChartTitle'] = 'CPU Stat: SoftIRQ - HRTIMER'
+        pack['cpuHrtimerIrqChartTitleFull'] = 'CPU Stat: SoftIRQ - HRTIMER'
         
         pack['cpuStatRatioChartTitle'] = 'CPU Stat'
         pack['cpuStatRatioChartTitleFull'] = 'CPU Stat; 各种上下文占据的时间'
