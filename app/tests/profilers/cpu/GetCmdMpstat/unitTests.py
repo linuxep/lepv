@@ -17,7 +17,7 @@ class GetCmdMpstatTestCase(LepvTestCase):
     def setUp(self):
         self.profiler = CPUProfiler('')
 
-    def validateCpuStats(self, expected, actual, expectedMatchType):
+    def validate(self, expected, actual, expectedMatchType):
         print("Expected:")
         pprint(expected)
 
@@ -39,7 +39,7 @@ class GetCmdMpstatTestCase(LepvTestCase):
         self.describe(kernel, os, cpu, note)
 
         actual = self.profiler.get_stat(lepdResult)
-        self.validateCpuStats(expected, actual, expectedMatchType)
+        self.validate(expected, actual, expectedMatchType)
 
 
 if( __name__ =='__main__' ):
