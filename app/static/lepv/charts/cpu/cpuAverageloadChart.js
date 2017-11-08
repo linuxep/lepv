@@ -24,10 +24,6 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
     this.yellowAlertValue = 0.7;
     this.redAlertValue = 0.9;
     
-    this.defaultMaxValue = 1;
-    this.maxValues = [1];
-
-    // this.updateChartHeader();
     this.initializeChart();
     this.setupSocketIO();
 };
@@ -37,27 +33,14 @@ CpuAvgLoadChart.prototype.constructor = CpuAvgLoadChart;
 
 CpuAvgLoadChart.prototype.initializeChart = function() {
 
-    this.socketIO.on("cpu.count.res", function(response) {
-        console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
-        responseData = response['data']
-        this.cpuCoreCount = responseData.count;
-    });
-    this.socketIO.emit("cpu.count..req", {'server': this.serverToWatch, "request_id": this.socket_request_id});
-
- 
-    this.yellowAlertValue = 0.7 * this.cpuCoreCount;
-    this.redAlertValue = 0.9 * this.cpuCoreCount;
-
-    this.maxValues = [this.cpuCoreCount];
-
     this.chart = c3.generate({
         bindto: '#' + this.chartDivName,
         data: {
             x: 'x',
             columns: [this.timeData,
-                this.chartData['last1'],
-                this.chartData['last5'],
-                this.chartData['last15']]
+                ['Last minute'],
+                ['Last 5 minute'],
+                ['Last 15 minute']]
 
         },
         legend: {
@@ -82,7 +65,7 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
                     position: "inner-middle"
                 },
                 min: 0,
-                max: this.cpuCoreCount,
+                max: undefined,
                 padding: {
                     top:10,
                     bottom:10
@@ -111,7 +94,6 @@ CpuAvgLoadChart.prototype.updateChartData = function(data) {
         this.chartData['last1'].splice(1, 1);
         this.chartData['last1'].splice(1, 1);
         this.chartData['last1'].splice(1, 1);
-        this.maxValues.splice(1,1);
     }
 
     this.timeData.push(new Date());
@@ -119,17 +101,13 @@ CpuAvgLoadChart.prototype.updateChartData = function(data) {
     this.chartData['last5'].push(data['last5']);
     this.chartData['last15'].push(data['last15']);
 
-    // max values are the max values of each group of data, it determines the max of y axis.
-    this.maxValues.push(Math.max.apply(Math,[data['last1'], data['last5'], data['last15'], this.cpuCoreCount]));
-
-    this.chart.axis.max(Math.max.apply(Math, this.maxValues) + 0.1);
-    this.chart.load({
-        columns: [this.timeData,
-            this.chartData['last1'],
-            this.chartData['last5'],
-            this.chartData['last15']],
-        keys: {
-            value: ['']
-        }
-    });
+//    this.chart.load({
+//        columns: [this.timeData,
+//            this.chartData['last1'],
+//            this.chartData['last5'],
+//            this.chartData['last15']],
+//        keys: {
+//            value: ['']
+//        }
+//    });
 };
