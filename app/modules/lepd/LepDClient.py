@@ -37,51 +37,16 @@ class LepDClient:
             return True
         else:
             return False
-    
+
+    # TODO:
+    # Decimal is not a data type supported by JSON
     def toDecimal(self, val, precision='0.00'):
         try:
             return float(val) #Decimal(val).quantize(Decimal(precision))
-        except:
-            return 0.00
+        except Exception as err:
+            print(err)
+            return float(0)
                                         
-        
-    def getTopOutput(self):
-        response = self.sendRequest("GetCmdTop")
-        if (response == None or 'result' not in response):
-             return None
-
-        response = response['result'].strip().split("\n")
-        
-        headerLine = response.pop(0)
-        
-        result = {}
-        for responseLine in response:
-            # print(responseLine)
-            if (self.LEPDENDINGSTRING in responseLine):
-                break
-
-            if(len(result) >= 25):
-                break
-                
-            lineValues = responseLine.split()
-            
-            pid = lineValues[0]
-            result[pid] = {}
-
-            result[pid]['pid'] = pid
-            result[pid]['user'] = lineValues[1]
-            result[pid]['pri'] = lineValues[2]
-            result[pid]['ni'] = lineValues[3]
-            result[pid]['vsz'] = lineValues[4]
-            result[pid]['rss'] = lineValues[5]
-            result[pid]['s'] = lineValues[6]
-            result[pid]['cpu'] = lineValues[7]
-            result[pid]['mem'] = lineValues[8]
-            result[pid]['time'] = lineValues[9]
-
-            result[pid]['command'] = ' '.join([str(x) for x in lineValues[10:]])
-
-        return result
 
     def getIostatResult(self):
         response = self.sendRequest("GetCmdIostat")
