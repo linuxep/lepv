@@ -16,7 +16,7 @@ def get_memory_status(request):
     if "request_id" in request:
         data['response_id'] = request['request_id']
 
-    emit('memory.status.res',  data)
+    emit('memory.status.res', data)
 
 
 @memory_blueprint.on('memory.procrank.req')

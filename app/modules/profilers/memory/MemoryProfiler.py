@@ -44,10 +44,10 @@ class MemoryProfiler:
         componentInfo = {}
         componentInfo["name"] = "memory"
 
-        componentInfo['total'] = Decimal(int(results['MemTotal']) / 1024).quantize(Decimal('0'))
-        componentInfo['free'] = Decimal(int(results['MemFree']) / 1024).quantize(Decimal('0'))
-        componentInfo['buffers'] = Decimal(int(results['Buffers']) / 1024).quantize(Decimal('0'))
-        componentInfo['cached'] = Decimal(int(results['Cached']) / 1024).quantize(Decimal('0'))
+        componentInfo['total'] = self.client.toDecimal(Decimal(int(results['MemTotal']) / 1024).quantize(Decimal('0')))
+        componentInfo['free'] = self.client.toDecimal(Decimal(int(results['MemFree']) / 1024).quantize(Decimal('0')))
+        componentInfo['buffers'] = self.client.toDecimal(Decimal(int(results['Buffers']) / 1024).quantize(Decimal('0')))
+        componentInfo['cached'] = self.client.toDecimal(Decimal(int(results['Cached']) / 1024).quantize(Decimal('0')))
         componentInfo['used'] = componentInfo['total'] - componentInfo['free'] - componentInfo['buffers'] - componentInfo['cached']
 
         usedRatio = (componentInfo['used'] / componentInfo['total']) * 100

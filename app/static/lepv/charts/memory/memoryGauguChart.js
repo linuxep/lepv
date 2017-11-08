@@ -28,7 +28,7 @@ MemoryGauguChart.prototype.initializeChart = function() {
 };
 
 MemoryGauguChart.prototype.updateChartData = function(response) {
-    console.log(response)
+    // console.log(response)
     var data = response['data'];
     // console.log(data)
     // update gauge
