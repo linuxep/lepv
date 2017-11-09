@@ -21,6 +21,9 @@ class IOProfiler:
         start_time = datetime.datetime.now()
         
         result = self.client.getIostatResult()
+
+        if not result:
+            return {}
         
         end_time = datetime.datetime.now()
         

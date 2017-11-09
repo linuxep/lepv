@@ -303,18 +303,22 @@ class CPUProfiler:
             line_values = line.split()
 
             cpu_stat = {}
-            cpu_stat['idle'] = self.client.toDecimal(line_values[-1])
-            cpu_stat['gnice'] = self.client.toDecimal(line_values[-2])
-            cpu_stat['guest'] = self.client.toDecimal(line_values[-3])
-            cpu_stat['steal'] = self.client.toDecimal(line_values[-4])
-            cpu_stat['soft'] = self.client.toDecimal(line_values[-5])
-            cpu_stat['irq'] = self.client.toDecimal(line_values[-6])
-            cpu_stat['iowait'] = self.client.toDecimal(line_values[-7])
-            cpu_stat['system'] = self.client.toDecimal(line_values[-8])
-            cpu_stat['nice'] = self.client.toDecimal(line_values[-9])
-            cpu_stat['user'] = self.client.toDecimal(line_values[-10])
+            try:
+                cpu_stat['idle'] = float(line_values[-1])
+                cpu_stat['gnice'] = float(line_values[-2])
+                cpu_stat['guest'] = float(line_values[-3])
+                cpu_stat['steal'] = float(line_values[-4])
+                cpu_stat['soft'] = float(line_values[-5])
+                cpu_stat['irq'] = float(line_values[-6])
+                cpu_stat['iowait'] = float(line_values[-7])
+                cpu_stat['system'] = float(line_values[-8])
+                cpu_stat['nice'] = float(line_values[-9])
+                cpu_stat['user'] = float(line_values[-10])
 
-            cpu_name = line_values[-11]
+                cpu_name = line_values[-11]
+            except Exception as err:
+                print(err)
+                continue
 
             # this is for mocking data
             # current_minute = datetime.now().minute

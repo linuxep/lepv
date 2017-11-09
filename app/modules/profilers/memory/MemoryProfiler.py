@@ -27,7 +27,7 @@ class MemoryProfiler:
 
         response = self.client.getResponse("GetProcMeminfo")
         if (response == None or len(response) == 0):
-            return None
+            return {}
 
         responseData = {}
         if (self.config == 'debug'):
@@ -211,7 +211,17 @@ if( __name__ =='__main__' ):
 
     profiler = MemoryProfiler('www.rmlink.cn')
     profiler.config = 'debug'
-    pp.pprint(profiler.getStatus())
+
+    i = 1
+    while i < 100:
+        print(i)
+        status = profiler.getStatus()
+        if status:
+            print("YES")
+        else:
+            print("NO!!!!!!!!!!!")
+        i += 1
+        print("")
     # pp.pprint(profiler.getProcrank())
     # print(profiler.getSmemOutput())
     # print(profiler.getProcrankOutput())

@@ -18,8 +18,6 @@ class GetProcLoadavgTestCase(LepvTestCase):
         self.profiler = CPUProfiler('')
 
     def validate(self, expected, actual, expectedMatchType):
-        print("Expected:")
-        pprint(expected)
 
         print("Actual:")
         pprint(actual)
@@ -36,7 +34,7 @@ class GetProcLoadavgTestCase(LepvTestCase):
 
     @file_data("unittests.json")
     def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
-        self.describe(kernel, os, cpu, note)
+        self.describe(kernel, os, cpu, note, expectedMatchType, expected)
 
         actual = self.profiler.get_average_load(lepdResult)
         self.validate(expected, actual, expectedMatchType)
