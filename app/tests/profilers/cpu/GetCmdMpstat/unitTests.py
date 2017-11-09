@@ -18,8 +18,6 @@ class GetCmdMpstatTestCase(LepvTestCase):
         self.profiler = CPUProfiler('')
 
     def validate(self, expected, actual, expectedMatchType):
-        print("Expected:")
-        pprint(expected)
 
         print("Actual:")
         pprint(actual)
@@ -36,7 +34,7 @@ class GetCmdMpstatTestCase(LepvTestCase):
 
     @file_data("unittests.json")
     def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
-        self.describe(kernel, os, cpu, note)
+        self.describe(kernel, os, cpu, note, expectedMatchType, expected)
 
         actual = self.profiler.get_stat(lepdResult)
         self.validate(expected, actual, expectedMatchType)
