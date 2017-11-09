@@ -63,50 +63,6 @@ class LepDClient:
             
             return resultLines[i:]
 
-    def getProcStat(self):
-        response = self.sendRequest("GetProcStat")
-        if (response == None or 'result' not in response):
-            return None
-
-        procStats = {}
-        lines = response['result'].strip().split("\n")
-        for line in lines:
-            if "cpu" in line:
-                data = line.split(" ")
-                if data[1] == "":
-                    data.pop(1)
-                #This is cpuX
-                procStat = {}
-
-                procStat['id'] = data[0]
-                procStat['user'] = Decimal(data[1])
-                procStat['nice'] = Decimal(data[2])
-                procStat['system'] = Decimal(data[3])
-                procStat['idle'] = Decimal(data[4])
-                procStat['iowait'] = Decimal(data[5])
-                procStat['irq'] = Decimal(data[6])
-                procStat['softirq'] = Decimal(data[7])
-                procStat['steal'] = Decimal(data[8])
-                procStat['guest'] = Decimal(data[9])
-                procStat['guestnice'] = Decimal(data[10])
-
-                total = procStat['user'] + procStat['nice'] + procStat['system'] + procStat['idle'] + procStat['iowait'] + procStat['irq'] + procStat['softirq'] + procStat['steal'] + procStat['guest'] + procStat['guestnice']
-
-                procStat['user.ratio'] = Decimal(procStat['user'] / total * 100).quantize(Decimal('0.00'))
-                procStat['nice.ratio'] = Decimal(procStat['nice'] / total * 100).quantize(Decimal('0.00'))
-                procStat['system.ratio'] = Decimal(procStat['system'] / total * 100).quantize(Decimal('0.00'))
-                procStat['idle.ratio'] = Decimal(procStat['idle'] / total * 100).quantize(Decimal('0.00'))
-                procStat['iowait.ratio'] = Decimal(procStat['iowait'] / total * 100).quantize(Decimal('0.00'))
-                procStat['irq.ratio'] = Decimal(procStat['irq'] / total * 100).quantize(Decimal('0.00'))
-                procStat['softirq.ratio'] = Decimal(procStat['softirq'] / total * 100).quantize(Decimal('0.00'))
-                procStat['steal.ratio'] = Decimal(procStat['steal'] / total * 100).quantize(Decimal('0.00'))
-                procStat['guest.ratio'] = Decimal(procStat['guest'] / total * 100).quantize(Decimal('0.00'))
-                procStat['guestnice.ratio'] = Decimal(procStat['guestnice'] / total * 100).quantize(Decimal('0.00'))
-
-                procStats[procStat['id']] = procStat
-
-        return procStats
-    
     def tryAllMethods(self):
         methods = self.listAllMethods()
         
