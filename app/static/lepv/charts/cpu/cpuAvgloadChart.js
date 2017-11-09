@@ -51,7 +51,7 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
         var t = Date.now();
         while(Date.now - t <= d); 
     }
-    console.log(thisChart.cpuCoreCount)
+    // console.log(thisChart.cpuCoreCount)
  
     thisChart.yellowAlertValue = 0.7 * thisChart.cpuCoreCount;
     thisChart.redAlertValue = 0.9 * thisChart.cpuCoreCount;
@@ -110,7 +110,7 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
 
 CpuAvgLoadChart.prototype.updateChartData = function(responseData) {
     data = responseData['data'];
-    console.log(data);
+    // console.log(data);
     if (this.chart == null) {
         return;
     }
@@ -141,4 +141,5 @@ CpuAvgLoadChart.prototype.updateChartData = function(responseData) {
             value: ['']
         }
     });
+    this.requestData();
 };

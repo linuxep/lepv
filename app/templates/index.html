@@ -15,6 +15,7 @@
   <!-- Custom styles for this template-->
   <link href="/static/vendor/sb-admin/css/sb-admin.css" rel="stylesheet">
   <!--<link href="/static/vendor/sb-admin/css/sb-admin-2.css" rel="stylesheet">-->
+  <link href="/static/bower_components/datatables/media/css/jquery.dataTables.min.css " rel="stylesheet">
 
   <link href="/static/bower_components/c3/c3.min.css" rel="stylesheet">
 
@@ -310,6 +311,9 @@
                       <div id="div-cpu-stat-irq-panel" class="flot-chart-content"></div>
                   </div>
               </div>
+              <div class="card-footer small text-muted" hidden>
+                <i class="fa fa-bell" aria-hidden="true"> </i>
+              </div>
           </div>
       </div>
 
@@ -377,6 +381,68 @@
       </div>
 
       <div class="col-md-12">
+          <div id="div-memory-chart" class="card mb-3">
+            <div class="card-header">
+                {% if config == 'debug' %}
+                <i class="icon-ram"></i> {{ languages.ramChartTitle }} -[GetProcMeminfo]
+                {% else %}
+                <i class="icon-ram"></i> {{ languages.ramChartTitle }}
+                {% endif %}
+            </div>
+            <div class="card-body">
+               <table id="div-memory-chart-panel" class="display compact" cellspacing="0"></table>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-12">
+          <div id="memory-stat-table" class="card mb-3">
+            <div class="card-header">
+                {% if config == 'debug' %}
+                <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }} -[GetCmdProcrank]
+                {% else %}
+                <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }}
+                {% endif %}
+            </div>
+            <div class="card-body">
+               <table id="memory-stat-table-panel" class="display compact" cellspacing="0"></table>
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-4">
+            <div id="div-memory-free-pss-stat" class="card mb-3">
+              <div class="card-header">
+                  {% if config == 'debug' %}
+                  <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }} -[GetCmdProcrank]
+                  {% else %}
+                  <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }}
+                  {% endif %}
+              </div>
+              <div class="card-body">
+                 <div id="div-memory-free-pss-stat-panel"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div id="div-memory-pss-stat" class="card mb-3">
+              <div class="card-header">
+                  {% if config == 'debug' %}
+                  <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }} -[GetCmdProcrank]
+                  {% else %}
+                  <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }}
+                  {% endif %}
+              </div>
+              <div class="card-body">
+                 <div id="div-memory-pss-stat-panel"></div>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+
+      <div class="col-md-12">
           <div id='IOCharts' class="card mb-3">
               <div class="card-header">
                   {% if config == 'debug' %}
@@ -393,6 +459,21 @@
               <div class="card-footer small text-muted" hidden>
                 <i class="fa fa-bell" aria-hidden="true"> </i>
               </div>
+          </div>
+      </div>
+
+      <div class="col-md-12">
+          <div id="io-top-table" class="card mb-3">
+            <div class="card-header">
+                {% if config == 'debug' %}
+                <i class="icon-syncalt"></i> I/O Top Table -[GetCmdIotop]
+                {% else %}
+                <i class="icon-syncalt"></i> I/O Top Table
+                {% endif %}
+            </div>
+            <div class="card-body">
+               <table id="io-top-table-panel" class="display compact" cellspacing="0"></table>
+            </div>
           </div>
       </div>
 
@@ -439,6 +520,8 @@
     <script src="/static/vendor/sb-admin/js/sb-admin.min.js"></script>
     <!--<script src="/static/vendor/sb-admin/js/sb-admin-2.js"></script>-->
 
+    <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+
     <script src="/static/bower_components/c3/d3.min.js" charset="utf-8"></script>
     <script src="/static/bower_components/c3/c3.min.js"></script>
 
@@ -454,14 +537,17 @@
     <script src="/static/lepv/charts/cpu/cpuAvgloadChart.js"></script>
     <script src="/static/lepv/charts/cpu/cpuIrqGroupChart.js"></script>
     <script src="/static/lepv/charts/cpu/cpuIrqChart.js"></script>
+    <script src="/static/lepv/charts/cpu/cpuTopTable.js"></script>
 
     <script src="/static/lepv/charts/memory/memoryGauguChart.js"></script>
+    <script src="/static/lepv/charts/memory/memoryChart.js"></script>
+    <script src="/static/lepv/charts/memory/memoryStatTable.js"></script>
+    <script src="/static/lepv/charts/memory/procrankFreeVsPieChart.js"></script>
+    <script src="/static/lepv/charts/memory/procrankPssPieChart.js"></script>
 
     <script src="/static/lepv/charts/io/ioStatChart.js"></script>
     <script src="/static/lepv/charts/io/ioGauguChart.js"></script>
-
-
-
+    <script src="/static/lepv/charts/io/ioTopTable.js"></script>
 
     <!-- Custom scripts for this page-->
     <!-- Toggle between fixed and static navbar-->
@@ -545,7 +631,17 @@
 
         var cpuhrtimerIrqChart = new CpuIrqChart("div-cpu-stat-hrtimerIrq-panel", socket, serverToWatch, 'HRTIMER');
 
-        
+        var cpuTopTable = new CpuTopTable("cpu-top-table-panel", socket, serverToWatch);
+
+        var memoryChart = new MemoryChart('div-memory-chart-panel', socket, serverToWatch);
+
+        var memoryStatTable = new MemoryStatTable('memory-stat-table-panel', socket, serverToWatch);
+
+        var memoryFreePssStatChart = new ProcrankFreeVsPieChart('div-memory-free-pss-stat-panel', socket, serverToWatch);
+
+        var memoryPssStatChart = new ProcrankPssPieChart('div-memory-pss-stat-panel', socket, serverToWatch);
+
+        // var ioTopTable = new IoTopTable('io-top-table-panel', socket, serverToWatch);
       }
     </script>
 

@@ -9,7 +9,7 @@ var CpuTopTable = function(rootDivName, socket, server) {
 
     this.socket_message_key = 'cpu.top';
     
-    // this.setTableDivName(tableDivName);
+    this.setTableDivName(rootDivName);
     
     this.chartTitle = "CPU Top Table";
     this.chartHeaderColor = 'orange';
@@ -17,10 +17,9 @@ var CpuTopTable = function(rootDivName, socket, server) {
     this.maxDataCount = 25;
     this.refreshInterval = 5;
 
-    // this.dataUrlPrefix = "/api/cpu/top/";
-
-    this.updateChartHeader();
+    // this.updateChartHeader();
     this.initializeChart();
+    this.setupSocketIO();
 };
 
 CpuTopTable.prototype = Object.create(LepvChart.prototype);
@@ -28,25 +27,26 @@ CpuTopTable.prototype.constructor = CpuTopTable;
 
 CpuTopTable.prototype.initializeChart = function() {
 
-    if (!this.tableDivName) {
+    if (!this.chartDivName) {
         console.log("The table div name was not specified for " + this.chartDivName);
         return;
     }
 };
 
-CpuTopTable.prototype.updateChartData = function(data) {
-
+CpuTopTable.prototype.updateChartData = function(response) {
+    data = response['data']
+    // console.log(data)
     var thisChart = this;
     
     if (!this.table) {
-        this.initializeDataTable(data.headerline);
+        this.initializeDataTable(data['headerline']);
     }
     
     this.table.rows().remove().draw( true );
 
-    var headerColumns = data.headerline.split(/\s+/);
+    var headerColumns = data['headerline'].split(/\s+/);
 
-    var topData = data.top;
+    var topData = data['top'];
     if (topData) {
         $.each( topData, function( lineIndex, dataItem ) {
 
@@ -73,4 +73,6 @@ CpuTopTable.prototype.updateChartData = function(data) {
     }
     
     this.table.draw(true);
+    
+    this.requestData();
 };

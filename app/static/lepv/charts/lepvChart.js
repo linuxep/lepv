@@ -19,7 +19,10 @@ var LepvChart = function(rootDivName, socket, server) {
 
   this.socket_message_key = null;
   this.socket_request_id = 0;
+
   this.chart = null;
+  this.table = null;
+  
   this.chartData = {};
   this.timeData = ['x'];
 
@@ -117,6 +120,39 @@ LepvChart.prototype.setDivName = function(divName) {
   } else {
     this.chartDivName = divName;
   }
+};
+
+LepvChart.prototype.setTableDivName = function(tableDivName) {
+  if (tableDivName.startsWith('#')) {
+    this.tableDivName = tableDivName;
+  } else {
+    this.tableDivName = '#' + tableDivName;
+  }
+};
+
+LepvChart.prototype.initializeDataTable = function(headerLine) {
+  
+  var headerColumns = headerLine.split(/\s+/);
+  
+  var columns = [];
+  headerColumns.forEach(function(value, index) {
+    var columnItem = {};
+    columnItem['title'] = value;
+    columnItem['orderable'] = false;
+    
+    columns.push(columnItem);
+  });
+  
+  this.table = $(this.tableDivName).DataTable( {
+    destroy: true,
+    paging: false,
+    info: false,
+    searching: true,
+    columns: columns,
+
+    // TODO: refactor so we can allow for chart-specific sorting
+    order: []
+  });
 };
 
 

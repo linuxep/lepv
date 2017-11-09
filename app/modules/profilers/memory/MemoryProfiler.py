@@ -164,10 +164,10 @@ class MemoryProfiler:
 
             procrankData['data']['procranks'][lineIndex] = {}
             procrankData['data']['procranks'][lineIndex]['pid'] = lineValues.pop(0)
-            procrankData['data']['procranks'][lineIndex]['vss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
-            procrankData['data']['procranks'][lineIndex]['rss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
-            procrankData['data']['procranks'][lineIndex]['pss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
-            procrankData['data']['procranks'][lineIndex]['uss'] = Decimal(Decimal(lineValues.pop(0)[:-1]))
+            procrankData['data']['procranks'][lineIndex]['vss'] = self.client.toDecimal(Decimal(Decimal(lineValues.pop(0)[:-1])))
+            procrankData['data']['procranks'][lineIndex]['rss'] = self.client.toDecimal(Decimal(Decimal(lineValues.pop(0)[:-1])))
+            procrankData['data']['procranks'][lineIndex]['pss'] = self.client.toDecimal(Decimal(Decimal(lineValues.pop(0)[:-1])))
+            procrankData['data']['procranks'][lineIndex]['uss'] = self.client.toDecimal(Decimal(Decimal(lineValues.pop(0)[:-1])))
 
             procrankData['data']['procranks'][lineIndex]['cmdline'] = ' '.join([str(x) for x in lineValues])
             
@@ -189,7 +189,7 @@ class MemoryProfiler:
                 keyValue = keyValuePair[0].strip()
 
                 procrankData['data']['sum'][keyName + "Unit"] = keyValue[-1:]
-                procrankData['data']['sum'][keyName] = Decimal(Decimal(keyValue[:-1]))
+                procrankData['data']['sum'][keyName] = self.client.toDecimal(Decimal(Decimal(keyValue[:-1])))
 
         xssSumLine = resultLines[-3].strip()
         if (xssSumLine.endswith('TOTAL')):
@@ -197,11 +197,11 @@ class MemoryProfiler:
             
             ussTotalString = xssValues[-2]
             procrankData['data']['sum']['ussTotalUnit'] = ussTotalString[-1:]
-            procrankData['data']['sum']['ussTotal'] = Decimal(Decimal(ussTotalString[:-1]))
+            procrankData['data']['sum']['ussTotal'] = self.client.toDecimal(Decimal(Decimal(ussTotalString[:-1])))
             
             pssTotalString = xssValues[-3]
             procrankData['data']['sum']['pssTotalUnit'] = pssTotalString[-1:]
-            procrankData['data']['sum']['pssTotal'] = Decimal(Decimal(pssTotalString[:-1]))
+            procrankData['data']['sum']['pssTotal'] = self.client.toDecimal(Decimal(Decimal(pssTotalString[:-1])))
             
         return procrankData
 

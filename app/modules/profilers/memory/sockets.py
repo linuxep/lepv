@@ -11,6 +11,7 @@ def get_memory_status(request):
 
     server = request['server']
     profiler = MemoryProfiler(server)
+    data = {}
     data = profiler.getStatus()
 
     if "request_id" in request:
