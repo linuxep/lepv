@@ -60,7 +60,10 @@ CpuIrqChart.prototype.initializeChart = function() {
                 },
                 min: 0,
                 max: undefined,
-                padding: {top:0, bottom:0}
+                padding: {
+                        top:10,
+                        bottom:10
+                }
             }
         },
         tooltip: {
