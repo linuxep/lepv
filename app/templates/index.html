@@ -225,12 +225,15 @@
         </div>
       </div>
 
+
+
+
       <div class="col-md-6">
-        <div id="div-root-cpu-stat-donut" class="card mb-3">
+        <div id="container-div-cpu-stat-donut" class="card mb-3">
           <div class="card-header">
             <i class="icon-cpu-processor"></i> CPU Stat: Overall</div>
           <div class="card-body">
-            <div id="div-cpu-stat-panel"></div>
+            <div id="div-cpu-stat-donut"></div>
           </div>
           <div class="card-footer small text-muted" hidden>
             <i class="fa fa-bell" aria-hidden="true"> </i>
@@ -238,13 +241,17 @@
         </div>
       </div>
 
+
+
+
+
       <div class="col-md-12">
 
-        <div id="div-cpu-stat-idle" class="card mb-3">
+        <div id="container-div-cpu-stat-idle" class="card mb-3">
           <div class="card-header">
             <i class="icon-cpu-processor"></i> CPU Stat: Idle</div>
           <div class="card-body">
-            <div id="div-cpu-stat-idle-panel" class="chart-panel"></div>
+            <div id="div-cpu-stat-idle" class="chart-panel"></div>
           </div>
           <div class="card-footer small text-muted">
             <i class="fa fa-bell" aria-hidden="true" font-style="arial"> </i>
@@ -252,12 +259,15 @@
         </div>
       </div>
 
+
+
+
       <div class="col-md-12">
-        <div id="div-cpu-stat-user-group" class="card mb-3">
+        <div id="container-div-cpu-stat-user-group" class="card mb-3">
           <div class="card-header">
             <i class="icon-cpu-processor"></i> CPU Stat: User + System + Nice</div>
           <div class="card-body">
-            <div id="div-cpu-stat-user-group-panel">
+            <div id="div-cpu-stat-user-group">
               </div>
           </div>
           <div class="card-footer small text-muted" hidden>
@@ -266,14 +276,17 @@
         </div>
       </div>
 
+
+
+
       <div class="col-md-12">
-        <div id="div-cpu-stat-irqGroup" class="card mb-3">
+        <div id="container-div-cpu-stat-irqGroup" class="card mb-3">
             <div class="card-header">
                 <i class="icon-cpu-processor"></i>
                 <span class="spanTitle">{{ languages.cpuIrqGroupChartTitle }}</span>
             </div>
             <div class="card-body">
-                <div id="div-cpu-stat-irqGroup-panel" class="flot-chart-content"></div>
+                <div id="div-cpu-stat-irqGroup" class="flot-chart-content"></div>
             </div>
             <div class="card-footer small text-muted" hidden>
               <i class="fa fa-bell" aria-hidden="true"> </i>
@@ -281,15 +294,18 @@
         </div>
       </div>
 
+
+
+
       <div class="col-md-12">
-          <div id="div-cpu-stat-irq" class="card mb-3">
+          <div id="container-div-cpu-stat-irq" class="card mb-3">
               <div class="card-header">
                   <i class="icon-cpu-processor"></i>
                   <span class="spanTitle">{{ languages.cpuIrqChartTitle }}</span>
               </div>
               <div class="panel-body">
                   <div class="flot-chart">
-                      <div id="div-cpu-stat-irq-panel" class="flot-chart-content"></div>
+                      <div id="div-cpu-stat-irq" class="flot-chart-content"></div>
                   </div>
               </div>
               <div class="card-footer small text-muted" hidden>
@@ -299,52 +315,54 @@
       </div>
 
       <div class="col-md-12">
-          <div id="div-cpu-stat-nettxIrq" class="card mb-3">
+          <div id="container-div-cpu-stat-nettxIrq" class="card mb-3">
             <div class="card-header">
                 <i class="icon-cpu-processor"></i>
                 <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
             </div>
             <div class="card-body">
-                <div id="div-cpu-stat-nettxIrq-panel" class="flot-chart-content"></div>
+                <div id="div-cpu-stat-nettxIrq" class="flot-chart-content"></div>
             </div>
           </div>
       </div>
 
       <div class="col-md-12">
-          <div id="div-cpu-stat-netrxIrq" class="card mb-3">
+          <div id="container-div-cpu-stat-netrxIrq" class="card mb-3">
             <div class="card-header">
                 <i class="icon-cpu-processor"></i>
                 <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
             </div>
             <div class="card-body">
-                <div id="div-cpu-stat-netrxIrq-panel" class="flot-chart-content"></div>
+                <div id="div-cpu-stat-netrxIrq" class="flot-chart-content"></div>
             </div>
           </div>
       </div>
 
       <div class="col-md-12">
-          <div id="div-cpu-stat-taskletIrq" class="card mb-3">
+          <div id="container-div-cpu-stat-taskletIrq" class="card mb-3">
             <div class="card-header">
                 <i class="icon-cpu-processor"></i>
                 <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
             </div>
             <div class="card-body">
-                <div id="div-cpu-stat-taskletIrq-panel" class="flot-chart-content"></div>
+                <div id="div-cpu-stat-taskletIrq" class="flot-chart-content"></div>
             </div>
           </div>
       </div>
 
       <div class="col-md-12">
-          <div id="div-cpu-stat-hrtimerIrq" class="card mb-3">
+          <div id="container-div-cpu-stat-hrtimerIrq" class="card mb-3">
             <div class="card-header">
                 <i class="icon-cpu-processor"></i>
                 <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
             </div>
             <div class="card-body">
-                <div id="div-cpu-stat-hrtimerIrq-panel" class="flot-chart-content"></div>
+                <div id="div-cpu-stat-hrtimerIrq" class="flot-chart-content"></div>
             </div>
           </div>
       </div>
+
+
 
       <div class="col-md-12">
         <div id="container-div-cpu-avgload" class="card mb-3">
@@ -366,7 +384,7 @@
       </div>
 
       <div class="col-md-12">
-          <div id="cpu-top-table" class="card mb-3">
+          <div id="container-cpu-top-table" class="card mb-3">
             <div class="card-header">
                 {% if config == 'debug' %}
                 <i class="icon-cpu-processor"></i> CPU TOP -[GetCmdTop]
@@ -375,13 +393,16 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="cpu-top-table-panel" class="display compact" cellspacing="0"></table>
+               <table id="cpu-top-table" class="display compact" cellspacing="0"></table>
             </div>
           </div>
       </div>
 
+
+
+
       <div class="col-md-12">
-          <div id="div-memory-chart" class="card mb-3">
+          <div id="container-div-memory-chart" class="card mb-3">
             <div class="card-header">
                 {% if config == 'debug' %}
                 <i class="icon-ram"></i> {{ languages.ramChartTitle }} -[GetProcMeminfo]
@@ -390,13 +411,13 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="div-memory-chart-panel" class="display compact" cellspacing="0"></table>
+               <table id="div-memory-chart" class="display compact" cellspacing="0"></table>
             </div>
           </div>
       </div>
 
       <div class="col-md-12">
-          <div id="memory-stat-table" class="card mb-3">
+          <div id="container-memory-stat-table" class="card mb-3">
             <div class="card-header">
                 {% if config == 'debug' %}
                 <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }} -[GetCmdProcrank]
@@ -405,14 +426,14 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="memory-stat-table-panel" class="display compact" cellspacing="0"></table>
+               <table id="memory-stat-table" class="display compact" cellspacing="0"></table>
             </div>
           </div>
       </div>
 
       <div class="row">
           <div class="col-md-4">
-            <div id="div-memory-free-pss-stat" class="card mb-3">
+            <div id="container-div-memory-free-pss-stat" class="card mb-3">
               <div class="card-header">
                   {% if config == 'debug' %}
                   <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }} -[GetCmdProcrank]
@@ -421,12 +442,12 @@
                   {% endif %}
               </div>
               <div class="card-body">
-                 <div id="div-memory-free-pss-stat-panel"></div>
+                 <div id="div-memory-free-pss-stat"></div>
               </div>
             </div>
           </div>
           <div class="col-md-8">
-            <div id="div-memory-pss-stat" class="card mb-3">
+            <div id="container-div-memory-pss-stat" class="card mb-3">
               <div class="card-header">
                   {% if config == 'debug' %}
                   <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }} -[GetCmdProcrank]
@@ -435,7 +456,7 @@
                   {% endif %}
               </div>
               <div class="card-body">
-                 <div id="div-memory-pss-stat-panel"></div>
+                 <div id="div-memory-pss-stat"></div>
               </div>
             </div>
           </div>
@@ -443,7 +464,7 @@
       
 
       <div class="col-md-12">
-          <div id='IOCharts' class="card mb-3">
+          <div id='container-div-IOCharts' class="card mb-3">
               <div class="card-header">
                   {% if config == 'debug' %}
                   <i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]
@@ -453,7 +474,7 @@
               </div>
               <div class="card-body">
                   <div class="flot-chart">
-                      <div id="div-io-stat" class="flot-chart-content"></div>
+                      <div id="div-IOCharts" class="flot-chart-content"></div>
                   </div>
               </div>
               <div class="card-footer small text-muted" hidden>
@@ -463,7 +484,7 @@
       </div>
 
       <div class="col-md-12">
-          <div id="io-top-table" class="card mb-3">
+          <div id="container-div-io-top-table" class="card mb-3">
             <div class="card-header">
                 {% if config == 'debug' %}
                 <i class="icon-syncalt"></i> I/O Top Table -[GetCmdIotop]
@@ -472,7 +493,7 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="io-top-table-panel" class="display compact" cellspacing="0"></table>
+               <table id="div-io-top-table" class="display compact" cellspacing="0"></table>
             </div>
           </div>
       </div>
