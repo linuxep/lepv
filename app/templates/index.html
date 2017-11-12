@@ -631,14 +631,10 @@
         <!--var ioGauguChart = new IOGauguChart('div-io-gauge', socket, serverToWatch);-->
 
 
-
-        <!--var ioStatChart = new IOStatChart('div-io-stat', socket, serverToWatch);-->
-        <!--var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);-->
-        <!--var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);-->
-
-        <!--var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);-->
-
-        <!--var cpuIrqGroupChart = new CpuIrqGroupChart("div-cpu-stat-irqGroup-panel", socket, serverToWatch);-->
+        var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);
+        var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);
+        var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);
+        var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);
 
         <!--var cpuIrqChart = new CpuIrqChart("div-cpu-stat-irq-panel", socket, serverToWatch, 'irq');-->
 
@@ -651,7 +647,7 @@
         <!--var cpuhrtimerIrqChart = new CpuIrqChart("div-cpu-stat-hrtimerIrq-panel", socket, serverToWatch, 'HRTIMER');-->
 
 
-        var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);
+        <!--var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);-->
 
 
 
@@ -665,6 +661,7 @@
 
         <!--var memoryPssStatChart = new ProcrankPssPieChart('div-memory-pss-stat-panel', socket, serverToWatch);-->
 
+        <!--var ioStatChart = new IOStatChart('div-io-stat', socket, serverToWatch);-->
         // var ioTopTable = new IoTopTable('io-top-table-panel', socket, serverToWatch);
       }
     </script>

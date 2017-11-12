@@ -7,9 +7,12 @@ var CpuStatUserGroupChart = function(rootDivName, socket, server) {
 
   LepvChart.call(this, rootDivName, socket, server);
 
+  this.rootDivName = rootDivName;
+  this.socket = socket;
+  this.serverToWatch = server;
+
   this.socket_message_key = 'cpu.stat';
   this.chart = null;
-  this.mainDivName = 'div-cpu-stat-user-group-panel';
 
   this.isLeadingChart = false;
 

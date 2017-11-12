@@ -7,6 +7,10 @@ var CpuIrqGroupChart = function(rootDivName, socket, server) {
 
   LepvChart.call(this, rootDivName, socket, server);
 
+  this.rootDivName = rootDivName;
+  this.socket = socket;
+  this.serverToWatch = server;
+
   this.socket_message_key = 'cpu.stat';
   this.chart = null;
 
@@ -30,7 +34,7 @@ CpuIrqGroupChart.prototype.initializeChart = function() {
     var thisChart = this;
 
     this.chart = c3.generate({
-        bindto: '#' + thisChart.chartDivName,
+        bindto: '#' + thisChart.mainDivName,
         data: {
             x: 'x',
             columns: [thisChart.timeData]

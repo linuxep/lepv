@@ -7,6 +7,10 @@ var CpuStatDonutChart = function(rootDivName, socket, server) {
 
   LepvChart.call(this, rootDivName, socket, server);
 
+  this.rootDivName = rootDivName;
+  this.socket = socket;
+  this.serverToWatch = server;
+
   this.socket_message_key = 'cpu.stat';
   this.socket_response = null;
   this.chart = null;
@@ -24,7 +28,7 @@ CpuStatDonutChart.prototype.constructor = CpuStatDonutChart;
 CpuStatDonutChart.prototype.initializeChart = function() {
 
     this.chart = c3.generate({
-        bindto: '#div-cpu-stat-panel',
+        bindto: '#' + this.mainDivName,
         data: {
             columns: [
                 ['user', 0],
