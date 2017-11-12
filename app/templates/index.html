@@ -477,6 +477,22 @@
           </div>
       </div>
 
+      <div class="col-md-12">
+          <div id="perf-cpu-table" class="card mb-3">
+            <div class="card-header">
+                <i class="glyphicon glyphicon-tasks"></i>
+                {% if config == 'debug' %}
+                <span class="spanTitle">{{ languages.perfTableTitle }}</span> -[GetCmdPerfCpuclock]
+                {% else %}
+                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">{{ languages.perfTableTitle }}</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+               <table id="perf-cpu-table-panel" class="display compact" cellspacing="0"></table>
+            </div>
+          </div>
+      </div>
+
 
     </div>
     <!-- /.container-fluid-->
@@ -548,6 +564,8 @@
     <script src="/static/lepv/charts/io/ioStatChart.js"></script>
     <script src="/static/lepv/charts/io/ioGauguChart.js"></script>
     <script src="/static/lepv/charts/io/ioTopTable.js"></script>
+
+    <script src="/static/lepv/charts/perf/perfCpuTable.js"></script>
 
     <!-- Custom scripts for this page-->
     <!-- Toggle between fixed and static navbar-->
@@ -642,6 +660,8 @@
         var memoryPssStatChart = new ProcrankPssPieChart('div-memory-pss-stat-panel', socket, serverToWatch);
 
         // var ioTopTable = new IoTopTable('io-top-table-panel', socket, serverToWatch);
+
+        var perfCpuTable = new PerfCpuTable('perf-cpu-table-panel', socket, serverToWatch);
       }
     </script>
 
