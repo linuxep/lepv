@@ -657,35 +657,31 @@
         var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);
         var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);
 
-        <!--var cpuIrqChart = new CpuIrqChart("div-cpu-stat-irq-panel", socket, serverToWatch, 'irq');-->
-
-        <!--var cpuNettxIrqChart = new CpuIrqChart("div-cpu-stat-nettxIrq-panel", socket, serverToWatch, 'NET_TX');-->
-
-        <!--var cpuNetrxIrqChart = new CpuIrqChart("div-cpu-stat-netrxIrq-panel", socket, serverToWatch, 'NET_RX');-->
-
-        <!--var cputaskletIrqChart = new CpuIrqChart("div-cpu-stat-taskletIrq-panel", socket, serverToWatch, 'TASKLET');-->
-
-        <!--var cpuhrtimerIrqChart = new CpuIrqChart("div-cpu-stat-hrtimerIrq-panel", socket, serverToWatch, 'HRTIMER');-->
+        var cpuIrqChart = new CpuIrqChart("container-div-cpu-stat-irq", socket, serverToWatch, 'irq');
+        var cpuNettxIrqChart = new CpuIrqChart("container-div-cpu-stat-nettxIrq", socket, serverToWatch, 'NET_TX');
+        var cpuNetrxIrqChart = new CpuIrqChart("container-div-cpu-stat-netrxIrq", socket, serverToWatch, 'NET_RX');
+        var cputaskletIrqChart = new CpuIrqChart("container-div-cpu-stat-taskletIrq", socket, serverToWatch, 'TASKLET');
+        var cpuhrtimerIrqChart = new CpuIrqChart("container-div-cpu-stat-hrtimerIrq", socket, serverToWatch, 'HRTIMER');
 
 
-        <!--var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);-->
+        var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);
 
 
 
-        <!--var cpuTopTable = new CpuTopTable("cpu-top-table-panel", socket, serverToWatch);-->
+        <!--var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);-->
 
-        <!--var memoryChart = new MemoryChart('div-memory-chart-panel', socket, serverToWatch);-->
+        <!--var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);-->
 
-        <!--var memoryStatTable = new MemoryStatTable('memory-stat-table-panel', socket, serverToWatch);-->
+        <!--var memoryStatTable = new MemoryStatTable('container-div-memory-stat-table', socket, serverToWatch);-->
 
-        <!--var memoryFreePssStatChart = new ProcrankFreeVsPieChart('div-memory-free-pss-stat-panel', socket, serverToWatch);-->
+        <!--var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);-->
 
-        <!--var memoryPssStatChart = new ProcrankPssPieChart('div-memory-pss-stat-panel', socket, serverToWatch);-->
+        <!--var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);-->
 
-        <!--var ioStatChart = new IOStatChart('div-io-stat', socket, serverToWatch);-->
-        // var ioTopTable = new IoTopTable('io-top-table-panel', socket, serverToWatch);
+        <!--var ioStatChart = new IOStatChart('container-div-io-stat', socket, serverToWatch);-->
+        // var ioTopTable = new IoTopTable('container-div-io-top-table', socket, serverToWatch);
 
-        var perfCpuTable = new PerfCpuTable('perf-cpu-table-panel', socket, serverToWatch);
+        var perfCpuTable = new PerfCpuTable('container-div-perf-cpu-table', socket, serverToWatch);
       }
     </script>
 

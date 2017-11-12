@@ -7,10 +7,12 @@ var CpuTopTable = function(rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
+
     this.socket_message_key = 'cpu.top';
-    
-//    this.setTableDivName(rootDivName);
-    
+
     this.chartTitle = "CPU Top Table";
     this.chartHeaderColor = 'orange';
     
