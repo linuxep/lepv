@@ -239,25 +239,6 @@
       </div>
 
       <div class="col-md-12">
-        <div id="div-system-load" class="card mb-3">
-          <div class="card-header">
-              <i class="icon-cpu-processor"></i>
-              {% if config == 'debug' %}
-              <span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>
-              {% else %}
-              <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
-              {% endif %}
-          </div>
-          <div class="card-body">
-             <div id="div-system-load-panel" class="chart-panel"></div>
-          </div>
-          <div class="card-footer small text-muted">
-            <i class="fa fa-bell" aria-hidden="true" font-style="arial"> </i>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-12">
 
         <div id="div-cpu-stat-idle" class="card mb-3">
           <div class="card-header">
@@ -363,6 +344,25 @@
                 <div id="div-cpu-stat-hrtimerIrq-panel" class="flot-chart-content"></div>
             </div>
           </div>
+      </div>
+
+      <div class="col-md-12">
+        <div id="container-div-cpu-avgload" class="card mb-3">
+          <div class="card-header">
+              <i class="icon-cpu-processor"></i>
+              {% if config == 'debug' %}
+              <span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>
+              {% else %}
+              <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
+              {% endif %}
+          </div>
+          <div class="card-body">
+              <div id="div-cpu-avgload" class="chart-panel"></div>
+          </div>
+          <div class="card-footer small text-muted">
+            <i class="fa fa-bell" aria-hidden="true" font-style="arial"> </i>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-12">
@@ -603,43 +603,46 @@
           return;
         }
 
-        var cpuGauguChart = new CpuGauguChart('div-cpu-gauge', socket, serverToWatch);
+        <!--var cpuGauguChart = new CpuGauguChart('div-cpu-gauge', socket, serverToWatch);-->
 
-        var memoryGauguChart = new MemoryGauguChart('div-memory-gauge', socket, serverToWatch);
+        <!--var memoryGauguChart = new MemoryGauguChart('div-memory-gauge', socket, serverToWatch);-->
 
-        var ioGauguChart = new IOGauguChart('div-io-gauge', socket, serverToWatch);
+        <!--var ioGauguChart = new IOGauguChart('div-io-gauge', socket, serverToWatch);-->
 
 
 
-        var ioStatChart = new IOStatChart('div-io-stat', socket, serverToWatch);
-        // var cpuAvgloadChart = new CpuAvgLoadChart("div-system-load-panel", socket, serverToWatch);
+        <!--var ioStatChart = new IOStatChart('div-io-stat', socket, serverToWatch);-->
+        <!--var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);-->
+        <!--var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);-->
 
-        var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
-        var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);
+        <!--var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);-->
 
-        var cpuStatUserGroupChart = new CpuStatUserGroupChart("div-cpu-stat-user-group", socket, serverToWatch);
+        <!--var cpuIrqGroupChart = new CpuIrqGroupChart("div-cpu-stat-irqGroup-panel", socket, serverToWatch);-->
 
-        var cpuIrqGroupChart = new CpuIrqGroupChart("div-cpu-stat-irqGroup-panel", socket, serverToWatch);
+        <!--var cpuIrqChart = new CpuIrqChart("div-cpu-stat-irq-panel", socket, serverToWatch, 'irq');-->
 
-        var cpuIrqChart = new CpuIrqChart("div-cpu-stat-irq-panel", socket, serverToWatch, 'irq');
+        <!--var cpuNettxIrqChart = new CpuIrqChart("div-cpu-stat-nettxIrq-panel", socket, serverToWatch, 'NET_TX');-->
 
-        var cpuNettxIrqChart = new CpuIrqChart("div-cpu-stat-nettxIrq-panel", socket, serverToWatch, 'NET_TX');
+        <!--var cpuNetrxIrqChart = new CpuIrqChart("div-cpu-stat-netrxIrq-panel", socket, serverToWatch, 'NET_RX');-->
 
-        var cpuNetrxIrqChart = new CpuIrqChart("div-cpu-stat-netrxIrq-panel", socket, serverToWatch, 'NET_RX');
+        <!--var cputaskletIrqChart = new CpuIrqChart("div-cpu-stat-taskletIrq-panel", socket, serverToWatch, 'TASKLET');-->
 
-        var cputaskletIrqChart = new CpuIrqChart("div-cpu-stat-taskletIrq-panel", socket, serverToWatch, 'TASKLET');
+        <!--var cpuhrtimerIrqChart = new CpuIrqChart("div-cpu-stat-hrtimerIrq-panel", socket, serverToWatch, 'HRTIMER');-->
 
-        var cpuhrtimerIrqChart = new CpuIrqChart("div-cpu-stat-hrtimerIrq-panel", socket, serverToWatch, 'HRTIMER');
 
-        var cpuTopTable = new CpuTopTable("cpu-top-table-panel", socket, serverToWatch);
+        var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);
 
-        var memoryChart = new MemoryChart('div-memory-chart-panel', socket, serverToWatch);
 
-        var memoryStatTable = new MemoryStatTable('memory-stat-table-panel', socket, serverToWatch);
 
-        var memoryFreePssStatChart = new ProcrankFreeVsPieChart('div-memory-free-pss-stat-panel', socket, serverToWatch);
+        <!--var cpuTopTable = new CpuTopTable("cpu-top-table-panel", socket, serverToWatch);-->
 
-        var memoryPssStatChart = new ProcrankPssPieChart('div-memory-pss-stat-panel', socket, serverToWatch);
+        <!--var memoryChart = new MemoryChart('div-memory-chart-panel', socket, serverToWatch);-->
+
+        <!--var memoryStatTable = new MemoryStatTable('memory-stat-table-panel', socket, serverToWatch);-->
+
+        <!--var memoryFreePssStatChart = new ProcrankFreeVsPieChart('div-memory-free-pss-stat-panel', socket, serverToWatch);-->
+
+        <!--var memoryPssStatChart = new ProcrankPssPieChart('div-memory-pss-stat-panel', socket, serverToWatch);-->
 
         // var ioTopTable = new IoTopTable('io-top-table-panel', socket, serverToWatch);
       }

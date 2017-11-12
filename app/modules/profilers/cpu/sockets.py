@@ -4,17 +4,17 @@ from modules.profilers.cpu.CPUProfiler import CPUProfiler
 
 cpu_blueprint = SocketIOBlueprint('')
 
-@cpu_blueprint.on('cpu.count.req')
-def get_cpu_count(server):
-    print('received cpu.count.req: ' + request['server'])
-    server = request['server']
-    profiler = CPUProfiler(server)
-    data = profiler.getProcessorCount()
-
-    if "request_id" in request:
-        data['response_id'] = request['request_id']
-
-    emit('cpu.count.res',  data)
+# @cpu_blueprint.on('cpu.count.req')
+# def get_cpu_count(server):
+#     print('received cpu.count.req: ' + request['server'])
+#     server = request['server']
+#     profiler = CPUProfiler(server)
+#     data = profiler.getProcessorCount()
+#
+#     if "request_id" in request:
+#         data['response_id'] = request['request_id']
+#
+#     emit('cpu.count.res',  data)
 
 @cpu_blueprint.on('cpu.stat.req')
 def get_cpu_stat(request):

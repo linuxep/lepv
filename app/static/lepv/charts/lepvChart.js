@@ -5,15 +5,16 @@
 
 var LepvChart = function(rootDivName, socket, server) {
 
-  this.rootDiv = $("#" + rootDivName);
-  this.setDivName(rootDivName);
-  
-  this.socketIO = socket;
-
+  this.rootDivName = rootDivName;
   this.headerDiv = null;
   this.chartDiv = null;
   this.footerDiv = null;
+  this.footerIcon = null;
   this.mainDivName = null;
+  this.mainDiv = null;
+  this.locateUIElements();
+
+  this.socketIO = socket;
 
   this.serverToWatch = server;
 
@@ -30,10 +31,9 @@ var LepvChart = function(rootDivName, socket, server) {
   // otherwise, it just listen to message, but not send.
   this.isLeadingChart = true;
 
-  this.locateUIElements();
 
-  this.initializeChart();
-  this.setupSocketIO();
+//  this.initializeChart();
+//  this.setupSocketIO();
 
 };
 
@@ -41,32 +41,25 @@ LepvChart.prototype.locateUIElements = function() {
 
     var thisChart = this;
 
-//    <div id="div-cpu-stat-idle" class="card mb-3">
-//      <div class="card-header">
-//        <i class="icon-cpu-processor"></i> CPU Stat: Idle</div>
-//      <div class="card-body">
-//        <div id="div-cpu-stat-idle-panel" class="chart-panel"></div>
-//      </div>
-//      <div class="card-footer small text-muted" hidden>
-//        <span></span>
-//      </div>
-//    </div>
+    if (this.rootDivName.startsWith('#')) {
+        this.rootDivName = divName.substr(1);
+    }
 
-    var rootDivName = 'div-root-cpu-stat-donut';
+    this.rootDiv = $("#" + this.rootDivName)[0];
 
-    var rootDiv = $("#" + rootDivName);
+    this.headerDiv = $("#" + this.rootDivName).find("div.card-header")[0];
 
-    var headerDiv = rootDiv.children("div.card-header")[0];
+    this.footerDiv = $("#" + this.rootDivName).children("div.card-footer")[0];
+//    this.footerIcon = this.footerDiv.firstElementChild;
 
-    var footerDiv = rootDiv.children("div.card-footer")[0];
-    var footerIcon = footerDiv.firstElementChild;
-//    footerIcon.text("dfjaskldfjalskdjfalskdjflasdjf");
-
-    var chartDiv =  rootDiv.children("chart-panel")[0];
+//    var chartDiv = this.rootDiv.children("chart-panel")[0];
 
     // TODO, locate the control elements
+    this.mainDivName = this.rootDivName.replace("container-", "");
+//    this.mainDiv = $("#" + this.rootDivName).children("div.chart-panel")[0];
+//    this.mainDiv.attr("id", this.mainDivName);
 
-//    this.mainDiv = this.rootDiv.children("div.chart-panel").attr('id', 'sdfsfsdf');
+    var s = "";
 //    this.mainDivName = this.mainDiv.getAttribute('name');
 
 };
@@ -112,14 +105,6 @@ LepvChart.prototype.initializeChart = function() {
 
 LepvChart.prototype.updateChartData = function(responseData) {
     console.log("updateChartData() method needs to be overwritten by sub-classes!");
-};
-
-LepvChart.prototype.setDivName = function(divName) {
-  if (divName.startsWith('#')) {
-    this.chartDivName = divName.substr(1);
-  } else {
-    this.chartDivName = divName;
-  }
 };
 
 LepvChart.prototype.setTableDivName = function(tableDivName) {

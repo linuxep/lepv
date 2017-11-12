@@ -16,6 +16,7 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
     this.refreshInterval = 2;
 
     this.chart = null;
+    this.chartData = {};
     this.chartData['last1'] = ['Last minute'];
     this.chartData['last5'] = ['Last 5 minutes'];
     this.chartData['last15'] = ['Last 15 minutes'];
@@ -38,34 +39,14 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
 
     var thisChart = this;
 
-    thisChart.socketIO.on("cpu.count.res", function(response) {
-        console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
-        console.log(response)
-        // responseData = response['data']
-        this.cpuCoreCount = response['count'];
-    });
-    thisChart.socketIO.emit("cpu.count.req", {'server': thisChart.serverToWatch, "request_id": thisChart.socket_request_id});
-
-    console.log(thisChart.cpuCoreCount)
-    while (thisChart.cpuCoreCount == 0){
-        var t = Date.now();
-        while(Date.now - t <= d); 
-    }
-    // console.log(thisChart.cpuCoreCount)
- 
-    thisChart.yellowAlertValue = 0.7 * thisChart.cpuCoreCount;
-    thisChart.redAlertValue = 0.9 * thisChart.cpuCoreCount;
-
-    thisChart.maxValues = [thisChart.cpuCoreCount];
-
     thisChart.chart = c3.generate({
-        bindto: '#' + thisChart.chartDivName,
+        bindto: '#' + this.mainDivName,
         data: {
             x: 'x',
             columns: [thisChart.timeData,
-                thisChart.chartData['last1'],
-                thisChart.chartData['last5'],
-                thisChart.chartData['last15']]
+                ['Last minute'],
+                ['Last 5 minute'],
+                ['Last 15 minute']]
 
         },
         legend: {
@@ -90,7 +71,7 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
                     position: "inner-middle"
                 },
                 min: 0,
-                max: thisChart.cpuCoreCount,
+                max: undefined,
                 padding: {
                     top:10,
                     bottom:10

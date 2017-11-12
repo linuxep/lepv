@@ -9,7 +9,7 @@ var CpuTopTable = function(rootDivName, socket, server) {
 
     this.socket_message_key = 'cpu.top';
     
-    this.setTableDivName(rootDivName);
+//    this.setTableDivName(rootDivName);
     
     this.chartTitle = "CPU Top Table";
     this.chartHeaderColor = 'orange';
