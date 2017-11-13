@@ -3,11 +3,17 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var MemoryChart = function(divName, socket, server) {
+var MemoryChart = function(rootDivName, socket, server) {
 
-    LepvChart.call(this, divName, socket, server);
+    LepvChart.call(this, rootDivName, socket, server);
     this.chartTitle = "RAM Chart";
     this.chartHeaderColor = 'green';
+
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
+
+    this.locateUIElements();
 
     this.socket_message_key = 'memory.status';
     this.isLeadingChart = false;
@@ -38,7 +44,7 @@ MemoryChart.prototype.initializeChart = function() {
     this.chartData['Used'] = ['Used'];
 
     this.chart = c3.generate({
-        bindto: '#' + this.chartDivName,
+        bindto: '#' + this.mainDivName,
         data: {
             x: 'x',
             // the order matters: free -> cached -> buffers -> used

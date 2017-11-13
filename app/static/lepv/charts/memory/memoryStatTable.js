@@ -7,6 +7,12 @@ var MemoryStatTable = function(rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
+
+    this.locateUIElements();
+
     this.socket_message_key = 'memory.procrank';
     
     this.setTableDivName(rootDivName);

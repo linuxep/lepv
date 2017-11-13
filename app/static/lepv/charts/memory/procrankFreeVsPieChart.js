@@ -3,11 +3,17 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var ProcrankFreeVsPieChart = function(divName, socket, server) {
+var ProcrankFreeVsPieChart = function(rootDivName, socket, server) {
 
-    LepvChart.call(this, divName, socket, server);
+    LepvChart.call(this, rootDivName, socket, server);
     this.chartTitle = "RAM Chart";
     this.chartHeaderColor = 'green';
+
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
+
+    this.locateUIElements();
 
     this.socket_message_key = 'memory.procrank';
     this.isLeadingChart = false;
@@ -32,7 +38,7 @@ ProcrankFreeVsPieChart.prototype.constructor = ProcrankFreeVsPieChart;
 ProcrankFreeVsPieChart.prototype.initializeChart = function() {
     
    this.chart = c3.generate({
-        bindto: '#' + this.chartDivName,
+        bindto: '#' + this.mainDivName,
         data: {
             columns: this.chartData,
             type : 'donut'
