@@ -384,7 +384,7 @@
       </div>
 
       <div class="col-md-12">
-          <div id="container-cpu-top-table" class="card mb-3">
+          <div id="container-div-cpu-top-table" class="card mb-3">
             <div class="card-header">
                 {% if config == 'debug' %}
                 <i class="icon-cpu-processor"></i> CPU TOP -[GetCmdTop]
@@ -393,7 +393,7 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="cpu-top-table" class="display compact" cellspacing="0"></table>
+                <table id="div-cpu-top-table" class="display compact" cellspacing="0"></table>
             </div>
           </div>
       </div>
@@ -652,23 +652,22 @@
         <!--var ioGauguChart = new IOGauguChart('div-io-gauge', socket, serverToWatch);-->
 
 
-        var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);
-        var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);
-        var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);
-        var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);
+        <!--var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);-->
+        <!--var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);-->
+        <!--var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);-->
+        <!--var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);-->
 
-        var cpuIrqChart = new CpuIrqChart("container-div-cpu-stat-irq", socket, serverToWatch, 'irq');
-        var cpuNettxIrqChart = new CpuIrqChart("container-div-cpu-stat-nettxIrq", socket, serverToWatch, 'NET_TX');
-        var cpuNetrxIrqChart = new CpuIrqChart("container-div-cpu-stat-netrxIrq", socket, serverToWatch, 'NET_RX');
-        var cputaskletIrqChart = new CpuIrqChart("container-div-cpu-stat-taskletIrq", socket, serverToWatch, 'TASKLET');
-        var cpuhrtimerIrqChart = new CpuIrqChart("container-div-cpu-stat-hrtimerIrq", socket, serverToWatch, 'HRTIMER');
-
-
-        var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);
+        <!--var cpuIrqChart = new CpuIrqChart("container-div-cpu-stat-irq", socket, serverToWatch, 'irq');-->
+        <!--var cpuNettxIrqChart = new CpuIrqChart("container-div-cpu-stat-nettxIrq", socket, serverToWatch, 'NET_TX');-->
+        <!--var cpuNetrxIrqChart = new CpuIrqChart("container-div-cpu-stat-netrxIrq", socket, serverToWatch, 'NET_RX');-->
+        <!--var cputaskletIrqChart = new CpuIrqChart("container-div-cpu-stat-taskletIrq", socket, serverToWatch, 'TASKLET');-->
+        <!--var cpuhrtimerIrqChart = new CpuIrqChart("container-div-cpu-stat-hrtimerIrq", socket, serverToWatch, 'HRTIMER');-->
 
 
+        <!--var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);-->
 
-        <!--var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);-->
+
+        var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);
 
         <!--var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);-->
 
