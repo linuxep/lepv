@@ -630,7 +630,7 @@
 
 
         var ioStatChart = new IOStatChart('div-io-stat', socket, serverToWatch);
-        // var cpuAvgloadChart = new CpuAvgLoadChart("div-system-load-panel", socket, serverToWatch);
+        var cpuAvgloadChart = new CpuAvgLoadChart("div-system-load-panel", socket, serverToWatch);
 
         var cpuStatDonutChart = new CpuStatDonutChart("div-cpu-stat", socket, serverToWatch);
         var cpuStatIdleChart = new CpuStatIdleChart("div-cpu-stat-idle", socket, serverToWatch);

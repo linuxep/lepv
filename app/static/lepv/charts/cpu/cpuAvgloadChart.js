@@ -27,6 +27,8 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
     this.defaultMaxValue = 1;
     this.maxValues = [1];
 
+    this.initialized = false;
+
     this.initializeChart();
     this.setupSocketIO();
 };
@@ -37,22 +39,21 @@ CpuAvgLoadChart.prototype.constructor = CpuAvgLoadChart;
 CpuAvgLoadChart.prototype.initializeChart = function() {
 
     var thisChart = this;
-
     thisChart.socketIO.on("cpu.count.res", function(response) {
-        console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
+        console.log("  <- cpu.count.res(" + response['response_id'] + ")");
         console.log(response)
-        // responseData = response['data']
-        this.cpuCoreCount = response['count'];
+        thisChart.cpuCoreCount = response['count'];
+        if (thisChart.initialized == false) {
+            thisChart.initChart();
+        }
     });
+    this.socket_request_id++;
     thisChart.socketIO.emit("cpu.count.req", {'server': thisChart.serverToWatch, "request_id": thisChart.socket_request_id});
 
-    console.log(thisChart.cpuCoreCount)
-    while (thisChart.cpuCoreCount == 0){
-        var t = Date.now();
-        while(Date.now - t <= d); 
-    }
-    // console.log(thisChart.cpuCoreCount)
- 
+};
+
+CpuAvgLoadChart.prototype.initChart = function(){
+    var thisChart = this;
     thisChart.yellowAlertValue = 0.7 * thisChart.cpuCoreCount;
     thisChart.redAlertValue = 0.9 * thisChart.cpuCoreCount;
 
@@ -105,10 +106,16 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
             }
         }
     });
-
-};
+    thisChart.initialized = true;
+}
 
 CpuAvgLoadChart.prototype.updateChartData = function(responseData) {
+    if (this.initialized == false) {
+        this.socket_request_id++;
+        this.socketIO.emit("cpu.count.req", {'server': this.serverToWatch, "request_id": this.socket_request_id});
+        return
+    }
+
     data = responseData['data'];
     // console.log(data);
     if (this.chart == null) {
