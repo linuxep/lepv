@@ -7,6 +7,12 @@ var IoTopTable = function(rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
+
+    this.locateUIElements();
+
     this.socket_message_key = 'io.top';
     
     this.setTableDivName(rootDivName);
@@ -25,7 +31,7 @@ IoTopTable.prototype = Object.create(LepvChart.prototype);
 IoTopTable.prototype.constructor = IoTopTable;
 
 IoTopTable.prototype.initializeChart = function() {
-    this.table = $(this.tableDivName).DataTable( {
+    this.table = $('#' + this.mainDivName).DataTable( {
         destroy: true,
         paging: false,
         info: false,
