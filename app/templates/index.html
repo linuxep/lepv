@@ -411,7 +411,7 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="div-memory-chart" class="display compact" cellspacing="0"></table>
+               <div id="div-memory-chart" class="display compact" cellspacing="0"></div>
             </div>
           </div>
       </div>
@@ -671,7 +671,7 @@
         <!--var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);-->
 
         // memory chart is NOT working...
-        <!--var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);-->
+        var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);
 
         // memory stat table working.
         <!--var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);-->
@@ -679,9 +679,9 @@
         <!--var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);-->
 
         <!--var ioStatChart = new IOStatChart('container-div-IOCharts', socket, serverToWatch);-->
-        var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);
+        <!--var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);-->
 
-        var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
+        <!--var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);-->
       }
     </script>
 

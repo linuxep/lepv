@@ -134,4 +134,8 @@ MemoryChart.prototype.updateChartData = function(response) {
             this.chartData['Free']]
     });
 
+    if (this.isLeadingChart) {
+        this.requestData();
+    }
+
 };
