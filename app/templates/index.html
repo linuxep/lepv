@@ -484,7 +484,7 @@
       </div>
 
       <div class="col-md-12">
-          <div id="container-div-io-top-table" class="card mb-3">
+          <div id="container-io-top-table" class="card mb-3">
             <div class="card-header">
                 {% if config == 'debug' %}
                 <i class="icon-syncalt"></i> I/O Top Table -[GetCmdIotop]
@@ -493,13 +493,13 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="div-io-top-table" class="display compact" cellspacing="0"></table>
+               <table id="io-top-table" class="display compact" cellspacing="0"></table>
             </div>
           </div>
       </div>
 
       <div class="col-md-12">
-          <div id="perf-cpu-table" class="card mb-3">
+          <div id="container-perf-cpu-table" class="card mb-3">
             <div class="card-header">
                 <i class="glyphicon glyphicon-tasks"></i>
                 {% if config == 'debug' %}
@@ -509,7 +509,7 @@
                 {% endif %}
             </div>
             <div class="card-body">
-               <table id="perf-cpu-table-panel" class="display compact" cellspacing="0"></table>
+               <table id="perf-cpu-table" class="display compact" cellspacing="0"></table>
             </div>
           </div>
       </div>
@@ -674,12 +674,12 @@
         <!--var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);-->
 
         // memory stat table working.
-        var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);
-        var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);
-        var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);
+        <!--var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);-->
+        <!--var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);-->
+        <!--var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);-->
 
-        <!--var ioStatChart = new IOStatChart('container-div-io-stat', socket, serverToWatch);-->
-        // var ioTopTable = new IoTopTable('container-div-io-top-table', socket, serverToWatch);
+        var ioStatChart = new IOStatChart('container-div-IOCharts', socket, serverToWatch);
+        <!--// var ioTopTable = new IoTopTable('container-div-io-top-table', socket, serverToWatch);-->
 
         <!--var perfCpuTable = new PerfCpuTable('container-div-perf-cpu-table', socket, serverToWatch);-->
       }

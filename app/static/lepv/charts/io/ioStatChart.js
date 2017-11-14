@@ -3,11 +3,17 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var IOStatChart = function(divName, socket, server) {
+var IOStatChart = function(rootDivName, socket, server) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
-    LepvChart.call(this, divName, socket, server);
+    LepvChart.call(this, rootDivName, socket, server);
+
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
+
+    this.locateUIElements();
 
     this.socket_message_key = 'io.status';
 
@@ -17,7 +23,6 @@ var IOStatChart = function(divName, socket, server) {
     
     this.chartTitle = "IO Stat Chart";
     this.chartHeaderColor = 'yellow';
-
 
     this.maxDataCount = 150;
     this.refreshInterval = 2;
@@ -34,7 +39,7 @@ IOStatChart.prototype.constructor = IOStatChart;
 IOStatChart.prototype.initializeChart = function() {
     
     this.chart = c3.generate({
-        bindto: '#' + this.chartDivName,
+        bindto: '#' + this.mainDivName,
         data: {
             x: 'x',
             columns: [['x'], ['read'], ['write']]
