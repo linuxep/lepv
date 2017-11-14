@@ -66,7 +66,7 @@ class PerfProfiler:
         return responseData
 
 if( __name__ =='__main__' ):
-    profiler = PerfProfiler(server='www.linxuexueyuan.com', config='debug')
+    profiler = PerfProfiler(server='www.rmlink.cn', config='debug')
 
     pp = pprint.PrettyPrinter(indent=2)
     

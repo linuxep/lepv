@@ -16,7 +16,6 @@ var MemoryChart = function(rootDivName, socket, server) {
     this.locateUIElements();
 
     this.socket_message_key = 'memory.status';
-    this.isLeadingChart = false;
 
     this.socket_response = null;
     this.chart = null;

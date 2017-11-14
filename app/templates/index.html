@@ -654,7 +654,7 @@
 
         <!--var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);-->
         <!--var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);-->
-        var cpuAvgloadChart = new CpuAvgLoadChart("div-system-load-panel", socket, serverToWatch);
+        <!--var cpuAvgloadChart = new CpuAvgLoadChart("div-system-load-panel", socket, serverToWatch);-->
         <!--var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);-->
         <!--var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);-->
 
@@ -670,13 +670,13 @@
 
         <!--var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);-->
 
-        var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);
+        // memory chart is NOT working...
+        <!--var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);-->
 
-        <!--var memoryStatTable = new MemoryStatTable('container-div-memory-stat-table', socket, serverToWatch);-->
-
-        <!--var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);-->
-
-        <!--var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);-->
+        // memory stat table working.
+        var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);
+        var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);
+        var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);
 
         <!--var ioStatChart = new IOStatChart('container-div-io-stat', socket, serverToWatch);-->
         // var ioTopTable = new IoTopTable('container-div-io-top-table', socket, serverToWatch);

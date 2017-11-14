@@ -15,8 +15,6 @@ var MemoryStatTable = function(rootDivName, socket, server) {
 
     this.socket_message_key = 'memory.procrank';
     
-    this.setTableDivName(rootDivName);
-    
     this.chartTitle = "Memory Stat Table";
     this.chartHeaderColor = 'green';
     
@@ -34,7 +32,7 @@ MemoryStatTable.prototype = Object.create(LepvChart.prototype);
 MemoryStatTable.prototype.constructor = MemoryStatTable;
 
 MemoryStatTable.prototype.initializeChart = function() {
-    this.table = $(this.tableDivName).DataTable( {
+    this.table = $('#' + this.mainDivName).DataTable( {
         destroy: true,
         paging: false,
         info: false,
