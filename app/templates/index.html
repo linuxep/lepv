@@ -668,10 +668,8 @@
 
         var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);
 
-        // memory chart is NOT working...
         var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);
 
-        // memory stat table working.
         var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);
         var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);
         var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);
