@@ -108,6 +108,10 @@ class IOProfiler:
         ioTopResults = {}
         ioTopResults['data'] = {}
         ioTopResults['rawResult'] = ioTopLines[:]
+        print(len(ioTopLines))
+        if (len(ioTopLines) < 2):
+            return ioTopResults
+
         
         dataLineStartingIndex = 0
         for line in ioTopLines:
@@ -171,6 +175,7 @@ if( __name__ =='__main__' ):
     
     # monitor = IOMonitor('www.rmlink.cn')
     pp.pprint(profiler.get_io_top())
+    profiler.get_io_top()
     # pp.pprint(profiler.getIoPPData())
 
     # to make a io change on server:  sudo dd if=/dev/sda of=/dev/null &

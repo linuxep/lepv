@@ -69,7 +69,6 @@ IoTopTable.prototype.initializeChart = function() {
 };
 
 IoTopTable.prototype.updateChartData = function(response) {
-    console.log(response)
     data = response['data']
     // console.log(data)
     var thisChart = this;

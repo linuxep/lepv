@@ -5,7 +5,7 @@ from modules.profilers.cpu.CPUProfiler import CPUProfiler
 cpu_blueprint = SocketIOBlueprint('')
 
 # @cpu_blueprint.on('cpu.count.req')
-# def get_cpu_count(server):
+def get_cpu_count(request):
 #     print('received cpu.count.req: ' + request['server'])
 #     server = request['server']
 #     profiler = CPUProfiler(server)
