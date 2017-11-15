@@ -1,15 +1,15 @@
 """Tests for CPU profiler method: GetCmdMpstat"""
-from modules.utils.dictUtil import DictUtil
-from tests.profilers.lepvTestCase import LepvTestCase
+from app.modules.utils.dictUtil import DictUtil
+from app.tests.profilers.lepvTestCase import LepvTestCase
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
-from ddt import ddt, file_data
+from app.tests.jsondt import ddt, file_data
 from pprint import pprint
 
-from modules.profilers.cpu.CPUProfiler import CPUProfiler
+from app.modules.profilers.cpu.CPUProfiler import CPUProfiler
 
 @ddt
 class GetCmdMpstatTestCase(LepvTestCase):
@@ -33,7 +33,7 @@ class GetCmdMpstatTestCase(LepvTestCase):
 
 
     @file_data("unittests.json")
-    def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
+    def test(self, kernel, os, cpu, note, expectedMatchType, lepdResult, expected):
         self.describe(kernel, os, cpu, note, expectedMatchType, expected)
 
         actual = self.profiler.get_stat(lepdResult)
