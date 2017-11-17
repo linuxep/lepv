@@ -6,7 +6,7 @@ IMAGE_NAME=lepv
 IMAGE_TAG=latest
 
 CONTAINER_NAME=lepv
-CONTAINER_PORT=80
+CONTAINER_PORT=8889
 HOST_BIND_PORT=8889
 ######################################
 
