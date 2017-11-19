@@ -33,23 +33,23 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="sideBarAccordion">
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title=" Summary">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSummaryMenu" data-parent="#sideBarAccordion">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Summary</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseSummaryMenu">
-            <li>
-              <a href="#">CPU</a>
-            </li>
-            <li>
-              <a href="#">CPU</a>
-            </li>
-            <li>
-              <a href="#">IO</a>
-            </li>
-          </ul>
-        </li>
+        <!--<li class="nav-item" data-toggle="tooltip" data-placement="right" title=" Summary">-->
+          <!--<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSummaryMenu" data-parent="#sideBarAccordion">-->
+            <!--<i class="fa fa-fw fa-dashboard"></i>-->
+            <!--<span class="nav-link-text">Summary</span>-->
+          <!--</a>-->
+          <!--<ul class="sidenav-second-level collapse" id="collapseSummaryMenu">-->
+            <!--<li>-->
+              <!--<a href="#">CPU</a>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<a href="#">MEMORY</a>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<a href="#">IO</a>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</li>-->
 
 
 
@@ -150,80 +150,84 @@
   </nav>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <div class="col-md-12">
-        <div id='Summary' class="card mb-3">
-          <div class="card-header">
-              <i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}
-          </div>
-          <div class="card-body">
-              <div class="row">
-                  <div class="col-md-3">
-                      <div class="card-body">
-                          <div id="div-cpu-gauge"></div>
 
-                          <div class="panel-footer text-center">
-                              {% if config == 'debug' %}
-                              处理器 - [GetCmdMpstat]
-                              {% else %}
-                              处理器
-                              {% endif %}
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="card-body">
-                          <div id="div-memory-gauge"></div>
-                          <div class="panel-footer text-center">
-                              {% if config == 'debug' %}
-                              内存 - [GetProcMeminfo]
-                              {% else %}
-                              内存
-                              {% endif %}
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="card-body">
-                          <div id="div-io-gauge"></div>
-                          <div class="panel-footer text-center">
-                              {% if config == 'debug' %}
-                              磁盘 - [GetCmdIostat]
-                              {% else %}
-                              磁盘
-                              {% endif %}
-                          </div>
-                      </div>
-                  </div>
-              </div>
 
-              <div class="row">
-                  <div class="col-md-3">
-                      {% if config == 'debug' %}
-                      <div>[GetProcCpuinfo]</div>
-                      {% endif %}
-                      <div id="div-cpu-summary" class="panel panel-green">
-                      </div>
-                  </div>
+      <!--<div class="col-md-12">-->
+        <!--<div id='Summary' class="card mb-3">-->
+          <!--<div class="card-header">-->
+              <!--<i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}-->
+          <!--</div>-->
+          <!--<div class="card-body">-->
+              <!---->
+              <!---->
+              <!--<div class="row">-->
+                  <!--<div class="col-md-3">-->
+                      <!--<div class="card-body">-->
+                          <!--<div id="div-cpu-gauge"></div>-->
 
-                  <div class="col-md-3">
-                      {% if config == 'debug' %}
-                      <div>[GetProcMeminfo]</div>
-                      {% endif %}
-                      <div id="div-memory-summary" class="panel panel-green">
-                      </div>
-                  </div>
+                          <!--<div class="panel-footer text-center">-->
+                              <!--{% if config == 'debug' %}-->
+                              <!--处理器 - [GetCmdMpstat]-->
+                              <!--{% else %}-->
+                              <!--处理器-->
+                              <!--{% endif %}-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-3">-->
+                      <!--<div class="card-body">-->
+                          <!--<div id="div-memory-gauge"></div>-->
+                          <!--<div class="panel-footer text-center">-->
+                              <!--{% if config == 'debug' %}-->
+                              <!--内存 - [GetProcMeminfo]-->
+                              <!--{% else %}-->
+                              <!--内存-->
+                              <!--{% endif %}-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-3">-->
+                      <!--<div class="card-body">-->
+                          <!--<div id="div-io-gauge"></div>-->
+                          <!--<div class="panel-footer text-center">-->
+                              <!--{% if config == 'debug' %}-->
+                              <!--磁盘 - [GetCmdIostat]-->
+                              <!--{% else %}-->
+                              <!--磁盘-->
+                              <!--{% endif %}-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
 
-                  <div class="col-md-3">
-                      {% if config == 'debug' %}
-                      <div>[GetCmdDf]</div>
-                      {% endif %}
-                      <div id="div-io-summary" class="panel panel-green">
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-      </div>
+              <!--<div class="row">-->
+                  <!--<div class="col-md-3">-->
+                      <!--{% if config == 'debug' %}-->
+                      <!--<div>[GetProcCpuinfo]</div>-->
+                      <!--{% endif %}-->
+                      <!--<div id="div-cpu-summary" class="panel panel-green">-->
+                      <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-3">-->
+                      <!--{% if config == 'debug' %}-->
+                      <!--<div>[GetProcMeminfo]</div>-->
+                      <!--{% endif %}-->
+                      <!--<div id="div-memory-summary" class="panel panel-green">-->
+                      <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-3">-->
+                      <!--{% if config == 'debug' %}-->
+                      <!--<div>[GetCmdDf]</div>-->
+                      <!--{% endif %}-->
+                      <!--<div id="div-io-summary" class="panel panel-green">-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
 
 
@@ -253,7 +257,7 @@
           <div class="card-body">
             <div id="div-cpu-stat-idle" class="chart-panel"></div>
           </div>
-          <div class="card-footer small text-muted">
+          <div class="card-footer small text-muted" hidden>
             <i class="fa fa-bell" aria-hidden="true" font-style="arial"> </i>
           </div>
         </div>
@@ -303,10 +307,8 @@
                   <i class="icon-cpu-processor"></i>
                   <span class="spanTitle">{{ languages.cpuIrqChartTitle }}</span>
               </div>
-              <div class="panel-body">
-                  <div class="flot-chart">
-                      <div id="div-cpu-stat-irq" class="flot-chart-content"></div>
-                  </div>
+              <div class="card-body">
+                  <div id="div-cpu-stat-irq" class="flot-chart-content"></div>
               </div>
               <div class="card-footer small text-muted" hidden>
                 <i class="fa fa-bell" aria-hidden="true"> </i>
@@ -377,7 +379,7 @@
           <div class="card-body">
               <div id="div-cpu-avgload" class="chart-panel"></div>
           </div>
-          <div class="card-footer small text-muted">
+          <div class="card-footer small text-muted" hidden>
             <i class="fa fa-bell" aria-hidden="true" font-style="arial"> </i>
           </div>
         </div>
