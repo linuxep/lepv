@@ -631,6 +631,16 @@
     <script>
       function startWatching() {
 
+        if ( !$("#txt_server_to_watch").val()) {
+            return;
+        }
+
+        if (serverToWatch == $("#txt_server_to_watch").val()) {
+          return;
+        }
+
+        serverToWatch = $("#txt_server_to_watch").val();
+
         console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
 
         socket = io.connect('http://' + document.domain + ':' + location.port);
@@ -640,11 +650,6 @@
         } else {
             alert("Socket not connected");
             return;
-        }
-
-        serverToWatch = $("#txt_server_to_watch").val();
-        if (serverToWatch == null) {
-          return;
         }
 
         <!--var cpuGauguChart = new CpuGauguChart('div-cpu-gauge', socket, serverToWatch);-->
