@@ -1,0 +1,10 @@
+version: '2'
+services:
+  webapp:
+    build: ./app
+  proxy:
+    build: ./nginx
+    ports:
+      - "8889:80"
+    links:
+      - "webapp"
