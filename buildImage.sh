@@ -1,13 +1,12 @@
 #!/bin/bash
 
-#####  APP specific variables  #######
-DOCKER_USER=linuxep
-IMAGE_NAME=lepv
-IMAGE_TAG=latest
-######################################
+which docker-compose > /dev/null 2>&1
+if [ $? == 0 ]; then
+    echo "docker-compose exist"
+else
+    curl -L https://get.daocloud.io/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+	chmod +x /usr/local/bin/docker-compose
+fi
+docker-compose build
 
-
-echo "Building docker image = ${DOCKER_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
-docker build -f docker/Dockerfile -t ${DOCKER_USER}/${IMAGE_NAME}':'${IMAGE_TAG} .
-
-echo "Generated docker image = ${DOCKER_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
+# echo "Generated docker image = ${DOCKER_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
