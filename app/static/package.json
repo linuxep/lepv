@@ -1,0 +1,7 @@
+{
+  "name": "lepv",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "3.3.7"
+  }
+}
