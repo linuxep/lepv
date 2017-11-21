@@ -205,25 +205,6 @@ LepvChart.prototype.createControlElements = function() {
   this.controlElements['pauseResumeDiv'] = elementPauseResumeDiv;
   this.controlElements['headingParentDiv'] = divHeadingParentPanel;
 
-  // find the footer div
-  var panelFooter = divHeadingParentPanel.children('.panel-footer').first();
-  if (panelFooter != null) {
-    this.controlElements['panelFooter'] = panelFooter;
-
-    var footerSpan = panelFooter.children('span').first();
-    if (footerSpan != null) {
-        this.controlElements['footerSpan'] = footerSpan;
-    }
-
-    var footerIcon = panelFooter.children('i').first();
-    if (footerIcon != null) {
-        this.controlElements['footerIcon'] = footerIcon;
-    }
-
-  } else {
-    this.controlElements['panelFooter'] = null;
-  }
-
 };
 
 LepvChart.prototype.start = function(serverToMonitor) {
@@ -311,8 +292,8 @@ LepvChart.prototype.refresh = function() {
     thisChart.responseId++;
 
     var dataMessages = {}
-    if ('messages' in responseData) {
-        dataMessages = responseData['messages']
+    if ('message' in responseData) {
+        dataMessages = responseData['message']
     }
     
     thisChart.updateChartData(responseData['data'], dataMessages);

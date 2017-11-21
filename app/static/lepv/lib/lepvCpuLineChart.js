@@ -17,15 +17,6 @@ var LepvCpuLineChart = function(divName, chartTitle) {
     this.maxDataCount = 150;
     this.refreshInterval = 2;
     this.timeData = ['x'];
-
-    this.panelFooter = this.controlElements['panelFooter'];
-    this.loadBalanceWatcher = {
-        "balanced": true,
-        "count": 0
-    };  // true or false, where true for load balance, and false for NOT balance
-
-    this.loadBalanceLimit = 3;
-    this.UnBalanceHappened = false;
     
     this.updateChartHeader();
     this.initialize();
@@ -61,15 +52,11 @@ LepvCpuLineChart.prototype.initialize = function() {
             },
             y: {
                 label: {
-                    text: ' %',
-                    position: "outter-middle"
+                    position: "inner-middle"
                 },
                 min: 0,
                 max: 100,
-                padding: {
-                    top:10,
-                    bottom:10
-                }
+                padding: {top:0, bottom:0}
             }
         },
         tooltip: {
@@ -82,7 +69,7 @@ LepvCpuLineChart.prototype.initialize = function() {
     });
 };
 
-LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
+LepvCpuLineChart.prototype.updateChartData = function(data, messages) {
 
     var thisChart = this;
     if ( !( 'CPU-0' in this.chartData) ) {
@@ -114,75 +101,4 @@ LepvCpuLineChart.prototype.updateChartData = function(data, messages=[]) {
     this.chart.load({
         columns: columnDatas
     });
-
-    // temp logic, not every chart has a footer yet.
-    if (this.panelFooter == null) {
-        return;
-    }
-
-    if (this.chartDivName != 'div-cpu-stat-irqGroup' && this.chartDivName != 'div-cpu-stat-idle'){
-        return;
-    }
-
-    console.log("Irq+SoftIrq: " + data['0'] + "-" + data['1']);
-
-    if (messages.length > 0) {
-        console.log("    - Load NOT Balanced snapshot, warning detected");
-
-        // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
-        if (this.loadBalanceWatcher['balanced'] == false) {
-
-            this.loadBalanceWatcher['count'] = this.loadBalanceWatcher['count'] + 1;
-            console.log("    - Load NOT Balanced snapshot - " + this.loadBalanceWatcher['count'] + " occurrences in a row");
-            if (this.loadBalanceWatcher['count'] == this.loadBalanceLimit) {
-
-                if (this.panelFooter.children('i').length == 0 ) {
-                    var icon = $("<i></i>").addClass("glyphicon glyphicon-bell");
-                    this.panelFooter.append(icon);
-                    thisChart.controlElements['footerIcon'] = icon;
-                }
-
-                if (this.panelFooter.children('span').length == 0 ) {
-                    var span = $("<span></span>").addClass("spanTitle");
-                    this.panelFooter.append(span);
-                    thisChart.controlElements['footerSpan'] = span;
-                }
-                thisChart.controlElements['footerSpan'].text(' ' + messages[0].message);
-
-                this.UnBalanceHappened = true;
-                if (this.chartDivName != 'div-cpu-stat-irqGroup') {
-                    alert(messages[0].message + ", Please check CPU Stat: Irq+SoftIrq chart");
-                }
-            }
-
-        } else {
-            // previous snapshots are "balanced"
-            this.loadBalanceWatcher = {
-                "balanced": false,
-                 "count": 1
-            }
-        }
-
-    } else {
-
-        console.log("    ~ Load Balanced snapshot");
-
-        // if current snapshot has warning, and 10+ previous snapshots in a row have warning too, the system is considered load NOT balanced.
-        if (this.loadBalanceWatcher['balanced'] == true) {
-
-            this.loadBalanceWatcher['count'] = this.loadBalanceWatcher['count'] + 1;
-            console.log("    ~ Load Balanced snapshot - " + this.loadBalanceWatcher['count'] + " occurrences in a row");
-            if (this.loadBalanceWatcher['count'] == this.loadBalanceLimit && this.UnBalanceHappened) {
-                this.panelFooter.empty();
-                this.UnBalanceHappened = false;   // clear the flag
-                alert("Load is now balanced!");
-            }
-        } else {
-            // previous snapshots are "NOT balanced", this is a status switch
-            this.loadBalanceWatcher = {
-                "balanced": true,
-                 "count": 1
-            }
-        }
-    }
 };

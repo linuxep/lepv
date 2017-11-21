@@ -56,6 +56,24 @@ function createControlElements(chartElement, headingParentColor) {
 
     elementPauseResumeLink.append(elementPauseResumeDiv);
     divHeadingPanel.append(elementPauseResumeLink);
+
+
+//    <a href="#" title="Dismissible popover" data-toggle="popover" data-trigger="focus" data-content="Click anywhere in the document to close this popover">Click me</a>
+
+
+    var warningInfoLink = $("<a></a>")
+                          .attr("href", "#")
+                          .attr("title", "dismiss me anywhere")
+                          .attr("data-toggle", "popover")
+                          .attr("data-trigger", "focus")
+                          .attr("data-content", "haha")
+                          .text("Click me")
+                          .val('sdfadsf');
+
+    divHeadingPanel.append(warningInfoLink);
+
+
+
     createdElements['pauseResumeLink'] = elementPauseResumeLink;
     createdElements['pauseResumeDiv'] = elementPauseResumeDiv;
     createdElements['headingParentDiv'] = divHeadingParentPanel;

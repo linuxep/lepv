@@ -1,11 +1,22 @@
 
 """Module for CPU Profiler"""
-
-
 from flask import Blueprint, jsonify, request
 from modules.profilers.cpu.CPUProfiler import CPUProfiler
 
 cpuAPI = Blueprint('cpuAPI', __name__, url_prefix='/api/cpu')
+
+# @socketio.on('client_connected')
+# def handle_my_custom_event(json):
+#     print('received json: ' + str(json))
+#     emit('server_confirmed', "socket io response!!!!!")
+
+# @socketio.on('joined', namespace='/chat')
+# def joined(message):
+#     """Sent by clients when they enter a room.
+#     A status message is broadcast to all people in the room."""
+#     room = session.get('room')
+#     join_room(room)
+#     emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
 
 
 @cpuAPI.route('/capacity/<server>')
@@ -73,4 +84,6 @@ def get_average_load(server):
     if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']
     return jsonify(data)
+
+
 

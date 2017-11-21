@@ -57,11 +57,7 @@ LepvIOStatChart.prototype.initialize = function() {
             y: {
                 label: {
                     text: "KB/S",
-                    position: "outter-middle"
-                },
-                padding: {
-                    top:10,
-                    bottom:10
+                    position: "inner-middle"
                 }
             }
         },

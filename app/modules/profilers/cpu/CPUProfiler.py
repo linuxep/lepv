@@ -265,17 +265,26 @@ class CPUProfiler:
 
         return componentInfo
 
-    def get_stat(self):
+    def get_stat(self, response_lines=[]):
 
-        results = self.client.getCmdMpStat()
-        if not results:
+        if not response_lines:
+            response_lines = self.client.getResponse('GetCmdMpstat')
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
+
+
+        # discard the first two lines
+        response_lines.pop(0)
+        response_lines.pop(0)
+
+        if not response_lines:
             return None
-        results.pop(0)
+            response_lines.pop(0)
 
         # Basic data, basically for debugging
         stat_data = {
             "lepd_command": "GetCmdMpstat",
-            "rawResult": results,
+            "rawResult": response_lines,
             "server": self.server
         }
 
@@ -286,7 +295,7 @@ class CPUProfiler:
         # Core data, for displaying
         stat_data['data'] = {}
         stat_data['data']['cpu_stat'] = {}
-        for line in results:
+        for line in response_lines:
             
             if (line.strip() == ''):
                 break
@@ -294,18 +303,22 @@ class CPUProfiler:
             line_values = line.split()
 
             cpu_stat = {}
-            cpu_stat['idle'] = self.client.toDecimal(line_values[-1])
-            cpu_stat['gnice'] = self.client.toDecimal(line_values[-2])
-            cpu_stat['guest'] = self.client.toDecimal(line_values[-3])
-            cpu_stat['steal'] = self.client.toDecimal(line_values[-4])
-            cpu_stat['soft'] = self.client.toDecimal(line_values[-5])
-            cpu_stat['irq'] = self.client.toDecimal(line_values[-6])
-            cpu_stat['iowait'] = self.client.toDecimal(line_values[-7])
-            cpu_stat['system'] = self.client.toDecimal(line_values[-8])
-            cpu_stat['nice'] = self.client.toDecimal(line_values[-9])
-            cpu_stat['user'] = self.client.toDecimal(line_values[-10])
+            try:
+                cpu_stat['idle'] = float(line_values[-1])
+                cpu_stat['gnice'] = float(line_values[-2])
+                cpu_stat['guest'] = float(line_values[-3])
+                cpu_stat['steal'] = float(line_values[-4])
+                cpu_stat['soft'] = float(line_values[-5])
+                cpu_stat['irq'] = float(line_values[-6])
+                cpu_stat['iowait'] = float(line_values[-7])
+                cpu_stat['system'] = float(line_values[-8])
+                cpu_stat['nice'] = float(line_values[-9])
+                cpu_stat['user'] = float(line_values[-10])
 
-            cpu_name = line_values[-11]
+                cpu_name = line_values[-11]
+            except Exception as err:
+                print(err)
+                continue
 
             # this is for mocking data
             # current_minute = datetime.now().minute
@@ -329,12 +342,12 @@ class CPUProfiler:
             stat_data['messages'].append(analysis_report)
 
         #get irq info from stat_data
-        irq_info = self.get_irq(results)
+        irq_info = self.get_irq(response_lines)
         if (irq_info != None):
             stat_data['data']['irq'] = irq_info['data']
 
         #get soft irq info from stat_data
-        softirq_info = self.get_soft_irq(results)
+        softirq_info = self.get_soft_irq(response_lines)
         if (softirq_info != None):
             stat_data['data']['softirq'] = softirq_info['data']
 
@@ -365,7 +378,7 @@ class CPUProfiler:
             nextIrqValue = irq_list[index+1]['irq'] + irq_list[index+1]['soft']
 
             variance = abs(irqValue - nextIrqValue)
-            print("variance: " + str(variance))
+            # print("variance: " + str(variance))
             if variance >= self.loadBalanceBenchMark:
             # if randrange(10) > 4:   # this is just for mocking
                 print("IRQ variance=" + str(variance) + ">=0.4, load NOT balanced")
@@ -374,8 +387,8 @@ class CPUProfiler:
                     "message": "Load NOT balanced! ",
                     "time": strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 }
-            else:
-                print("IRQ variance less than 0.3, load balanced")
+            # else:
+                # print("IRQ variance less than 0.3, load balanced")
 
         return None
 
