@@ -27,6 +27,9 @@ def get_cpu_stat(request):
     if "request_id" in request:
         data['response_id'] = request['request_id']
 
+    if "request_time" in request:
+        data['request_time'] = request['request_time']
+
     emit('cpu.stat.res',  data)
 
 
@@ -40,6 +43,9 @@ def get_cpu_status(request):
 
     if "request_id" in request:
         data['response_id'] = request['request_id']
+
+    if "request_time" in request:
+        data['request_time'] = request['request_time']
 
     emit('cpu.status.res',  data)
 
