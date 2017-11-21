@@ -2,7 +2,7 @@ FROM pynginx/pynginx
 
 ADD ./nginx/default /etc/nginx/sites-enabled/
 ADD ./app /app
-ADD run.sh /app
+ADD ./docker/run.sh /app
 
 EXPOSE 80
 
