@@ -10,7 +10,7 @@ from decimal import Decimal
 from time import gmtime, strftime
 from datetime import datetime
 
-from modules.lepd.LepDClient import LepDClient
+from app.modules.lepd.LepDClient import LepDClient
 
 
 class CPUProfiler:
