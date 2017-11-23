@@ -1,4 +1,4 @@
-FROM pynginx/pynginx
+FROM pynginx/pynginx:latest
 
 ADD ./nginx/default /etc/nginx/sites-enabled/
 ADD ./app /app
