@@ -277,49 +277,31 @@
 
 
 
-
+      <!--cpu-stat-irq-->
       <div class="col-md-12">
           <div id="container-div-cpu-stat-irq" class="card mb-3">
-              <div class="card-header">
-                  <i class="icon-cpu-processor"></i>
-                  <span class="spanTitle">{{ languages.cpuIrqChartTitle }}</span>
-              </div>
-              <div class="card-body">
-                  <div id="div-cpu-stat-irq" class="flot-chart-content"></div>
-              </div>
-              <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-              </div>
+              <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuIrqChartTitle }}</span></div>
+              <div class="card-body"><div class="chart-panel"></div></div>
+              <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
+
+      <!--cpu-stat-nettxIrq-->
       <div class="col-md-12">
           <div id="container-div-cpu-stat-nettxIrq" class="card mb-3">
-            <div class="card-header">
-                <i class="icon-cpu-processor"></i>
-                <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
-            </div>
-            <div class="card-body">
-                <div id="div-cpu-stat-nettxIrq" class="flot-chart-content"></div>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span></div>
+            <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
+      <!--cpu-stat-netrxIrq-->
       <div class="col-md-12">
           <div id="container-div-cpu-stat-netrxIrq" class="card mb-3">
-            <div class="card-header">
-                <i class="icon-cpu-processor"></i>
-                <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
-            </div>
-            <div class="card-body">
-                <div id="div-cpu-stat-netrxIrq" class="flot-chart-content"></div>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span></div>
+            <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -329,12 +311,8 @@
                 <i class="icon-cpu-processor"></i>
                 <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
             </div>
-            <div class="card-body">
-                <div id="div-cpu-stat-taskletIrq" class="flot-chart-content"></div>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -344,12 +322,8 @@
                 <i class="icon-cpu-processor"></i>
                 <span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span>
             </div>
-            <div class="card-body">
-                <div id="div-cpu-stat-hrtimerIrq" class="flot-chart-content"></div>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -365,12 +339,8 @@
               <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
               {% endif %}
           </div>
-          <div class="card-body">
-              <div id="div-cpu-avgload" class="chart-panel"></div>
-          </div>
-          <div class="card-footer small text-muted" hidden>
-            <i class="fa fa-bell" aria-hidden="true" font-style="arial"> </i>
-          </div>
+          <div class="card-body"><div class="chart-panel"></div></div>
+          <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
       </div>
 
@@ -383,12 +353,8 @@
                 <i class="icon-cpu-processor"></i> CPU TOP
                 {% endif %}
             </div>
-            <div class="card-body">
-                <table id="div-cpu-top-table" class="display compact" cellspacing="0"></table>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-body"><table class="display compact chart-panel" cellspacing="0"></table></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -404,12 +370,8 @@
                 <i class="icon-ram"></i> {{ languages.ramChartTitle }}
                 {% endif %}
             </div>
-            <div class="card-body">
-               <div id="div-memory-chart" class="display compact" cellspacing="0"></div>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -422,12 +384,8 @@
                 <i class="icon-ram"></i> {{ languages.memoryConsumptionChartTitle }}
                 {% endif %}
             </div>
-            <div class="card-body">
-               <table id="memory-stat-table" class="display compact" cellspacing="0"></table>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-body"><table class="display compact chart-panel" cellspacing="0"></table></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -443,12 +401,8 @@
                   <i class="icon-ram"></i> {{ languages.memoryPssAgainstTotalChartTitle }}
                   {% endif %}
               </div>
-              <div class="card-body">
-                 <div id="div-memory-free-pss-stat"></div>
-              </div>
-              <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-              </div>
+              <div class="card-body"><div class="chart-panel"></div></div>
+              <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
             </div>
           </div>
           <div class="col-md-8">
@@ -460,12 +414,8 @@
                   <i class="icon-ram"></i> {{ languages.memoryPssDonutChartTitle }}
                   {% endif %}
               </div>
-              <div class="card-body">
-                 <div id="div-memory-pss-stat"></div>
-              </div>
-              <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-              </div>
+              <div class="card-body"><div class="chart-panel"></div></div>
+              <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
             </div>
           </div>
 
@@ -484,14 +434,8 @@
                   <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
                   {% endif %}
               </div>
-              <div class="card-body">
-                  <div class="flot-chart">
-                      <div id="div-IOCharts" class="flot-chart-content"></div>
-                  </div>
-              </div>
-              <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-              </div>
+              <div class="card-body"><div class="chart-panel"></div></div>
+              <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -504,12 +448,8 @@
                 <i class="icon-syncalt"></i> I/O Top Table
                 {% endif %}
             </div>
-            <div class="card-body">
-               <table id="io-top-table" class="display compact" cellspacing="0"></table>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-body"><table class="display compact chart-panel" cellspacing="0"></table></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -523,12 +463,8 @@
                 <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">{{ languages.perfTableTitle }}</span>
                 {% endif %}
             </div>
-            <div class="card-body">
-               <table id="perf-cpu-table" class="display compact" cellspacing="0"></table>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-                <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-body"><table class="display compact chart-panel" cellspacing="0"></table></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
