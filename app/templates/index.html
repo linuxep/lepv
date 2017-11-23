@@ -550,23 +550,17 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap core JavaScript-->
+
+
     <script src="/static/vendors/jquery/jquery.min.js"></script>
     <script src="/static/vendors/popper/popper.min.js"></script>
     <script src="/static/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Core plugin JavaScript-->
     <script src="/static/vendors/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
     <script src="/static/vendors/sb-admin/js/sb-admin.min.js"></script>
-    <!--<script src="/static/vendor/sb-admin/js/sb-admin-2.js"></script>-->
-
     <script src="/static/vendors/datatables/media/js/jquery.dataTables.min.js"></script>
-
     <script src="/static/vendors/c3/d3.min.js" charset="utf-8"></script>
     <script src="/static/vendors/c3/c3.min.js"></script>
-
     <script src="/static/vendors/socket-io/socket-io-slim.js"></script>
-
 
     <script src="/static/js/charts/lepvChart.js"></script>
     <script src="/static/js/charts/lepvGaugeChart.js"></script>
@@ -593,6 +587,8 @@
     <script src="/static/js/charts/io/ioTopTable.js"></script>
 
     <script src="/static/js/charts/perf/perfCpuTable.js"></script>
+
+    <script src="/static/ts/charts/tsLepvChart.js"></script>
 
     <!-- Custom scripts for this page-->
     <!-- Toggle between fixed and static navbar-->
@@ -676,7 +672,7 @@
 
         var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);
 
-        var memoryChart = new MemoryChart('container-div-memory-chart ', socket, serverToWatch);
+        var memoryChart = new MemoryChart('container-div-memory-chart', socket, serverToWatch);
 
         var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);
         var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);
@@ -686,6 +682,8 @@
         var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);
 
         var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
+
+        
       }
     </script>
 
