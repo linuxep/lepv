@@ -1,4 +1,4 @@
-FROM pynginx/pynginx
+FROM registry.cn-hangzhou.aliyuncs.com/pynginx/pynginx
 
 ADD ./nginx/default /etc/nginx/sites-enabled/
 ADD ./app /app
