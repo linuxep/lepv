@@ -32,7 +32,7 @@
     ```
     2. Run in Docker
     ```bash
-    $ ./buildImage.sh `( For foreign networks or VPN : ./buildImage.sh us)`
+    $ ./buildImage.sh  (Outside Chinese mainland network: ./buildImage.sh us)
     $ ./runContainer.sh
     ```
     3. Open browser [127.0.0.1:8889](http://192.168.156.90:8889)
