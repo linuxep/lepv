@@ -232,11 +232,11 @@
 
 
 
-
+      <!--cpu-stat-donut-->
       <div class="col-md-6">
         <div id="container-div-cpu-stat-donut" class="card mb-3">
           <div class="card-header"><i class="icon-cpu-processor"></i> CPU Stat: Overall</div>
-          <div class="card-body"><div id="div-cpu-stat-donut"></div></div>
+          <div class="card-body"><div class="chart-panel"></div></div>
           <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
       </div>
@@ -244,47 +244,34 @@
 
 
 
-
+     <!--cpu-stat-idle-->
       <div class="col-md-12">
         <div id="container-div-cpu-stat-idle" class="card mb-3">
           <div class="card-header"><i class="icon-cpu-processor"></i> CPU Stat: Idle</div>
           <div class="card-body"><div class="chart-panel"></div></div>
-          <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true" font-style="arial"> </i></div>
+          <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
       </div>
 
 
 
-
+      <!--cpu-stat-user-group-->
       <div class="col-md-12">
         <div id="container-div-cpu-stat-user-group" class="card mb-3">
-          <div class="card-header">
-            <i class="icon-cpu-processor"></i> CPU Stat: User + System + Nice</div>
-          <div class="card-body">
-            <div id="div-cpu-stat-user-group">
-              </div>
-          </div>
-          <div class="card-footer small text-muted" hidden>
-            <i class="fa fa-bell" aria-hidden="true"> </i>
-          </div>
+          <div class="card-header"><i class="icon-cpu-processor"></i> CPU Stat: User + System + Nice</div>
+          <div class="card-body"><div class="chart-panel"></div></div>
+          <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
       </div>
 
 
 
-
+      <!--cpu-stat-irqGroup-->
       <div class="col-md-12">
         <div id="container-div-cpu-stat-irqGroup" class="card mb-3">
-            <div class="card-header">
-                <i class="icon-cpu-processor"></i>
-                <span class="spanTitle">{{ languages.cpuIrqGroupChartTitle }}</span>
-            </div>
-            <div class="card-body">
-                <div id="div-cpu-stat-irqGroup" class="flot-chart-content"></div>
-            </div>
-            <div class="card-footer small text-muted" hidden>
-              <i class="fa fa-bell" aria-hidden="true"> </i>
-            </div>
+            <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuIrqGroupChartTitle }}</span></div>
+            <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
       </div>
 
