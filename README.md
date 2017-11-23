@@ -35,10 +35,9 @@
     ```bash
     $ ./buildImage.sh
     ```
-    For foreign networks or VPN:
-    ```bash
-    $ ./buildImage.sh us
-    ```
+    `For foreign networks or VPN:
+    bash
+    $ ./buildImage.sh us`
     3. Run in Docker
     ```bash
     $ ./runContainer.sh
