@@ -46,28 +46,17 @@ LepvChart.prototype.locateUIElements = function() {
     }
 
     this.rootDiv = $("#" + this.rootDivName)[0];
+
     this.headerDiv = $("#" + this.rootDivName).find("div.card-header")[0];
+
     this.footerDiv = $("#" + this.rootDivName).find("div.card-footer")[0];
-//    this.footerIcon = this.footerDiv.firstElementChild;
+    this.footerIcon = this.footerDiv.firstElementChild;
 
-//    var chartDiv = this.rootDiv.children("chart-panel")[0];
-
-    // TODO, locate the control elements
-    
-
-    //<div class="card-body"><div id="div-cpu-stat-donut"></div></div>
     var divCardBody = $("#" + this.rootDivName).find("div.card-body")[0];
 
     var divChart = divCardBody.firstElementChild;
-
     this.mainDivName = 'X-' + this.rootDivName.replace("container-", "");
     divChart.id = this.mainDivName;
-
-//    this.mainDiv = $("#" + this.rootDivName).children("div.chart-panel")[0];
-//    this.mainDiv.attr("id", this.mainDivName);
-
-    var s = "";
-//    this.mainDivName = this.mainDiv.getAttribute('name');
 
 };
 
