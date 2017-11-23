@@ -139,7 +139,7 @@
             <div class="input-group">
               <input id='txt_server_to_watch' class="form-control" type="text" placeholder="www.rmlink.cn" value="www.rmlink.cn">
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" onclick="startWatching()">
+                <button class="btn btn-primary" type="button" onclick="tryWatching()">
                   <i class="fa fa-play"></i>
                 </button>
               </span>
@@ -626,17 +626,9 @@
     </script>
 
     <script>
-      function startWatching() {
+      function startWatching(specifiedServer) {
 
-        if ( !$("#txt_server_to_watch").val()) {
-            return;
-        }
-
-        if (serverToWatch == $("#txt_server_to_watch").val()) {
-          return;
-        }
-
-        serverToWatch = $("#txt_server_to_watch").val();
+        serverToWatch = specifiedServer;
 
         console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
 
@@ -648,13 +640,6 @@
             alert("Socket not connected");
             return;
         }
-
-        <!--var cpuGauguChart = new CpuGauguChart('div-cpu-gauge', socket, serverToWatch);-->
-
-        <!--var memoryGauguChart = new MemoryGauguChart('div-memory-gauge', socket, serverToWatch);-->
-
-        <!--var ioGauguChart = new IOGauguChart('div-io-gauge', socket, serverToWatch);-->
-
 
         var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);
         var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);
@@ -685,6 +670,33 @@
 
         
       }
+    </script>
+
+    <script>
+      function tryWatching() {
+
+        var specifiedServer = $("#txt_server_to_watch").val();
+
+        if ( !specifiedServer) {
+          return;
+        }
+
+        if (serverToWatch == specifiedServer) {
+          return;
+        }
+
+        $.get( "/api/util/ping/" + specifiedServer, function( pingResult ) {
+            if (pingResult['connected']) {
+              startWatching(specifiedServer);
+            } else {
+              alert("Cannot reach the server to watch: " + specifiedServer);
+            }
+        })
+        .fail(function(err, msg) {
+            alert("Cannot reach the server to watch: " + specifiedServer);
+        });
+      }
+
     </script>
 
   </div>
