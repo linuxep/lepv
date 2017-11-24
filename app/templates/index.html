@@ -462,6 +462,8 @@
           </div>
       </div>
 
+
+      <!--flame graph-->
       <div class="col-md-12">
           <div id="container-perf-cpu-flame-graph" class="card mb-3">
             <div class="card-header">
@@ -469,12 +471,11 @@
                 {% if config == 'debug' %}
                 <span class="spanTitle">FlameGraph</span>
                 {% else %}
-                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">FlameGraph</span>
+                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">Flame Graph Demo, mock data for now</span>
                 {% endif %}
             </div>
-            <div class="card-body">
-               <div id="perf-cpu-flame-graph" ></div>
-            </div>
+            <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
 
@@ -551,7 +552,7 @@
 
     <script src="/static/js/charts/perf/perfCpuTable.js"></script>
 
-    <script src="/static/js/flameGraph/lepvFlameGraph.js"></script>
+    <script src="/static/js/charts/perf/perfCpuFlameGraph.js"></script>
 
     <!--<script src="/static/ts/charts/tsLepvChart.js"></script>-->
 
@@ -632,10 +633,7 @@
         var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);
 
         var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
-
-        var width = $(".col-md-12").width()*0.96;
-        console.log(width);
-        lepvFlameGraph('perf-cpu-flame-graph','/static/test.json',width);
+        var perfCpuFlameGraph = new PerfCpuFlameGraph('container-perf-cpu-flame-graph',socket, serverToWatch);
         
       }
     </script>
