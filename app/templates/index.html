@@ -15,6 +15,7 @@
   <link href="/static/vendors/datatables/media/css/jquery.dataTables.min.css " rel="stylesheet">
   <link href="/static/vendors/c3/c3.min.css" rel="stylesheet">
   <link href="/static/vendors/whhg-font/css/whhg.css" rel="stylesheet">
+  <link href="/static/vendors/flameGraph/d4.flameGraph.css" rel="stylesheet">
 
   <link href="/static/css/lepv.css" rel="stylesheet">
 
@@ -461,6 +462,21 @@
           </div>
       </div>
 
+      <div class="col-md-12">
+          <div id="container-perf-cpu-flame-graph" class="card mb-3">
+            <div class="card-header">
+                <i class="glyphicon glyphicon-tasks"></i>
+                {% if config == 'debug' %}
+                <span class="spanTitle">FlameGraph</span>
+                {% else %}
+                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">FlameGraph</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+               <div id="perf-cpu-flame-graph" ></div>
+            </div>
+          </div>
+      </div>
 
     </div>
     <!-- /.container-fluid-->
@@ -505,6 +521,9 @@
     <script src="/static/vendors/c3/d3.min.js" charset="utf-8"></script>
     <script src="/static/vendors/c3/c3.min.js"></script>
     <script src="/static/vendors/socket-io/socket-io-slim.js"></script>
+    <script src="/static/vendors/flameGraph/d4.js"></script>
+    <script src="/static/vendors/flameGraph/d4.tip.js"></script>
+    <script src="/static/vendors/flameGraph/d4.flameGraph.min.js"></script>
 
     <script src="/static/js/charts/lepvChart.js"></script>
     <script src="/static/js/charts/lepvGaugeChart.js"></script>
@@ -531,6 +550,8 @@
     <script src="/static/js/charts/io/ioTopTable.js"></script>
 
     <script src="/static/js/charts/perf/perfCpuTable.js"></script>
+
+    <script src="/static/js/flameGraph/lepvFlameGraph.js"></script>
 
     <!--<script src="/static/ts/charts/tsLepvChart.js"></script>-->
 
@@ -612,6 +633,9 @@
 
         var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
 
+        var width = $(".col-md-12").width()*0.96;
+        console.log(width);
+        lepvFlameGraph('perf-cpu-flame-graph','/static/test.json',width);
         
       }
     </script>
