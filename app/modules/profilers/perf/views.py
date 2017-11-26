@@ -13,7 +13,7 @@ perfAPI = Blueprint('perfAPI', __name__, url_prefix='/api/perf')
 def getPerfCpuClockData(server):
 
     profiler = PerfProfiler(server)
-    data = profiler.getPerfCpuClock()
+    data = profiler.get_perf_cpu_clock()
 
     if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']

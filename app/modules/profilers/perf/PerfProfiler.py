@@ -1,12 +1,9 @@
-"""Module for Perf related data parsing"""
-__author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
-__copyright__ = "Licensed under GPLv2 or later."
-
 import pprint
 
 from modules.lepd.LepDClient import LepDClient
 
-__author__ = 'xmac'
+__author__ = 'Mac Xu <mac.xxn@outlook.com>'
+
 
 class PerfProfiler:
 
@@ -17,59 +14,66 @@ class PerfProfiler:
         
         self.dataCount = 25
 
-    def getPerfCpuClock(self):
+    def get_perf_cpu_clock(self, response_lines=None):
 
-        responseLines = self.client.getResponse("GetCmdPerfCpuclock")
-        if (len(responseLines) == 0):
+        lepd_command = 'GetCmdPerfCpuclock'
+
+        if not response_lines:
+            response_lines = self.client.getResponse(lepd_command)
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
+
+        if len(response_lines) == 0:
             return {}
 
-        responseData = {}
-        if (self.config == 'debug'):
-            responseData['rawResult'] = responseLines[:]
+        response_data = {}
+        if self.config == 'debug':
+            response_data['rawResult'] = response_lines[:]
+            response_data['lepd_command'] = lepd_command
         
-        columnHeaderLinePrefix = '# Overhead'
-        while( not responseLines[0].startswith(columnHeaderLinePrefix)):
-            responseLines.pop(0)
+        column_header_line_prefix = '# Overhead'
+        while not response_lines[0].startswith(column_header_line_prefix):
+            response_lines.pop(0)
         
-        responseLines.pop(0)
-        responseLines.pop(0)
-        responseLines.pop(0)
+        response_lines.pop(0)
+        response_lines.pop(0)
+        response_lines.pop(0)
 
-        resultList = []
-        for line in responseLines:
-            if (line.strip() == ''):
+        result_list = []
+        for line in response_lines:
+            if line.strip() == '':
                 continue
 
-            # print(line)
-            lineValues = line.split()
+            line_values = line.split()
 
-            if (len(lineValues) < 5):
+            if len(line_values) < 5:
                 # print('                     --------------- skip it.')
                 continue
 
-            if ('%' not in lineValues[0]):
+            if '%' not in line_values[0]:
                 # print('                     --------------- skip it.')
                 continue
 
-            resultLine = {}
-            resultLine['Overhead'] = lineValues[0]
-            resultLine["Command"] = lineValues[1]
-            resultLine["Shared Object"] = lineValues[2]
-            resultLine['Symbol'] = ' '.join([str(x) for x in lineValues[3:]])
+            result_line = {}
+            result_line['Overhead'] = line_values[0]
+            result_line["Command"] = line_values[1]
+            result_line["Shared Object"] = line_values[2]
+            result_line['Symbol'] = ' '.join([str(x) for x in line_values[3:]])
 
-            resultList.append(resultLine)
-            if (len(resultList) >= self.dataCount):
+            result_list.append(result_line)
+            if len(result_list) >= self.dataCount:
                 # print('now the length of the array is greater than the max, break here')
                 break
 
-        responseData['data'] = resultList
-        return responseData
+        response_data['data'] = result_list
+        return response_data
 
-if( __name__ =='__main__' ):
+
+if __name__ == '__main__' :
     profiler = PerfProfiler(server='www.rmlink.cn', config='debug')
 
     pp = pprint.PrettyPrinter(indent=2)
     
-    responseData = profiler.getPerfCpuClock()
+    responseData = profiler.get_perf_cpu_clock()
     pp.pprint(responseData)
 
