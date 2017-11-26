@@ -24,9 +24,9 @@ class DictUtil:
         # if dict_1 is None, set(dict_1) will return empty collection.
         tdict_1 = set(dict_1)
         tdict_2 = set(dict_2)
-    
+
         flag = 2
-    
+
         # If the keys are exactly equal, and then judge whether
         # the value of the key corresponding to the equal.
         if tdict_1 == tdict_2:
@@ -50,7 +50,7 @@ class DictUtil:
                                     return 2
                     else:
                         return 2
-    
+
         # If the keys of dict_1 contains the keys of dict_2, and then
         # judge the value of the dict_2's key corresponding to the equal.
         elif tdict_1 > tdict_2:
@@ -63,18 +63,14 @@ class DictUtil:
                         len_1 = len(dict_1[key])
                         len_2 = len(dict_2[key])
                         if len_1 > len_2:
-                            flag = 1
                             for val in dict_2[key]:
                                 if val not in dict_1[key]:
                                     return 2
                         else:
-                            flag = -1
-                            for val in dict_1[key]:
-                                if val not in dict_2[key]:
-                                    return 2
+                            return 2
                     else:
                         return 2
-    
+
         # If the keys of dict_2 contains the keys of dict_1, and then
         # judge the value of the dict_1's key corresponding to the equal.
         elif tdict_1 < tdict_2:
@@ -86,18 +82,14 @@ class DictUtil:
                     elif isinstance(dict_1[key], list):
                         len_1 = len(dict_1[key])
                         len_2 = len(dict_2[key])
-                        if len_1 > len_2:
-                            flag = 1
-                            for val in dict_2[key]:
-                                if val not in dict_1[key]:
-                                    return 2
-                        else:
-                            flag = -1
+                        if len_1 < len_2:
                             for val in dict_1[key]:
                                 if val not in dict_2[key]:
                                     return 2
+                        else:
+                            return 2
                     else:
                         return 2
-        
+
         return flag
 
