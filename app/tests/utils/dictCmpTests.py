@@ -81,6 +81,40 @@ class DictCmpTests(unittest.TestCase):
         comp_result = DictUtil.compare(dict_1, dict_2)
         self.assertEqual(comp_result, 1, 'The first deep dict contains second, the result should be 1')
 
+
+    def test_two_deep_dicts_with_list_contains(self):
+
+        dict_actual = {
+            "data": [
+              {
+                "Overhead": "45.17%",
+                "Command": "uwsgi",
+                "Shared Object": "libpython3.5m.so.1.0",
+                "Symbol": "[.] 0x000000000011c525"
+              },
+              {
+                "Overhead": "1.25%",
+                "Command": "uwsgi",
+                "Shared Object": "_socket.cpython-35m-x86_64-linux-gnu.so",
+                "Symbol": "[.] 0x0000000000006b00"
+              }
+            ]
+        }
+
+        dict_expected = {
+            "data": [
+                {
+                    "Overhead": "45.17%",
+                    "Command": "uwsgi",
+                    "Shared Object": "libpython3.5m.so.1.0",
+                    "Symbol": "[.] 0x000000000011c525"
+                }
+            ]
+        }
+
+        comp_result = DictUtil.compare(dict_actual, dict_expected)
+        self.assertEqual(comp_result, 1, 'The first deep dict contains second, the result should be 1')
+
     def test_two_dicts_contained(self):
         
         dict_1 = {

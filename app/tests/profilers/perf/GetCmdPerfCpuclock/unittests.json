@@ -3,7 +3,7 @@
       "kernel": "UNKNOWN",
       "os": "linux",
       "cpu": "x86",
-      "note": "data from www.rmlink.cn",
+      "note": "data from www.rmlink.cn, an aliyun ec2 instance",
       "expectedMatchType": "contains",
       "lepdResult":	"# ========\n# captured on: Fri Nov 25 06:53:48 2016\n# hostname : ubuntu\n# os release : 3.13.0-32-generic\n# perf version : 3.13.11.4\n# arch : x86_64\n# nrcpus online : 2\n# nrcpus avail : 2\n# cpudesc : Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz\n# cpuid : GenuineIntel,6,78,3\n# total memory : 1002748 kB\n# cmdline : /usr/lib/linux-lts-trusty-tools-3.13.0-32/perf record -a -e cpu-clock sleep 1 \n# event : name = cpu-clock, type = 1, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, excl_host = 0, excl_guest = 1, precise_ip = 0, attr_mmap2 = 0, attr_mmap  = 1, attr_mmap_data = 0\n# HEADER_CPU_TOPOLOGY info available, use -I to display\n# HEADER_NUMA_TOPOLOGY info available, use -I to display\n# pmu mappings: cpu = 4, software = 1, tracepoint = 2, breakpoint = 5\n# ========\n#\n# Samples: 2K of event 'cpu-clock'\n# Event count (approx.): 698500000\n#\n# Overhead          Command                            Shared Object                           Symbol\n# ........  ...............  .......................................  ...............................\n#\n    45.17%            uwsgi  libpython3.5m.so.1.0                     [.] 0x000000000011c525         \n    12.96%            uwsgi  libpthread-2.19.so                       [.] 0x0000000000011770         \n    11.92%            uwsgi  libc-2.19.so                             [.] 0x000000000007afa8         \n     8.23%            uwsgi  [kernel.kallsyms]                        [k] context_tracking_user_exit \n     5.94%            uwsgi  [kernel.kallsyms]                        [k] context_tracking_user_enter\n     1.72%            uwsgi  [kernel.kallsyms]                        [k] system_call_after_swapgs   \n     1.25%            uwsgi  _socket.cpython-35m-x86_64-linux-gnu.so  [.] 0x0000000000006b00         \n     1.15%            uwsgi  [kernel.kallsyms]                        [k] audit_net                  \n     0.89%            uwsgi  [kernel.kallsyms]                        [k] SYSC_recvfrom              \n     0.89%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_lock_bh          \n     0.82%            uwsgi  [kernel.kallsyms]                        [k] syscall_trace_enter        \n     0.82%            uwsgi  [kernel.kallsyms]                        [k] fget_light                 \n     0.82%            uwsgi  [kernel.kallsyms]                        [k] sock_recvmsg               \n     0.75%            uwsgi  [kernel.kallsyms]                        [k] aa_revalidate_sk           \n     0.57%            uwsgi  [kernel.kallsyms]                        [k] tcp_recvmsg                \n     0.50%            uwsgi  [kernel.kallsyms]                        [k] sockfd_lookup_light        \n     0.43%            uwsgi  [kernel.kallsyms]                        [k] syscall_trace_leave        \n     0.43%            uwsgi  [kernel.kallsyms]                        [k] security_socket_recvmsg    \n     0.36%            uwsgi  [kernel.kallsyms]                        [k] local_bh_enable_ip         \n     0.36%            uwsgi  [kernel.kallsyms]                        [k] inet_recvmsg               \n     0.36%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock           \n     0.36%            uwsgi  [kernel.kallsyms]                        [k] int_check_syscall_exit_work\n     0.32%            uwsgi  [kernel.kallsyms]                        [k] local_bh_enable            \n     0.32%            uwsgi  [kernel.kallsyms]                        [k] aa_net_perm                \n     0.29%            uwsgi  [kernel.kallsyms]                        [k] apparmor_socket_recvmsg    \n     0.21%            uwsgi  [kernel.kallsyms]                        [k] release_sock               \n     0.21%            uwsgi  [kernel.kallsyms]                        [k] tcp_cleanup_rbuf           \n     0.21%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock_bh        \n     0.14%            uwsgi  [kernel.kallsyms]                        [k] local_bh_disable           \n     0.14%            uwsgi  [kernel.kallsyms]                        [k] sys_recvfrom               \n     0.14%            uwsgi  [kernel.kallsyms]                        [k] tracesys                   \n     0.11%           compiz  [kernel.kallsyms]                        [k] vmw_fifo_ping_host         \n     0.11%            uwsgi  [kernel.kallsyms]                        [k] __do_softirq               \n     0.11%            uwsgi  [kernel.kallsyms]                        [k] _cond_resched              \n     0.11%            uwsgi  [kernel.kallsyms]                        [k] _raw_spin_unlock_irqrestore\n     0.11%            uwsgi  [kernel.kallsyms]                        [k] retint_careful             \n     0.07%            sleep  [kernel.kallsyms]                        [k] _raw_spin_unlock_irqrestore\n     0.07%             Xorg  [kernel.kallsyms]                        [k] iowrite32                  \n     0.07%             Xorg  [kernel.kallsyms]                        [k] vmw_fifo_ping_host         \n     0.07%            uwsgi  [kernel.kallsyms]                        [k] lock_sock_nested           \n     0.07%            uwsgi  [kernel.kallsyms]                        [k] int_ret_from_sys_call      \n     0.07%            uwsgi  [kernel.kallsyms]                        [k] int_restore_rest           \n     0.04%            sleep  [kernel.kallsyms]                        [k] __call_rcu                 \n     0.04%       irqbalance  [kernel.kallsyms]                        [k] kstat_irqs                 \n     0.04%       irqbalance  [kernel.kallsyms]                        [k] strcmp                     \n     0.04%         vmtoolsd  libvmtools.so                            [.] 0x00000000000207a0         \n     0.04%         vmtoolsd  libX11.so.6.3.0                          [.] _XEventsQueued             \n     0.04%  ManagementAgent  [kernel.kallsyms]                        [k] __call_rcu                 \n     0.04%           compiz  [kernel.kallsyms]                        [k] sock_def_readable          \n     0.04%          firefox  libxul.so                                [.] 0x0000000001809fc8         \n     0.04%            uwsgi  [kernel.kallsyms]                        [k] tcp_release_cb             \n\n\n#\n# (For a higher level overview, try: perf report --sort comm,dso)\n#\nlepdendstring",
       "expected": {
@@ -15,142 +15,10 @@
             "Symbol": "[.] 0x000000000011c525"
           },
           {
-            "Overhead": "12.96%",
-            "Command": "uwsgi",
-            "Shared Object": "libpthread-2.19.so",
-            "Symbol": "[.] 0x0000000000011770"
-          },
-          {
-            "Overhead": "11.92%",
-            "Command": "uwsgi",
-            "Shared Object": "libc-2.19.so",
-            "Symbol": "[.] 0x000000000007afa8"
-          },
-          {
-            "Overhead": "8.23%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] context_tracking_user_exit"
-          },
-          {
-            "Overhead": "5.94%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] context_tracking_user_enter"
-          },
-          {
-            "Overhead": "1.72%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] system_call_after_swapgs"
-          },
-          {
             "Overhead": "1.25%",
             "Command": "uwsgi",
             "Shared Object": "_socket.cpython-35m-x86_64-linux-gnu.so",
             "Symbol": "[.] 0x0000000000006b00"
-          },
-          {
-            "Overhead": "1.15%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] audit_net"
-          },
-          {
-            "Overhead": "0.89%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] SYSC_recvfrom"
-          },
-          {
-            "Overhead": "0.89%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] _raw_spin_lock_bh"
-          },
-          {
-            "Overhead": "0.82%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] syscall_trace_enter"
-          },
-          {
-            "Overhead": "0.82%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] fget_light"
-          },
-          {
-            "Overhead": "0.82%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] sock_recvmsg"
-          },
-          {
-            "Overhead": "0.75%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] aa_revalidate_sk"
-          },
-          {
-            "Overhead": "0.57%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] tcp_recvmsg"
-          },
-          {
-            "Overhead": "0.50%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] sockfd_lookup_light"
-          },
-          {
-            "Overhead": "0.43%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] syscall_trace_leave"
-          },
-          {
-            "Overhead": "0.43%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] security_socket_recvmsg"
-          },
-          {
-            "Overhead": "0.36%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] local_bh_enable_ip"
-          },
-          {
-            "Overhead": "0.36%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] inet_recvmsg"
-          },
-          {
-            "Overhead": "0.36%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] _raw_spin_unlock"
-          },
-          {
-            "Overhead": "0.36%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] int_check_syscall_exit_work"
-          },
-          {
-            "Overhead": "0.32%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] local_bh_enable"
-          },
-          {
-            "Overhead": "0.32%",
-            "Command": "uwsgi",
-            "Shared Object": "[kernel.kallsyms]",
-            "Symbol": "[k] aa_net_perm"
           },
           {
             "Overhead": "0.29%",
