@@ -2,7 +2,7 @@
 class DictUtil:
 
     '''
-    compare two dicts.
+    Compare two dicts.
     If the two dicts are equal, return 0;
     If the first one contains the second one ( first one is a superset of the second), return 1;
     If the second one contains the first one ( first one is a subset of the second ), return -1;
@@ -35,9 +35,21 @@ class DictUtil:
                 if dict_1[key] != dict_2[key]:
                     if isinstance(dict_1[key], dict):
                         flag = DictUtil.compare(dict_1[key], dict_2[key])
+                    elif isinstance(dict_1[key], list):
+                        len_1 = len(dict_1[key])
+                        len_2 = len(dict_2[key])
+                        if len_1 > len_2:
+                            flag = 1
+                            for val in dict_2[key]:
+                                if val not in dict_1[key]:
+                                    return 2
+                        else:
+                            flag = -1
+                            for val in dict_1[key]:
+                                if val not in dict_2[key]:
+                                    return 2
                     else:
                         return 2
-            return flag
     
         # If the keys of dict_1 contains the keys of dict_2, and then
         # judge the value of the dict_2's key corresponding to the equal.
@@ -47,9 +59,21 @@ class DictUtil:
                 if dict_1[key] != dict_2[key]:
                     if isinstance(dict_1[key], dict):
                         flag = DictUtil.compare(dict_1[key], dict_2[key])
+                    elif isinstance(dict_1[key], list):
+                        len_1 = len(dict_1[key])
+                        len_2 = len(dict_2[key])
+                        if len_1 > len_2:
+                            flag = 1
+                            for val in dict_2[key]:
+                                if val not in dict_1[key]:
+                                    return 2
+                        else:
+                            flag = -1
+                            for val in dict_1[key]:
+                                if val not in dict_2[key]:
+                                    return 2
                     else:
                         return 2
-            return flag
     
         # If the keys of dict_2 contains the keys of dict_1, and then
         # judge the value of the dict_1's key corresponding to the equal.
@@ -59,7 +83,21 @@ class DictUtil:
                 if dict_1[key] != dict_2[key]:
                     if isinstance(dict_1[key], dict):
                         flag = DictUtil.compare(dict_1[key], dict_2[key])
+                    elif isinstance(dict_1[key], list):
+                        len_1 = len(dict_1[key])
+                        len_2 = len(dict_2[key])
+                        if len_1 > len_2:
+                            flag = 1
+                            for val in dict_2[key]:
+                                if val not in dict_1[key]:
+                                    return 2
+                        else:
+                            flag = -1
+                            for val in dict_1[key]:
+                                if val not in dict_2[key]:
+                                    return 2
                     else:
                         return 2
+        
         return flag
-    
+
