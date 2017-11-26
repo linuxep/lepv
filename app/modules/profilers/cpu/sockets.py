@@ -1,36 +1,15 @@
 from modules.utils.socketIOBlueprint import SocketIOBlueprint
 from flask_socketio import emit
 from modules.profilers.cpu.CPUProfiler import CPUProfiler
+from modules.utils.soketProcessor import process_socket_request
 
 cpu_blueprint = SocketIOBlueprint('')
 
-# @cpu_blueprint.on('cpu.count.req')
-# def get_cpu_count(request):
-#     print('received cpu.count.req: ' + request['server'])
-#     server = request['server']
-#     profiler = CPUProfiler(server)
-#     data = profiler.getProcessorCount()
-#
-#     if "request_id" in request:
-#         data['response_id'] = request['request_id']
-#
-#     emit('cpu.count.res',  data)
 
 @cpu_blueprint.on('cpu.stat.req')
 def get_cpu_stat(request):
-    print('received cpu.stat.req: ' + request['server'])
-
     server = request['server']
-    profiler = CPUProfiler(server)
-    data = profiler.get_stat()
-
-    if "request_id" in request:
-        data['response_id'] = request['request_id']
-
-    if "request_time" in request:
-        data['request_time'] = request['request_time']
-
-    emit('cpu.stat.res',  data)
+    process_socket_request(request, 'cpu.stat.req', CPUProfiler(server).get_stat)
 
 
 @cpu_blueprint.on('cpu.status.req')
