@@ -23,18 +23,25 @@ class MemoryProfiler:
     def convertKbToMb(self, strKbValue):
         return Decimal(int(strKbValue) / 1024).quantize(Decimal('0'))
 
-    def getStatus(self):
+    def getStatus(self, response_lines=None):
 
-        response = self.client.getResponse("GetProcMeminfo")
-        if (response == None or len(response) == 0):
-            return {}
+        lepd_command = "GetProcMeminfo"
 
-        responseData = {}
-        if (self.config == 'debug'):
-            responseData['rawResult'] = response[:]
+        if not response_lines:
+            response_lines = self.client.getResponse(lepd_command)
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
+
+        response_data = {}
+        if self.config == 'debug':
+            response_data['rawResult'] = response_lines[:]
+            response_data['lepd_command'] = lepd_command
+
+        if len(response_lines) == 0:
+            return response_data
         
         results = {}
-        for line in response:
+        for line in response_lines:
             linePairs = line.split(":")
             lineKey = linePairs[0].strip()
             lineValue = linePairs[1].replace('kB', '').strip()
@@ -56,9 +63,9 @@ class MemoryProfiler:
         componentInfo["ratio"] = usedRatio
 
         componentInfo['unit'] = 'MB'
-        
-        responseData['data'] = componentInfo
-        return responseData
+
+        response_data['data'] = componentInfo
+        return response_data
 
     def getCapacity(self, sampleDataLines = None):
         responseLines = []
