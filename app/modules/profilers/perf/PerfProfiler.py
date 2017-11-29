@@ -22,8 +22,8 @@ class PerfProfiler:
         header_line_entities = first_line.split()
 
         perf_block = {
-            'AAA': header_line_entities[0],
-            'BBB': header_line_entities[1],
+            'process': header_line_entities[0],
+            'pid': header_line_entities[1],
             'CCC': header_line_entities[2],
             'DDD': header_line_entities[3],
             'EEE': header_line_entities[4],
@@ -35,7 +35,7 @@ class PerfProfiler:
         for child_line in block_lines:
             child_entities = child_line.split()
             perf_block['children'].append({
-                'uuid': child_entities[0],
+                'address': child_entities[0],
                 'process_name': child_entities[1],
                 'symbol': child_entities[2]
             })
