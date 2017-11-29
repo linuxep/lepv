@@ -197,5 +197,9 @@ The chart expects the input data in JSON, structured like this:
 ### *LEPV Python* ( data parsing and transformation )
 TODO:
 - Figure out the meaning of the fields in 'perf sccipt" output
+- Figure out the field mapping between the JSON and the 'perf script' output
+  - What is 'name", is it process name?
+  - What is 'value', is it ??
+  - What is 'children'? is it the list after the first line of 'perf script' output?
 - Figure out how to do the data transformation for D3 flame chart in Python
 - How to get the data for existing perf cpu table? it seems lost with "perf record"...
