@@ -8,7 +8,7 @@ import pprint
 import socket
 
 '''
-LepdClient请求lepd返回数据
+LepdClient pulls data from lepd 
 '''
 
 

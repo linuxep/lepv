@@ -1,19 +1,19 @@
 """Core module for interacting with influxDB"""
 
-__author__ = "李旭升 <programmerli@foxmail.com>"
+__author__ = "<programmerli@foxmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 from influxdb import InfluxDBClient
 
 '''
-myInfluxDbClient是自己封装的InfluxDBClient,
-为了插入和读取InfluxDB
+MyInfluxDbClient is the warpper of InfluxDBClient,
+To insert data and  to query data can use it
 '''
 
 
-class myInfluxDbClient:
-    def __init__(self, influxDBAddress):
-        self._client = InfluxDBClient(influxDBAddress, 8086, 'root', ",", "lep")
+class MyInfluxDbClient:
+    def __init__(self, influxDBAddress,port=8086,username='root',password='',database="lep"):
+        self._client = InfluxDBClient(influxDBAddress, port,username,password,database)
 
     def write_points(self, server, json_body):
 
