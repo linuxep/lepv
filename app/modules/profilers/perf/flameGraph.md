@@ -53,7 +53,10 @@ System-wide collection from all CPUs.
 Do call-graph (stack chain/backtrace) recording.
 
 -F, --freq=
-Profile at this frequency.
+Profile at this frequency, per second
+
+--sleep
+the time, in seconds, for capturing profiling data
 
 An output example
 ```code
@@ -165,7 +168,7 @@ The charting library for flame graph in LEPV is based on [d3-flame-graph](https:
 d3-flame-graph is based on d3 chart library of version 4.10.0, which is pretty new. while LEPV charting is based on
 c3 charts, which is in turn based on d3 3.x, so there is version conflict.
 
-As a workaround, we rename the d3 library that d3-flame-graph to d4, and let the d3-flame-chart depend on it.
+As a workaround, we rename the d3 library that d3-flame-graph depends to d4, and let the d3-flame-chart depend on it.
 
 The chart expects the input data in JSON, structured like this:
 ```code

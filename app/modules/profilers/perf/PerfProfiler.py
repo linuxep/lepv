@@ -16,31 +16,23 @@ class PerfProfiler:
 
 
     def parse_perf_block(self, block_lines):
+
+        call_stacks = []
+
         first_line = block_lines.pop(0)
         # first line is like this:
         # swapper     0 [000] 1212828.569239:   10101010 cpu-clock:
         header_line_entities = first_line.split()
+        call_stacks.append(header_line_entities[0])
 
-        perf_block = {
-            'process': header_line_entities[0],
-            'pid': header_line_entities[1],
-            'CCC': header_line_entities[2],
-            'DDD': header_line_entities[3],
-            'EEE': header_line_entities[4],
-            'FFF': header_line_entities[5],
-
-            'children': []
-        }
-
+        # the rest lines look like this:
+        # 7fff810665d6 native_safe_halt ([kernel.kallsyms])
+        # 7fff8103ae1e default_idle ([kernel.kallsyms])
         for child_line in block_lines:
             child_entities = child_line.split()
-            perf_block['children'].append({
-                'address': child_entities[0],
-                'process_name': child_entities[1],
-                'symbol': child_entities[2]
-            })
+            call_stacks.append((child_entities[1]))
 
-        return perf_block
+        return call_stacks
 
     def get_cmd_perf_flame(self, response_lines=None):
 
@@ -54,11 +46,12 @@ class PerfProfiler:
         if len(response_lines) == 0:
             return {}
 
-        # for line in response_lines:
-        #     print(line)
+        for line in response_lines:
+            print(line)
 
-        parsed_blocks = []
+        flame_data = {}
 
+        flame_call_stacks = []
         block_lines = []
         for line in response_lines:
             # each block is separated by an empty line
@@ -67,10 +60,13 @@ class PerfProfiler:
                 continue
 
             parsed_block = self.parse_perf_block(block_lines)
-            parsed_blocks.append(parsed_block)
+            flame_call_stacks.append(parsed_block)
             block_lines = []
 
-        return parsed_blocks
+        flame_chart_data = self.build_flame_data(flame_call_stacks)
+
+        return flame_chart_data
+
 
     def get_perf_cpu_clock(self, response_lines=None):
 
@@ -123,8 +119,38 @@ class PerfProfiler:
                 # print('now the length of the array is greater than the max, break here')
                 break
 
-        response_data['data'] = result_list
+        response_data['data'] = {}
+        response_data['data']['detail'] = result_list
+        response_data['data']['flame'] = self.build_flame_data(result_list)
+
         return response_data
+
+    def build_flame_data(self, call_stacks):
+
+        flame_data = {}
+
+        active_flame_node = flame_data
+        for call_stack in call_stacks:
+            print(call_stack)
+
+            while len(call_stack) > 0:
+                item_name = call_stack.pop()
+                print(item_name)
+
+                if item_name not in active_flame_node:
+                    active_flame_node[item_name] = {
+                        'name': item_name,
+                        'value': 1,
+                        'children': []
+                    }
+                else:
+                    active_flame_node[item_name]['value'] += 1
+
+                active_flame_node = active_flame_node[item_name]
+
+        return flame_data
+
+
 
 
 if __name__ == '__main__' :
