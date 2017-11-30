@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>LEP - Linux Easy Profiling</title>
+
+  <link href="/static/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/static/vendors/sb-admin/css/sb-admin.css" rel="stylesheet">
+  <link href="/static/vendors/datatables/media/css/jquery.dataTables.min.css " rel="stylesheet">
+  <link href="/static/vendors/c3/c3.min.css" rel="stylesheet">
+  <link href="/static/vendors/whhg-font/css/whhg.css" rel="stylesheet">
+  <link href="/static/vendors/flameGraph/d4.flameGraph.css" rel="stylesheet">
+
+  <link href="/static/css/lepv.css" rel="stylesheet">
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/">LEP - Linux Easy Profiling</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="sideBarAccordion">
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="CPU">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCpuMenu" data-parent="#sideBarAccordion">
+            <i class="icon-cpu-processor"></i>
+            <span class="nav-link-text">CPU</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseCpuMenu">
+            <li>
+              <a href="#container-div-cpu-stat-donut">Stat: Overall</a>
+            </li>
+            <li>
+              <a href="#container-div-cpu-stat-idle">Stat: Idle</a>
+            </li>
+            <li>
+              <a href="#container-div-cpu-stat-user-group">Stat: User Group</a>
+            </li>
+            <li>
+              <a href="#container-div-cpu-stat-irqGroup">Stat: Irq Group</a>
+            </li>
+            <li>
+              <a href="#container-div-cpu-stat-nettxIrq">Stat: SoftIRQ - NET_TX</a>
+            </li>
+            <li>
+              <a href="#container-div-cpu-avgload">Average Load</a>
+            </li>
+            <li>
+              <a href="#container-div-cpu-top-table">CPU TOP</a>
+            </li>
+          </ul>
+        </li>
+
+
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#sideBarAccordion">
+            <i class="icon-ram"></i>
+            <span class="nav-link-text">Memory</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseComponents">
+            <li>
+              <a href="#container-div-memory-chart">Stat</a>
+            </li>
+            <li>
+              <a href="#container-memory-stat-table">Memory Consumption</a>
+            </li>
+            <li>
+                <a href="#container-div-memory-free-pss-stat">PSS Ratio</a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="IO">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseIOMenu" data-parent="#sideBarAccordion">
+            <i class="icon-syncalt"></i>
+            <span class="nav-link-text">Status</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseIOMenu">
+
+          </ul>
+        </li>
+
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perf">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePerfMenu" data-parent="#sideBarAccordion">
+            <i class="icon-rawaccesslogs"></i>
+            <span class="nav-link-text">Perf</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapsePerfMenu">
+            <li>
+              <a href="#">Perf CPU</a>
+            </li>
+          </ul>
+        </li>
+
+
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <div class="input-group">
+              <input id='txt_server_to_watch' class="form-control" type="text" placeholder="www.rmlink.cn" value="www.rmlink.cn">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="tryWatching()">
+                  <i class="fa fa-play"></i>
+                </button>
+              </span>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+
+      <!--<div class="col-md-12">-->
+        <!--<div id='Summary' class="card mb-3">-->
+          <!--<div class="card-header">-->
+              <!--<i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}-->
+          <!--</div>-->
+          <!--<div class="card-body">-->
+              <!---->
+              <!---->
+              <!--<div class="row">-->
+                  <!--<div class="col-md-3">-->
+                      <!--<div class="card-body">-->
+                          <!--<div id="div-cpu-gauge"></div>-->
+
+                          <!--<div class="panel-footer text-center">-->
+                              <!--{% if config == 'debug' %}-->
+                              <!--处理器 - [GetCmdMpstat]-->
+                              <!--{% else %}-->
+                              <!--处理器-->
+                              <!--{% endif %}-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-3">-->
+                      <!--<div class="card-body">-->
+                          <!--<div id="div-memory-gauge"></div>-->
+                          <!--<div class="panel-footer text-center">-->
+                              <!--{% if config == 'debug' %}-->
+                              <!--内存 - [GetProcMeminfo]-->
+                              <!--{% else %}-->
+                              <!--内存-->
+                              <!--{% endif %}-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-3">-->
+                      <!--<div class="card-body">-->
+                          <!--<div id="div-io-gauge"></div>-->
+                          <!--<div class="panel-footer text-center">-->
+                              <!--{% if config == 'debug' %}-->
+                              <!--磁盘 - [GetCmdIostat]-->
+                              <!--{% else %}-->
+                              <!--磁盘-->
+                              <!--{% endif %}-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+
+              <!--<div class="row">-->
+                  <!--<div class="col-md-3">-->
+                      <!--{% if config == 'debug' %}-->
+                      <!--<div>[GetProcCpuinfo]</div>-->
+                      <!--{% endif %}-->
+                      <!--<div id="div-cpu-summary" class="panel panel-green">-->
+                      <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-3">-->
+                      <!--{% if config == 'debug' %}-->
+                      <!--<div>[GetProcMeminfo]</div>-->
+                      <!--{% endif %}-->
+                      <!--<div id="div-memory-summary" class="panel panel-green">-->
+                      <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-3">-->
+                      <!--{% if config == 'debug' %}-->
+                      <!--<div>[GetCmdDf]</div>-->
+                      <!--{% endif %}-->
+                      <!--<div id="div-io-summary" class="panel panel-green">-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © LEP Team 2017</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="/static/vendors/jquery/jquery.min.js"></script>
+    <script src="/static/vendors/popper/popper.min.js"></script>
+    <script src="/static/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/vendors/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/static/vendors/sb-admin/js/sb-admin.min.js"></script>
+    <script src="/static/vendors/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendors/c3/d3.min.js" charset="utf-8"></script>
+    <script src="/static/vendors/c3/c3.min.js"></script>
+    <script src="/static/vendors/socket-io/socket-io-slim.js"></script>
+    <script src="/static/vendors/flameGraph/d4.js"></script>
+    <script src="/static/vendors/flameGraph/d4.tip.js"></script>
+    <script src="/static/vendors/flameGraph/d4.flameGraph.min.js"></script>
+
+    <script src="/static/js/charts/lepvChart.js"></script>
+    <script src="/static/js/charts/lepvGaugeChart.js"></script>
+
+    <script src="/static/js/charts/cpu/cpuStatDonutChart.js"></script>
+    <script src="/static/js/charts/cpu/cpuStatIdleChart.js"></script>
+    <script src="/static/js/charts/cpu/cpuStatIrqGroupChart.js"></script>
+    <script src="/static/js/charts/cpu/cpuStatUserGroupChart.js"></script>
+
+    <script src="/static/js/charts/cpu/cpuGauguChart.js"></script>
+    <script src="/static/js/charts/cpu/cpuAvgloadChart.js"></script>
+
+    <script src="/static/js/charts/cpu/cpuIrqChart.js"></script>
+    <script src="/static/js/charts/cpu/cpuTopTable.js"></script>
+
+    <script src="/static/js/charts/memory/memoryGauguChart.js"></script>
+    <script src="/static/js/charts/memory/memoryChart.js"></script>
+    <script src="/static/js/charts/memory/memoryStatTable.js"></script>
+    <script src="/static/js/charts/memory/procrankFreeVsPieChart.js"></script>
+    <script src="/static/js/charts/memory/procrankPssPieChart.js"></script>
+
+    <script src="/static/js/charts/io/ioStatChart.js"></script>
+    <script src="/static/js/charts/io/ioGauguChart.js"></script>
+    <script src="/static/js/charts/io/ioTopTable.js"></script>
+
+    <script src="/static/js/charts/perf/perfCpuTable.js"></script>
+
+    <script src="/static/js/charts/perf/perfCpuFlameGraph.js"></script>
+
+    <!--<script src="/static/ts/charts/tsLepvChart.js"></script>-->
+
+    <!-- Custom scripts for this page-->
+    <!-- Toggle between fixed and static navbar-->
+    <script>
+    $('#toggleNavPosition').click(function() {
+      $('body').toggleClass('fixed-nav');
+      $('nav').toggleClass('fixed-top static-top');
+    });
+
+    </script>
+    <!-- Toggle between dark and light navbar-->
+    <script>
+    $('#toggleNavColor').click(function() {
+      $('nav').toggleClass('navbar-dark navbar-light');
+      $('nav').toggleClass('bg-dark bg-light');
+      $('body').toggleClass('bg-dark bg-light');
+    });
+
+    </script>
+
+     <script>
+
+         var socket = null;
+         var serverToWatch = null;
+
+         $( document ).ready(function() {
+
+            $('[data-toggle="popover"]').popover();
+
+            $('.popover-dismiss').popover({
+              trigger: 'focus'
+            })
+
+        });
+    </script>
+
+  </div>
+</body>
+
+</html>
