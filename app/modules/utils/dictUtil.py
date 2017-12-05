@@ -93,3 +93,38 @@ class DictUtil:
 
         return flag
 
+    '''
+        Locate the first direct child node of a dict or dict array whose specified property key has the value of property value    
+    '''
+    @staticmethod
+    def locate_node_by_property_value(dictionary, property_key, property_value):
+
+        s = isinstance(dictionary, dict)
+        sq = isinstance(dictionary, list)
+
+        if isinstance(dictionary, dict):
+            if property_key not in dictionary:
+                return None
+
+            if dictionary[property_key] == property_value:
+                return dictionary
+
+            return None
+
+        elif isinstance(dictionary, list):
+            for sub_dictionary in dictionary:
+                if not isinstance(sub_dictionary, dict):
+                    continue
+
+                if property_key not in sub_dictionary:
+                    continue
+
+                if sub_dictionary[property_key] == property_value:
+                    return sub_dictionary
+
+            return None
+
+        else:
+            raise ValueError('the specified dictionary is neither a map nor a list')
+
+
