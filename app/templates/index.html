@@ -538,6 +538,7 @@
     <script src="/static/js/charts/cpu/cpuAvgloadChart.js"></script>
 
     <script src="/static/js/charts/cpu/cpuIrqChart.js"></script>
+    <script src="/static/js/charts/cpu/cpuSoftIrqChart.js"></script>
     <script src="/static/js/charts/cpu/cpuTopTable.js"></script>
 
     <script src="/static/js/charts/memory/memoryGauguChart.js"></script>
@@ -612,11 +613,11 @@
         var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);
         var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);
 
-        var cpuIrqChart = new CpuIrqChart("container-div-cpu-stat-irq", socket, serverToWatch, 'irq');
-        var cpuNettxIrqChart = new CpuIrqChart("container-div-cpu-stat-nettxIrq", socket, serverToWatch, 'NET_TX');
-        var cpuNetrxIrqChart = new CpuIrqChart("container-div-cpu-stat-netrxIrq", socket, serverToWatch, 'NET_RX');
-        var cputaskletIrqChart = new CpuIrqChart("container-div-cpu-stat-taskletIrq", socket, serverToWatch, 'TASKLET');
-        var cpuhrtimerIrqChart = new CpuIrqChart("container-div-cpu-stat-hrtimerIrq", socket, serverToWatch, 'HRTIMER');
+        var cpuIrqChart = new CpuIrqChart("container-div-cpu-stat-irq", socket, serverToWatch);
+        var cpuNettxIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-nettxIrq", socket, serverToWatch, 'NET_TX');
+        var cpuNetrxIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-netrxIrq", socket, serverToWatch, 'NET_RX');
+        var cputaskletIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-taskletIrq", socket, serverToWatch, 'TASKLET');
+        var cpuhrtimerIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-hrtimerIrq", socket, serverToWatch, 'HRTIMER');
 
 
         var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);

@@ -7,7 +7,7 @@ var CpuGauguChart = function(divName, socket, server) {
 
     LepvChart.call(this, divName, socket, server);
 
-    this.socket_message_key = 'cpu.stat';
+    this.socket_message_key = 'cpu.status';
     this.isLeadingChart = false;
 
     this.socket_response = null;
@@ -30,9 +30,9 @@ CpuGauguChart.prototype.initializeChart = function() {
 
 CpuGauguChart.prototype.updateChartData = function(response) {
 
-    var data = response['data']['cpu_stat'];
+    var data = response['data'];
 
-    var cpuOccupationRatio = 100 - parseFloat(data['all']['idle']);
+    var cpuOccupationRatio = parseFloat(data['idle']);
     this.chart.updateChartData({'ratio': cpuOccupationRatio.toFixed(2)});
     this.requestData();
 };
