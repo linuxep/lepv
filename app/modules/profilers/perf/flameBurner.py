@@ -7,6 +7,10 @@ class FlameBurner():
 
     def burn(self, perf_script_lines, output_file='', separate='@'):
 
+        # for p_s_l in perf_script_lines:
+        #     print(p_s_l)
+        # print("=================")
+
         self.__perf_script_lines = perf_script_lines
 
         list_for_flame = []
@@ -18,7 +22,11 @@ class FlameBurner():
         try:
             for line in self.__perf_script_lines:
                 # print(line)
-                if not line.isspace():
+
+                if not line.strip():
+                    continue
+
+                if not line.isspace() and line:
                     if not line[0].isspace():
                         list_for_flame.append(str)
                         line = line.strip()
@@ -45,7 +53,7 @@ class FlameBurner():
                 li.reverse()
                 self.__create_json(li, line[1], json_for_flame["children"])
 
-            if not output_file:
+            if output_file:
                 with open(output_file, 'w') as f:
                     f.write(json_for_flame)
 
