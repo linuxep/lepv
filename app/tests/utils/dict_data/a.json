@@ -1,0 +1,54 @@
+{
+	"name": "root",
+	"value": 99,
+	"children": [{
+		"name": "x86_64_start_kernel",
+		"value": 99,
+		"children": [{
+			"name": "x86_64_start_reservations",
+			"value": 99,
+			"children": [{
+				"name": "start_kernel",
+				"value": 99,
+				"children": [{
+					"name": "rest_init",
+					"value": 99,
+					"children": [{
+						"name": "cpu_startup_entry",
+						"value": 99,
+						"children": [{
+							"name": "arch_cpu_idle",
+							"value": 98,
+							"children": [{
+								"name": "default_idle",
+								"value": 98,
+								"children": [{
+									"name": "native_safe_halt",
+									"value": 98,
+									"children": [{
+										"name": "swapper",
+										"value": 98,
+										"children": []
+									}]
+								}]
+							}]
+						},
+						{
+							"name": "tick_nohz_idle_enter",
+							"value": 1,
+							"children": [{
+								"name": "set_cpu_sd_state_idle",
+								"value": 1,
+								"children": [{
+									"name": "swapper",
+									"value": 1,
+									"children": []
+								}]
+							}]
+						}]
+					}]
+				}]
+			}]
+		}]
+	}]
+}

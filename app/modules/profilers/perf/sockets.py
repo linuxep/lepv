@@ -9,3 +9,10 @@ perf_blueprint = SocketIOBlueprint('')
 def get_perf_cpu_clock(request):
     server = request['server']
     process_socket_request(request, 'perf.cpuclock.req', PerfProfiler(server).get_perf_cpu_clock)
+
+
+
+@perf_blueprint.on('perf.flame.req')
+def get_perf_flame(request):
+    server = request['server']
+    process_socket_request(request, 'perf.flame.req', PerfProfiler(server).get_cmd_perf_flame)

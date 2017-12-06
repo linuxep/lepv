@@ -465,7 +465,7 @@
 
       <!--flame graph-->
       <div class="col-md-12">
-          <div id="container-perf-cpu-flame-graph" class="card mb-3">
+          <div id="container-perf-flame-graph" class="card mb-3">
             <div class="card-header">
                 <i class="glyphicon glyphicon-tasks"></i>
                 {% if config == 'debug' %}
@@ -552,7 +552,7 @@
 
     <script src="/static/js/charts/perf/perfCpuTable.js"></script>
 
-    <script src="/static/js/charts/perf/perfCpuFlameGraph.js"></script>
+    <script src="/static/js/charts/perf/perfFlameGraph.js"></script>
 
     <!--<script src="/static/ts/charts/tsLepvChart.js"></script>-->
 
@@ -633,7 +633,7 @@
         var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);
 
         var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
-        var perfCpuFlameGraph = new PerfCpuFlameGraph('container-perf-cpu-flame-graph',socket, serverToWatch);
+        <!--var perfFlameGraph = new PerfFlameGraph('container-perf-flame-graph',socket, serverToWatch);-->
         
       }
     </script>

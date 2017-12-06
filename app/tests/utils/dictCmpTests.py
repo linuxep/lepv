@@ -4,6 +4,7 @@ __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
+import json
 
 
 class DictCmpTests(unittest.TestCase):
@@ -234,83 +235,94 @@ class DictCmpTests(unittest.TestCase):
         comp_result = DictUtil.compare(dict_actual, dict_expected)
         self.assertEqual(comp_result, 2, 'If two deep dicts with list are no inclusion relationship, the result should be 2')
 
+    def test_compare_two_deep_dicts_with_arrays(self):
+        with open('./dict_data/a.json') as json_file:
+            expected_json = json.load(json_file)
 
-    def test_locate_child_node_for_dict_by_property(self):
-        dict = {
-                "name": "root",
-                "value": 8,
-                "children": [
-                    {
-                        "name": "x86_64_start_kernel",
-                        "value": 4,
-                        "children": [
-                            {
-                            "name": "x86_64_start_reservations",
-                            "value": 2,
-                            "children": []
-                            }
-                        ]
-                    }
-                ]
-            }
+        with open('./dict_data/b.json') as json_file:
+            same_json = json.load(json_file)
 
-        property_key = 'name'
-        property_value = 'root'
-        located_node = DictUtil.locate_node_by_property_value(dict, property_key, property_value)
-
-        comp_result = DictUtil.compare(dict, located_node)
-        self.assertEqual(comp_result, 0, 'The root dict should be located and returned')
+        comp_result = DictUtil.compare(expected_json, same_json)
+        self.assertEqual(comp_result, 0, 'Two identical dicts with deep arrays should equal')
 
 
-    def test_locate_child_node_for_array_by_property(self):
-        dict = {
-                "name": "root",
-                "value": 8,
-                "children": [
-                    {
-                        "name": "x86_64_start_kernel",
-                        "value": 4,
-                        "children": [
-                            {
-                                "name": "x86_64_start_reservations",
-                                "value": 2,
-                                "children": []
-                            }
-                        ]
-                    },
 
-                    {
-                        "name": "x86_64_start_kernel_XXXX",
-                        "value": 3,
-                        "children": [
-                            {
-                                "name": "x86_64_start_reservations_XXX",
-                                "value": 2,
-                                "children": []
-                            }
-                        ]
-                    }
-                ]
-            }
-
-        property_key = 'name'
-        property_value = 'x86_64_start_kernel_XXXX'
-        located_node = DictUtil.locate_node_by_property_value(dict['children'], property_key, property_value)
-
-        expected_node = {
-                            "name": "x86_64_start_kernel_XXXX",
-                            "value": 3,
-                            "children": [
-                                {
-                                    "name": "x86_64_start_reservations_XXX",
-                                    "value": 2,
-                                    "children": []
-                                }
-                            ]
-                        }
-
-        comp_result = DictUtil.compare(located_node, expected_node)
-        self.assertEqual(comp_result, 0, 'The dict in the array should be located and returned')
+    # def test_locate_child_node_for_dict_by_property(self):
+    #     dict = {
+    #             "name": "root",
+    #             "value": 8,
+    #             "children": [
+    #                 {
+    #                     "name": "x86_64_start_kernel",
+    #                     "value": 4,
+    #                     "children": [
+    #                         {
+    #                         "name": "x86_64_start_reservations",
+    #                         "value": 2,
+    #                         "children": []
+    #                         }
+    #                     ]
+    #                 }
+    #             ]
+    #         }
+    #
+    #     property_key = 'name'
+    #     property_value = 'root'
+    #     located_node = DictUtil.locate_node_by_property_value(dict, property_key, property_value)
+    #
+    #     comp_result = DictUtil.compare(dict, located_node)
+    #     self.assertEqual(comp_result, 0, 'The root dict should be located and returned')
+    #
+    #
+    # def test_locate_child_node_for_array_by_property(self):
+    #     dict = {
+    #             "name": "root",
+    #             "value": 8,
+    #             "children": [
+    #                 {
+    #                     "name": "x86_64_start_kernel",
+    #                     "value": 4,
+    #                     "children": [
+    #                         {
+    #                             "name": "x86_64_start_reservations",
+    #                             "value": 2,
+    #                             "children": []
+    #                         }
+    #                     ]
+    #                 },
+    #
+    #                 {
+    #                     "name": "x86_64_start_kernel_XXXX",
+    #                     "value": 3,
+    #                     "children": [
+    #                         {
+    #                             "name": "x86_64_start_reservations_XXX",
+    #                             "value": 2,
+    #                             "children": []
+    #                         }
+    #                     ]
+    #                 }
+    #             ]
+    #         }
+    #
+    #     property_key = 'name'
+    #     property_value = 'x86_64_start_kernel_XXXX'
+    #     located_node = DictUtil.locate_node_by_property_value(dict['children'], property_key, property_value)
+    #
+    #     expected_node = {
+    #                         "name": "x86_64_start_kernel_XXXX",
+    #                         "value": 3,
+    #                         "children": [
+    #                             {
+    #                                 "name": "x86_64_start_reservations_XXX",
+    #                                 "value": 2,
+    #                                 "children": []
+    #                             }
+    #                         ]
+    #                     }
+    #
+    #     comp_result = DictUtil.compare(located_node, expected_node)
+    #     self.assertEqual(comp_result, 0, 'The dict in the array should be located and returned')
 
 if __name__ =='__main__':
     unittest.main()
