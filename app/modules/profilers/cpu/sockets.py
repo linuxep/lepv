@@ -8,13 +8,17 @@ cpu_blueprint = SocketIOBlueprint('')
 @cpu_blueprint.on('cpu.stat.req')
 def get_cpu_stat(request):
     server = request['server']
-    process_socket_request(request, 'cpu.stat.req', CPUProfiler(server).get_stat)
+    process_socket_request(request, 'cpu.stat.req', CPUProfiler(server).get_irq)
 
+@cpu_blueprint.on('cpu.softirq.req')
+def get_cpu_softirq(request):
+    server = request['server']
+    process_socket_request(request, 'cpu.softirq.req', CPUProfiler(server).get_softirq)
 
 @cpu_blueprint.on('cpu.status.req')
 def get_cpu_status(request):
     server = request['server']
-    process_socket_request(request, 'cpu.status.req', CPUProfiler(server).getStatus)
+    process_socket_request(request, 'cpu.status.req', CPUProfiler(server).get_status)
 
 
 @cpu_blueprint.on('cpu.avgload.req')
