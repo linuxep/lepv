@@ -14,6 +14,7 @@ schemes:
 basePath: /
 produces:
   - application/json
+
 paths:
   /api/cpu/status/{server}:
     get:
@@ -24,6 +25,7 @@ paths:
         - It deprecates the old url of http://www.rmlink.cn:8889/status/cpu/www.rmlink.cn/
 
       parameters:
+
         - name: server
           in: path
           description: the IP or domain of the server to be monitored
@@ -31,12 +33,14 @@ paths:
           type: string
           format: string
           default: www.rmlink.cn
+
         - name: reqid
           in: query
           description: the id of the request
           required: false
           type: number
           format: double
+
         - name: debug
           in: query
           description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
@@ -44,6 +48,7 @@ paths:
           type: boolean
           format: boolean
           default: true
+
       tags:
         - CPU
       responses:
@@ -57,6 +62,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+
+
+
   /api/cpu/avgload/{server}:
     get:
       summary: Get CPU average load
