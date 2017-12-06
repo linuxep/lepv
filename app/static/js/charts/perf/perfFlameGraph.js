@@ -26,19 +26,13 @@ PerfFlameGraph.prototype.constructor = PerfFlameGraph;
 
 PerfFlameGraph.prototype.initializeChart = function() {
     this.chart = d4.flameGraph().width(this.chartWidth);
-
-//    var thisChart = this;
-//    d4.json('/static/test.json', function(error, data) {
-//        if (error) return console.warn(error);
-//
-//        d4.select('#' + thisChart.mainDivName).datum(data).call(thisChart.chart);
-//    });
 };
 
 PerfFlameGraph.prototype.updateChartData = function(response) {
 
     var thisChart = this;
-
     d4.select('#' + thisChart.mainDivName).datum(response).call(thisChart.chart);
+
+    this.requestData();
 
 };

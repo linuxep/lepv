@@ -22,6 +22,10 @@ class FlameBurner():
         try:
             for line in self.__perf_script_lines:
                 # print(line)
+
+                if not line.strip():
+                    continue
+
                 if not line.isspace() and line:
                     if not line[0].isspace():
                         list_for_flame.append(str)
