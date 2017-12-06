@@ -22,7 +22,7 @@ var ProcrankPssPieChart = function(rootDivName, socket, server) {
     this.chart = null;
     this.chartData = {};
 
-    this.maxDataCount = 150;
+    this.maxDataCount = 18;
     this.refreshInterval = 2;
     this.pssBenchmark = 200;
 
@@ -73,7 +73,7 @@ ProcrankPssPieChart.prototype.updateChartData = function(response) {
             index = index + 1;
         });
     } else {
-        while(index < maxDataCount) {
+        while(index < thisChart.maxDataCount) {
             index = index + 1;
         }
     }
