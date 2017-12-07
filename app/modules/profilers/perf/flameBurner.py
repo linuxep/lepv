@@ -49,7 +49,7 @@ class FlameBurner():
                 li.reverse()
                 self.__create_json(li, line[1], json_for_flame["children"])
 
-            if output_file != '':
+            if output_file:
                 with open(output_file, 'w') as f:
                     f.write(json_for_flame)
 

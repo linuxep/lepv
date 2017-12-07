@@ -1,0 +1,618 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: LEPV API
+  description: LEPV Rest API powered by Node
+  version: "0.1.1"
+# the domain of the service
+host: localhost:8889
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /
+produces:
+  - application/json
+
+paths:
+  /api/cpu/status/{server}:
+    get:
+      summary: Get CPU status
+      description: |
+        - The cpu/status endpoint returns information about the cpu of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCmdMpstat".
+        - It deprecates the old url of http://www.rmlink.cn:8889/status/cpu/www.rmlink.cn/
+
+      parameters:
+
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+
+      tags:
+        - CPU
+      responses:
+        "200":
+          description: Status of the CPU, organized by the processor ID like "0", "1", "all", the properties for each processor include %usr, %nice, %sys, %iowait, %irq, %soft, % steal, %guest, %gnice, %idle
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/CPU Status'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+
+  /api/cpu/avgload/{server}:
+    get:
+      summary: Get CPU average load
+      description: |
+        - The cpu/avgload endpoint returns the CPU average load of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetProcLoadavg".
+        - It deprecates the old url of http://www.rmlink.cn:8889/??/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - CPU
+      responses:
+        "200":
+          description: average load of the CPU, in %, including the data for last 1, 5, 15 minutes.
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/Average Load'
+        "default":
+          description: LEPD or LEPV error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/cpu/count/{server}:
+    get:
+      summary: Get CPU count
+      description: |
+        - The cpu/status endpoint returns cpu count the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCpuInfo".
+        - It deprecates the old url of http://www.rmlink.cn:8889/??/cpu/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - CPU
+      responses:
+        "200":
+          description: CPU count
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/CPU Count'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/cpu/top/{server}:
+    get:
+      summary: Get the Top status sorted by cpu ratio
+      description: |
+        - The cpu/top endpoint returns the top status of each process (sorted by it cpu ratio) the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCmdTop".
+        - It deprecates the old url of http://www.rmlink.cn:8889/cputop/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - CPU
+      responses:
+        "200":
+          description: Status of the Top, organized a list Top status (for each process), the properties include %ranking, %PID, %USER, %PRI, %NI, %VSZ, %RSS, %S, %%CPU, %%MEM, %TIME, %CMD
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/Top Status'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/cpu/capacity/{server}:
+    get:
+      summary: Get CPU capacity
+      description: |
+        - The cpu/status endpoint returns information about the cpu capacity of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetProcCpuinfo".
+        - It deprecates the old url of http://www.rmlink.cn:8889/capacity/cpu/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - CPU
+      responses:
+        "200":
+          description: Capacity of the CPU, organized by the processor ID like "0", "1".
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/CPU Capacity'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/io/top/{server}:
+    get:
+      summary: Get the IO Top status
+      description: |
+        - The cpu/status endpoint returns information about the io top status of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCmdIotop".
+        - It deprecates the old url of http://www.rmlink.cn:8889/status/io/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - IO
+      responses:
+        "200":
+          description: Status of the IO Top, organized by the process index like "1", "2", the properties for each process include %TID, %PRIO, %USER, %READ, %WRITE, %SWAPIN, %IO, %COMMAND
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/IO Top Status'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/io/status/{server}:
+    get:
+      summary: Get IO status
+      description: |
+        - The io/status endpoint returns information about the io of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCmdIostat".
+        - It deprecates the old url of http://www.rmlink.cn:8889/status/io/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - IO
+      responses:
+        "200":
+          description: Status of the IO, organized by the disk device name like "sda", the properties for each disk device include %wkbs, %rkbs, %ratio
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/IO Status'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/io/capacity/{server}:
+    get:
+      summary: Get IO capacity
+      description: |
+        - The io/status endpoint returns IO capacity of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCmdDf".
+        - It deprecates the old url of http://www.rmlink.cn:8889/capacity/io/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - IO
+      responses:
+        "200":
+          description: Capacity of the IO, organized by the disk device name like "sda", the properties for each disk device include %size, %used, %free
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/IO Capacity'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/memory/procrank/{server}:
+    get:
+      summary: Get the information of each process ranked by the memory usage
+      description: |
+        - The memory/procrank endpoint returns information about each process (ranked by the memory usage) of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCmdProcrank".
+        - It deprecates the old url of http://www.rmlink.cn:8889/procrank/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - Memory
+      responses:
+        "200":
+          description: Memory usage of the each process, organized by the process ID like "0", "1", the properties for each processor include %uss, %pid, %vss, %cmdline, %rss, %pss
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/Process Memory Rank'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/memory/status/{server}:
+    get:
+      summary: Get Memory status
+      description: |
+        - The cpu/status endpoint returns information about the memory of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetProcMeminfo".
+        - It deprecates the old url of http://www.rmlink.cn:8889/status/memory/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - Memory
+      responses:
+        "200":
+          description: Status of the Memory, the properties include %free, %buffers, %name, %ratio, %total, %cached, %used, %unit
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/Memory Status'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/memory/capacity/{server}:
+    get:
+      summary: Get Memory capacity
+      description: |
+        - The cpu/status endpoint returns capacity about the memory of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetProcMeminfo".
+        - It deprecates the old url of http://www.rmlink.cn:8889/capacity/memory/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - Memory
+      responses:
+        "200":
+          description: Capacity of the Memory, the properties include %capacity, %summary, %name, %unit
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/Memory Capacity'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/perf/cpuclock/{server}:
+    get:
+      summary: Get the Perf status sorted by cpu clock
+      description: |
+        - The perf/cpuclock endpoint returns Perf status of the system being monitored by LEPD.
+        - It talks to LEPD command of "GetCmdPerfCpuclock".
+        - It deprecates the old url of http://www.rmlink.cn:8889/perfcpu/www.rmlink.cn/
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to be monitored
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: reqid
+          in: query
+          description: the id of the request
+          required: false
+          type: number
+          format: double
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - Perf
+      responses:
+        "200":
+          description: Status of the Perf, organized a list Perf status (for each process), the properties for each process include %Overhead, %Symbol, %Shared Object, %Command
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/Perf Status'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /ping/{server}:
+    get:
+      summary: Ping the server
+      description: |
+        - ping the server with SayHello command
+
+      parameters:
+        - name: server
+          in: path
+          description: the IP or domain of the server to ping
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - Utils
+      responses:
+        "200":
+          description: Ping status
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/Ping'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /command/{command}/{server}:
+    get:
+      summary: call a LEPD command agains the server
+      description: |
+        - call a LEPD command agains the server, and get the raw response without LEPV parsing
+        - we can specify the command as "list" to list all the supported commands.
+
+      parameters:
+        - name: command
+          in: path
+          description: the command to LEPD
+          required: true
+          type: string
+          format: string
+          default: list
+        - name: server
+          in: path
+          description: the IP or domain of the server to ping
+          required: true
+          type: string
+          format: string
+          default: www.rmlink.cn
+        - name: debug
+          in: query
+          description: flag indicating whether to run the command in debug mode, the raw response from LEPD is included in the returning JSON if true.
+          required: false
+          type: boolean
+          format: boolean
+          default: true
+      tags:
+        - Utils
+      responses:
+        "200":
+          description: run a LEPD command
+          schema:
+            type: json
+            items:
+              $ref: '#/definitions/command'
+        "default":
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Average Load:
+    type: object
+    properties:
+      last1:
+        type: float
+        description: average load of the system in last minute
+      last5:
+        type: float
+        description: average load of the system in last 5 minutes
+      last15:
+        type: string
+        description: average load of the system in last 15 minutes

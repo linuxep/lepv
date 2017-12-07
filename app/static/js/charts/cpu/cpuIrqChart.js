@@ -103,7 +103,7 @@ CpuIrqChart.prototype.updateChartData = function(response) {
     thisChart.timeData.push(new Date());
         
     $.each( data, function( coreName, statValue ) {
-        thisChart.chartData['CPU-' + coreName].push(statValue);
+        thisChart.chartData['CPU-' + coreName].push(statValue["irq"]);
         
     });
 
