@@ -124,42 +124,43 @@ class IOProfiler:
             ioTopLines.pop(0)
             dataLineStartingIndex -= 1
 
-        orderIndex = 1
+        orderIndex = 0
         for line in ioTopLines:
             # print (line)
             if (line.strip() == ''):
                 continue
-            
-            if (self.client.LEPDENDINGSTRING in line):
-                break
+        
+            try:
+                # find the 'M/s" or 'B/s', they are for disk read and write
+                matches = re.findall('\s*\d+\.\d{2}\s*[G|M|B]\/s\s+', line)
+                diskRead = matches[0].strip()
+                diskWrite = matches[1].strip()
 
-            # find the 'M/s" or 'B/s', they are for disk read and write
-            matches = re.findall('\s*\d+\.\d{2}\s*[G|M|B]\/s\s+', line)
-            diskRead = matches[0].strip()
-            diskWrite = matches[1].strip()
+                # find the "0.00 %" occurrences, they are for swapin and io
+                matches = re.findall('\s*\d+\.\d{2}\s*\%\s+', line)
+                swapin = matches[0].strip()
+                io = matches[1].strip()
+                
+                lineValues = line.split()
+                pid = lineValues[0].strip()
+                prio = lineValues[1].strip()
+                user = lineValues[2].strip()
+                
+                lastPercentIndex = line.rfind('%')
+                command = line[lastPercentIndex+1:]
 
-            # find the "0.00 %" occurrences, they are for swapin and io
-            matches = re.findall('\s*\d+\.\d{2}\s*\%\s+', line)
-            swapin = matches[0].strip()
-            io = matches[1].strip()
-            
-            lineValues = line.split()
-            pid = lineValues[0].strip()
-            prio = lineValues[1].strip()
-            user = lineValues[2].strip()
-            
-            lastPercentIndex = line.rfind('%')
-            command = line[lastPercentIndex+1:]
-
-            ioTopItem = {}
-            ioTopItem['TID'] = pid
-            ioTopItem['PRIO'] = prio
-            ioTopItem['USER'] = user
-            ioTopItem['READ'] = diskRead
-            ioTopItem['WRITE'] = diskWrite
-            ioTopItem['SWAPIN'] = swapin
-            ioTopItem['IO'] = io
-            ioTopItem['COMMAND'] = command
+                ioTopItem = {}
+                ioTopItem['TID'] = pid
+                ioTopItem['PRIO'] = prio
+                ioTopItem['USER'] = user
+                ioTopItem['READ'] = diskRead
+                ioTopItem['WRITE'] = diskWrite
+                ioTopItem['SWAPIN'] = swapin
+                ioTopItem['IO'] = io
+                ioTopItem['COMMAND'] = command
+            except Exception as err:
+                print(err)
+                continue
         
             # use an incremental int as key, so we keey the order of the items.
             ioTopResults['data'][orderIndex] = ioTopItem
