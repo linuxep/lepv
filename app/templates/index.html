@@ -471,7 +471,7 @@
                 {% if config == 'debug' %}
                 <span class="spanTitle">FlameGraph</span>
                 {% else %}
-                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">Flame Graph Demo, mock data for now</span>
+                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">Flame Graph</span>
                 {% endif %}
             </div>
             <div class="card-body"><div class="chart-panel"></div></div>
@@ -634,7 +634,7 @@
         var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);
 
         var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
-        <!--var perfFlameGraph = new PerfFlameGraph('container-perf-flame-graph',socket, serverToWatch);-->
+        var perfFlameGraph = new PerfFlameGraph('container-perf-flame-graph',socket, serverToWatch);
         
       }
     </script>

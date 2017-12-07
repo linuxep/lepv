@@ -17,6 +17,10 @@ class FlameBurner():
         str = ''
         try:
             for line in self.__perf_script_lines:
+
+                if not line.strip():
+                    continue
+
                 # print(line)
                 if not line.isspace():
                     if not line[0].isspace():
@@ -45,7 +49,7 @@ class FlameBurner():
                 li.reverse()
                 self.__create_json(li, line[1], json_for_flame["children"])
 
-            if not output_file:
+            if output_file != '':
                 with open(output_file, 'w') as f:
                     f.write(json_for_flame)
 
