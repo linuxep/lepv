@@ -63,7 +63,7 @@ CpuStatDonutChart.prototype.initializeChart = function() {
 
 CpuStatDonutChart.prototype.updateChartData = function(responseData) {
 
-    var overallData = responseData['data']['cpu_stat']['all'];
+    var overallData = responseData['data']['all'];
 
     this.chart.load({
         columns: [

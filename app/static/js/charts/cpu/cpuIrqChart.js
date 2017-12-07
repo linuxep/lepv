@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuIrqChart = function(rootDivName, socket, server, typ) {
+var CpuIrqChart = function(rootDivName, socket, server) {
 
   LepvChart.call(this, rootDivName, socket, server);
 
@@ -13,7 +13,6 @@ var CpuIrqChart = function(rootDivName, socket, server, typ) {
 
   this.socket_message_key = 'cpu.stat';
   this.chart = null;
-  this.dataType = typ;
 
   this.isLeadingChart = false;
 
@@ -84,14 +83,7 @@ CpuIrqChart.prototype.initializeChart = function() {
 CpuIrqChart.prototype.updateChartData = function(response) {
 
     var thisChart = this;
-    var data = {};
-    if (thisChart.dataType == 'irq') {
-        data = response['data']['irq'];
-    }else{
-        data = response['data']['softirq'];
-    }
-    // var data = response['data']['softirq'][thisChart.dataType];
-    // delete data['all'];
+    var data = response['data'];
 
     if ( !( 'CPU-0' in this.chartData) ) {
         this.chartData = {};
@@ -100,34 +92,28 @@ CpuIrqChart.prototype.updateChartData = function(response) {
         });
 
     }
-    if (this.timeData.length > this.maxDataCount) {
-        this.timeData.splice(1, 1);
+    if (thisChart.timeData.length > thisChart.maxDataCount) {
+        thisChart.timeData.splice(1, 1);
 
         $.each( data, function( coreName, statValue ) {
             thisChart.chartData['CPU-' + coreName].splice(1, 1);
         });
     }
 
-    this.timeData.push(new Date());
-
-
+    thisChart.timeData.push(new Date());
         
     $.each( data, function( coreName, statValue ) {
-        if (thisChart.dataType == 'irq') {
-            thisChart.chartData['CPU-' + coreName].push(statValue);
-        }else{
-            thisChart.chartData['CPU-' + coreName].push(statValue[thisChart.dataType]);
-        }
+        thisChart.chartData['CPU-' + coreName].push(statValue);
         
     });
 
     var columnDatas = [];
-    columnDatas.push(this.timeData);
+    columnDatas.push(thisChart.timeData);
     $.each( data, function( coreName, statValue ) {
         columnDatas.push(thisChart.chartData['CPU-' + coreName]);
     });
 
-    this.chart.load({
+    thisChart.chart.load({
         columns: columnDatas
     });
 

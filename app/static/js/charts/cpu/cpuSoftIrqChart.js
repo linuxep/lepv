@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuStatUserGroupChart = function(rootDivName, socket, server) {
+var CpuSoftIrqChart = function(rootDivName, socket, server, typ) {
 
   LepvChart.call(this, rootDivName, socket, server);
 
@@ -11,10 +11,9 @@ var CpuStatUserGroupChart = function(rootDivName, socket, server) {
   this.socket = socket;
   this.serverToWatch = server;
 
-  this.socket_message_key = 'cpu.stat';
+  this.socket_message_key = 'cpu.softirq';
   this.chart = null;
-
-  this.isLeadingChart = false;
+  this.dataType = typ;
 
   this.maxDataCount = 150;
   this.refreshInterval = 2;
@@ -25,11 +24,11 @@ var CpuStatUserGroupChart = function(rootDivName, socket, server) {
 
 };
 
-CpuStatUserGroupChart.prototype = Object.create(LepvChart.prototype);
-CpuStatUserGroupChart.prototype.constructor = CpuStatUserGroupChart;
+CpuSoftIrqChart.prototype = Object.create(LepvChart.prototype);
+CpuSoftIrqChart.prototype.constructor = CpuSoftIrqChart;
 
 
-CpuStatUserGroupChart.prototype.initializeChart = function() {
+CpuSoftIrqChart.prototype.initializeChart = function() {
 
     var thisChart = this;
 
@@ -58,10 +57,11 @@ CpuStatUserGroupChart.prototype.initializeChart = function() {
             },
             y: {
                 label: {
-                    position: "inner-middle"
+                    text: "Times/s",
+                    position: "outter-middle"
                 },
                 min: 0,
-                max: 105,
+                max: undefined,
                 padding: {
                         top:10,
                         bottom:10
@@ -71,7 +71,7 @@ CpuStatUserGroupChart.prototype.initializeChart = function() {
         tooltip: {
             format: {
                 value: function (value, ratio, id) {
-                    return value + " %";
+                    return value + " times ";;
                 }
             }
         }
@@ -79,12 +79,11 @@ CpuStatUserGroupChart.prototype.initializeChart = function() {
 };
 
 
-CpuStatUserGroupChart.prototype.updateChartData = function(response) {
+CpuSoftIrqChart.prototype.updateChartData = function(response) {
 
     var thisChart = this;
-
     var data = response['data'];
-    delete data['all'];
+    console.log(data)
 
     if ( !( 'CPU-0' in this.chartData) ) {
         this.chartData = {};
@@ -101,11 +100,10 @@ CpuStatUserGroupChart.prototype.updateChartData = function(response) {
         });
     }
 
-//    userGroupStatData[coreName] = parseFloat(coreStatData.user) + parseFloat(coreStatData.system) + parseFloat(coreStatData.nice);
-//    irqGroupStatData[coreName] = parseFloat(coreStatData.irq) + parseFloat(coreStatData.soft);
     this.timeData.push(new Date());
+        
     $.each( data, function( coreName, statValue ) {
-        thisChart.chartData['CPU-' + coreName].push(statValue['user'] + statValue['system'] + statValue['nice']);
+        thisChart.chartData['CPU-' + coreName].push(statValue[thisChart.dataType]);        
     });
 
     var columnDatas = [];

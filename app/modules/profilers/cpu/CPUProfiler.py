@@ -203,57 +203,13 @@ class CPUProfiler:
         responseData['data'] = capacity
         return responseData
 
-    def get_irq(self, statData):
-        if len(statData) < 10:
-            return None
+    def get_status(self):
 
-        results = statData[10:len(statData)]
+        statData = self.get_irq()
+        allIdleRatio = self.client.toDecimal(statData['data']['all']['idle'])
+
         responseData = {}
-        responseData['data'] = {}
-        for line in results:
-
-            if (line.strip() == ''):
-                break
-
-            line_values = line.split()            
-            cpu_name = line_values[1]
-            
-            irq_value = 0
-            for index, value in enumerate(line_values):
-                if index < 2:
-                    continue
-                irq_value = irq_value + \
-                    self.client.toDecimal(value)
-            responseData['data'][cpu_name] = irq_value
-        # print(responseData)
-        return responseData
-
-    def get_soft_irq(self, statData):
-        if len(statData) < 14:
-            return None
-
-        results = statData[14:len(statData)]
-        responseData = {}
-        responseData['data'] = {}
-        for line in results:
-
-            if (line.strip() == ''):
-                break
-
-            line_values = line.split()        
-            cpu_name = line_values[1]
-            responseData['data'][cpu_name] = {}
-            responseData['data'][cpu_name]['HRTIMER'] = self.client.toDecimal(line_values[-2])
-            responseData['data'][cpu_name]['TASKLET'] = self.client.toDecimal(line_values[-4])
-            responseData['data'][cpu_name]['NET_RX'] = self.client.toDecimal(line_values[-7])
-            responseData['data'][cpu_name]['NET_TX'] = self.client.toDecimal(line_values[-8])
-        # print(responseData)
-        return responseData
-
-    def getStatus(self):
-
-        statData = self.get_stat()
-        allIdleRatio = self.client.toDecimal(statData['data']['cpu_stat']['all']['idle'])
+        responseData["data"] = {}
 
         componentInfo = {}
         componentInfo["name"] = "cpu"
@@ -263,38 +219,24 @@ class CPUProfiler:
         if (self.config == 'debug'):
             componentInfo['rawResult'] = statData['rawResult']
 
-        return componentInfo
+        responseData["data"] = componentInfo
 
-    def get_stat(self, response_lines=[]):
+        return responseData
 
+    def get_irq(self, response_lines=[]):
         if not response_lines:
             response_lines = self.client.getResponse('GetCmdMpstat')
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
 
-
-        # discard the first two lines
+        # discard the first three lines
         response_lines.pop(0)
         response_lines.pop(0)
+        response_lines.pop(0)
 
-        if not response_lines:
-            return None
-            response_lines.pop(0)
+        irq_data = {}
+        irq_data['data'] = {}
 
-        # Basic data, basically for debugging
-        stat_data = {
-            "lepd_command": "GetCmdMpstat",
-            "rawResult": response_lines,
-            "server": self.server
-        }
-
-        # this is for analysis
-        irq_numbers = []
-        softirq_numbers = []
-
-        # Core data, for displaying
-        stat_data['data'] = {}
-        stat_data['data']['cpu_stat'] = {}
         for line in response_lines:
             
             if (line.strip() == ''):
@@ -302,56 +244,167 @@ class CPUProfiler:
             
             line_values = line.split()
 
-            cpu_stat = {}
+            irq_stat = {}
             try:
-                cpu_stat['idle'] = float(line_values[-1])
-                cpu_stat['gnice'] = float(line_values[-2])
-                cpu_stat['guest'] = float(line_values[-3])
-                cpu_stat['steal'] = float(line_values[-4])
-                cpu_stat['soft'] = float(line_values[-5])
-                cpu_stat['irq'] = float(line_values[-6])
-                cpu_stat['iowait'] = float(line_values[-7])
-                cpu_stat['system'] = float(line_values[-8])
-                cpu_stat['nice'] = float(line_values[-9])
-                cpu_stat['user'] = float(line_values[-10])
+                irq_stat['idle'] = float(line_values[-1])
+                irq_stat['gnice'] = float(line_values[-2])
+                irq_stat['guest'] = float(line_values[-3])
+                irq_stat['steal'] = float(line_values[-4])
+                irq_stat['soft'] = float(line_values[-5])
+                irq_stat['irq'] = float(line_values[-6])
+                irq_stat['iowait'] = float(line_values[-7])
+                irq_stat['system'] = float(line_values[-8])
+                irq_stat['nice'] = float(line_values[-9])
+                irq_stat['user'] = float(line_values[-10])
 
                 cpu_name = line_values[-11]
             except Exception as err:
                 print(err)
                 continue
 
-            # this is for mocking data
-            # current_minute = datetime.now().minute
-            # if current_minute % 2 == 0:
-            #     if cpu_name == '0':
-            #         cpu_stat['irq'] = Decimal(80)
-            #     else:
-            #         cpu_stat['irq'] = Decimal(20)
+            irq_data['data'][cpu_name] = irq_stat
+
+        return irq_data
+
+    def get_softirq(self, response_lines=[]):
+        if not response_lines:
+            response_lines = self.client.getResponse('GetCmdMpstat-I')
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
+
+        # discard the first two lines
+        response_lines.pop(0)
+        response_lines.pop(0)
+
+        softirq_resp = []
+        softirq_data = {}
+        softirq_data['data'] = {}
+
+        # print(response_lines)
+        startIndex = 0
+        for line in response_lines:
+            if (line.strip() == ''):
+                startIndex = startIndex + 1
+
+            if startIndex < 2:
+                continue
+            elif startIndex > 2:
+                break
+
+            softirq_resp.append(line) 
+
+        if len(softirq_resp) <= 1:
+            return softirq_data
+
+        softirq_resp.pop(0)
+        softirq_resp.pop(0)
+        for line in softirq_resp:
+            line_values = line.split()
+
+            softirq_stat = {}
+            try:
+                softirq_stat['HRTIMER'] = self.client.toDecimal(line_values[-2])
+                softirq_stat['TASKLET'] = self.client.toDecimal(line_values[-4])
+                softirq_stat['NET_RX'] = self.client.toDecimal(line_values[-7])
+                softirq_stat['NET_TX'] = self.client.toDecimal(line_values[-8])
+
+                cpu_name = line_values[1]
+            except Exception as err:
+                print(err)
+                continue
+
+            softirq_data['data'][cpu_name] = softirq_stat
+
+        return softirq_data
+
+
+    # def get_stat(self, response_lines=[]):
+
+    #     if not response_lines:
+    #         response_lines = self.client.getResponse('GetCmdMpstat')
+    #     elif isinstance(response_lines, str):
+    #         response_lines = self.client.split_to_lines(response_lines)
+
+
+    #     # discard the first two lines
+    #     response_lines.pop(0)
+    #     response_lines.pop(0)
+
+    #     if not response_lines:
+    #         return None
+    #         response_lines.pop(0)
+
+    #     # Basic data, basically for debugging
+    #     stat_data = {
+    #         "lepd_command": "GetCmdMpstat",
+    #         "rawResult": response_lines,
+    #         "server": self.server
+    #     }
+
+    #     # this is for analysis
+    #     irq_numbers = []
+    #     softirq_numbers = []
+
+    #     # Core data, for displaying
+    #     stat_data['data'] = {}
+    #     stat_data['data']['cpu_stat'] = {}
+    #     for line in response_lines:
+            
+    #         if (line.strip() == ''):
+    #             break
+            
+    #         line_values = line.split()
+
+    #         cpu_stat = {}
+    #         try:
+    #             cpu_stat['idle'] = float(line_values[-1])
+    #             cpu_stat['gnice'] = float(line_values[-2])
+    #             cpu_stat['guest'] = float(line_values[-3])
+    #             cpu_stat['steal'] = float(line_values[-4])
+    #             cpu_stat['soft'] = float(line_values[-5])
+    #             cpu_stat['irq'] = float(line_values[-6])
+    #             cpu_stat['iowait'] = float(line_values[-7])
+    #             cpu_stat['system'] = float(line_values[-8])
+    #             cpu_stat['nice'] = float(line_values[-9])
+    #             cpu_stat['user'] = float(line_values[-10])
+
+    #             cpu_name = line_values[-11]
+    #         except Exception as err:
+    #             print(err)
+    #             continue
+
+    #         # this is for mocking data
+    #         # current_minute = datetime.now().minute
+    #         # if current_minute % 2 == 0:
+    #         #     if cpu_name == '0':
+    #         #         cpu_stat['irq'] = Decimal(80)
+    #         #     else:
+    #         #         cpu_stat['irq'] = Decimal(20)
 
 
 
-            stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
+    #         stat_data['data']['cpu_stat'][cpu_name] = cpu_stat
 
-        # analysis for load balance
-        analysis_report = self.analyze_irq_for_load_balance(stat_data['data']['cpu_stat'])
-        if analysis_report:
-            if 'messages' not in stat_data:
-                stat_data['messages'] = []
+    #     # analysis for load balance
+    #     analysis_report = self.analyze_irq_for_load_balance(stat_data['data']['cpu_stat'])
+    #     if analysis_report:
+    #         if 'messages' not in stat_data:
+    #             stat_data['messages'] = []
 
-            analysis_report['source'] = 'irq'
-            stat_data['messages'].append(analysis_report)
+    #         analysis_report['source'] = 'irq'
+    #         stat_data['messages'].append(analysis_report)
 
-        #get irq info from stat_data
-        irq_info = self.get_irq(response_lines)
-        if (irq_info != None):
-            stat_data['data']['irq'] = irq_info['data']
+    #     #get irq info from stat_data
+    #     irq_info = self.get_irq(response_lines)
+    #     if (irq_info != None):
+    #         stat_data['data']['irq'] = irq_info['data']
 
-        #get soft irq info from stat_data
-        softirq_info = self.get_soft_irq(response_lines)
-        if (softirq_info != None):
-            stat_data['data']['softirq'] = softirq_info['data']
+    #     #get soft irq info from stat_data
+    #     softirq_info = self.get_soft_irq(response_lines)
+    #     if (softirq_info != None):
+    #         stat_data['data']['softirq'] = softirq_info['data']
 
-        return stat_data
+    #     return stat_data
 
 
     def analyze_irq_for_load_balance(self, cpu_stat_data):
@@ -488,12 +541,14 @@ if( __name__ =='__main__' ):
     
     profiler = CPUProfiler('www.rmlink.cn')
 
-    pp.pprint(profiler.get_stat())
+    # pp.pprint(profiler.get_softirq())
+
+    pp.pprint(profiler.get_irq())
     # pp.pprint(profiler.getIrqInfo())
     # pp.pprint(profiler.getSoftIrqInfo())
     # pp.pprint(profiler.getCapacity())
     # pp.pprint(profiler.getProcessorCount())
-    # pp.pprint(profiler.getStatus())
+    pp.pprint(profiler.get_status())
     # pp.pprint(profiler.getAverageLoad())
     # pp.pprint(profiler.getTopOutput())
     # pp.pprint(profiler.getCpuByName("kworker/u3:0"))
