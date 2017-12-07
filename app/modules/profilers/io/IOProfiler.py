@@ -108,7 +108,7 @@ class IOProfiler:
         ioTopResults = {}
         ioTopResults['data'] = {}
         ioTopResults['rawResult'] = ioTopLines[:]
-        print(len(ioTopLines))
+        # print(len(ioTopLines))
         if (len(ioTopLines) < 2):
             return ioTopResults
 
@@ -174,7 +174,7 @@ if( __name__ =='__main__' ):
     pp = pprint.PrettyPrinter(indent=2)
     
     # monitor = IOMonitor('www.rmlink.cn')
-    pp.pprint(profiler.get_io_top())
+    # pp.pprint(profiler.get_io_top())
     profiler.get_io_top()
     # pp.pprint(profiler.getIoPPData())
 

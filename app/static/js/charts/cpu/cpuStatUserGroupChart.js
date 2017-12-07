@@ -117,6 +117,7 @@ CpuStatUserGroupChart.prototype.updateChartData = function(response) {
     this.chart.load({
         columns: columnDatas
     });
+    this.requestData();
 
 };
 

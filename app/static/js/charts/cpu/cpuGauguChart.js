@@ -8,7 +8,7 @@ var CpuGauguChart = function(divName, socket, server) {
     LepvChart.call(this, divName, socket, server);
 
     this.socket_message_key = 'cpu.status';
-    this.isLeadingChart = false;
+    // this.isLeadingChart = false;
 
     this.socket_response = null;
     this.chart = null;
