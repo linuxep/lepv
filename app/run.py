@@ -50,7 +50,7 @@ app.register_blueprint(utilAPI)
 @app.route('/')
 def index():
     languages = Languages().getLanguagePackForCN()
-    return render_template("index.html", languages=languages)
+    return render_template("flame.html", languages=languages)
 
 
 @app.route('/swagger')
