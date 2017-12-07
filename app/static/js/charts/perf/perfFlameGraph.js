@@ -33,6 +33,4 @@ PerfFlameGraph.prototype.updateChartData = function(response) {
     var thisChart = this;
     d4.select('#' + thisChart.mainDivName).datum(response).call(thisChart.chart);
 
-    this.requestData();
-
 };

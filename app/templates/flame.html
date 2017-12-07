@@ -247,10 +247,23 @@
                 {% if config == 'debug' %}
                 <span class="spanTitle">FlameGraph</span>
                 {% else %}
-                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">Flame Graph</span>
+                <span class="spanTitle" fullTitle="{{ languages.perfTableTitleFull }}" shortTitle="{{ languages.perfTableTitle }}">Flame Graph by LEPV/D3</span>
                 {% endif %}
             </div>
             <div class="card-body"><div class="chart-panel"></div></div>
+            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
+          </div>
+      </div>
+
+      <div class="col-md-12">
+          <div id="container-perf-flame-graph-perl" class="card mb-3">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+              <div class="chart-panel">
+                <img src="http://www.brendangregg.com/FlameGraphs/cpu-mysql-updated.svg" alt="">
+              </div>
+            </div>
             <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
