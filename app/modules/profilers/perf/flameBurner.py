@@ -5,21 +5,16 @@ class FlameBurner():
     def __init__(self):
         self.__perf_script_lines = []
 
-    def burn(self, perf_script_lines, output_file='', separate='@'):
-
-        # for p_s_l in perf_script_lines:
-        #     print(p_s_l)
-        # print("=================")
+    def burn(self, perf_script_lines, output_file=''):
 
         self.__perf_script_lines = perf_script_lines
 
         list_for_flame = []
-        dict_for_flame = {}
         json_for_flame = {"name": "root", "value": 0, "children": []}
 
         # get list_for_flame
-        str = ''
         try:
+            list = []
             for line in self.__perf_script_lines:
                 # print(line)
 
@@ -28,30 +23,23 @@ class FlameBurner():
 
                 if not line.isspace() and line:
                     if not line[0].isspace():
-                        list_for_flame.append(str)
+                        list_for_flame.append(list)
+                        list = []
                         line = line.strip()
-                        str = line.split()[0]
+                        list.append(line.split()[0].replace(';',':'))
                     elif line.split()[1] == '[unknown]':
-                        str = str + separate + line.split()[2]
+                        list.append(line.split()[2].replace(';',':'))
                     else:
-                        str = str + separate + line.split()[1]
-            list_for_flame[0] = str
-
-            # get dict_for_flame
-            for line in list_for_flame:
-                if line in dict_for_flame.keys():
-                    dict_for_flame[line] += 1
-                else:
-                    dict_for_flame[line] = 1
+                        list.append(line.split()[1].replace(';',':'))
+            list_for_flame[0] = list
 
             # get json_for_flame
             json_for_flame["value"] = len(list_for_flame)
-            for line in dict_for_flame.items():
-                li = line[0].split(separate)
+            for li in list_for_flame:
                 li.append(li[0])
                 li.pop(0)
                 li.reverse()
-                self.__create_json(li, line[1], json_for_flame["children"])
+                self.__create_json(li, json_for_flame["children"])
 
             if output_file:
                 with open(output_file, 'w') as f:
@@ -62,7 +50,7 @@ class FlameBurner():
             print(err)
             return {}
 
-    def __create_json(self, line, value, children_list):
+    def __create_json(self, line, children_list):
         if not line:
             return
 
@@ -70,11 +58,10 @@ class FlameBurner():
         for i in range(len(children_list)):
             if line[0] == children_list[i]["name"]:
                 flags += 1
-                children_list[i]["value"] += value
-                self.__create_json(line[1:], value, children_list[i]["children"])
+                children_list[i]["value"] += 1
+                self.__create_json(line[1:], children_list[i]["children"])
                 break
         if flags == 0:
-            dict = {"name": line[0], "value": value, "children": []}
+            dict = {"name": line[0], "value": 1, "children": []}
             children_list.append(dict)
-            self.__create_json(line[1:], value, children_list[-1]["children"])
-
+            self.__create_json(line[1:], children_list[-1]["children"])
