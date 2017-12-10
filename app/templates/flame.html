@@ -31,109 +31,6 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="sideBarAccordion">
 
-        <!--<li class="nav-item" data-toggle="tooltip" data-placement="right" title=" Summary">-->
-          <!--<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSummaryMenu" data-parent="#sideBarAccordion">-->
-            <!--<i class="fa fa-fw fa-dashboard"></i>-->
-            <!--<span class="nav-link-text">Summary</span>-->
-          <!--</a>-->
-          <!--<ul class="sidenav-second-level collapse" id="collapseSummaryMenu">-->
-            <!--<li>-->
-              <!--<a href="#">CPU</a>-->
-            <!--</li>-->
-            <!--<li>-->
-              <!--<a href="#">MEMORY</a>-->
-            <!--</li>-->
-            <!--<li>-->
-              <!--<a href="#">IO</a>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</li>-->
-
-
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="CPU">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCpuMenu" data-parent="#sideBarAccordion">
-            <i class="icon-cpu-processor"></i>
-            <span class="nav-link-text">CPU</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseCpuMenu">
-            <li>
-              <a href="#container-div-cpu-stat-donut">Stat: Overall</a>
-            </li>
-            <li>
-              <a href="#container-div-cpu-stat-idle">Stat: Idle</a>
-            </li>
-            <li>
-              <a href="#container-div-cpu-stat-user-group">Stat: User Group</a>
-            </li>
-            <li>
-              <a href="#container-div-cpu-stat-irqGroup">Stat: Irq Group</a>
-            </li>
-            <li>
-              <a href="#container-div-cpu-stat-irq">Stat: SoftIRQ</a>
-            </li>
-            <li>
-              <a href="#container-div-cpu-avgload">Average Load</a>
-            </li>
-            <li>
-              <a href="#container-div-cpu-top-table">TOP</a>
-            </li>
-          </ul>
-        </li>
-
-
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Memory">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#sideBarAccordion">
-            <i class="icon-ram"></i>
-            <span class="nav-link-text">Memory</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <li>
-              <a href="#container-div-memory-chart">Stat</a>
-            </li>
-            <li>
-              <a href="#container-memory-stat-table">Memory Consumption</a>
-            </li>
-            <li>
-                <a href="#container-div-memory-free-pss-stat">PSS Ratio</a>
-            </li>
-          </ul>
-        </li>
-
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="IO">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseIOMenu" data-parent="#sideBarAccordion">
-            <i class="icon-syncalt"></i>
-            <span class="nav-link-text">IO</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseIOMenu">
-              <li>
-                <a href="#container-div-IOCharts">Stat</a>
-              </li>
-              <li>
-                <a href="#container-io-top-table">Top</a>
-              </li>
-          </ul>
-        </li>
-
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perf">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePerfMenu" data-parent="#sideBarAccordion">
-            <i class="icon-rawaccesslogs"></i>
-            <span class="nav-link-text">Perf</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapsePerfMenu">
-            <li>
-              <a href="#container-perf-cpu-table">Perf CPU</a>
-            </li>
-              <li>
-              <a href="#container-perf-flame-graph">Flame Graph</a>
-            </li>
-          </ul>
-        </li>
-
-
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -158,86 +55,11 @@
       </ul>
     </div>
   </nav>
+
+
   <div class="content-wrapper">
     <div class="container-fluid">
 
-
-      <!--<div class="col-md-12">-->
-        <!--<div id='Summary' class="card mb-3">-->
-          <!--<div class="card-header">-->
-              <!--<i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}-->
-          <!--</div>-->
-          <!--<div class="card-body">-->
-              <!---->
-              <!---->
-              <!--<div class="row">-->
-                  <!--<div class="col-md-3">-->
-                      <!--<div class="card-body">-->
-                          <!--<div id="div-cpu-gauge"></div>-->
-
-                          <!--<div class="panel-footer text-center">-->
-                              <!--{% if config == 'debug' %}-->
-                              <!--处理器 - [GetCmdMpstat]-->
-                              <!--{% else %}-->
-                              <!--处理器-->
-                              <!--{% endif %}-->
-                          <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="col-md-3">-->
-                      <!--<div class="card-body">-->
-                          <!--<div id="div-memory-gauge"></div>-->
-                          <!--<div class="panel-footer text-center">-->
-                              <!--{% if config == 'debug' %}-->
-                              <!--内存 - [GetProcMeminfo]-->
-                              <!--{% else %}-->
-                              <!--内存-->
-                              <!--{% endif %}-->
-                          <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="col-md-3">-->
-                      <!--<div class="card-body">-->
-                          <!--<div id="div-io-gauge"></div>-->
-                          <!--<div class="panel-footer text-center">-->
-                              <!--{% if config == 'debug' %}-->
-                              <!--磁盘 - [GetCmdIostat]-->
-                              <!--{% else %}-->
-                              <!--磁盘-->
-                              <!--{% endif %}-->
-                          <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
-              <!--</div>-->
-
-              <!--<div class="row">-->
-                  <!--<div class="col-md-3">-->
-                      <!--{% if config == 'debug' %}-->
-                      <!--<div>[GetProcCpuinfo]</div>-->
-                      <!--{% endif %}-->
-                      <!--<div id="div-cpu-summary" class="panel panel-green">-->
-                      <!--</div>-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-3">-->
-                      <!--{% if config == 'debug' %}-->
-                      <!--<div>[GetProcMeminfo]</div>-->
-                      <!--{% endif %}-->
-                      <!--<div id="div-memory-summary" class="panel panel-green">-->
-                      <!--</div>-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-3">-->
-                      <!--{% if config == 'debug' %}-->
-                      <!--<div>[GetCmdDf]</div>-->
-                      <!--{% endif %}-->
-                      <!--<div id="div-io-summary" class="panel panel-green">-->
-                      <!--</div>-->
-                  <!--</div>-->
-              <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
 
       <!--flame graph-->
       <div class="col-md-12">
@@ -316,31 +138,6 @@
     <script src="/static/vendors/flameGraph/d4.flameGraph.min.js"></script>
 
     <script src="/static/js/charts/lepvChart.js"></script>
-    <script src="/static/js/charts/lepvGaugeChart.js"></script>
-
-    <script src="/static/js/charts/cpu/cpuStatDonutChart.js"></script>
-    <script src="/static/js/charts/cpu/cpuStatIdleChart.js"></script>
-    <script src="/static/js/charts/cpu/cpuStatIrqGroupChart.js"></script>
-    <script src="/static/js/charts/cpu/cpuStatUserGroupChart.js"></script>
-
-    <script src="/static/js/charts/cpu/cpuGauguChart.js"></script>
-    <script src="/static/js/charts/cpu/cpuAvgloadChart.js"></script>
-
-    <script src="/static/js/charts/cpu/cpuIrqChart.js"></script>
-    <script src="/static/js/charts/cpu/cpuSoftIrqChart.js"></script>
-    <script src="/static/js/charts/cpu/cpuTopTable.js"></script>
-
-    <script src="/static/js/charts/memory/memoryGauguChart.js"></script>
-    <script src="/static/js/charts/memory/memoryChart.js"></script>
-    <script src="/static/js/charts/memory/memoryStatTable.js"></script>
-    <script src="/static/js/charts/memory/procrankFreeVsPieChart.js"></script>
-    <script src="/static/js/charts/memory/procrankPssPieChart.js"></script>
-
-    <script src="/static/js/charts/io/ioStatChart.js"></script>
-    <script src="/static/js/charts/io/ioGauguChart.js"></script>
-    <script src="/static/js/charts/io/ioTopTable.js"></script>
-
-    <script src="/static/js/charts/perf/perfCpuTable.js"></script>
 
     <script src="/static/js/charts/perf/perfFlameGraph.js"></script>
 
