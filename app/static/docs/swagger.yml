@@ -68,9 +68,8 @@ paths:
     get:
       summary: Get CPU average load
       description: |
-        - The cpu/avgload endpoint returns the CPU average load of the system being monitored by LEPD.
+        - The endpoint returns the CPU average load of the system being monitored by LEPD.
         - It talks to LEPD command of "GetProcLoadavg".
-        - It deprecates the old url of http://www.rmlink.cn:8889/??/www.rmlink.cn/
 
       parameters:
         - name: server
@@ -106,13 +105,15 @@ paths:
           description: LEPD or LEPV error
           schema:
             $ref: '#/definitions/Error'
+
+
+
   /api/cpu/count/{server}:
     get:
       summary: Get CPU count
       description: |
-        - The cpu/status endpoint returns cpu count the system being monitored by LEPD.
+        - The endpoint returns cpu count the system being monitored by LEPD.
         - It talks to LEPD command of "GetCpuInfo".
-        - It deprecates the old url of http://www.rmlink.cn:8889/??/cpu/www.rmlink.cn/
 
       parameters:
         - name: server
