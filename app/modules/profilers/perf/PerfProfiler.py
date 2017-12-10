@@ -85,7 +85,8 @@ class PerfProfiler:
             return {}
 
         flame_data = self.flame_burner.burn(response_lines)
-        return flame_data
+
+        return {'flame': flame_data, 'perf_script_output': response_lines}
 
 
 if __name__ == '__main__' :
