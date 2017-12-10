@@ -1,9 +1,9 @@
-# this is an example of the Uber API
+# this is an example of the LEPV API
 # as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
   title: LEPV API
-  description: LEPV Rest API powered by Node
+  description: LEPV Rest API powered by Flask
   version: "0.1.1"
 # the domain of the service
 host: localhost:8889
@@ -20,9 +20,8 @@ paths:
     get:
       summary: Get CPU status
       description: |
-        - The cpu/status endpoint returns information about the cpu of the system being monitored by LEPD.
+        - The endpoint returns information about the cpu of the system being monitored by LEPD.
         - It talks to LEPD command of "GetCmdMpstat".
-        - It deprecates the old url of http://www.rmlink.cn:8889/status/cpu/www.rmlink.cn/
 
       parameters:
 
