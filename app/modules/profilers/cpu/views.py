@@ -41,7 +41,8 @@ def getCpuCount(server):
 def getCpuStatus(server):
 
     profiler = CPUProfiler(server)
-    data = profiler.getStatus()
+
+    data = profiler.get_status()
 
     if 'request_id' in request.args:
         data['response_id'] = request.args['request_id']
