@@ -62,6 +62,21 @@ class FlameBurner():
             print(err)
             return {}
 
+    def generate_json_hierarchy(self, flame_json, stack=[], all_stacks=[]):
+        if 'name' in flame_json:
+            stack.append(flame_json['name'])
+            if 'children' in flame_json and len(flame_json['children']):
+                children = flame_json['children']
+                for child in children:
+                    self.generate_json_hierarchy(child, stack, all_stacks)
+            else:
+                # str = stack.pop(0)
+                # for proc in stack:
+                #     str += ' -> ' + proc
+                all_stacks.append(stack)
+        else:
+            print("sth is wrong, 'name' is not a key")
+
     def __create_json(self, line, value, children_list):
         if not line:
             return

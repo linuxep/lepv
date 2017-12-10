@@ -85,8 +85,10 @@ class PerfProfiler:
             return {}
 
         flame_data = self.flame_burner.burn(response_lines)
+        flame_data_hierarchy = []
+        self.flame_burner.generate_json_hierarchy(flame_data, [], flame_data_hierarchy)
 
-        return {'flame': flame_data, 'perf_script_output': response_lines}
+        return {'flame': flame_data, 'perf_script_output': response_lines, 'hierarchy': flame_data_hierarchy}
 
 
 if __name__ == '__main__' :
@@ -95,5 +97,5 @@ if __name__ == '__main__' :
     pp = pprint.PrettyPrinter(indent=2)
 
     responseData = profiler.get_cmd_perf_flame()
-    pp.pprint(responseData)
+    # pp.pprint(responseData)
 
