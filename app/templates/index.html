@@ -660,7 +660,7 @@
           return;
         }
 
-        $.get( "/api/util/ping/" + specifiedServer, function( pingResult ) {
+        $.get( "/api/ping/" + specifiedServer, function( pingResult ) {
             if (pingResult['connected']) {
               startWatching(specifiedServer);
             } else {
