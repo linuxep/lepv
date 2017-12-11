@@ -601,20 +601,27 @@
     </script>
 
     <script>
+        function setupSocketIO() {
+            console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
+
+            socket = io.connect('http://' + document.domain + ':' + location.port);
+
+            if (socket != null ) {
+                console.log("socket connected");
+            } else {
+                alert("Socket not connected");
+                return;
+            }
+
+        }
+    </script>
+
+    <script>
       function startWatching(specifiedServer) {
 
         serverToWatch = specifiedServer;
 
-        console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
-
-        socket = io.connect('http://' + document.domain + ':' + location.port);
-
-        if (socket != null ) {
-            console.log("socket connected");
-        } else {
-            alert("Socket not connected");
-            return;
-        }
+        setupSocketIO();
 
         var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);
         var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);
