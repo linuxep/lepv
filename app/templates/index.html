@@ -606,13 +606,43 @@
 
             socket = io.connect('http://' + document.domain + ':' + location.port);
 
-            if (socket != null ) {
-                console.log("socket connected");
-            } else {
-                alert("Socket not connected");
-                return;
-            }
+            socket.on('connect', function() {
+              initializeCharts();
+            });
 
+        }
+    </script>
+
+    <script>
+        function initializeCharts() {
+
+          var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);
+          var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);
+          var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);
+          var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);
+
+          var cpuIrqChart = new CpuIrqChart("container-div-cpu-stat-irq", socket, serverToWatch);
+          var cpuNettxIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-nettxIrq", socket, serverToWatch, 'NET_TX');
+          var cpuNetrxIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-netrxIrq", socket, serverToWatch, 'NET_RX');
+          var cputaskletIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-taskletIrq", socket, serverToWatch, 'TASKLET');
+          var cpuhrtimerIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-hrtimerIrq", socket, serverToWatch, 'HRTIMER');
+
+
+          var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);
+
+          var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);
+
+          var memoryChart = new MemoryChart('container-div-memory-chart', socket, serverToWatch);
+
+          var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);
+          var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);
+          var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);
+
+          var ioStatChart = new IOStatChart('container-div-IOCharts', socket, serverToWatch);
+          var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);
+
+          var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
+          var perfFlameGraph = new PerfFlameGraph('container-perf-flame-graph',socket, serverToWatch);
         }
     </script>
 
@@ -620,37 +650,7 @@
       function startWatching(specifiedServer) {
 
         serverToWatch = specifiedServer;
-
         setupSocketIO();
-
-        var cpuStatDonutChart = new CpuStatDonutChart("container-div-cpu-stat-donut", socket, serverToWatch);
-        var cpuStatIdleChart = new CpuStatIdleChart("container-div-cpu-stat-idle", socket, serverToWatch);
-        var cpuStatUserGroupChart = new CpuStatUserGroupChart("container-div-cpu-stat-user-group", socket, serverToWatch);
-        var cpuIrqGroupChart = new CpuIrqGroupChart("container-div-cpu-stat-irqGroup", socket, serverToWatch);
-
-        var cpuIrqChart = new CpuIrqChart("container-div-cpu-stat-irq", socket, serverToWatch);
-        var cpuNettxIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-nettxIrq", socket, serverToWatch, 'NET_TX');
-        var cpuNetrxIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-netrxIrq", socket, serverToWatch, 'NET_RX');
-        var cputaskletIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-taskletIrq", socket, serverToWatch, 'TASKLET');
-        var cpuhrtimerIrqChart = new CpuSoftIrqChart("container-div-cpu-stat-hrtimerIrq", socket, serverToWatch, 'HRTIMER');
-
-
-        var cpuAvgloadChart = new CpuAvgLoadChart("container-div-cpu-avgload", socket, serverToWatch);
-
-        var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);
-
-        var memoryChart = new MemoryChart('container-div-memory-chart', socket, serverToWatch);
-
-        var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);
-        var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);
-        var memoryPssStatChart = new ProcrankPssPieChart('container-div-memory-pss-stat', socket, serverToWatch);
-
-        var ioStatChart = new IOStatChart('container-div-IOCharts', socket, serverToWatch);
-        var ioTopTable = new IoTopTable('container-io-top-table', socket, serverToWatch);
-
-        var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
-        var perfFlameGraph = new PerfFlameGraph('container-perf-flame-graph',socket, serverToWatch);
-        
       }
     </script>
 
