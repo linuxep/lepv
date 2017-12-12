@@ -86,7 +86,7 @@ class PerfProfiler:
 
         flame_data = self.flame_burner.burn(response_lines)
         flame_data_hierarchy = []
-        self.flame_burner.generate_json_hierarchy(flame_data, [], flame_data_hierarchy)
+        # self.flame_burner.generate_json_hierarchy(flame_data, [], flame_data_hierarchy)
 
         return {'flame': flame_data, 'perf_script_output': response_lines, 'hierarchy': flame_data_hierarchy}
 
