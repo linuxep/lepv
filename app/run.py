@@ -46,6 +46,9 @@ perf_blueprint.init_io(socketio)
 from modules.utils.views import utilAPI
 app.register_blueprint(utilAPI)
 
+from modules.utils.sockets import util_blueprint
+util_blueprint.init_io(socketio)
+
 
 @app.route('/')
 def index():

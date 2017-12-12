@@ -148,7 +148,7 @@
             <div class="input-group">
               <input id='txt_server_to_watch' class="form-control" type="text" placeholder="www.rmlink.cn" value="www.rmlink.cn">
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" onclick="tryWatching()">
+                <button class="btn btn-primary" type="button" onclick="startWatching()">
                   <i class="fa fa-play"></i>
                 </button>
               </span>
@@ -595,22 +595,49 @@
 
             $('.popover-dismiss').popover({
               trigger: 'focus'
-            })
+            });
+
+            console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
+            socket = io.connect('http://' + document.domain + ':' + location.port);
+
+            socket.on('connect', function() {
+              console.log("socket connected");
+            });
 
         });
     </script>
 
+    <!--triggered when the user specifies the LEPD server and click the start button.-->
     <script>
-        function setupSocketIO() {
-            console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
+      function startWatching() {
 
-            socket = io.connect('http://' + document.domain + ':' + location.port);
+        var specifiedServer = $("#txt_server_to_watch").val();
 
-            socket.on('connect', function() {
-              initializeCharts();
-            });
-
+        if ( !specifiedServer) {
+          return;
         }
+
+        if (serverToWatch == specifiedServer) {
+          return;
+        }
+
+        console.log("Ping LEPD server: " + specifiedServer);
+        $.get( "/api/ping/" + specifiedServer, function( pingResult ) {
+            if (pingResult['connected']) {
+                console.log("LEPD server reached, ")
+                serverToWatch = specifiedServer;
+
+                initializeCharts();
+
+            } else {
+                alert("Cannot reach the server to watch: " + specifiedServer);
+            }
+        })
+        .fail(function(err, msg) {
+            alert("Cannot reach the server to watch: " + specifiedServer);
+        });
+      }
+
     </script>
 
     <script>
@@ -644,41 +671,6 @@
           var perfCpuTable = new PerfCpuTable('container-perf-cpu-table', socket, serverToWatch);
           var perfFlameGraph = new PerfFlameGraph('container-perf-flame-graph',socket, serverToWatch);
         }
-    </script>
-
-    <script>
-      function startWatching(specifiedServer) {
-
-        serverToWatch = specifiedServer;
-        setupSocketIO();
-      }
-    </script>
-
-    <script>
-      function tryWatching() {
-
-        var specifiedServer = $("#txt_server_to_watch").val();
-
-        if ( !specifiedServer) {
-          return;
-        }
-
-        if (serverToWatch == specifiedServer) {
-          return;
-        }
-
-        $.get( "/api/ping/" + specifiedServer, function( pingResult ) {
-            if (pingResult['connected']) {
-              startWatching(specifiedServer);
-            } else {
-              alert("Cannot reach the server to watch: " + specifiedServer);
-            }
-        })
-        .fail(function(err, msg) {
-            alert("Cannot reach the server to watch: " + specifiedServer);
-        });
-      }
-
     </script>
 
   </div>
