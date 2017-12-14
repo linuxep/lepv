@@ -5,7 +5,7 @@ from modules.utils.socketIOBlueprint import SocketIOBlueprint
 util_blueprint = SocketIOBlueprint('')
 
 
-@util_blueprint.on('ping')
+@util_blueprint.on('lepd.ping')
 def ping_lepd_server(request):
 
     server = request['server']
@@ -13,8 +13,9 @@ def ping_lepd_server(request):
 
     client = LepDClient(server=server)
 
-    data = {
-        'connected': client.ping()
-    }
+    ping_result = client.ping()
 
-    emit('pong', data)
+    if ping_result:
+        emit('lepd.ping.succeeded', {})
+    else:
+        emit('lepd.ping.failed', {})

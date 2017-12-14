@@ -16,6 +16,6 @@ def process_socket_request(request, socket_req_message_key, profiler_method):
 
     socket_res_message_key = socket_req_message_key.replace(".req", ".res")
 
-    print('<- ' + socket_res_message_key + ': ' + server + " | " + str(data['response_id']))
+    print('<- ' + socket_res_message_key + ': ' + server + " | (" + str(data['response_id']) + ')')
     emit(socket_res_message_key,  data)
 
