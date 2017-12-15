@@ -81,21 +81,21 @@ class MethodMap:
         methodMapItem = {}
         methodMapItem['url'] = '/capacity/cpu'
         methodMapItem['viewMethod'] = 'getComponentCapacity'
-        methodMapItem['moduleMethod'] = 'CPUMonitor.getCapacity'
+        methodMapItem['moduleMethod'] = 'CPUMonitor.get_capacity'
         methodMapItem['lepdMethod'] = 'GetProcCpuinfo'
         methodMap.append(methodMapItem)
 
         methodMapItem = {}
         methodMapItem['url'] = '/capacity/memory'
         methodMapItem['viewMethod'] = 'getComponentCapacity'
-        methodMapItem['moduleMethod'] = 'MemoryMonitor.getCapacity'
+        methodMapItem['moduleMethod'] = 'MemoryMonitor.get_capacity'
         methodMapItem['lepdMethod'] = 'GetProcMeminfo'
         methodMap.append(methodMapItem)
 
         methodMapItem = {}
         methodMapItem['url'] = '/capacity/io'
         methodMapItem['viewMethod'] = 'getComponentCapacity'
-        methodMapItem['moduleMethod'] = 'IOMonitor.getCapacity'
+        methodMapItem['moduleMethod'] = 'IOMonitor.get_capacity'
         methodMapItem['lepdMethod'] = 'GetCmdDf'
         methodMap.append(methodMapItem)
         

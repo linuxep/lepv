@@ -19,7 +19,7 @@ class StabilityTestCase(LepvTestCase):
 
     def test_stability(self):
         profiler = CPUProfiler('www.rmlink.cn')
-        self.repeated_test(profiler.getCpuInfo)
+        self.repeated_test(profiler.get_proc_cpu_info)
 
 
 if __name__ =='__main__':

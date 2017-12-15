@@ -235,5 +235,5 @@ if( __name__ =='__main__' ):
     # print(profiler.getSmemOutput())
     # print(profiler.getProcrankOutput())
     # 
-    # print(profiler.getCapacity())
+    # print(profiler.get_capacity())
 

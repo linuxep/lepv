@@ -97,7 +97,7 @@ class CPUProfiler:
     
         return results
     
-    def getCpuInfo(self, cpuInfoLines = None):
+    def get_proc_cpu_info(self, cpuInfoLines = None):
 
         lepd_command = 'GetProcCpuinfo'
         if (cpuInfoLines == None):
@@ -125,7 +125,7 @@ class CPUProfiler:
         
         return responseData
 
-    def getProcessorCount(self, cpuInfoLines = None):
+    def get_processor_count(self, cpuInfoLines = None):
 
         lepd_command = 'GetCpuInfo'
         if (cpuInfoLines == None):
@@ -143,9 +143,9 @@ class CPUProfiler:
             
         return responseData
 
-    def getCapacity(self):
+    def get_capacity(self):
         
-        cpuInfoData = self.getCpuInfo()
+        cpuInfoData = self.get_proc_cpu_info()
         
         if (not cpuInfoData):
             return {}
@@ -553,7 +553,7 @@ if( __name__ =='__main__' ):
     pp.pprint(profiler.get_irq())
     # pp.pprint(profiler.getIrqInfo())
     # pp.pprint(profiler.getSoftIrqInfo())
-    # pp.pprint(profiler.getCapacity())
+    # pp.pprint(profiler.get_capacity())
     # pp.pprint(profiler.getProcessorCount())
     pp.pprint(profiler.get_status())
     # pp.pprint(profiler.getAverageLoad())
