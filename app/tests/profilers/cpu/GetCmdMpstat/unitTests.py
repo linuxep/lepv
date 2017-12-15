@@ -14,12 +14,13 @@ class GetCmdMpstatTestCase(LepvTestCase):
 
     def setUp(self):
         self.profiler = CPUProfiler('')
+        self.functor = self.profiler.get_irq
 
     @file_data("unittests.json")
     def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
         self.describe(kernel, os, cpu, note, expectedMatchType, expected)
 
-        actual = self.profiler.get(lepdResult)
+        actual = self.functor(lepdResult)
         self.validate(expected, actual, expectedMatchType)
 
 
