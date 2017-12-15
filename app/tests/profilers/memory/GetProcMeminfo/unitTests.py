@@ -1,26 +1,24 @@
+"""Tests for Memory profiler method: getProcrank"""
 from modules.profilers.memory.MemoryProfiler import MemoryProfiler
 from tests.profilers.lepvTestCase import LepvTestCase
+import unittest
+from ddt import ddt, file_data
+
+from modules.profilers.io.IOProfiler import IOProfiler
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-import unittest
-from ddt import ddt, file_data
 
 @ddt
-class GetProcMeminfoTestCase(LepvTestCase):
+class GetProcrankTestCase(LepvTestCase):
 
     def setUp(self):
-        self.profiler = MemoryProfiler('')
+        self.functor = MemoryProfiler('').getCapacity
 
     @file_data("unittests.json")
-    def test(self, kernel, os, cpu, note, lepdResult, expected, expected_match_type):
-        self.describe(kernel, os, cpu, note, expected_match_type, expected)
-
-        # getStatus -> GetProcMeminfo
-        actual = self.profiler.getStatus(lepdResult)
-        self.validate(expected, actual, expected_match_type)
-
+    def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
+        self.unit_test(kernel, os, cpu, note, lepdResult, expected, expectedMatchType)
 
 if __name__ == '__main__':
     unittest.main()

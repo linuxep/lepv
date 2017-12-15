@@ -2,17 +2,14 @@
 from modules.profilers.perf.flameBurner import FlameBurner
 from modules.utils.dictUtil import DictUtil
 from tests.profilers.lepvTestCase import LepvTestCase
+import unittest
+import json
+from modules.profilers.perf.PerfProfiler import PerfProfiler
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-import unittest
-import json
-from ddt import ddt, file_data
 
-from modules.profilers.perf.PerfProfiler import PerfProfiler
-
-@ddt
 class GetCmdPerfFlameTestCase(LepvTestCase):
 
     def setUp(self):

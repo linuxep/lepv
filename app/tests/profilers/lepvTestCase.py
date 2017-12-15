@@ -24,6 +24,12 @@ class LepvTestCase(unittest.TestCase):
         pprint(expected_data)
         print("")
 
+    def unit_test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
+        self.describe(kernel, os, cpu, note, expectedMatchType, expected)
+
+        actual = self.functor(lepdResult)
+        self.validate(expected, actual, expectedMatchType)
+
     def validate_schema(self, data):
         print(data)
 

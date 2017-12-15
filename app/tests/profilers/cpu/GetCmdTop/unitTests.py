@@ -1,27 +1,23 @@
-"""Tests for CPU profiler method: GetProcLoadavg"""
+"""Tests for CPU profiler method: getTopOutput"""
 from tests.profilers.lepvTestCase import LepvTestCase
-
-__author__    = "Copyright (c) 2017, LEP>"
-__copyright__ = "Licensed under GPLv2 or later."
-
 import unittest
 from ddt import ddt, file_data
 
 from modules.profilers.cpu.CPUProfiler import CPUProfiler
 
+__author__    = "Copyright (c) 2017, LEP>"
+__copyright__ = "Licensed under GPLv2 or later."
+
+
 @ddt
 class GetProcLoadavgTestCase(LepvTestCase):
 
     def setUp(self):
-        self.profiler = CPUProfiler('')
+        self.functor = CPUProfiler('').getTopOutput
 
     @file_data("unittests.json")
     def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
-        self.describe(kernel, os, cpu, note, expectedMatchType, expected)
-
-        actual = self.profiler.getTopOutput(lepdResult)
-        self.validate(expected, actual, expectedMatchType)
-
+        self.unit_test(kernel, os, cpu, note, lepdResult, expected, expectedMatchType)
 
 if __name__ == '__main__':
     unittest.main()
