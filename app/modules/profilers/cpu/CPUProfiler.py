@@ -482,7 +482,7 @@ class CPUProfiler:
 
     def getTopOutput(self, responseLines = None):
 
-        lepd_command = GetCmdTop
+        lepd_command = 'GetCmdTop'
         if (responseLines == None):
             responseLines = self.client.getResponse(lepd_command)
 
