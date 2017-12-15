@@ -97,33 +97,35 @@ class CPUProfiler:
     
         return results
     
-    def get_proc_cpu_info(self, cpuInfoLines = None):
+    def get_proc_cpu_info(self, response_lines=[]):
 
         lepd_command = 'GetProcCpuinfo'
-        if (cpuInfoLines == None):
-            cpuInfoLines = self.client.getResponse(lepd_command)
+        if not response_lines:
+            response_lines = self.client.getResponse(lepd_command)
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
             
-        responseData = {}
-        if (self.config == 'debug'):
-            responseData['rawResult'] = cpuInfoLines
+        response_data = {}
+        if self.config == 'debug':
+            response_data['rawResult'] = response_lines
 
-        firstLine = cpuInfoLines[0]
-        if ("ARM" in firstLine):
-            responseData['data'] = self.getCpuInfoForArm(cpuInfoLines)
-        elif ('AArch64' in firstLine):
-            responseData['data'] = self.getCpuInfoForArmArch64(cpuInfoLines)
+        firstLine = response_lines[0]
+        if "ARM" in firstLine:
+            response_data['data'] = self.getCpuInfoForArm(response_lines)
+        elif 'AArch64' in firstLine:
+            response_data['data'] = self.getCpuInfoForArmArch64(response_lines)
         else:
-            secondLine = cpuInfoLines[1]
-            responseData['data'] = self.getCpuInfoForX86(cpuInfoLines)
-            if ('GenuineIntel' not in secondLine):
-                responseData['data']['architecture'] = 'ARM'
+            secondLine = response_lines[1]
+            response_data['data'] = self.getCpuInfoForX86(response_lines)
+            if 'GenuineIntel' not in secondLine:
+                response_data['data']['architecture'] = 'ARM'
 
-        responseData['data']['processorCount'] = 0
-        for line in cpuInfoLines:
+        response_data['data']['processorCount'] = 0
+        for line in response_lines:
             if re.match(r'\W*processor\W*:\W*\d+', line, re.M|re.I):
-                responseData['data']['processorCount'] += 1
+                response_data['data']['processorCount'] += 1
         
-        return responseData
+        return response_data
 
     def get_processor_count(self, response_lines=[]):
 

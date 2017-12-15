@@ -1,14 +1,11 @@
-{
-  "description": "GetProcCpuinfo",
-
-  "cases": [
-
-    {
-      "kernel": "",
-      "os": "",
-      "cpu": "x86",
-      "note": "data from readeeper.com",
-      "lepdResult":	"processor\t: 0\\nvendor_id\t: GenuineIntel\\ncpu family\t: 6\\nmodel\t\t: 6\\nmodel name\t: QEMU Virtual CPU\\nstepping\t: 3\\nmicrocode\t: 0x1\\ncpu MHz\t\t: 2599.998\\ncache size\t: 4096 KB\\nphysical id\t: 0\\nsiblings\t: 1\\ncore id\t\t: 0\\ncpu cores\t: 1\\napicid\t\t: 0\\ninitial apicid\t: 0\\nfpu\t\t: yes\\nfpu_exception\t: yes\\ncpuid level\t: 13\\nwp\t\t: yes\\nflags\t\t: fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pse36 clflush mmx fxsr sse sse2 syscall nx lm rep_good nopl pni cx16 x2apic popcnt hypervisor lahf_lm\\nbugs\t\t:\\nbogomips\t: 5199.99\\nclflush size\t: 64\\ncache_alignment\t: 64\\naddress sizes\t: 40 bits physical, 48 bits virtual\\npower management:\\n\\nprocessor\t: 1\\nvendor_id\t: GenuineIntel\\ncpu family\t: 6\\nmodel\t\t: 6\\nmodel name\t: QEMU Virtual CPU\\nstepping\t: 3\\nmicrocode\t: 0x1\\ncpu MHz\t\t: 2599.998\\ncache size\t: 4096 KB\\nphysical id\t: 1\\nsiblings\t: 1\\ncore id\t\t: 0\\ncpu cores\t: 1\\napicid\t\t: 1\\ninitial apicid\t: 1\\nfpu\t\t: yes\\nfpu_exception\t: yes\\ncpuid level\t: 13\\nwp\t\t: yes\\nflags\t\t: fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pse36 clflush mmx fxsr sse sse2 syscall nx lm rep_good nopl pni cx16 x2apic popcnt hypervisor lahf_lm\\nbugs\t\t:\\nbogomips\t: 5199.99\\nclflush size\t: 64\\ncache_alignment\t: 64\\naddress sizes\t: 40 bits physical, 48 bits virtual\\npower management:\\n\\nlepdendstring",
+[
+  {
+     "kernel": "",
+    "os": "linux",
+    "cpu": "x86",
+    "note": "data from www.rmlink.cn",
+    "expectedMatchType": "contains",
+    "lepdResult":	"processor\t: 0\\nvendor_id\t: GenuineIntel\\ncpu family\t: 6\\nmodel\t\t: 6\\nmodel name\t: QEMU Virtual CPU\\nstepping\t: 3\\nmicrocode\t: 0x1\\ncpu MHz\t\t: 2599.998\\ncache size\t: 4096 KB\\nphysical id\t: 0\\nsiblings\t: 1\\ncore id\t\t: 0\\ncpu cores\t: 1\\napicid\t\t: 0\\ninitial apicid\t: 0\\nfpu\t\t: yes\\nfpu_exception\t: yes\\ncpuid level\t: 13\\nwp\t\t: yes\\nflags\t\t: fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pse36 clflush mmx fxsr sse sse2 syscall nx lm rep_good nopl pni cx16 x2apic popcnt hypervisor lahf_lm\\nbugs\t\t:\\nbogomips\t: 5199.99\\nclflush size\t: 64\\ncache_alignment\t: 64\\naddress sizes\t: 40 bits physical, 48 bits virtual\\npower management:\\n\\nprocessor\t: 1\\nvendor_id\t: GenuineIntel\\ncpu family\t: 6\\nmodel\t\t: 6\\nmodel name\t: QEMU Virtual CPU\\nstepping\t: 3\\nmicrocode\t: 0x1\\ncpu MHz\t\t: 2599.998\\ncache size\t: 4096 KB\\nphysical id\t: 1\\nsiblings\t: 1\\ncore id\t\t: 0\\ncpu cores\t: 1\\napicid\t\t: 1\\ninitial apicid\t: 1\\nfpu\t\t: yes\\nfpu_exception\t: yes\\ncpuid level\t: 13\\nwp\t\t: yes\\nflags\t\t: fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pse36 clflush mmx fxsr sse sse2 syscall nx lm rep_good nopl pni cx16 x2apic popcnt hypervisor lahf_lm\\nbugs\t\t:\\nbogomips\t: 5199.99\\nclflush size\t: 64\\ncache_alignment\t: 64\\naddress sizes\t: 40 bits physical, 48 bits virtual\\npower management:\\n\\nlepdendstring",
       "expected": {
         "data": {
           "processors": {
@@ -70,309 +67,313 @@
           "count": 2
         }
       }
-    },
+  },
 
-    {
-      "kernel": "",
-      "os": "",
-      "cpu": "arm",
-      "note": "PCDuino, data provided by Chen Song",
-      "lepdResult":	"Processor\t: ARMv7 Processor rev 4 (v7l)\nprocessor\t: 0\nBogoMIPS\t: 1810.43\n\nprocessor\t: 1\nBogoMIPS\t: 1823.53\n\nFeatures\t: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt \nCPU implementer\t: 0x41\nCPU architecture: 7\nCPU variant\t: 0x0\nCPU part\t: 0xc07\nCPU revision\t: 4\n\nHardware\t: sun7i\nRevision\t: 0000\nSerial\t\t: 0000000000000000\nlepdendstring",
-      "expected": {
-        "data": {
-          "processors": {
-            "0": {
-              "BogoMIPS": "1810.43"
-            },
-            "1": {
-              "BogoMIPS": "1823.53"
-            }
+  {
+    "kernel": "",
+    "os": "",
+    "cpu": "arm",
+    "note": "PCDuino, data provided by Chen Song",
+    "expectedMatchType": "contains",
+    "lepdResult":	"Processor\t: ARMv7 Processor rev 4 (v7l)\nprocessor\t: 0\nBogoMIPS\t: 1810.43\n\nprocessor\t: 1\nBogoMIPS\t: 1823.53\n\nFeatures\t: swp half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt \nCPU implementer\t: 0x41\nCPU architecture: 7\nCPU variant\t: 0x0\nCPU part\t: 0xc07\nCPU revision\t: 4\n\nHardware\t: sun7i\nRevision\t: 0000\nSerial\t\t: 0000000000000000\nlepdendstring",
+    "expected": {
+      "data": {
+        "processors": {
+          "0": {
+            "BogoMIPS": "1810.43"
           },
-          "count": 4,
-          "features": [
-            "swp",
-            "half",
-            "thumb",
-            "fastmult",
-            "vfp",
-            "edsp",
-            "neon",
-            "vfpv3",
-            "tls",
-            "vfpv4",
-            "idiva",
-            "idivt"
-          ],
-          "architecture": "ARM v7"
-        }
-      }
-    },
-
-    {
-      "kernel": "",
-      "os": "",
-      "cpu": "arm",
-      "note": "Bubblegum 96board, 64-bit, provided by Wang Zechao",
-      "lepdResult":"Processor\t: AArch64 Processor rev 2 (aarch64)\nprocessor\t: 0\nprocessor\t: 1\nprocessor\t: 2\nprocessor\t: 3\nFeatures\t: fp asimd evtstrm crc32 wp half thumb fastmult vfp edsp neon vfpv3 tlsi vfpv4 idiva idivt \nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x0\nCPU part\t: 0xd03\nCPU revision\t: 2\n\nHardware\t: s900\nRevision\t: 0000\nSerial\t\t: 0000000000000000\n",
-      "expected": {
-        "data": {
-          "processors": {
-            "0": {
-              "BogoMIPS": "1810.43"
-            },
-            "1": {
-              "BogoMIPS": "1823.53"
-            }
-          },
-          "count": 4,
-          "features": [
-            "swp",
-            "half",
-            "thumb",
-            "fastmult",
-            "vfp",
-            "edsp",
-            "neon",
-            "vfpv3",
-            "tls",
-            "vfpv4",
-            "idiva",
-            "idivt"
-          ],
-          "architecture": "ARM v7"
-        }
-      }
-    },
-
-    {
-      "kernel": "",
-      "os": "",
-      "cpu": "arm",
-      "note": "Made-In-China ARM, 64-bit, provided by Wang Zechao",
-      "lepdResult":"processor\t: 0\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 1\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 2\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 3\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 4\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 5\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 6\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 7\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 8\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 9\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 10\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 11\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 12\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 13\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 14\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 15\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\n",
-      "expected": {
-        "data": {
-          "processors": {
-            "0": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "1": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "2": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "3": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "4": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "5": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "6": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "7": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "8": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "9": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "10": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "11": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "12": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "13": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "14": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "15": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            }
-          },
-          "count": 20,
-          "features": [
-            "swp",
-            "half",
-            "thumb",
-            "fastmult",
-            "vfp",
-            "edsp",
-            "neon",
-            "vfpv3",
-            "tls",
-            "vfpv4",
-            "idiva",
-            "idivt"
-          ],
-          "architecture": "ARM v7"
-        }
-      }
-    },
-
-    {
-      "kernel": "",
-      "os": "Android",
-      "cpu": "ARM",
-      "note": "Android system from Xiangzhen",
-      "lepdResult":"Processor\t: AArch64 Processor rev 0 (aarch64)\nprocessor\t: 0\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 wp half thumb fastmult vfp edsp neon vfpv3 tlsi vfpv4 idiva idivt \nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0xd07\nCPU revision\t: 0\n\nHardware\t: ranchu\nlepdendstring",
-      "expected": {
-        "data": {
-          "processors": {
-            "0": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "1": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            },
-            "15": {
-              "BogoMIPS": "100.00",
-              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
-              "CPU implementer": "0x70",
-              "CPU architecture": "8",
-              "CPU variant": "0x1",
-              "CPU part": "0x660",
-              "CPU revision": "1"
-            }
-          },
-          "count": 20,
-          "features": [
-            "swp",
-            "half",
-            "thumb",
-            "fastmult",
-            "vfp",
-            "edsp",
-            "neon",
-            "vfpv3",
-            "tls",
-            "vfpv4",
-            "idiva",
-            "idivt"
-          ],
-          "architecture": "ARM v7"
-        }
+          "1": {
+            "BogoMIPS": "1823.53"
+          }
+        },
+        "count": 4,
+        "features": [
+          "swp",
+          "half",
+          "thumb",
+          "fastmult",
+          "vfp",
+          "edsp",
+          "neon",
+          "vfpv3",
+          "tls",
+          "vfpv4",
+          "idiva",
+          "idivt"
+        ],
+        "architecture": "ARM v7"
       }
     }
-  ]
-}
+  },
+
+  {
+    "kernel": "",
+    "os": "",
+    "cpu": "arm",
+    "note": "Bubblegum 96board, 64-bit, provided by Wang Zechao",
+    "expectedMatchType": "contains",
+    "lepdResult":"Processor\t: AArch64 Processor rev 2 (aarch64)\nprocessor\t: 0\nprocessor\t: 1\nprocessor\t: 2\nprocessor\t: 3\nFeatures\t: fp asimd evtstrm crc32 wp half thumb fastmult vfp edsp neon vfpv3 tlsi vfpv4 idiva idivt \nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x0\nCPU part\t: 0xd03\nCPU revision\t: 2\n\nHardware\t: s900\nRevision\t: 0000\nSerial\t\t: 0000000000000000\n",
+    "expected": {
+      "data": {
+        "processors": {
+          "0": {
+            "BogoMIPS": "1810.43"
+          },
+          "1": {
+            "BogoMIPS": "1823.53"
+          }
+        },
+        "count": 4,
+        "features": [
+          "swp",
+          "half",
+          "thumb",
+          "fastmult",
+          "vfp",
+          "edsp",
+          "neon",
+          "vfpv3",
+          "tls",
+          "vfpv4",
+          "idiva",
+          "idivt"
+        ],
+        "architecture": "ARM v7"
+      }
+    }
+  },
+
+  {
+    "kernel": "",
+    "os": "",
+    "cpu": "arm",
+    "note": "Made-In-China ARM, 64-bit, provided by Wang Zechao",
+    "expectedMatchType": "contains",
+    "lepdResult":"processor\t: 0\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 1\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 2\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 3\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 4\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 5\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 6\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 7\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 8\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 9\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 10\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 11\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 12\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 13\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 14\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\nprocessor\t: 15\nBogoMIPS\t: 100.00\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32\nCPU implementer\t: 0x70\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0x660\nCPU revision\t: 1\n\n",
+    "expected": {
+      "data": {
+        "processors": {
+          "0": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "1": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "2": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "3": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "4": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "5": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "6": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "7": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "8": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "9": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "10": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "11": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "12": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "13": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "14": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          },
+          "15": {
+            "BogoMIPS": "100.00",
+            "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+            "CPU implementer": "0x70",
+            "CPU architecture": "8",
+            "CPU variant": "0x1",
+            "CPU part": "0x660",
+            "CPU revision": "1"
+          }
+        },
+        "count": 20,
+        "features": [
+          "swp",
+          "half",
+          "thumb",
+          "fastmult",
+          "vfp",
+          "edsp",
+          "neon",
+          "vfpv3",
+          "tls",
+          "vfpv4",
+          "idiva",
+          "idivt"
+        ],
+        "architecture": "ARM v7"
+      }
+    }
+  },
+
+  {
+    "kernel": "",
+    "os": "Android",
+    "cpu": "ARM",
+    "note": "Android system from Xiangzhen",
+    "expectedMatchType": "contains",
+    "lepdResult":"Processor\t: AArch64 Processor rev 0 (aarch64)\nprocessor\t: 0\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 wp half thumb fastmult vfp edsp neon vfpv3 tlsi vfpv4 idiva idivt \nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x1\nCPU part\t: 0xd07\nCPU revision\t: 0\n\nHardware\t: ranchu\nlepdendstring",
+      "expected": {
+        "data": {
+          "processors": {
+            "0": {
+              "BogoMIPS": "100.00",
+              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+              "CPU implementer": "0x70",
+              "CPU architecture": "8",
+              "CPU variant": "0x1",
+              "CPU part": "0x660",
+              "CPU revision": "1"
+            },
+            "1": {
+              "BogoMIPS": "100.00",
+              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+              "CPU implementer": "0x70",
+              "CPU architecture": "8",
+              "CPU variant": "0x1",
+              "CPU part": "0x660",
+              "CPU revision": "1"
+            },
+            "15": {
+              "BogoMIPS": "100.00",
+              "Features": "fp asimd evtstrm aes pmull sha1 sha2 crc32",
+              "CPU implementer": "0x70",
+              "CPU architecture": "8",
+              "CPU variant": "0x1",
+              "CPU part": "0x660",
+              "CPU revision": "1"
+            }
+          },
+          "count": 20,
+          "features": [
+            "swp",
+            "half",
+            "thumb",
+            "fastmult",
+            "vfp",
+            "edsp",
+            "neon",
+            "vfpv3",
+            "tls",
+            "vfpv4",
+            "idiva",
+            "idivt"
+          ],
+          "architecture": "ARM v7"
+        }
+      }
+  }
+]
+
