@@ -124,13 +124,13 @@ class IOProfiler:
             ioTopLines.pop(0)
             dataLineStartingIndex -= 1
 
-        for line in ioTopLines:
-            print(line)
-        print('--------------------')
+        # for line in ioTopLines:
+        #     print(line)
+        # print('--------------------')
 
         orderIndex = 0
         for line in ioTopLines:
-            print(line)
+            # print(line)
             if (line.strip() == ''):
                 continue
         
