@@ -1,5 +1,4 @@
 """Module for CPU related data parsing"""
-from random import randrange
 
 __author__    = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
@@ -8,7 +7,6 @@ import pprint
 import re
 from decimal import Decimal
 from time import gmtime, strftime
-from datetime import datetime
 
 from modules.lepd.LepDClient import LepDClient
 
@@ -100,9 +98,10 @@ class CPUProfiler:
         return results
     
     def getCpuInfo(self, cpuInfoLines = None):
-        
+
+        lepd_command = 'GetProcCpuinfo'
         if (cpuInfoLines == None):
-            cpuInfoLines = self.client.getResponse('GetProcCpuinfo')
+            cpuInfoLines = self.client.getResponse(lepd_command)
             
         responseData = {}
         if (self.config == 'debug'):
@@ -128,8 +127,9 @@ class CPUProfiler:
 
     def getProcessorCount(self, cpuInfoLines = None):
 
+        lepd_command = 'GetCpuInfo'
         if (cpuInfoLines == None):
-            cpuInfoLines = self.client.getResponse('GetCpuInfo')
+            cpuInfoLines = self.client.getResponse(lepd_command)
 
         responseData = {}
         for line in cpuInfoLines:
@@ -224,8 +224,10 @@ class CPUProfiler:
         return responseData
 
     def get_irq(self, response_lines=[]):
+
+        lepd_command = 'GetCmdMpstat'
         if not response_lines:
-            response_lines = self.client.getResponse('GetCmdMpstat')
+            response_lines = self.client.getResponse(lepd_command)
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
 
@@ -267,8 +269,10 @@ class CPUProfiler:
         return irq_data
 
     def get_softirq(self, response_lines=[]):
+
+        lepd_command = 'GetCmdMpstat-I'
         if not response_lines:
-            response_lines = self.client.getResponse('GetCmdMpstat-I')
+            response_lines = self.client.getResponse(lepd_command)
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
 
@@ -447,8 +451,10 @@ class CPUProfiler:
 
 
     def get_average_load(self, response_lines = None):
+
+        lepd_command = 'GetProcLoadavg'
         if not response_lines:
-            response_lines = self.client.getResponse('GetProcLoadavg')
+            response_lines = self.client.getResponse(lepd_command)
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
 
@@ -476,8 +482,9 @@ class CPUProfiler:
 
     def getTopOutput(self, responseLines = None):
 
+        lepd_command = GetCmdTop
         if (responseLines == None):
-            responseLines = self.client.getResponse('GetCmdTop')
+            responseLines = self.client.getResponse(lepd_command)
 
         if (len(responseLines) == 0):
             return {}
