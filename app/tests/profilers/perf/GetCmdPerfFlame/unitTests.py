@@ -16,10 +16,10 @@ class GetCmdPerfFlameTestCase(LepvTestCase):
         self.profiler = PerfProfiler('')
 
     def test_flame_burner(self):
-        with open('perf_script_output.txt') as perf_script_output_file:
+        with open('data/perf_script_output.txt') as perf_script_output_file:
             perf_script_output_lines = perf_script_output_file.readlines()
 
-        with open('perf_script_burned_data.json') as burned_json_file:
+        with open('data/perf_script_burned_data.json') as burned_json_file:
             expected_burned_json = json.load(burned_json_file)
 
         burner = FlameBurner()
