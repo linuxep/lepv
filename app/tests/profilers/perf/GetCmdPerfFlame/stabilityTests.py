@@ -10,11 +10,25 @@ from modules.profilers.perf.PerfProfiler import PerfProfiler
 
 class StabilityTestCase(LepvTestCase):
 
-    def setUp(self):
-        pass
+    def validate_schema(self, data):
+        # print(data)
+        if 'flame' not in data:
+            print("      'flame' should be a root property of the response")
+            print("     Failed!")
+            return
 
-    def validate(self, actual):
-        pass
+        if len(data['flame']) == 0:
+            print("      flame data not constructed")
+            print("perf script outputs:")
+            print("\n-------------------------------------------")
+            for line in data['perf_script_output']:
+                print(line)
+            print("-------------------------------------------\n")
+
+            print("     Failed!")
+            return
+
+        print("     Succeeded!")
 
     def test_stability(self):
         profiler = PerfProfiler('www.rmlink.cn')
