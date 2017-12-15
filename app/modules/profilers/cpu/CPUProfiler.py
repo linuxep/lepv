@@ -483,10 +483,14 @@ class CPUProfiler:
     def getTopOutput(self, responseLines = None):
 
         lepd_command = 'GetCmdTop'
-        if (responseLines == None):
-            responseLines = self.client.getResponse(lepd_command)
 
-        if (len(responseLines) == 0):
+        if not responseLines:
+            responseLines = self.client.getResponse(lepd_command)
+        elif isinstance(responseLines, str):
+            responseLines = self.client.split_to_lines(responseLines)
+
+
+        if len(responseLines) == 0:
             return {}
         
         responseData = {}
