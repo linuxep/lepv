@@ -125,23 +125,25 @@ class CPUProfiler:
         
         return responseData
 
-    def get_processor_count(self, cpuInfoLines = None):
+    def get_processor_count(self, response_lines=[]):
 
         lepd_command = 'GetCpuInfo'
-        if (cpuInfoLines == None):
-            cpuInfoLines = self.client.getResponse(lepd_command)
+        if not response_lines:
+            response_lines = self.client.getResponse(lepd_command)
+        elif isinstance(response_lines, str):
+            response_lines = self.client.split_to_lines(response_lines)
 
-        responseData = {}
-        for line in cpuInfoLines:
+        response_data = {}
+        for line in response_lines:
             if line.startswith('cpunr'):
-                responseData['count'] = int(line.split(":")[1].strip())
+                response_data['count'] = int(line.split(":")[1].strip())
                 break
 
-        if ('count' not in responseData):
+        if 'count' not in response_data:
             print('failed in getting processor count by GetCpuInfo')
-            print(cpuInfoLines)
+            print(response_lines)
             
-        return responseData
+        return response_data
 
     def get_capacity(self):
         
