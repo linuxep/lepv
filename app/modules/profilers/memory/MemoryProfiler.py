@@ -27,10 +27,12 @@ class MemoryProfiler:
 
         lepd_command = "GetProcMeminfo"
 
+        print("     calling LEPD by: " + lepd_command)
         if not response_lines:
             response_lines = self.client.getResponse(lepd_command)
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
+        print('     ' + lepd_command + " returned")
 
         response_data = {}
         if self.config == 'debug':
@@ -233,5 +235,5 @@ if( __name__ =='__main__' ):
     # print(profiler.getSmemOutput())
     # print(profiler.getProcrankOutput())
     # 
-    # print(profiler.getCapacity())
+    # print(profiler.get_capacity())
 

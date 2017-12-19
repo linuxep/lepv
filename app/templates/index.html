@@ -587,6 +587,7 @@
      <script>
 
          var socket = null;
+         var socketConnected = false;
          var serverToWatch = null;
 
          $( document ).ready(function() {
@@ -597,12 +598,7 @@
               trigger: 'focus'
             });
 
-            console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
-            socket = io.connect('http://' + document.domain + ':' + location.port);
 
-            socket.on('connect', function() {
-              console.log("socket connected");
-            });
 
         });
     </script>
@@ -621,21 +617,36 @@
           return;
         }
 
-        console.log("Ping LEPD server: " + specifiedServer);
-        $.get( "/api/ping/" + specifiedServer, function( pingResult ) {
-            if (pingResult['connected']) {
-                console.log("LEPD server reached, ")
-                serverToWatch = specifiedServer;
+        serverToWatch = specifiedServer;
 
-                initializeCharts();
+        console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
+        socket = io.connect('http://' + document.domain + ':' + location.port);
 
-            } else {
-                alert("Cannot reach the server to watch: " + specifiedServer);
-            }
-        })
-        .fail(function(err, msg) {
-            alert("Cannot reach the server to watch: " + specifiedServer);
+        socket.on('connect', function() {
+          console.log("socket connected");
+          socketConnected = true;
         });
+
+        socket.on('disconnect', function() {
+          console.log("socket disconnected");
+          socketConnected = false;
+        });
+
+        socket.on('lepd.ping.succeeded', function() {
+          console.log("LEPD server reached, ")
+          serverToWatch = specifiedServer;
+
+          initializeCharts();
+        });
+
+        socket.on('lepd.ping.failed', function() {
+              console.log("ping failed");
+              alert("Cannot reach the server to watch: " + specifiedServer);
+        });
+
+        console.log("Ping LEPD server: " + serverToWatch);
+        socket.emit("lepd.ping",  {'server': serverToWatch});
+
       }
 
     </script>
@@ -659,7 +670,7 @@
 
           var cpuTopTable = new CpuTopTable("container-div-cpu-top-table", socket, serverToWatch);
 
-          var memoryChart = new MemoryChart('container-div-memory-chart', socket, serverToWatch);
+          <!--var memoryChart = new MemoryChart('container-div-memory-chart', socket, serverToWatch);-->
 
           var memoryStatTable = new MemoryStatTable('container-memory-stat-table', socket, serverToWatch);
           var memoryFreePssStatChart = new ProcrankFreeVsPieChart('container-div-memory-free-pss-stat', socket, serverToWatch);

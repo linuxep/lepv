@@ -1,44 +1,24 @@
 """Tests for Perf profiler method: GetCmdPerfCpuclock"""
-from modules.utils.dictUtil import DictUtil
 from tests.profilers.lepvTestCase import LepvTestCase
+import unittest
+from ddt import ddt, file_data
+
+from modules.profilers.perf.PerfProfiler import PerfProfiler
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-import unittest
-from ddt import ddt, file_data
-from pprint import pprint
-
-from modules.profilers.perf.PerfProfiler import PerfProfiler
 
 @ddt
 class GetCmdPerfCpuclockTestCase(LepvTestCase):
 
     def setUp(self):
-        self.profiler = PerfProfiler('')
-
-    def validate(self, expected, actual, expectedMatchType):
-
-        print("Actual:")
-        pprint(actual)
-
-        compare_result = DictUtil.compare(actual, expected)
-
-        if expectedMatchType == 'equals':
-            self.assertEqual(compare_result, 0, "Expected and Actual does not match")
-        elif expectedMatchType == 'contains':
-            self.assertIn(compare_result, [0, 1], "Actual does not contain the expected")
-        else:
-            print("")
-
+        self.functor = PerfProfiler('').get_perf_cpu_clock
 
     @file_data("unittests.json")
     def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
-        self.describe(kernel, os, cpu, note, expectedMatchType, expected)
-
-        actual = self.profiler.get_perf_cpu_clock(lepdResult)
-        self.validate(expected, actual, expectedMatchType)
+        self.unit_test(kernel, os, cpu, note, lepdResult, expected, expectedMatchType)
 
 
-if( __name__ =='__main__' ):
+if __name__ == '__main__':
     unittest.main()

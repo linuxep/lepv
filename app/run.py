@@ -1,5 +1,6 @@
 from flask import Flask, render_template
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
+from modules.lepd.LepDClient import LepDClient
 
 from modules.utils.localization import Languages
 from modules.utils.simpleJson import MyJSONEncoder
@@ -8,6 +9,21 @@ app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
 socketio = SocketIO(app)
+
+@socketio.on('lepd.ping')
+def ping_lepd_server(request):
+
+    server = request['server']
+    print('received ping: ' + server)
+
+    client = LepDClient(server=server)
+
+    ping_result = client.ping()
+
+    if ping_result:
+        emit('lepd.ping.succeeded', {})
+    else:
+        emit('lepd.ping.failed', {})
 
 
 #  CPU ---------------
@@ -46,8 +62,8 @@ perf_blueprint.init_io(socketio)
 from modules.utils.views import utilAPI
 app.register_blueprint(utilAPI)
 
-from modules.utils.sockets import util_blueprint
-util_blueprint.init_io(socketio)
+# from modules.utils.sockets import util_blueprint
+# util_blueprint.init_io(socketio)
 
 
 @app.route('/')

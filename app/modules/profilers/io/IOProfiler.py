@@ -124,15 +124,19 @@ class IOProfiler:
             ioTopLines.pop(0)
             dataLineStartingIndex -= 1
 
+        # for line in ioTopLines:
+        #     print(line)
+        # print('--------------------')
+
         orderIndex = 0
         for line in ioTopLines:
-            # print (line)
+            # print(line)
             if (line.strip() == ''):
                 continue
         
             try:
                 # find the 'M/s" or 'B/s', they are for disk read and write
-                matches = re.findall('\s*\d+\.\d{2}\s*[G|M|B]\/s\s+', line)
+                matches = re.findall('\s*\d+\.\d{2}\s*[G|M|K|B]\/s\s+', line)
                 diskRead = matches[0].strip()
                 diskWrite = matches[1].strip()
 

@@ -23,7 +23,7 @@ cpuAPI = Blueprint('cpuAPI', __name__, url_prefix='/api/cpu')
 def getCpuCapacity(server):
 
     profiler = CPUProfiler(server)
-    data = profiler.getCapacity()
+    data = profiler.get_capacity()
 
     return jsonify(data)
 
@@ -32,7 +32,7 @@ def getCpuCapacity(server):
 def getCpuCount(server):
 
     profiler = CPUProfiler(server)
-    data = profiler.getProcessorCount()
+    data = profiler.get_processor_count()
 
     return jsonify(data)
 

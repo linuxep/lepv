@@ -1,4 +1,4 @@
-"""Tests for CPU profiler method: GetProcLoadavg"""
+"""Tests for CPU profiler method: get_proc_cpu_info"""
 from tests.profilers.lepvTestCase import LepvTestCase
 import unittest
 from ddt import ddt, file_data
@@ -13,7 +13,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 class GetProcLoadavgTestCase(LepvTestCase):
 
     def setUp(self):
-        self.functor = CPUProfiler('').get_average_load
+        self.functor = CPUProfiler('').get_proc_cpu_info
 
     @file_data("unittests.json")
     def test(self, kernel, os, cpu, note, lepdResult, expected, expectedMatchType):
