@@ -83,7 +83,7 @@ CpuStatDonutChart.prototype.updateChartData = function(responseData) {
         }
     });
 
-    this.requestData();
+    // this.requestData();
 
 };
 

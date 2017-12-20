@@ -117,7 +117,7 @@ CpuIrqChart.prototype.updateChartData = function(response) {
         columns: columnDatas
     });
     
-    this.requestData();
+    // this.requestData();
 
 };
 

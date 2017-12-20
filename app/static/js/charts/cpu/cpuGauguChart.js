@@ -34,5 +34,5 @@ CpuGauguChart.prototype.updateChartData = function(response) {
 
     var cpuOccupationRatio = parseFloat(data['idle']);
     this.chart.updateChartData({'ratio': cpuOccupationRatio.toFixed(2)});
-    this.requestData();
+    // this.requestData();
 };

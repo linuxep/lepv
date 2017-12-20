@@ -115,7 +115,7 @@ CpuStatIdleChart.prototype.updateChartData = function(response) {
     this.chart.load({
         columns: columnDatas
     });
-    this.requestData();
+    // this.requestData();
 
 };
 

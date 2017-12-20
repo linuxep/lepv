@@ -96,5 +96,5 @@ CpuTopTable.prototype.updateChartData = function(response) {
     
     this.table.draw(true);
     
-    this.requestData();
+    // this.requestData();
 };

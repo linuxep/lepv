@@ -128,5 +128,5 @@ CpuAvgLoadChart.prototype.updateChartData = function(responseData) {
             value: ['']
         }
     });
-    this.requestData();
+    // this.requestData();
 };
