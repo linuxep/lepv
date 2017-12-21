@@ -8,7 +8,7 @@ from modules.utils.simpleJson import MyJSONEncoder
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, ping_timeout=3600)
 
 
 @socketio.on('lepd.ping')

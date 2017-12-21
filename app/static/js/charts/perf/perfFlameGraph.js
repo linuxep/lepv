@@ -32,8 +32,8 @@ PerfFlameGraph.prototype.initializeChart = function() {
 PerfFlameGraph.prototype.updateChartData = function(response) {
 
     var thisChart = this;
-    d4.select('#' + thisChart.mainDivName).datum(response['flame']).call(thisChart.chart);
-
-    this.requestData();
-
+    if (response['flame'] != null) {
+        d4.select('#' + thisChart.mainDivName).datum(response['flame']).call(thisChart.chart);
+    }
+    // this.requestData();
 };

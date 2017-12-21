@@ -25,7 +25,7 @@ var IOStatChart = function(rootDivName, socket, server) {
     this.chartHeaderColor = 'yellow';
 
     this.maxDataCount = 150;
-    this.refreshInterval = 5;
+    this.refreshInterval = 3;
 
     // this.updateChartHeader();
     this.initializeChart();

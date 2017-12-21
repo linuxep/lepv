@@ -19,7 +19,7 @@ var MemoryStatTable = function(rootDivName, socket, server) {
     this.chartHeaderColor = 'green';
     
     this.maxDataCount = 25;
-    this.refreshInterval = 5;
+    this.refreshInterval = 3;
     this.pssData = [];
     this.pssBenchmark = 200;
 

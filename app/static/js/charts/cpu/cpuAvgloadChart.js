@@ -19,7 +19,7 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
     this.chartHeaderColor = 'orange';
     
     this.maxDataCount = 150;
-    this.refreshInterval = 5;
+    this.refreshInterval = 3;
 
     this.chart = null;
     this.chartData = {};
@@ -97,7 +97,10 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
 
 CpuAvgLoadChart.prototype.updateChartData = function(responseData) {
     data = responseData['data'];
-    // console.log(data);
+    if (data == null) {
+        return
+    }
+    
     if (this.chart == null) {
         return;
     }
