@@ -19,7 +19,7 @@ var CpuTopTable = function(rootDivName, socket, server) {
     this.chartHeaderColor = 'orange';
     
     this.maxDataCount = 25;
-    this.refreshInterval = 5;
+    this.refreshInterval = 3;
 
     // this.updateChartHeader();
 //    this.initializeChart();
@@ -96,5 +96,5 @@ CpuTopTable.prototype.updateChartData = function(response) {
     
     this.table.draw(true);
     
-    this.requestData();
+    // this.requestData();
 };

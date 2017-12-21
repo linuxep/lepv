@@ -1,10 +1,12 @@
 from flask_socketio import emit
+from threading import Timer
 
 
 def process_socket_request(request, socket_req_message_key, profiler_method):
 
     server = request['server']
-    print('-> ' + socket_req_message_key + ': ' + server + " | " + str(request['request_id']))
+    print('-> ' + socket_req_message_key + ': ' +
+          server + " | " + str(request['request_id']))
 
     data = profiler_method()
 
@@ -16,6 +18,13 @@ def process_socket_request(request, socket_req_message_key, profiler_method):
 
     socket_res_message_key = socket_req_message_key.replace(".req", ".res")
 
-    print('<- ' + socket_res_message_key + ': ' + server + " | (" + str(data['response_id']) + ')')
+    print('<- ' + socket_res_message_key + ': ' +
+          server + " | (" + str(data['response_id']) + ')')
     emit(socket_res_message_key,  data)
 
+
+def background_timer_stuff(socketio, interval, socket_res_message_key, profiler_method):
+    data = profiler_method()
+    socketio.emit(socket_res_message_key, data)
+    Timer(interval, background_timer_stuff, [
+              socketio, interval, socket_res_message_key, profiler_method]).start()

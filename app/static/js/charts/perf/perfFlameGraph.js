@@ -14,6 +14,7 @@ var PerfFlameGraph = function(rootDivName, socket, server) {
     this.chartWidth = $(".col-md-12").width() * 0.96;
 
     this.locateUIElements();
+    this.refreshInterval = 8;
 
     this.socket_message_key = 'perf.flame';
 
@@ -31,8 +32,8 @@ PerfFlameGraph.prototype.initializeChart = function() {
 PerfFlameGraph.prototype.updateChartData = function(response) {
 
     var thisChart = this;
-    d4.select('#' + thisChart.mainDivName).datum(response['flame']).call(thisChart.chart);
-
-    this.requestData();
-
+    if (response['flame'] != null) {
+        d4.select('#' + thisChart.mainDivName).datum(response['flame']).call(thisChart.chart);
+    }
+    // this.requestData();
 };

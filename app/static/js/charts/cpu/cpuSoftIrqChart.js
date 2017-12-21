@@ -20,7 +20,7 @@ var CpuSoftIrqChart = function(rootDivName, socket, server, typ) {
   }
 
   this.maxDataCount = 150;
-  this.refreshInterval = 2;
+  this.refreshInterval = 3;
   this.timeData = ['x'];
 
   this.initializeChart();
@@ -118,7 +118,7 @@ CpuSoftIrqChart.prototype.updateChartData = function(response) {
     this.chart.load({
         columns: columnDatas
     });
-    this.requestData();
+    // this.requestData();
 };
 
 

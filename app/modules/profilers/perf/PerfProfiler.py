@@ -35,8 +35,14 @@ class PerfProfiler:
             response_data['lepd_command'] = lepd_command
 
         column_header_line_prefix = '# Overhead'
-        while not response_lines[0].startswith(column_header_line_prefix):
-            response_lines.pop(0)
+        
+        try:
+            while not response_lines[0].startswith(column_header_line_prefix):
+                response_lines.pop(0)
+        except Exception as e:
+            print(response_lines,"-----------")
+            return {}
+        
 
         response_lines.pop(0)
         response_lines.pop(0)

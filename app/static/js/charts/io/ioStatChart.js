@@ -25,7 +25,7 @@ var IOStatChart = function(rootDivName, socket, server) {
     this.chartHeaderColor = 'yellow';
 
     this.maxDataCount = 150;
-    this.refreshInterval = 2;
+    this.refreshInterval = 3;
 
     // this.updateChartHeader();
     this.initializeChart();
@@ -123,5 +123,5 @@ IOStatChart.prototype.updateChartData = function(response) {
         }
     });
 
-    this.requestData();
+    // this.requestData();
 };

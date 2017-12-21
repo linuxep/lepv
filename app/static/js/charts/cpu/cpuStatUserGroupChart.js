@@ -17,7 +17,6 @@ var CpuStatUserGroupChart = function(rootDivName, socket, server) {
   this.isLeadingChart = false;
 
   this.maxDataCount = 150;
-  this.refreshInterval = 2;
   this.timeData = ['x'];
 
   this.initializeChart();
@@ -117,7 +116,7 @@ CpuStatUserGroupChart.prototype.updateChartData = function(response) {
     this.chart.load({
         columns: columnDatas
     });
-    this.requestData();
+    // this.requestData();
 
 };
 

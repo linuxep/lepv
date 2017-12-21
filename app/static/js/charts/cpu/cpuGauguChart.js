@@ -12,6 +12,7 @@ var CpuGauguChart = function(divName, socket, server) {
 
     this.socket_response = null;
     this.chart = null;
+    this.refreshInterval = 3;
     this.chartData = {};
 
     // this.updateChartHeader();
@@ -31,8 +32,10 @@ CpuGauguChart.prototype.initializeChart = function() {
 CpuGauguChart.prototype.updateChartData = function(response) {
 
     var data = response['data'];
-
+    if (data == null) {
+        return
+    }
     var cpuOccupationRatio = parseFloat(data['idle']);
     this.chart.updateChartData({'ratio': cpuOccupationRatio.toFixed(2)});
-    this.requestData();
+    // this.requestData();
 };

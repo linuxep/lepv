@@ -8,7 +8,8 @@ from modules.utils.simpleJson import MyJSONEncoder
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, ping_timeout=3600)
+
 
 @socketio.on('lepd.ping')
 def ping_lepd_server(request):
@@ -25,14 +26,12 @@ def ping_lepd_server(request):
     else:
         emit('lepd.ping.failed', {})
 
-
 #  CPU ---------------
 from modules.profilers.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
 
 from modules.profilers.cpu.sockets import cpu_blueprint
 cpu_blueprint.init_io(socketio)
-
 
 #  IO ----------------
 from modules.profilers.io.views import ioAPI

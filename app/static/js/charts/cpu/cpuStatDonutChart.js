@@ -12,6 +12,8 @@ var CpuStatDonutChart = function(rootDivName, socket, server) {
   this.serverToWatch = server;
 
   this.socket_message_key = 'cpu.stat';
+  this.refreshInterval = 3;
+  
   this.socket_response = null;
   this.chart = null;
   this.chartData = null;
@@ -64,6 +66,9 @@ CpuStatDonutChart.prototype.initializeChart = function() {
 CpuStatDonutChart.prototype.updateChartData = function(responseData) {
 
     var overallData = responseData['data']['all'];
+    if (overallData == null) {
+        return
+    }
 
     this.chart.load({
         columns: [
@@ -83,7 +88,7 @@ CpuStatDonutChart.prototype.updateChartData = function(responseData) {
         }
     });
 
-    this.requestData();
+    // this.requestData();
 
 };
 

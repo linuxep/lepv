@@ -21,7 +21,7 @@ var IoTopTable = function(rootDivName, socket, server) {
     this.chartHeaderColor = 'yellow';
     
     this.maxDataCount = 25;
-    this.refreshInterval = 5;
+    this.refreshInterval = 3;
 
     this.initializeChart();
     this.setupSocketIO();
@@ -117,5 +117,5 @@ IoTopTable.prototype.updateChartData = function(response) {
     }
     this.table.draw(true);
     
-    this.requestData();
+    // this.requestData();
 };

@@ -23,12 +23,8 @@ var ProcrankFreeVsPieChart = function(rootDivName, socket, server) {
     this.chartData = {};
 
     this.maxDataCount = 150;
-    this.refreshInterval = 2;
 
-
-    // this.updateChartHeader();
     this.initializeChart();
-
     this.setupSocketIO();
 };
 
@@ -56,6 +52,9 @@ ProcrankFreeVsPieChart.prototype.initializeChart = function() {
 ProcrankFreeVsPieChart.prototype.updateChartData = function(response) {
     // console.log(response)
     sumData = response['data']['sum']
+    if (sumData == null) {
+        return
+    }
     var dataColumn = [];
 
     // to show the correct % of pss against total in donut chart, we need to to set total as (total - pss)

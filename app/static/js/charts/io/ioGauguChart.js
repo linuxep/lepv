@@ -14,7 +14,6 @@ var IOGauguChart = function(divName, socket, server) {
     this.chart = null;
     this.chartData = {};
 
-    // this.updateChartHeader();
     this.initializeChart();
 
     this.setupSocketIO();
@@ -31,7 +30,8 @@ IOGauguChart.prototype.initializeChart = function() {
 IOGauguChart.prototype.updateChartData = function(response) {
 
     var data = response['data'];
-    // update gauge
-    this.chart.updateChartData(data);
-    this.requestData();
+    if (data != null) {
+        this.chart.updateChartData(data);
+    }
+    // this.requestData();
 };

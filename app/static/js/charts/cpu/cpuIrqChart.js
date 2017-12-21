@@ -17,7 +17,6 @@ var CpuIrqChart = function(rootDivName, socket, server) {
   this.isLeadingChart = false;
 
   this.maxDataCount = 150;
-  this.refreshInterval = 2;
   this.timeData = ['x'];
 
   this.initializeChart();
@@ -117,7 +116,7 @@ CpuIrqChart.prototype.updateChartData = function(response) {
         columns: columnDatas
     });
     
-    this.requestData();
+    // this.requestData();
 
 };
 
