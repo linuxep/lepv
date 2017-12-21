@@ -4,14 +4,12 @@ from modules.lepd.LepDClient import LepDClient
 
 from modules.utils.localization import Languages
 from modules.utils.simpleJson import MyJSONEncoder
-import modules.utils.globalIO as gio 
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
 socketio = SocketIO(app)
-gio._init()
-gio.set_io(socketio)
+
 
 @socketio.on('lepd.ping')
 def ping_lepd_server(request):
@@ -28,14 +26,12 @@ def ping_lepd_server(request):
     else:
         emit('lepd.ping.failed', {})
 
-
 #  CPU ---------------
 from modules.profilers.cpu.views import cpuAPI
 app.register_blueprint(cpuAPI)
 
 from modules.profilers.cpu.sockets import cpu_blueprint
 cpu_blueprint.init_io(socketio)
-
 
 #  IO ----------------
 from modules.profilers.io.views import ioAPI
@@ -84,17 +80,6 @@ def swagger():
 def test():
     languages = Languages().getLanguagePackForCN()
     return render_template("test.html", languages=languages)
-
-@app.route('/api/ping/<server>', methods=['GET'])
-def ping(server):
-
-    client = LepDClient(server=server)
-
-    data = {}
-    data['connected'] = client.ping()
-
-    return jsonify(data)
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8889)

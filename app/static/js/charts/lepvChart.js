@@ -17,7 +17,7 @@ var LepvChart = function(rootDivName, socket, server) {
   this.socketIO = socket;
 
   this.serverToWatch = server;
-  this.refreshInterval = 2;
+  this.refreshInterval = 5;
 
   this.socket_message_key = null;
   this.socket_request_id = 0;
