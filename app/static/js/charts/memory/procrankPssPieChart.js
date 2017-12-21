@@ -23,7 +23,7 @@ var ProcrankPssPieChart = function(rootDivName, socket, server) {
     this.chartData = {};
 
     this.maxDataCount = 18;
-    this.refreshInterval = 2;
+    this.refreshInterval = 5;
     this.pssBenchmark = 200;
 
 

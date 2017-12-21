@@ -19,7 +19,7 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
     this.chartHeaderColor = 'orange';
     
     this.maxDataCount = 150;
-    this.refreshInterval = 2;
+    this.refreshInterval = 5;
 
     this.chart = null;
     this.chartData = {};

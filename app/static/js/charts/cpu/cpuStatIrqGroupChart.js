@@ -17,7 +17,7 @@ var CpuIrqGroupChart = function(rootDivName, socket, server) {
   this.isLeadingChart = false;
 
   this.maxDataCount = 150;
-  this.refreshInterval = 2;
+  this.refreshInterval = 5;
   this.timeData = ['x'];
 
   this.initializeChart();

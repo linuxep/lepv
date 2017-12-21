@@ -33,5 +33,5 @@ IOGauguChart.prototype.updateChartData = function(response) {
     var data = response['data'];
     // update gauge
     this.chart.updateChartData(data);
-    this.requestData();
+    // this.requestData();
 };

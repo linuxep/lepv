@@ -23,7 +23,7 @@ var MemoryChart = function(rootDivName, socket, server) {
     this.timeData = ['x'];
 
     this.maxDataCount = 150;
-    this.refreshInterval = 2;
+    this.refreshInterval = 5;
 
 
     // this.updateChartHeader();

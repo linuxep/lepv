@@ -14,6 +14,7 @@ var PerfFlameGraph = function(rootDivName, socket, server) {
     this.chartWidth = $(".col-md-12").width() * 0.96;
 
     this.locateUIElements();
+    this.refreshInterval = 8;
 
     this.socket_message_key = 'perf.flame';
 

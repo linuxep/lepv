@@ -67,7 +67,7 @@ LepvChart.prototype.setupSocketIO = function() {
 
     this.socketIO.on(thisChart.socket_message_key + ".res", function(response) {
 
-        console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
+        // console.log("  <- " + thisChart.socket_message_key + ".res(" + response['response_id'] + ")");
 
         if ("request_time" in response) {
             var requestTime = response['request_time'];
