@@ -39,14 +39,12 @@ class PerfProfiler:
         try:
             while not response_lines[0].startswith(column_header_line_prefix):
                 response_lines.pop(0)
+            response_lines.pop(0)
+            response_lines.pop(0)
+            response_lines.pop(0)
         except Exception as e:
-            print(response_lines,"-----------")
+            print(response_lines," ----------- GetCmdPerfCpuclock")
             return {}
-        
-
-        response_lines.pop(0)
-        response_lines.pop(0)
-        response_lines.pop(0)
 
         result_list = []
         for line in response_lines:

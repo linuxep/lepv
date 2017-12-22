@@ -235,10 +235,18 @@ class CPUProfiler:
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
 
-        # discard the first three lines
-        response_lines.pop(0)
-        response_lines.pop(0)
-        response_lines.pop(0)
+        if len(response_lines) < 3:
+            return {}
+
+        try:
+            # discard the first three lines
+            response_lines.pop(0)
+            response_lines.pop(0)
+            response_lines.pop(0)
+        except Exception as e:
+            print(response_lines, "-------  GetCmdMpstat")
+            return {}
+        
 
         irq_data = {}
         irq_data['data'] = {}
@@ -265,7 +273,7 @@ class CPUProfiler:
 
                 cpu_name = line_values[-11]
             except Exception as err:
-                print(err)
+                print(err, "-------  GetCmdMpstat")
                 continue
 
             irq_data['data'][cpu_name] = irq_stat
@@ -280,9 +288,15 @@ class CPUProfiler:
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
 
-        # discard the first two lines
-        response_lines.pop(0)
-        response_lines.pop(0)
+        if len(response_lines) < 2:
+            return {}
+        try:
+            # discard the first two lines
+            response_lines.pop(0)
+            response_lines.pop(0)
+        except Exception as e:
+            print(response_lines, "-------  GetCmdMpstat-I")
+            return {}
 
         softirq_resp = []
         softirq_data = {}
@@ -318,7 +332,7 @@ class CPUProfiler:
 
                 cpu_name = line_values[1]
             except Exception as err:
-                print(err)
+                print(err, "-------  GetCmdMpstat-I")
                 continue
 
             softirq_data['data'][cpu_name] = softirq_stat

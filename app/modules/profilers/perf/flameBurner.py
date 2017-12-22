@@ -59,7 +59,7 @@ class FlameBurner():
 
             return json_for_flame
         except Exception as err:
-            print(err)
+            print(err, "-------  frame burn")
             return {}
 
     def generate_json_hierarchy(self, flame_json, stack=[], all_stacks=[]):

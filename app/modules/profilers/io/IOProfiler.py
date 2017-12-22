@@ -163,7 +163,7 @@ class IOProfiler:
                 ioTopItem['IO'] = io
                 ioTopItem['COMMAND'] = command
             except Exception as err:
-                print(err)
+                print(err, "-------  GetCmdIotop")
                 continue
         
             # use an incremental int as key, so we keey the order of the items.
