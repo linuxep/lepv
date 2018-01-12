@@ -70,6 +70,11 @@ def index():
     languages = Languages().getLanguagePackForCN()
     return render_template("index.html", languages=languages)
 
+@app.route('/2')
+def index2():
+    languages = Languages().getLanguagePackForCN()
+    return render_template("index2.html", languages=languages)
+
 
 @app.route('/swagger')
 def swagger():
