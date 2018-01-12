@@ -162,154 +162,75 @@
     <div class="container-fluid" id="vue_app">
 
 
-      <!--<div class="col-md-12">-->
-        <!--<div id='Summary' class="card mb-3">-->
-          <!--<div class="card-header">-->
-              <!--<i class="fa fa-fw fa-dashboard"></i> {{ languages.SystemSummary }}-->
-          <!--</div>-->
-          <!--<div class="card-body">-->
-              <!---->
-              <!---->
-              <!--<div class="row">-->
-                  <!--<div class="col-md-3">-->
-                      <!--<div class="card-body">-->
-                          <!--<div id="div-cpu-gauge"></div>-->
-
-                          <!--<div class="panel-footer text-center">-->
-                              <!--{% if config == 'debug' %}-->
-                              <!--处理器 - [GetCmdMpstat]-->
-                              <!--{% else %}-->
-                              <!--处理器-->
-                              <!--{% endif %}-->
-                          <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="col-md-3">-->
-                      <!--<div class="card-body">-->
-                          <!--<div id="div-memory-gauge"></div>-->
-                          <!--<div class="panel-footer text-center">-->
-                              <!--{% if config == 'debug' %}-->
-                              <!--内存 - [GetProcMeminfo]-->
-                              <!--{% else %}-->
-                              <!--内存-->
-                              <!--{% endif %}-->
-                          <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="col-md-3">-->
-                      <!--<div class="card-body">-->
-                          <!--<div id="div-io-gauge"></div>-->
-                          <!--<div class="panel-footer text-center">-->
-                              <!--{% if config == 'debug' %}-->
-                              <!--磁盘 - [GetCmdIostat]-->
-                              <!--{% else %}-->
-                              <!--磁盘-->
-                              <!--{% endif %}-->
-                          <!--</div>-->
-                      <!--</div>-->
-                  <!--</div>-->
-              <!--</div>-->
-
-              <!--<div class="row">-->
-                  <!--<div class="col-md-3">-->
-                      <!--{% if config == 'debug' %}-->
-                      <!--<div>[GetProcCpuinfo]</div>-->
-                      <!--{% endif %}-->
-                      <!--<div id="div-cpu-summary" class="panel panel-green">-->
-                      <!--</div>-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-3">-->
-                      <!--{% if config == 'debug' %}-->
-                      <!--<div>[GetProcMeminfo]</div>-->
-                      <!--{% endif %}-->
-                      <!--<div id="div-memory-summary" class="panel panel-green">-->
-                      <!--</div>-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-3">-->
-                      <!--{% if config == 'debug' %}-->
-                      <!--<div>[GetCmdDf]</div>-->
-                      <!--{% endif %}-->
-                      <!--<div id="div-io-summary" class="panel panel-green">-->
-                      <!--</div>-->
-                  <!--</div>-->
-              <!--</div>-->
-          <!--</div>-->
+      <!--cpu-stat-donut-->
+      <!--<div class="col-md-6">-->
+        <!--<div id="container-div-cpu-stat-donut" class="card mb-3">-->
+          <!--<div class="card-header"><i class="icon-cpu-processor"></i> CPU Stat: Overall</div>-->
+          <!--<div class="card-body"><div class="chart-panel"></div></div>-->
+          <!--<div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>-->
         <!--</div>-->
       <!--</div>-->
 
-
-
-      <!--cpu-stat-donut-->
-      <div class="col-md-6">
-        <div id="container-div-cpu-stat-donut" class="card mb-3">
-          <div class="card-header"><i class="icon-cpu-processor"></i> CPU Stat: Overall</div>
-          <div class="card-body"><div class="chart-panel"></div></div>
-          <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
-        </div>
-      </div>
+      <lepv-chart-card chart_id="container-div-cpu-avgload" header="Average Load" icon="icon-cpu-processor"></lepv-chart-card>
 
 
      <!--cpu-stat-idle-->
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
         <div id="container-div-cpu-stat-idle" class="card mb-3">
           <div class="card-header"><i class="icon-cpu-processor"></i> CPU Stat: Idle</div>
           <div class="card-body"><div class="chart-panel"></div></div>
           <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
-      </div>
+      </div> -->
+      <lepv-chart-card chart_id="container-div-cpu-stat-idle" header="CPU Stat: Idle" icon="icon-cpu-processor"></lepv-chart-card>
 
 
       <!--cpu-stat-user-group-->
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
         <div id="container-div-cpu-stat-user-group" class="card mb-3">
           <div class="card-header"><i class="icon-cpu-processor"></i> CPU Stat: User + System + Nice</div>
           <div class="card-body"><div class="chart-panel"></div></div>
           <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
-      </div>
+      </div> -->
+      <lepv-chart-card chart_id="container-div-cpu-stat-user-group" header="CPU Stat: User + System + Nice" icon="icon-cpu-processor"></lepv-chart-card>
 
 
       <!--cpu-stat-irqGroup-->
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
         <div id="container-div-cpu-stat-irqGroup" class="card mb-3">
             <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuIrqGroupChartTitle }}</span></div>
             <div class="card-body"><div class="chart-panel"></div></div>
             <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
         </div>
-      </div>
+      </div> -->
+      <lepv-chart-card chart_id="container-div-cpu-stat-irqGroup" header="CPU Stat: IRQ + SoftIRQ" icon="icon-cpu-processor"></lepv-chart-card>
 
 
       <!--cpu-stat-irq-->
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
           <div id="container-div-cpu-stat-irq" class="card mb-3">
               <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuIrqChartTitle }}</span></div>
               <div class="card-body"><div class="chart-panel"></div></div>
               <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
-      </div>
+      </div> -->
+      <lepv-chart-card chart_id="container-div-cpu-stat-irq" header="CPU Stat: IRQ" icon="icon-cpu-processor"></lepv-chart-card>
 
 
       <!--cpu-stat-nettxIrq-->
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
           <div id="container-div-cpu-stat-nettxIrq" class="card mb-3">
             <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span></div>
             <div class="card-body"><div class="chart-panel"></div></div>
             <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
-      </div>
+      </div> -->
+      <lepv-chart-card chart_id="container-div-cpu-stat-nettxIrq" header="CPU Stat: SoftIRQ - NET_TX" icon="icon-cpu-processor"></lepv-chart-card>
 
       <!--cpu-stat-netrxIrq-->
-      <div class="col-md-12">
-          <div id="container-div-cpu-stat-netrxIrq" class="card mb-3">
-            <div class="card-header"><i class="icon-cpu-processor"></i><span class="spanTitle">{{ languages.cpuNettxIrqChartTitle }}</span></div>
-            <div class="card-body"><div class="chart-panel"></div></div>
-            <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
-          </div>
-      </div>
 
-      <div class="col-md-12">
+      <!-- <div class="col-md-12">
           <div id="container-div-cpu-stat-taskletIrq" class="card mb-3">
             <div class="card-header">
                 <i class="icon-cpu-processor"></i>
@@ -318,7 +239,8 @@
             <div class="card-body"><div class="chart-panel"></div></div>
             <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
-      </div>
+      </div> -->
+      <lepv-chart-card chart_id="container-div-cpu-stat-taskletIrq" header="CPU Stat: Tasklet" icon="icon-cpu-processor"></lepv-chart-card>
 
       <div class="col-md-12">
           <div id="container-div-cpu-stat-hrtimerIrq" class="card mb-3">
@@ -333,20 +255,23 @@
 
 
 
-      <div class="col-md-12">
-        <div id="container-div-cpu-avgload" class="card mb-3">
-          <div class="card-header">
-              <i class="icon-cpu-processor"></i>
-              {% if config == 'debug' %}
-              <span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>
-              {% else %}
-              <span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>
-              {% endif %}
-          </div>
-          <div class="card-body"><div class="chart-panel"></div></div>
-          <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
-        </div>
-      </div>
+      <!--<div class="col-md-12">-->
+        <!--<div id="container-div-cpu-avgload" class="card mb-3">-->
+          <!--<div class="card-header">-->
+              <!--<i class="icon-cpu-processor"></i>-->
+              <!--{% if config == 'debug' %}-->
+              <!--<span class="spanTitle">{{ languages.averageLoadChartTitle }} - [GetProcLoadavg]</span>-->
+              <!--{% else %}-->
+              <!--<span class="spanTitle" fullTitle="{{ languages.averageLoadChartTitleFull }}" shortTitle="{{ languages.averageLoadChartTitle }}">{{ languages.averageLoadChartTitle }}</span>-->
+              <!--{% endif %}-->
+          <!--</div>-->
+          <!--<div class="card-body"><div class="chart-panel"></div></div>-->
+          <!--<div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <lepv-chart-card chart_id="container-div-cpu-avgload" header="Average Load" icon="icon-cpu-processor"></lepv-chart-card>
+
 
       <div class="col-md-12">
           <div id="container-div-cpu-top-table" class="card mb-3">
@@ -427,19 +352,21 @@
       </div>
       
 
-      <div class="col-md-12">
-          <div id='container-div-IOCharts' class="card mb-3">
-              <div class="card-header">
-                  {% if config == 'debug' %}
-                  <i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]
-                  {% else %}
-                  <i class="icon-syncalt"></i> {{ languages.ioChartTitle }}
-                  {% endif %}
-              </div>
-              <div class="card-body"><div class="chart-panel"></div></div>
-              <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
-          </div>
-      </div>
+      <!--<div class="col-md-12">-->
+          <!--<div id='container-div-IOCharts' class="card mb-3">-->
+              <!--<div class="card-header">-->
+                  <!--{% if config == 'debug' %}-->
+                  <!--<i class="icon-syncalt"></i> {{ languages.ioChartTitle }} -[GetCmdIostat]-->
+                  <!--{% else %}-->
+                  <!--<i class="icon-syncalt"></i> {{ languages.ioChartTitle }}-->
+                  <!--{% endif %}-->
+              <!--</div>-->
+              <!--<div class="card-body"><div class="chart-panel"></div></div>-->
+              <!--<div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>-->
+          <!--</div>-->
+      <!--</div>-->
+
+      <lepv-chart-card chart_id="container-div-IOCharts" header="IO Chart" icon="icon-syncalt"></lepv-chart-card>
 
       <div class="col-md-12">
           <div id="container-io-top-table" class="card mb-3">
@@ -485,8 +412,6 @@
             <div class="card-footer small text-muted" hidden><i class="fa fa-bell" aria-hidden="true"> </i></div>
           </div>
       </div>
-
-      <lepv-chart-card header="Having FUN" icon="icon-syncalt" chart_id="div-chart-YYYYY"></lepv-chart-card>
 
     </div>
     <!-- /.container-fluid-->
