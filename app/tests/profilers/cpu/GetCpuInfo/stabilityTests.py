@@ -6,7 +6,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
 
-from modules.profilers.cpu.CPUProfiler import CPUProfiler
+from app.modules.profilers.cpu.CPUProfiler import CPUProfiler
 
 
 class StabilityTestCase(LepvTestCase):

@@ -1,6 +1,6 @@
-from modules.utils.socketIOBlueprint import SocketIOBlueprint
-from modules.profilers.perf.PerfProfiler import PerfProfiler
-from modules.utils.soketProcessor import process_socket_request, background_timer_stuff
+from app.modules.utils.socketIOBlueprint import SocketIOBlueprint
+from app.modules.profilers.perf.PerfProfiler import PerfProfiler
+from app.modules.utils.soketProcessor import process_socket_request, background_timer_stuff
 from threading import Timer
 from flask_socketio import emit
 

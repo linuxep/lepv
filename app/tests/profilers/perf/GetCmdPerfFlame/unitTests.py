@@ -1,10 +1,10 @@
 """Tests for Perf profiler method: GetCmdPerfCpuclock"""
-from modules.profilers.perf.flameBurner import FlameBurner
-from modules.utils.dictUtil import DictUtil
+from app.modules.profilers.perf.flameBurner import FlameBurner
+from app.modules.utils.dictUtil import DictUtil
 from tests.profilers.lepvTestCase import LepvTestCase
 import unittest
 import json
-from modules.profilers.perf.PerfProfiler import PerfProfiler
+from app.modules.profilers.perf.PerfProfiler import PerfProfiler
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."

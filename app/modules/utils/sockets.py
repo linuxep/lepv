@@ -1,6 +1,6 @@
 from flask_socketio import emit
-from modules.lepd.LepDClient import LepDClient
-from modules.utils.socketIOBlueprint import SocketIOBlueprint
+from app.modules.lepd.LepDClient import LepDClient
+from app.modules.utils.socketIOBlueprint import SocketIOBlueprint
 
 util_blueprint = SocketIOBlueprint('')
 

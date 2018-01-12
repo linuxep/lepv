@@ -5,7 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
 
-from modules.profilers.memory.MemoryProfiler import MemoryProfiler
+from app.modules.profilers.memory.MemoryProfiler import MemoryProfiler
 
 
 class StabilityTestCase(LepvTestCase):

@@ -5,7 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
 
-from modules.profilers.perf.PerfProfiler import PerfProfiler
+from app.modules.profilers.perf.PerfProfiler import PerfProfiler
 
 
 class StabilityTestCase(LepvTestCase):

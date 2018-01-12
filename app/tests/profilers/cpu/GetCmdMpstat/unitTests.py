@@ -2,7 +2,7 @@
 from tests.profilers.lepvTestCase import LepvTestCase
 import unittest
 from ddt import ddt, file_data
-from modules.profilers.cpu.CPUProfiler import CPUProfiler
+from app.modules.profilers.cpu.CPUProfiler import CPUProfiler
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."

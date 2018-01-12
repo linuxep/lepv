@@ -8,7 +8,7 @@ import re
 from decimal import Decimal
 from time import gmtime, strftime
 
-from modules.lepd.LepDClient import LepDClient
+from app.modules.lepd.LepDClient import LepDClient
 
 
 class CPUProfiler:

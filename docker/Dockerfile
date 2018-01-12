@@ -4,6 +4,8 @@ ADD ./nginx/default /etc/nginx/sites-enabled/
 ADD ./app /app
 ADD ./docker/run.sh /app
 
+ENV PYTHONPATH /
+
 EXPOSE 80
 
 WORKDIR /app

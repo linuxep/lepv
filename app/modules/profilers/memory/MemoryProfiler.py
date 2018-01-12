@@ -6,7 +6,7 @@ import pprint
 import re
 from decimal import Decimal
 
-from modules.lepd.LepDClient import LepDClient
+from app.modules.lepd.LepDClient import LepDClient
 
 __author__ = 'xmac'
 

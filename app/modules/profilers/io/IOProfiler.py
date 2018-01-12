@@ -6,7 +6,7 @@ import datetime
 import pprint
 import re
 
-from modules.lepd.LepDClient import LepDClient
+from app.modules.lepd.LepDClient import LepDClient
 
 
 class IOProfiler:

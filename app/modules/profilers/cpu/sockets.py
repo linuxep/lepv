@@ -1,6 +1,6 @@
-from modules.utils.socketIOBlueprint import SocketIOBlueprint
-from modules.profilers.cpu.CPUProfiler import CPUProfiler
-from modules.utils.soketProcessor import process_socket_request, background_timer_stuff
+from app.modules.utils.socketIOBlueprint import SocketIOBlueprint
+from app.modules.profilers.cpu.CPUProfiler import CPUProfiler
+from app.modules.utils.soketProcessor import process_socket_request, background_timer_stuff
 from flask_socketio import emit
 from threading import Timer
 

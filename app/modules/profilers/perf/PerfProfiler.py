@@ -1,7 +1,7 @@
 import pprint
 
-from modules.lepd.LepDClient import LepDClient
-from modules.profilers.perf.flameBurner import FlameBurner
+from app.modules.lepd.LepDClient import LepDClient
+from app.modules.profilers.perf.flameBurner import FlameBurner
 
 __author__ = 'Mac Xu <mac.xxn@outlook.com>'
 __author__ = 'Ran Meng <1329597253@qq.com>'

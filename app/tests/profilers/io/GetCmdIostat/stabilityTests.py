@@ -5,7 +5,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 import unittest
 
-from modules.profilers.io.IOProfiler import IOProfiler
+from app.modules.profilers.io.IOProfiler import IOProfiler
 
 
 class StabilityTestCase(LepvTestCase):

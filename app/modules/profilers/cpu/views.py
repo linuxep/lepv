@@ -1,7 +1,7 @@
 
 """Module for CPU Profiler"""
 from flask import Blueprint, jsonify, request
-from modules.profilers.cpu.CPUProfiler import CPUProfiler
+from app.modules.profilers.cpu.CPUProfiler import CPUProfiler
 
 cpuAPI = Blueprint('cpuAPI', __name__, url_prefix='/api/cpu')
 

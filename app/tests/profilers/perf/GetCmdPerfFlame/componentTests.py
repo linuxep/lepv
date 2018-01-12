@@ -1,6 +1,6 @@
 """Tests for Perf profiler method: GetCmdPerfCpuclock"""
-from modules.profilers.perf.flameBurner import FlameBurner
-from modules.utils.dictUtil import DictUtil
+from app.modules.profilers.perf.flameBurner import FlameBurner
+from app.modules.utils.dictUtil import DictUtil
 from tests.profilers.lepvTestCase import LepvTestCase
 
 __author__    = "Copyright (c) 2017, LEP>"
@@ -10,7 +10,7 @@ import unittest
 import json
 from pprint import pprint
 
-from modules.profilers.perf.PerfProfiler import PerfProfiler
+from app.modules.profilers.perf.PerfProfiler import PerfProfiler
 
 
 class GetCmdPerfFlameComponentTestCase(unittest.TestCase):

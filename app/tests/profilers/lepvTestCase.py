@@ -2,7 +2,7 @@ import re
 
 import time
 
-from modules.utils.dictUtil import DictUtil
+from app.modules.utils.dictUtil import DictUtil
 
 __author__    = "Copyright (c) 2017, LEP>"
 __copyright__ = "Licensed under GPLv2 or later."
