@@ -2,7 +2,7 @@ __author__ = "李旭升 <programmerli@foxmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 from dataStore.lepdClient.LepdClient import LepdClient
-from dataStore.influxDbUtil.dbUtil import myInfluxDbClient
+from dataStore.influxDbUtil.dbUtil import MyInfluxDbClient
 
 import time
 
@@ -89,8 +89,8 @@ def pullAndStoreGetProcMeminfo(lepdClient, influxDbClient):
 
 
 if (__name__ == '__main__'):
-    lepdClient = LepdClient('www.rmlink.cn')
-    influxDbClient = myInfluxDbClient('localhost')
+    lepdClient = LepdClient('localhost')
+    influxDbClient = MyInfluxDbClient('localhost')
     for i in range(1):
         pullAndStoreGetProcMeminfo(lepdClient, influxDbClient)
         time.sleep(1)
