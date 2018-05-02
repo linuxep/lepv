@@ -89,12 +89,12 @@ def pullAndStoreGetProcMeminfo(lepdClient, influxDbClient):
         }
     ]
 
-    influxDbClient.write_points('www.rmlink.cn', json_body)
+    influxDbClient.write_points( json_body)
 
 
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(60):
+    for i in range(1):
         pullAndStoreGetProcMeminfo(lepdClient, influxDbClient)
         time.sleep(1)
