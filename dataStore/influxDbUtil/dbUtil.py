@@ -15,7 +15,7 @@ class MyInfluxDbClient:
     def __init__(self, influxDBAddress,port=8086,username='root',password='',database="lep"):
         self._client = InfluxDBClient(influxDBAddress, port,username,password,database)
 
-    def write_points(self, server, json_body):
+    def write_points(self,  json_body):
 
         if self._client.write_points(json_body):
             return True
