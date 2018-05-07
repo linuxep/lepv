@@ -1,7 +1,7 @@
 __author__ = "<programmerli@foxmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
-from app.modules.lepd.LepDClient  import LepDClient
+from dataStore.lepdClient.LepdClient import LepdClient
 from dataStore.influxDbUtil.dbUtil import MyInfluxDbClient
 
 import time
@@ -86,11 +86,11 @@ def pullAndStoreGetProcLoadavg(lepdClient, influxDbClient):
     #     }
     # ]
     #
-    # influxDbClient.write_points('www.rmlink.cn', json_body)
+    # influxDbClient.write_points(json_body)
 
 
 if (__name__ == '__main__'):
-    lepdClient = LepDClient('www.rmlink.cn')
+    lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
     for i in range(5):
         pullAndStoreGetProcLoadavg(lepdClient, influxDbClient)
