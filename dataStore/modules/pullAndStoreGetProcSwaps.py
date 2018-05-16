@@ -12,11 +12,11 @@ store the returned data into the influxDB by influxDBClient.
 '''
 def pullAndStoreGetProcSwaps(lepdClient, influxDbClient):
     res = lepdClient.sendRequest('GetProcSwaps')
-    print(res)
+    # print(res)
     mystr = res['result'].split('\n')
     x1 = mystr[1].split('\t')
-    for x in x1 :
-        print(x)
+    # for x in x1:
+    #     print(x)
 
 
 
