@@ -12,25 +12,31 @@ store the returned data into the influxDB by influxDBClient.
 '''
 def pullAndStoreGetCmdDmesg(lepdClient, influxDbClient):
     res = lepdClient.sendRequest('GetCmdDmesg')
-    print(res)
+    # print(res)
+    data = res["result"].split("\n")
+    # for x in data:
+    #     print(x)
 
-    # json_body = [
-    #     {
-    #         "measurement": "GetProcSwaps",
-    #         "tags": {
-    #             # the address of lepd
-    #             "server": lepdClient.server
-    #         },
-    #         # "time": "2017-03-12T22:00:00Z",
-    #         "fields": {
-    #             "LinuxVersion": mystr,
-    #             "compact_stall": int(data['compact_stall']),
-    #             "balloon_migrate": int(data['balloon_migrate']),
-    #         }
-    #     }
-    # ]
-    #
-    # influxDbClient.write_points(json_body)
+    json_body = [
+        {
+            "measurement": "GetCmdDmesg",
+            "tags": {
+                # the address of lepd
+                "server": lepdClient.server
+            },
+            # "time": "2017-03-12T22:00:00Z",
+            "fields": {
+                "audit": data[7],
+                "Adding":data[8],
+                "NET": data[9],
+                "e1000":data[12],
+                "IPv6":data[13]
+
+            }
+        }
+    ]
+
+    influxDbClient.write_points(json_body)
 
 
 if (__name__ == '__main__'):

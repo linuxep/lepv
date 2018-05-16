@@ -12,24 +12,34 @@ store the returned data into the influxDB by influxDBClient.
 '''
 def pullAndStoreGetCmdFree(lepdClient, influxDbClient):
     res = lepdClient.sendRequest('GetCmdFree')
-    print(res)
-    # json_body = [
-    #     {
-    #         "measurement": "GetProcSwaps",
-    #         "tags": {
-    #             # the address of lepd
-    #             "server": lepdClient.server
-    #         },
-    #         # "time": "2017-03-12T22:00:00Z",
-    #         "fields": {
-    #             "LinuxVersion": mystr,
-    #             "compact_stall": int(data['compact_stall']),
-    #             "balloon_migrate": int(data['balloon_migrate']),
-    #         }
-    #     }
-    # ]
-    #
-    # influxDbClient.write_points(json_body)
+    # print(res)
+    str1 = res["result"].split("\n")
+    str2 = str1[1].split(" ")
+    data = []
+    for x in str2:
+        if(x!=""):
+            data.append(x)
+
+    json_body = [
+        {
+            "measurement": "GetCmdFree",
+            "tags": {
+                # the address of lepd
+                "server": lepdClient.server
+            },
+            # "time": "2017-03-12T22:00:00Z",
+            "fields": {
+                "total": int(data[1]),
+                "used": int(data[2]),
+                "free": int(data[3]),
+                "shared": int(data[4]),
+                "buffers": int(data[5]),
+                "cached": int(data[6]),
+            }
+        }
+    ]
+
+    influxDbClient.write_points(json_body)
 
 
 
