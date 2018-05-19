@@ -18,7 +18,7 @@ def pullAndStoreGetCmdMpstat(lepdClient, influxDbClient):
     x1 = myStr[10].split('    ')
     x2 = x1[10].split('   ')
     # for x in x1:
-    #     print(x)
+    #      print(x)
     # for z in x2:
     #     print(z)
     json_body = [
@@ -52,7 +52,7 @@ def pullAndStoreGetCmdMpstat(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(60):
+    for i in range(10):
         pullAndStoreGetCmdMpstat(lepdClient, influxDbClient)
         time.sleep(1)
 

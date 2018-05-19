@@ -3,6 +3,7 @@ __copyright__ = "Licensed under GPLv2 or later."
 
 from dataStore.lepdClient.LepdClient import LepdClient
 from dataStore.influxDbUtil.dbUtil import MyInfluxDbClient
+import re
 
 import time
 
@@ -15,13 +16,13 @@ def pullAndStoreGetCmdIotop(lepdClient, influxDbClient):
     # print(res)
 
     str1 = res["result"].split("\n")
-    # for x in str1:
-    #     print(x)
-    str2 = str1[0].split(" ")
 
+    data=re.findall(r"\d+\.?\d*", str1[0])
 
+    # print(data)
     json_body = [
         {
+
             "measurement": "GetCmdIotop",
             "tags": {
                 # the address of lepd
@@ -29,8 +30,8 @@ def pullAndStoreGetCmdIotop(lepdClient, influxDbClient):
             },
             # "time": "2017-03-12T22:00:00Z",
             "fields": {
-                "Total DISK READ": float(str2[6]),
-                "Total DISK WRITE": float(str2[15])
+                "Total DISK READ": float(data[0]),
+                "Total DISK WRITE": float(data[1])
             }
         }
     ]
@@ -41,6 +42,6 @@ def pullAndStoreGetCmdIotop(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(1):
+    for i in range(60):
         pullAndStoreGetCmdIotop(lepdClient, influxDbClient)
         time.sleep(1)

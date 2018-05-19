@@ -57,6 +57,6 @@ def pullAndStoreGetCmdIostat(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(1):
+    for i in range(10):
         pullAndStoreGetCmdIostat(lepdClient, influxDbClient)
         time.sleep(1)

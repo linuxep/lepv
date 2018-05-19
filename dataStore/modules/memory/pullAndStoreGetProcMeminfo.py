@@ -14,7 +14,7 @@ import time
 
 def pullAndStoreGetProcMeminfo(lepdClient, influxDbClient):
     res = lepdClient.sendRequest('GetProcMeminfo')
-    print(res)
+    # print(res)
     mystr = res['result'].split('\n')
     data = {}
     for x in mystr:
@@ -96,6 +96,6 @@ def pullAndStoreGetProcMeminfo(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(1):
+    for i in range(10):
         pullAndStoreGetProcMeminfo(lepdClient, influxDbClient)
         time.sleep(1)
