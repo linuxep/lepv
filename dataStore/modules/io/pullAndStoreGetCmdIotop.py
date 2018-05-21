@@ -30,8 +30,8 @@ def pullAndStoreGetCmdIotop(lepdClient, influxDbClient):
             },
             # "time": "2017-03-12T22:00:00Z",
             "fields": {
-                "Total DISK READ": float(data[0]),
-                "Total DISK WRITE": float(data[1])
+                "Total_DISK_READ": float(data[0]),
+                "Total_DISK_WRITE": float(data[1])
             }
         }
     ]
@@ -42,6 +42,6 @@ def pullAndStoreGetCmdIotop(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(60):
+    for i in range(120):
         pullAndStoreGetCmdIotop(lepdClient, influxDbClient)
-        time.sleep(1)
+        # time.sleep(0.3)

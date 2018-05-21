@@ -5,6 +5,7 @@ from dataStore.lepdClient.LepdClient import LepdClient
 from dataStore.influxDbUtil.dbUtil import MyInfluxDbClient
 
 import time
+import re
 
 '''
 fetch data related to  GetCmdMpstat from lepd by lepdClient and 
@@ -15,12 +16,9 @@ def pullAndStoreGetCmdMpstat(lepdClient, influxDbClient):
     # print(res)
     myStr = res['result'].split('\n')
 
-    x1 = myStr[10].split('    ')
-    x2 = x1[10].split('   ')
-    # for x in x1:
-    #      print(x)
-    # for z in x2:
-    #     print(z)
+    data = re.findall(r"\d+\.?\d*", myStr[10])
+
+
     json_body = [
         {
             "measurement": "GetCmdMpstat",
@@ -30,16 +28,16 @@ def pullAndStoreGetCmdMpstat(lepdClient, influxDbClient):
             },
             # "time": "2017-03-12T22:00:00Z",
             "fields": {
-                "%usr": float(x1[2]),
-                "%nice": float(x1[3]),
-                "%sys": float(x1[4]),
-                "%iowait": float(x1[5]),
-                "%irq": float(x1[6]),
-                "%soft": float(x1[7]),
-                "%steal": float(x1[8]),
-                "%guest": float(x1[9]),
-                "%gnice": float(x2[0]),
-                "%idle": float(x2[1])
+                "%usr": float(data[0]),
+                "%nice": float(data[1]),
+                "%sys": float(data[2]),
+                "%iowait": float(data[3]),
+                "%irq": float(data[4]),
+                "%soft": float(data[5]),
+                "%steal": float(data[6]),
+                "%guest": float(data[7]),
+                "%gnice": float(data[8]),
+                "%idle": float(data[9])
             }
 
         }
@@ -52,7 +50,7 @@ def pullAndStoreGetCmdMpstat(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(10):
+    for i in range(30):
         pullAndStoreGetCmdMpstat(lepdClient, influxDbClient)
         time.sleep(1)
 

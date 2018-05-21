@@ -96,6 +96,6 @@ def pullAndStoreGetProcMeminfo(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(10):
+    for i in range(60):
         pullAndStoreGetProcMeminfo(lepdClient, influxDbClient)
         time.sleep(1)

@@ -22,7 +22,7 @@ def pullAndStoreGetCmdIostat(lepdClient, influxDbClient):
     for y in mystr1:
         if(y!=''):
             data.append(y)
-    print(data)
+    # print(data)
 
     json_body = [
         {
@@ -57,6 +57,6 @@ def pullAndStoreGetCmdIostat(lepdClient, influxDbClient):
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
     influxDbClient = MyInfluxDbClient('localhost')
-    for i in range(10):
+    for i in range(120):
         pullAndStoreGetCmdIostat(lepdClient, influxDbClient)
         time.sleep(1)
