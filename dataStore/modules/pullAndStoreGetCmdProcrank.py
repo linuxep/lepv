@@ -5,6 +5,7 @@ from dataStore.lepdClient.LepdClient import LepdClient
 from dataStore.influxDbUtil.dbUtil import MyInfluxDbClient
 
 import time
+import re
 
 '''
 fetch data related to  GetCmdProcrank from lepd by lepdClient and 
@@ -13,24 +14,35 @@ store the returned data into the influxDB by influxDBClient.
 def pullAndStoreGetCmdProcrank(lepdClient, influxDbClient):
     res = lepdClient.sendRequest('GetCmdProcrank')
     print(res)
+    str1 = res["result"].split("\n")
+    # for x in str1:
+    #     print(x)
+    # print(str1[-2])
 
-    # json_body = [
-    #     {
-    #         "measurement": "GetProcSwaps",
-    #         "tags": {
-    #             # the address of lepd
-    #             "server": lepdClient.server
-    #         },
-    #         # "time": "2017-03-12T22:00:00Z",
-    #         "fields": {
-    #             "LinuxVersion": mystr,
-    #             "compact_stall": int(data['compact_stall']),
-    #             "balloon_migrate": int(data['balloon_migrate']),
-    #         }
-    #     }
-    # ]
-    #
-    # influxDbClient.write_points(json_body)
+    data = re.findall(r"\d+\.?\d*", str1[-2])
+    print(data)
+
+    json_body = [
+        {
+            "measurement": "GetCmdProcrank",
+            "tags": {
+                # the address of lepd
+                "server": lepdClient.server
+            },
+            # "time": "2017-03-12T22:00:00Z",
+            "fields": {
+                "total": int(data[0]),
+                "free": int(data[1]),
+                "buffers": int(data[2]),
+                "cached": int(data[3]),
+                "shmem": int(data[4]),
+                "slab": int(data[5])
+
+            }
+        }
+    ]
+
+    influxDbClient.write_points(json_body)
 
 
 if (__name__ == '__main__'):
