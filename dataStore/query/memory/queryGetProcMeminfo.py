@@ -2,7 +2,7 @@ __author__ = "李旭升 <programmerli@foxmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
 
 
-from dataStore.influxDbUtil.dbUtil import myInfluxDbClient
+from dataStore.influxDbUtil.dbUtil import MyInfluxDbClient
 
 import time
 
@@ -13,11 +13,11 @@ import time
 def queryGetProcMeminfo(influxDbClient):
     res = influxDbClient.query('select * from GetProcMeminfo limit 1')
     print(res)
-    help(res)
+    # help(res)
 
     return None
 
 if(__name__=='__main__'):
-        influxDbClient = myInfluxDbClient('127.0.0.1')
+        influxDbClient = MyInfluxDbClient('127.0.0.1')
         queryGetProcMeminfo(influxDbClient)
 

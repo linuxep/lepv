@@ -12,7 +12,7 @@ store the returned data into the influxDB by influxDBClient.
 '''
 def pullAndStoreGetProcVersion(lepdClient, influxDbClient):
     res = lepdClient.sendRequest('GetProcVersion')
-    mystr = res['result']
+
 
     json_body = [
         {
@@ -23,7 +23,7 @@ def pullAndStoreGetProcVersion(lepdClient, influxDbClient):
             },
             # "time": "2017-03-12T22:00:00Z",
             "fields": {
-                "LinuxVersion": mystr
+                "LinuxVersion": res['result']
             }
         }
     ]

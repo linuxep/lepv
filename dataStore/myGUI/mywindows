@@ -1,0 +1,59 @@
+from tkinter import *
+import tkinter.messagebox as messagebox
+
+class config(Frame):
+    def __init__(self,master=None):
+        Frame.__init__(self, master)
+        self.pack()
+        self.createWidgets()
+    def createWidgets(self):
+        self.ipLabel = Label(self, text="ipAddress:")
+        self.ipLabel.pack()
+        self.ipInput = Entry(self)
+        self.ipInput.pack()
+        self.portLabel = Label(self,text="port:")
+        self.portLabel.pack()
+        self.portInput= Entry(self)
+        self.portInput.pack()
+
+
+
+class Application(Frame):
+    def __init__(self, master=None):
+        self.username="admin"
+        self.password="admin"
+        Frame.__init__(self, master)
+        self.pack()
+        self.createWidgets()
+
+
+
+    def createWidgets(self):
+        self.name = Label(self,text='username')
+        self.name.pack()
+        self.nameInput = Entry(self)
+        self.nameInput.pack()
+        self.passwd = Label(self, text='password')
+        self.passwd.pack()
+        self.passwdInput = Entry(self)
+        self.passwdInput.pack()
+
+        self.alertButton = Button(self, text='login', command=self.hello)
+        self.alertButton.pack()
+
+    def hello(self):
+
+        name = self.nameInput.get()
+        passwd = self.passwdInput.get()
+        if(name==self.username and passwd==self.password):
+            app1 = config()
+            app1.master.title('config')
+            app1.mainloop()
+        else:
+            messagebox.showerror("error","login error")
+
+app = Application()
+# 设置窗口标题:
+app.master.title('store')
+# 主消息循环:
+app.mainloop()
