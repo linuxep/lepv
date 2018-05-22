@@ -12,26 +12,26 @@ store the returned data into the influxDB by influxDBClient.
 '''
 def pullAndStoreGetProcInterrupts(lepdClient, influxDbClient):
     res = lepdClient.sendRequest('GetProcInterrupts')
-    print(res)
-
-
-    # json_body = [
-    #     {
-    #         "measurement": "GetProcSwaps",
-    #         "tags": {
-    #             # the address of lepd
-    #             "server": lepdClient.server
-    #         },
-    #         # "time": "2017-03-12T22:00:00Z",
-    #         "fields": {
-    #             "LinuxVersion": mystr,
-    #             "compact_stall": int(data['compact_stall']),
-    #             "balloon_migrate": int(data['balloon_migrate']),
-    #         }
-    #     }
-    # ]
+    # print(res)
     #
-    # influxDbClient.write_points(json_body)
+    # str1 = res["result"].split("\n")
+    # for x in str1:
+    #     print(x)
+    json_body = [
+        {
+            "measurement": "GetProcInterrupts",
+            "tags": {
+                # the address of lepd
+                "server": lepdClient.server
+            },
+            # "time": "2017-03-12T22:00:00Z",
+            "fields": {
+                "interrupts": res["result"]
+            }
+        }
+    ]
+
+    influxDbClient.write_points(json_body)
 
 if (__name__ == '__main__'):
     lepdClient = LepdClient('localhost')
