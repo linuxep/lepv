@@ -14,31 +14,27 @@ import time
 def pullAndStoreGetProcCpuinfo(lepdClient,influxDbClient):
     res = lepdClient.sendRequest('GetProcCpuinfo')
     print(res)
+    str1 = res["result"].split("\n")
 
-    # mystr = res['result'].split('\n')
-    # data = {}
-    # for x in mystr:
-    #     mylist=x.split('\t:')
-    #     if(len(mylist)==2):
-    #         data[mylist[0]]=mylist[1]
-    # for key in data:
-    #     print(key+':'+data[key])
-    #
-    # json_body = [
-    #     {
-    #         "measurement": "GetProcCpuinfo",
-    #         "tags": {
-    #             # the address of lepd
-    #             "server": lepdClient.server
-    #         },
-    #         # "time": "2017-03-12T22:00:00Z",
-    #         "fields": {
-    #             "cpuInfo":str(res)
-    #         }
-    #     }
-    # ]
+    str=''
+    for i in range(27):
+        str=str+str1[i]
+    # print(str)
+    json_body = [
+        {
+            "measurement": "GetProcCpuinfo",
+            "tags": {
+                # the address of lepd
+                "server": lepdClient.server
+            },
+            # "time": "2017-03-12T22:00:00Z",
+            "fields": {
+                "cpuInfo":str
+            }
+        }
+    ]
 
-    # influxDbClient.write_points('localhost', json_body)
+    influxDbClient.write_points(json_body)
 
 
 if(__name__=='__main__'):
