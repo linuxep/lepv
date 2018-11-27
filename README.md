@@ -37,6 +37,8 @@
     ```
     3. Open browser [127.0.0.1:8889](http://192.168.156.90:8889)
 
+## 当你把LEPD和LEPV运行在同一台Linux主机的时候，在浏览器输入的监控地址不能是127.0.0.1或者localhost，而应该是Linux主机的IP地址。否则会出现"cannot reach the server"的错误。
+
 ## Setup aliyun mirror and install docker
 Access https://cr.console.aliyun.com/#/accelerator and follow steps there
 
