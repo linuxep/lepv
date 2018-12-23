@@ -8,7 +8,7 @@ from decimal import Decimal
 import pprint
 import re
 import datetime
-import click
+import clock
 
 class LepDClient:
 

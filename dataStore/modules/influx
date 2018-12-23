@@ -1,0 +1,44 @@
+CREATE CONTINUOUS QUERY cp_1_week_GetCmdIotop ON lep   BEGIN SELECT mean("Total_DISK_READ") AS "meanTDR" ,mean("Total_DISK_WRITE")
+AS "meanTDW" INTO lep."1_week".GetCmdIotop FROM lep."12_hours".GetCmdIotop GROUP BY time(60s) END
+
+
+
+
+CREATE CONTINUOUS QUERY cp_1_week_GetCmdMpstat ON lep   BEGIN
+SELECT
+mean("%usr") AS meanusr,mean("%nice") AS meannice,
+mean("%sys") AS meansys,mean("%iowait") AS meaniowait,
+mean("%irq") AS meanirq,mean("%soft") AS meansoft,
+mean("%steal")AS meansteal,mean("%guest") AS meanguest,
+mean("%gnice") AS meangnice,mean("%idle") AS meanidle
+INTO lep."1_week".GetCmdMpstat FROM lep."12_hours".GetCmdMpstat
+GROUP BY time(60s) END
+
+
+CREATE CONTINUOUS QUERY cp_1_month_GetCmdMpstat ON lep   BEGIN
+SELECT
+mean("%usr") AS meanusr,mean("%nice") AS meannice,
+mean("%sys") AS meansys,mean("%iowait") AS meaniowait,
+mean("%irq") AS meanirq,mean("%soft") AS meansoft,
+mean("%steal")AS meansteal,mean("%guest") AS meanguest,
+mean("%gnice") AS meangnice,mean("%idle") AS meanidle
+INTO lep."1_month".GetCmdMpstat FROM lep."12_hours".GetCmdMpstat
+GROUP BY time(600s) END
+
+
+CREATE CONTINUOUS QUERY cp_1_year_GetCmdMpstat ON lep   BEGIN
+SELECT
+mean("%usr") AS meanusr,mean("%nice") AS meannice,
+mean("%sys") AS meansys,mean("%iowait") AS meaniowait,
+mean("%irq") AS meanirq,mean("%soft") AS meansoft,
+mean("%steal")AS meansteal,mean("%guest") AS meanguest,
+mean("%gnice") AS meangnice,mean("%idle") AS meanidle
+INTO lep."1_year".GetCmdMpstat FROM lep."12_hours".GetCmdMpstat
+GROUP BY time(1800s) END
+
+
+
+CREATE CONTINUOUS QUERY cp_1_week_GetCmdIostat ON lep   BEGIN SELECT mean("rrqm/s") AS meanrrqm,mean("wrqm/s") AS meanwrqm, mean("r/s") AS meanr, mean("w/s") AS meanw, mean("rkB/s") AS meanrkB,mean("wkB/s") AS meanwkb,mean("avgrq-sz") AS meanavgrq,
+mean("avgqu-sz") AS meanavgqu,mean("await") AS meanawait,mean("r_await") AS meanr_await,mean("w_await") AS meanw_await,mean("svctm") AS meansvctm,mean("%util") As meanutil INTO lep."1_week".GetCmdIostat FROM lep."12_hours".GetCmdIostat GROUP BY time(60s) END
+
+
