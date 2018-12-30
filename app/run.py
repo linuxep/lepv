@@ -1,3 +1,6 @@
+from gevent import monkey
+monkey.patch_all()
+
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from app.modules.lepd.LepDClient import LepDClient
