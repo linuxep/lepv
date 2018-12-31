@@ -49,7 +49,24 @@
           <!--</ul>-->
         <!--</li>-->
 
-
+<!-- Monitor start -->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title=" Devices">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDevicesMenu" data-parent="#sideBarAccordion">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Devices</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseDevicesMenu">
+                <div class="input-group">
+                    <input id='txt_server_to_watch' class="form-control" type="text" placeholder="127.0.0.1" value="127.0.0.1">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="button" onclick="addDevices()">
+                        <i class="fa fa-play"></i>
+                      </button>
+                    </span>
+                  </div>
+          </ul>
+        </li>
+<!-- Monitor end-->
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="CPU">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCpuMenu" data-parent="#sideBarAccordion">
@@ -145,6 +162,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <!--
             <div class="input-group">
               <input id='txt_server_to_watch' class="form-control" type="text" placeholder="www.rmlink.cn" value="www.rmlink.cn">
               <span class="input-group-btn">
@@ -153,6 +171,7 @@
                 </button>
               </span>
             </div>
+          -->
           </form>
         </li>
       </ul>
@@ -589,6 +608,7 @@
          var socket = null;
          var socketConnected = false;
          var serverToWatch = null;
+         var serverList = [];
 
          $( document ).ready(function() {
 
@@ -603,11 +623,69 @@
         });
     </script>
 
+    <script>
+      // initial devices list
+      console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
+      socket = io.connect('http://' + document.domain + ':' + location.port);
+
+      socket.on('lepd.device.list.result', function (res) {
+        if (res.list) {
+          res.list.forEach(function (v, index) {
+            socket.emit('lepd.device.add', v);
+          });
+        };
+      });
+
+      socket.on('lepd.device.add.successed', function(res) {
+        if (res.device) {
+          serverList.push(res.device);
+          addDevicesOnList(res.device);
+        };
+      });
+
+      socket.emit('lepd.device.list');
+    </script>
+
+    <script>
+      function addDevicesOnList(device) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+
+        li.id = "DeviceList-" + device;
+        li.value = "device"
+        a.innerHTML = device;
+        a.onclick = function () {
+          console.log("start watch:" + device);
+          startWatching(device);
+        };
+        li.appendChild(a);
+        
+        document.getElementById('collapseDevicesMenu').appendChild(li);
+      }
+    </script>
+
+    <script>
+      function addDevices() {
+        var specifiedServer = $("#txt_server_to_watch").val();
+        console.log("Add devices:" + specifiedServer);
+
+        var listIndex = serverList.indexOf(specifiedServer);
+        if (listIndex >= 0) { // if specifiedServer is in list ,remove it
+          serverList.splice(listIndex, 1);
+          var menu = document.getElementById('collapseDevicesMenu');
+          var dev = document.getElementById('DeviceList-' + specifiedServer);
+          menu.removeChild(dev);
+          socket.emit('lepd.device.del', specifiedServer);
+          return;
+        }
+
+        socket.emit('lepd.device.add', specifiedServer);
+      }
+    </script>
+
     <!--triggered when the user specifies the LEPD server and click the start button.-->
     <script>
-      function startWatching() {
-
-        var specifiedServer = $("#txt_server_to_watch").val();
+      function startWatching(specifiedServer) {
 
         if ( !specifiedServer) {
           return;
@@ -617,10 +695,11 @@
           return;
         }
 
-        serverToWatch = specifiedServer;
+        if (!socket) {
+          return;
+        }
 
-        console.log("Connecting Socket IO by: " + 'http://' + document.domain + ':' + location.port);
-        socket = io.connect('http://' + document.domain + ':' + location.port);
+        serverToWatch = specifiedServer;
 
         socket.on('connect', function() {
           console.log("socket connected");

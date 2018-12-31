@@ -12,7 +12,33 @@ app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
 socketio = SocketIO(app, ping_timeout=3600)
+deviceList = []
 
+#Add device to devices list
+@socketio.on('lepd.device.add')
+def add_lepd_device(device):
+    if device not in deviceList:
+        deviceList.append(device)
+
+    print('add_lepd_device: ' + device)
+    res = {}
+    res['device'] = device
+    emit('lepd.device.add.successed', res)
+
+#Rmove device form devices list
+@socketio.on('lepd.device.del')
+def del_lepd_device(device):
+    if device in deviceList:
+        deviceList.remove(device)
+
+    print('del_lepd_device: ' + device)
+
+#List device
+@socketio.on('lepd.device.list')
+def lsit_lepd_device():
+    res = {}
+    res['list'] = deviceList
+    emit('lepd.device.list.result', res)
 
 @socketio.on('lepd.ping')
 def ping_lepd_server(request):
