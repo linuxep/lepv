@@ -1,3 +1,6 @@
+from gevent import monkey
+monkey.patch_all()
+
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from app.modules.lepd.LepDClient import LepDClient
@@ -9,7 +12,33 @@ app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
 
 socketio = SocketIO(app, ping_timeout=3600)
+deviceList = []
 
+#Add device to devices list
+@socketio.on('lepd.device.add')
+def add_lepd_device(device):
+    if device not in deviceList:
+        deviceList.append(device)
+
+    print('add_lepd_device: ' + device)
+    res = {}
+    res['device'] = device
+    emit('lepd.device.add.successed', res)
+
+#Rmove device form devices list
+@socketio.on('lepd.device.del')
+def del_lepd_device(device):
+    if device in deviceList:
+        deviceList.remove(device)
+
+    print('del_lepd_device: ' + device)
+
+#List device
+@socketio.on('lepd.device.list')
+def lsit_lepd_device():
+    res = {}
+    res['list'] = deviceList
+    emit('lepd.device.list.result', res)
 
 @socketio.on('lepd.ping')
 def ping_lepd_server(request):
@@ -87,4 +116,4 @@ def test():
     return render_template("test.html", languages=languages)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8889)
+    socketio.run(app, debug=True, host='0.0.0.0', port=8889)
