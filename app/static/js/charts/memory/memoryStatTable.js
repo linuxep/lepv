@@ -50,8 +50,17 @@ MemoryStatTable.prototype.initializeChart = function() {
 };
 
 MemoryStatTable.prototype.updateChartData = function(response) {
-    procranks = response['data']['procranks']
+    //procranks = response['data']['procranks']
     // console.log(data)
+    var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
+    }
+    if (typeof(data) == "undefined"){
+        return
+    }
+
+    procranks = data['procranks']
     var thisChart = this;
 
     var index = 0;

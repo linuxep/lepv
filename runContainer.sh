@@ -7,7 +7,7 @@ IMAGE_TAG=latest
 
 CONTAINER_NAME=lepv
 CONTAINER_PORT=80
-HOST_BIND_PORT=8889
+HOST_BIND_PORT=80
 ######################################
 
 echo "running containers:"

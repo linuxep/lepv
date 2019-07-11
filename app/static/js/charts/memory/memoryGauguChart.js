@@ -29,12 +29,15 @@ MemoryGauguChart.prototype.initializeChart = function() {
 };
 
 MemoryGauguChart.prototype.updateChartData = function(response) {
-    // console.log(response)
     var data = response['data'];
-    if (data == null) {
+    if (!data && typeof(data)!='undefined' && data!=0) {
         return
     }
-    // console.log(data)
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
     // update gauge
     this.chart.updateChartData(data);
     this.requestData();

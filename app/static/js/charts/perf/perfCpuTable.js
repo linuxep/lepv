@@ -57,11 +57,16 @@ PerfCpuTable.prototype.initializeChart = function() {
 };
 
 PerfCpuTable.prototype.updateChartData = function(response) {
-    // console.log(response)
-    data = response['data']
-    // console.log(data)
     var thisChart = this;
-    
+    var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
+    }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
     this.table.rows().remove().draw( true );
     if (data != null) {
         $.each( data, function( itemIndex, dataItem ) {

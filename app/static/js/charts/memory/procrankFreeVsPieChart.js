@@ -50,8 +50,16 @@ ProcrankFreeVsPieChart.prototype.initializeChart = function() {
 };
 
 ProcrankFreeVsPieChart.prototype.updateChartData = function(response) {
-    // console.log(response)
-    sumData = response['data']['sum']
+    var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
+    }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
+    sumData = data['sum']
     if (sumData == null) {
         return
     }

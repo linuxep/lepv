@@ -63,9 +63,17 @@ CpuStatDonutChart.prototype.initializeChart = function() {
 };
 
 
-CpuStatDonutChart.prototype.updateChartData = function(responseData) {
+CpuStatDonutChart.prototype.updateChartData = function(response) {
+    var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
+    }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
 
-    var overallData = responseData['data']['all'];
+    var overallData = data['all'];
     if (overallData == null) {
         return
     }
