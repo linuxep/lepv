@@ -83,6 +83,14 @@ CpuIrqChart.prototype.updateChartData = function(response) {
 
     var thisChart = this;
     var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
+    }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
 
     if ( !( 'CPU-0' in this.chartData) ) {
         this.chartData = {};

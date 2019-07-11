@@ -51,7 +51,16 @@ ProcrankPssPieChart.prototype.initializeChart = function() {
 };
 
 ProcrankPssPieChart.prototype.updateChartData = function(response) {
-    procranks = response['data']['procranks']
+    var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
+    }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
+    procranks = data['procranks']
     // console.log(data)
     var thisChart = this;
     var index = 0;

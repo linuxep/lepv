@@ -30,11 +30,16 @@ CpuGauguChart.prototype.initializeChart = function() {
 };
 
 CpuGauguChart.prototype.updateChartData = function(response) {
-
     var data = response['data'];
-    if (data == null) {
+    if (!data && typeof(data)!='undefined' && data!=0) {
         return
     }
+    if (typeof(data) == "undefined"){
+        return
+    }
+//    console.log(data)
+
+    
     var cpuOccupationRatio = parseFloat(data['idle']);
     this.chart.updateChartData({'ratio': cpuOccupationRatio.toFixed(2)});
     // this.requestData();

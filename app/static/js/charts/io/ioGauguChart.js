@@ -30,8 +30,14 @@ IOGauguChart.prototype.initializeChart = function() {
 IOGauguChart.prototype.updateChartData = function(response) {
 
     var data = response['data'];
-    if (data != null) {
-        this.chart.updateChartData(data);
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
     }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
+    this.chart.updateChartData(data);
     // this.requestData();
 };

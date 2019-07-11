@@ -475,7 +475,8 @@ class CPUProfiler:
             response_lines = self.client.getResponse(lepd_command)
         elif isinstance(response_lines, str):
             response_lines = self.client.split_to_lines(response_lines)
-
+        if not response_lines:
+            return
         response_data = {}
         # if options['debug']:
         #     response_data['rawResult'] = response_lines[:]

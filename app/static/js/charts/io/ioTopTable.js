@@ -75,8 +75,15 @@ IoTopTable.prototype.initializeChart = function() {
 };
 
 IoTopTable.prototype.updateChartData = function(response) {
-    data = response['data']
-    // console.log(data)
+    var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
+        return
+    }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
     var thisChart = this;
     
     this.table.rows().remove().draw( true );

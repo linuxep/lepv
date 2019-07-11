@@ -109,11 +109,15 @@ MemoryChart.prototype.initializeChart = function() {
 };
 
 MemoryChart.prototype.updateChartData = function(response) {
-    // console.log(response)
-    data = response['data']
-    if (data == null) {
+    var data = response['data'];
+    if (!data && typeof(data)!='undefined' && data!=0) {
         return
     }
+    if (typeof(data) == "undefined"){
+        return
+    }
+    console.log(data)
+
     if (this.timeData.length > this.maxDataCount) {
         this.timeData.splice(1, 1);
         this.chartData['Free'].splice(1, 1);
