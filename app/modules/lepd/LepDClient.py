@@ -2,7 +2,6 @@ import click
 import datetime
 import re
 import pprint
-from decimal import Decimal
 import socket
 import json
 """Core module for interacting with LEPD"""

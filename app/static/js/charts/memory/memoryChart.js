@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var MemoryChart = function(rootDivName, socket, server) {
+var MemoryChart = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
     this.chartTitle = "RAM Chart";
@@ -35,8 +35,8 @@ var MemoryChart = function(rootDivName, socket, server) {
 MemoryChart.prototype = Object.create(LepvChart.prototype);
 MemoryChart.prototype.constructor = MemoryChart;
 
-MemoryChart.prototype.initializeChart = function() {
-    
+MemoryChart.prototype.initializeChart = function () {
+
     this.chartData['Free'] = ['Free'];
     this.chartData['Cached'] = ['Cached'];
     this.chartData['Buffers'] = ['Buffers'];
@@ -47,11 +47,11 @@ MemoryChart.prototype.initializeChart = function() {
         data: {
             x: 'x',
             // the order matters: free -> cached -> buffers -> used
-            columns: [this.timeData, 
-                this.chartData['Used'],
-                this.chartData['Buffers'],
-                this.chartData['Cached'],
-                this.chartData['Free']],
+            columns: [this.timeData,
+            this.chartData['Used'],
+            this.chartData['Buffers'],
+            this.chartData['Cached'],
+            this.chartData['Free']],
 
             types: {
                 Used: 'area',
@@ -95,7 +95,7 @@ MemoryChart.prototype.initializeChart = function() {
                     position: "inner-middle"
                 },
                 min: 0,
-                padding: {top:0, bottom:0}
+                padding: { top: 0, bottom: 0 }
             }
         },
         tooltip: {
@@ -108,15 +108,15 @@ MemoryChart.prototype.initializeChart = function() {
     });
 };
 
-MemoryChart.prototype.updateChartData = function(response) {
+MemoryChart.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
 
     if (this.timeData.length > this.maxDataCount) {
         this.timeData.splice(1, 1);
@@ -135,10 +135,10 @@ MemoryChart.prototype.updateChartData = function(response) {
     this.chart.load({
         //// the order matters: free -> cached -> buffers -> used
         columns: [this.timeData,
-            this.chartData['Used'],
-            this.chartData['Buffers'],
-            this.chartData['Cached'],
-            this.chartData['Free']]
+        this.chartData['Used'],
+        this.chartData['Buffers'],
+        this.chartData['Cached'],
+        this.chartData['Free']]
     });
 
     if (this.isLeadingChart) {

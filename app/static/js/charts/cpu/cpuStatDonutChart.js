@@ -3,23 +3,23 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuStatDonutChart = function(rootDivName, socket, server) {
+var CpuStatDonutChart = function (rootDivName, socket, server) {
 
-  LepvChart.call(this, rootDivName, socket, server);
+    LepvChart.call(this, rootDivName, socket, server);
 
-  this.rootDivName = rootDivName;
-  this.socket = socket;
-  this.serverToWatch = server;
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
 
-  this.socket_message_key = 'cpu.stat';
-  this.refreshInterval = 3;
-  
-  this.socket_response = null;
-  this.chart = null;
-  this.chartData = null;
+    this.socket_message_key = 'cpu.stat';
+    this.refreshInterval = 3;
 
-  this.initializeChart();
-  this.setupSocketIO();
+    this.socket_response = null;
+    this.chart = null;
+    this.chartData = null;
+
+    this.initializeChart();
+    this.setupSocketIO();
 
 };
 
@@ -27,7 +27,7 @@ CpuStatDonutChart.prototype = Object.create(LepvChart.prototype);
 CpuStatDonutChart.prototype.constructor = CpuStatDonutChart;
 
 
-CpuStatDonutChart.prototype.initializeChart = function() {
+CpuStatDonutChart.prototype.initializeChart = function () {
 
     this.chart = c3.generate({
         bindto: '#' + this.mainDivName,
@@ -44,7 +44,7 @@ CpuStatDonutChart.prototype.initializeChart = function() {
                 ['guest', 0],
                 ['guestnice', 0]
             ],
-            type : 'donut',
+            type: 'donut',
             colors: {
                 idle: "green",
                 user: 'blue',
@@ -63,12 +63,13 @@ CpuStatDonutChart.prototype.initializeChart = function() {
 };
 
 
-CpuStatDonutChart.prototype.updateChartData = function(response) {
+CpuStatDonutChart.prototype.updateChartData = function (response) {
+    console.log('data: ' + response)
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
     console.log(data)

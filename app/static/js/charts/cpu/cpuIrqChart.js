@@ -3,24 +3,24 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuIrqChart = function(rootDivName, socket, server) {
+var CpuIrqChart = function (rootDivName, socket, server) {
 
-  LepvChart.call(this, rootDivName, socket, server);
+    LepvChart.call(this, rootDivName, socket, server);
 
-  this.rootDivName = rootDivName;
-  this.socket = socket;
-  this.serverToWatch = server;
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
 
-  this.socket_message_key = 'cpu.stat';
-  this.chart = null;
+    this.socket_message_key = 'cpu.stat';
+    this.chart = null;
 
-  this.isLeadingChart = false;
+    this.isLeadingChart = false;
 
-  this.maxDataCount = 150;
-  this.timeData = ['x'];
+    this.maxDataCount = 150;
+    this.timeData = ['x'];
 
-  this.initializeChart();
-  this.setupSocketIO();
+    this.initializeChart();
+    this.setupSocketIO();
 
 };
 
@@ -28,7 +28,7 @@ CpuIrqChart.prototype = Object.create(LepvChart.prototype);
 CpuIrqChart.prototype.constructor = CpuIrqChart;
 
 
-CpuIrqChart.prototype.initializeChart = function() {
+CpuIrqChart.prototype.initializeChart = function () {
 
     var thisChart = this;
 
@@ -63,8 +63,8 @@ CpuIrqChart.prototype.initializeChart = function() {
                 min: 0,
                 max: undefined,
                 padding: {
-                        top:10,
-                        bottom:10
+                    top: 10,
+                    bottom: 10
                 }
             }
         },
@@ -79,22 +79,22 @@ CpuIrqChart.prototype.initializeChart = function() {
 };
 
 
-CpuIrqChart.prototype.updateChartData = function(response) {
+CpuIrqChart.prototype.updateChartData = function (response) {
 
     var thisChart = this;
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
 
 
-    if ( !( 'CPU-0' in this.chartData) ) {
+    if (!('CPU-0' in this.chartData)) {
         this.chartData = {};
-        $.each( data, function( coreName, statValue ) {
+        $.each(data, function (coreName, statValue) {
             thisChart.chartData['CPU-' + coreName] = ['CPU-' + coreName];
         });
 
@@ -102,28 +102,28 @@ CpuIrqChart.prototype.updateChartData = function(response) {
     if (thisChart.timeData.length > thisChart.maxDataCount) {
         thisChart.timeData.splice(1, 1);
 
-        $.each( data, function( coreName, statValue ) {
+        $.each(data, function (coreName, statValue) {
             thisChart.chartData['CPU-' + coreName].splice(1, 1);
         });
     }
 
     thisChart.timeData.push(new Date());
-        
-    $.each( data, function( coreName, statValue ) {
+
+    $.each(data, function (coreName, statValue) {
         thisChart.chartData['CPU-' + coreName].push(statValue["irq"]);
-        
+
     });
 
     var columnDatas = [];
     columnDatas.push(thisChart.timeData);
-    $.each( data, function( coreName, statValue ) {
+    $.each(data, function (coreName, statValue) {
         columnDatas.push(thisChart.chartData['CPU-' + coreName]);
     });
 
     this.chart.load({
         columns: columnDatas
     });
-    
+
     // this.requestData();
 
 };

@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var ProcrankFreeVsPieChart = function(rootDivName, socket, server) {
+var ProcrankFreeVsPieChart = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
     this.chartTitle = "RAM Chart";
@@ -31,13 +31,13 @@ var ProcrankFreeVsPieChart = function(rootDivName, socket, server) {
 ProcrankFreeVsPieChart.prototype = Object.create(LepvChart.prototype);
 ProcrankFreeVsPieChart.prototype.constructor = ProcrankFreeVsPieChart;
 
-ProcrankFreeVsPieChart.prototype.initializeChart = function() {
-    
-   this.chart = c3.generate({
+ProcrankFreeVsPieChart.prototype.initializeChart = function () {
+
+    this.chart = c3.generate({
         bindto: '#' + this.mainDivName,
         data: {
             columns: this.chartData,
-            type : 'donut'
+            type: 'donut'
         },
         donut: {
             title: "PSS vs. Total"
@@ -49,15 +49,15 @@ ProcrankFreeVsPieChart.prototype.initializeChart = function() {
     });
 };
 
-ProcrankFreeVsPieChart.prototype.updateChartData = function(response) {
+ProcrankFreeVsPieChart.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
 
     sumData = data['sum']
     if (sumData == null) {

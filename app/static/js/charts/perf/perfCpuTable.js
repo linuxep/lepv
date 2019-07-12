@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var PerfCpuTable = function(rootDivName, socket, server) {
+var PerfCpuTable = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
@@ -14,10 +14,10 @@ var PerfCpuTable = function(rootDivName, socket, server) {
     this.locateUIElements();
 
     this.socket_message_key = 'perf.cpuclock';
-    
+
     this.chartTitle = "Perf Table";
     this.chartHeaderColor = 'blue';
-    
+
     this.maxDataCount = 25;
     this.refreshInterval = 5;
 
@@ -28,8 +28,8 @@ var PerfCpuTable = function(rootDivName, socket, server) {
 PerfCpuTable.prototype = Object.create(LepvChart.prototype);
 PerfCpuTable.prototype.constructor = PerfCpuTable;
 
-PerfCpuTable.prototype.initializeChart = function() {
-    this.table = $('#' + this.mainDivName).DataTable( {
+PerfCpuTable.prototype.initializeChart = function () {
+    this.table = $('#' + this.mainDivName).DataTable({
         destroy: true,
         paging: false,
         info: false,
@@ -52,24 +52,24 @@ PerfCpuTable.prototype.initializeChart = function() {
                 orderable: false
             }
         ],
-        order: [[ 1, "desc" ]]
+        order: [[1, "desc"]]
     });
 };
 
-PerfCpuTable.prototype.updateChartData = function(response) {
+PerfCpuTable.prototype.updateChartData = function (response) {
     var thisChart = this;
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
     console.log(data)
 
-    this.table.rows().remove().draw( true );
+    this.table.rows().remove().draw(true);
     if (data != null) {
-        $.each( data, function( itemIndex, dataItem ) {
+        $.each(data, function (itemIndex, dataItem) {
 
             if (itemIndex >= thisChart.maxDataCount) {
                 return;
@@ -85,7 +85,7 @@ PerfCpuTable.prototype.updateChartData = function(response) {
         });
     } else {
         var index = 0;
-        while(index < thisChart.maxDataCount) {
+        while (index < thisChart.maxDataCount) {
             thisChart.table.row.add([
                 "--",
                 "--",
@@ -96,6 +96,6 @@ PerfCpuTable.prototype.updateChartData = function(response) {
         }
     }
     this.table.draw(true);
-    
+
     this.requestData();
 };

@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var ProcrankPssPieChart = function(rootDivName, socket, server) {
+var ProcrankPssPieChart = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
     this.chartTitle = "RAM Chart";
@@ -32,13 +32,13 @@ var ProcrankPssPieChart = function(rootDivName, socket, server) {
 ProcrankPssPieChart.prototype = Object.create(LepvChart.prototype);
 ProcrankPssPieChart.prototype.constructor = ProcrankPssPieChart;
 
-ProcrankPssPieChart.prototype.initializeChart = function() {
-    
-   this.chart = c3.generate({
+ProcrankPssPieChart.prototype.initializeChart = function () {
+
+    this.chart = c3.generate({
         bindto: '#' + this.mainDivName,
         data: {
             columns: this.chartData,
-            type : 'donut'
+            type: 'donut'
         },
         donut: {
             title: "PSS"
@@ -50,15 +50,15 @@ ProcrankPssPieChart.prototype.initializeChart = function() {
     });
 };
 
-ProcrankPssPieChart.prototype.updateChartData = function(response) {
+ProcrankPssPieChart.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
 
     procranks = data['procranks']
     // console.log(data)
@@ -66,7 +66,7 @@ ProcrankPssPieChart.prototype.updateChartData = function(response) {
     var index = 0;
     pssData = [];
     if (procranks != null) {
-        $.each( procranks, function( lineIndex, dataItem ) {
+        $.each(procranks, function (lineIndex, dataItem) {
 
             if (lineIndex >= thisChart.maxDataCount) {
                 return;
@@ -74,11 +74,11 @@ ProcrankPssPieChart.prototype.updateChartData = function(response) {
             if (dataItem.pss > thisChart.pssBenchmark) {
                 pssData.push([dataItem.cmdline, dataItem.pss]);
             }
-            
+
             index = index + 1;
         });
     } else {
-        while(index < thisChart.maxDataCount) {
+        while (index < thisChart.maxDataCount) {
             index = index + 1;
         }
     }

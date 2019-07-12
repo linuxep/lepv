@@ -3,24 +3,24 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuStatIdleChart = function(rootDivName, socket, server) {
+var CpuStatIdleChart = function (rootDivName, socket, server) {
 
-  LepvChart.call(this, rootDivName, socket, server);
+    LepvChart.call(this, rootDivName, socket, server);
 
-  this.rootDivName = rootDivName;
-  this.socket = socket;
-  this.serverToWatch = server;
+    this.rootDivName = rootDivName;
+    this.socket = socket;
+    this.serverToWatch = server;
 
-  this.socket_message_key = 'cpu.stat';
-  this.chart = null;
+    this.socket_message_key = 'cpu.stat';
+    this.chart = null;
 
-  this.isLeadingChart = false;
+    this.isLeadingChart = false;
 
-  this.maxDataCount = 150;
-  this.timeData = ['x'];
+    this.maxDataCount = 150;
+    this.timeData = ['x'];
 
-  this.initializeChart();
-  this.setupSocketIO();
+    this.initializeChart();
+    this.setupSocketIO();
 
 };
 
@@ -28,7 +28,7 @@ CpuStatIdleChart.prototype = Object.create(LepvChart.prototype);
 CpuStatIdleChart.prototype.constructor = CpuStatIdleChart;
 
 
-CpuStatIdleChart.prototype.initializeChart = function() {
+CpuStatIdleChart.prototype.initializeChart = function () {
 
     var thisChart = this;
 
@@ -62,8 +62,8 @@ CpuStatIdleChart.prototype.initializeChart = function() {
                 min: 0,
                 max: 105,
                 padding: {
-                        top:10,
-                        bottom:10
+                    top: 10,
+                    bottom: 10
                 }
             }
         },
@@ -78,24 +78,24 @@ CpuStatIdleChart.prototype.initializeChart = function() {
 };
 
 
-CpuStatIdleChart.prototype.updateChartData = function(response) {
+CpuStatIdleChart.prototype.updateChartData = function (response) {
 
     var thisChart = this;
 
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
 
     delete data['all'];
 
-    if ( !( 'CPU-0' in this.chartData) ) {
+    if (!('CPU-0' in this.chartData)) {
         this.chartData = {};
-        $.each( data, function( coreName, statValue ) {
+        $.each(data, function (coreName, statValue) {
             thisChart.chartData['CPU-' + coreName] = ['CPU-' + coreName];
         });
 
@@ -103,19 +103,19 @@ CpuStatIdleChart.prototype.updateChartData = function(response) {
     if (this.timeData.length > this.maxDataCount) {
         this.timeData.splice(1, 1);
 
-        $.each( data, function( coreName, statValue ) {
+        $.each(data, function (coreName, statValue) {
             thisChart.chartData['CPU-' + coreName].splice(1, 1);
         });
     }
 
     this.timeData.push(new Date());
-    $.each( data, function( coreName, statValue ) {
+    $.each(data, function (coreName, statValue) {
         thisChart.chartData['CPU-' + coreName].push(statValue['idle']);
     });
 
     var columnDatas = [];
     columnDatas.push(this.timeData);
-    $.each( data, function( coreName, statValue ) {
+    $.each(data, function (coreName, statValue) {
         columnDatas.push(thisChart.chartData['CPU-' + coreName]);
     });
 

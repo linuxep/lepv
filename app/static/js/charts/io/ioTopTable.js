@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var IoTopTable = function(rootDivName, socket, server) {
+var IoTopTable = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
@@ -14,12 +14,12 @@ var IoTopTable = function(rootDivName, socket, server) {
     this.locateUIElements();
 
     this.socket_message_key = 'io.top';
-    
+
     this.setTableDivName(rootDivName);
-    
+
     this.chartTitle = "IO Top Table";
     this.chartHeaderColor = 'yellow';
-    
+
     this.maxDataCount = 25;
     this.refreshInterval = 3;
 
@@ -30,8 +30,8 @@ var IoTopTable = function(rootDivName, socket, server) {
 IoTopTable.prototype = Object.create(LepvChart.prototype);
 IoTopTable.prototype.constructor = IoTopTable;
 
-IoTopTable.prototype.initializeChart = function() {
-    this.table = $('#' + this.mainDivName).DataTable( {
+IoTopTable.prototype.initializeChart = function () {
+    this.table = $('#' + this.mainDivName).DataTable({
         destroy: true,
         paging: false,
         info: false,
@@ -74,21 +74,21 @@ IoTopTable.prototype.initializeChart = function() {
     });
 };
 
-IoTopTable.prototype.updateChartData = function(response) {
+IoTopTable.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
 
     var thisChart = this;
-    
-    this.table.rows().remove().draw( true );
+
+    this.table.rows().remove().draw(true);
     if (data != null) {
-        $.each( data, function( itemIndex, ioppData ) {
+        $.each(data, function (itemIndex, ioppData) {
 
             if (itemIndex >= thisChart.maxDataCount) {
                 return;
@@ -108,7 +108,7 @@ IoTopTable.prototype.updateChartData = function(response) {
         });
     } else {
         var index = 0;
-        while(index < thisChart.maxDataCount) {
+        while (index < thisChart.maxDataCount) {
             thisChart.table.row.add([
                 "--",
                 "--",
@@ -123,6 +123,6 @@ IoTopTable.prototype.updateChartData = function(response) {
         }
     }
     this.table.draw(true);
-    
+
     // this.requestData();
 };

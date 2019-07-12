@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuGauguChart = function(divName, socket, server) {
+var CpuGauguChart = function (divName, socket, server) {
 
     LepvChart.call(this, divName, socket, server);
 
@@ -24,23 +24,23 @@ var CpuGauguChart = function(divName, socket, server) {
 CpuGauguChart.prototype = Object.create(LepvChart.prototype);
 CpuGauguChart.prototype.constructor = CpuGauguChart;
 
-CpuGauguChart.prototype.initializeChart = function() {
-    
+CpuGauguChart.prototype.initializeChart = function () {
+
     this.chart = new LepvGaugeChart(this.chartDivName);
 };
 
-CpuGauguChart.prototype.updateChartData = function(response) {
+CpuGauguChart.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-//    console.log(data)
+    //    console.log(data)
 
-    
+
     var cpuOccupationRatio = parseFloat(data['idle']);
-    this.chart.updateChartData({'ratio': cpuOccupationRatio.toFixed(2)});
+    this.chart.updateChartData({ 'ratio': cpuOccupationRatio.toFixed(2) });
     // this.requestData();
 };

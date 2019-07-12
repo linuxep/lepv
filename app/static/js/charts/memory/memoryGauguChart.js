@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var MemoryGauguChart = function(divName, socket, server) {
+var MemoryGauguChart = function (divName, socket, server) {
 
     LepvChart.call(this, divName, socket, server);
 
@@ -23,20 +23,20 @@ var MemoryGauguChart = function(divName, socket, server) {
 MemoryGauguChart.prototype = Object.create(LepvChart.prototype);
 MemoryGauguChart.prototype.constructor = MemoryGauguChart;
 
-MemoryGauguChart.prototype.initializeChart = function() {
-    
+MemoryGauguChart.prototype.initializeChart = function () {
+
     this.chart = new LepvGaugeChart(this.chartDivName);
 };
 
-MemoryGauguChart.prototype.updateChartData = function(response) {
+MemoryGauguChart.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
 
     // update gauge
     this.chart.updateChartData(data);

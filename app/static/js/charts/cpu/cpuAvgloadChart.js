@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var CpuAvgLoadChart = function(rootDivName, socket, server) {
+var CpuAvgLoadChart = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
@@ -14,10 +14,10 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
     this.locateUIElements();
 
     this.socket_message_key = 'cpu.avgload';
-    
+
     this.chartTitle = "Average Load Chart";
     this.chartHeaderColor = 'orange';
-    
+
     this.maxDataCount = 150;
     this.refreshInterval = 3;
 
@@ -30,7 +30,7 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
     this.cpuCoreCount = 0;
     this.yellowAlertValue = 0.7;
     this.redAlertValue = 0.9;
-    
+
     this.defaultMaxValue = 1;
     this.maxValues = [1];
 
@@ -41,7 +41,7 @@ var CpuAvgLoadChart = function(rootDivName, socket, server) {
 CpuAvgLoadChart.prototype = Object.create(LepvChart.prototype);
 CpuAvgLoadChart.prototype.constructor = CpuAvgLoadChart;
 
-CpuAvgLoadChart.prototype.initializeChart = function() {
+CpuAvgLoadChart.prototype.initializeChart = function () {
 
     var thisChart = this;
 
@@ -50,9 +50,9 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
         data: {
             x: 'x',
             columns: [thisChart.timeData,
-                ['Last minute'],
-                ['Last 5 minute'],
-                ['Last 15 minute']]
+            ['Last minute'],
+            ['Last 5 minute'],
+            ['Last 15 minute']]
 
         },
         legend: {
@@ -79,8 +79,8 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
                 min: 0,
                 max: undefined,
                 padding: {
-                    top:10,
-                    bottom:10
+                    top: 10,
+                    bottom: 10
                 }
             }
         },
@@ -95,16 +95,16 @@ CpuAvgLoadChart.prototype.initializeChart = function() {
 
 };
 
-CpuAvgLoadChart.prototype.updateChartData = function(response) {
+CpuAvgLoadChart.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
- 
+    // console.log(data)
+
     if (this.chart == null) {
         return;
     }
@@ -114,7 +114,7 @@ CpuAvgLoadChart.prototype.updateChartData = function(response) {
         this.chartData['last1'].splice(1, 1);
         this.chartData['last1'].splice(1, 1);
         this.chartData['last1'].splice(1, 1);
-        this.maxValues.splice(1,1);
+        this.maxValues.splice(1, 1);
     }
 
     this.timeData.push(new Date());
@@ -123,14 +123,14 @@ CpuAvgLoadChart.prototype.updateChartData = function(response) {
     this.chartData['last15'].push(data['last15']);
 
     // max values are the max values of each group of data, it determines the max of y axis.
-    this.maxValues.push(Math.max.apply(Math,[data['last1'], data['last5'], data['last15'], this.cpuCoreCount]));
+    this.maxValues.push(Math.max.apply(Math, [data['last1'], data['last5'], data['last15'], this.cpuCoreCount]));
 
     this.chart.axis.max(Math.max.apply(Math, this.maxValues) + 0.1);
     this.chart.load({
         columns: [this.timeData,
-            this.chartData['last1'],
-            this.chartData['last5'],
-            this.chartData['last15']],
+        this.chartData['last1'],
+        this.chartData['last5'],
+        this.chartData['last15']],
         keys: {
             value: ['']
         }

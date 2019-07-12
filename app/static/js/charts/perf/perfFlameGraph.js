@@ -3,7 +3,7 @@
  * Copyright (c) 2017, LEP>.
  */
 
-var PerfFlameGraph = function(rootDivName, socket, server) {
+var PerfFlameGraph = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
@@ -25,12 +25,11 @@ var PerfFlameGraph = function(rootDivName, socket, server) {
 PerfFlameGraph.prototype = Object.create(LepvChart.prototype);
 PerfFlameGraph.prototype.constructor = PerfFlameGraph;
 
-PerfFlameGraph.prototype.initializeChart = function() {
+PerfFlameGraph.prototype.initializeChart = function () {
     this.chart = d4.flameGraph().width(this.chartWidth);
 };
 
-PerfFlameGraph.prototype.updateChartData = function(response) {
-
+PerfFlameGraph.prototype.updateChartData = function (response) {
     var thisChart = this;
     if (response['flame'] != null) {
         d4.select('#' + thisChart.mainDivName).datum(response['flame']).call(thisChart.chart);

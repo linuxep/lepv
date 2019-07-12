@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var MemoryStatTable = function(rootDivName, socket, server) {
+var MemoryStatTable = function (rootDivName, socket, server) {
 
     LepvChart.call(this, rootDivName, socket, server);
 
@@ -14,10 +14,10 @@ var MemoryStatTable = function(rootDivName, socket, server) {
     this.locateUIElements();
 
     this.socket_message_key = 'memory.procrank';
-    
+
     this.chartTitle = "Memory Stat Table";
     this.chartHeaderColor = 'green';
-    
+
     this.maxDataCount = 25;
     this.refreshInterval = 3;
     this.pssData = [];
@@ -31,8 +31,8 @@ var MemoryStatTable = function(rootDivName, socket, server) {
 MemoryStatTable.prototype = Object.create(LepvChart.prototype);
 MemoryStatTable.prototype.constructor = MemoryStatTable;
 
-MemoryStatTable.prototype.initializeChart = function() {
-    this.table = $('#' + this.mainDivName).DataTable( {
+MemoryStatTable.prototype.initializeChart = function () {
+    this.table = $('#' + this.mainDivName).DataTable({
         destroy: true,
         paging: false,
         info: false,
@@ -45,29 +45,29 @@ MemoryStatTable.prototype.initializeChart = function() {
             { title: "USS", orderable: false },
             { title: "CMDLINE", orderable: false }
         ],
-        order: [[ 4, "desc" ]]
+        order: [[4, "desc"]]
     });
 };
 
-MemoryStatTable.prototype.updateChartData = function(response) {
+MemoryStatTable.prototype.updateChartData = function (response) {
     //procranks = response['data']['procranks']
-    // console.log(data)
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){
+    if (typeof (data) == "undefined") {
         return
     }
+    // console.log(data)
 
     procranks = data['procranks']
     var thisChart = this;
 
     var index = 0;
     this.pssData = [];
-    this.table.rows().remove().draw( true );
+    this.table.rows().remove().draw(true);
     if (procranks != null) {
-        $.each( procranks, function( lineIndex, dataItem ) {
+        $.each(procranks, function (lineIndex, dataItem) {
 
             if (lineIndex >= thisChart.maxDataCount) {
                 return;
@@ -81,15 +81,15 @@ MemoryStatTable.prototype.updateChartData = function(response) {
                 dataItem.uss,
                 dataItem.cmdline
             ]);
-            
+
             if (dataItem.pss > thisChart.pssBenchmark) {
                 thisChart.pssData.push([dataItem.cmdline, dataItem.pss]);
             }
-            
+
             index = index + 1;
         });
     } else {
-        while(index < maxDataCount) {
+        while (index < maxDataCount) {
             thisChart.table.row.add([
                 "--",
                 "--",
@@ -102,6 +102,6 @@ MemoryStatTable.prototype.updateChartData = function(response) {
         }
     }
     this.table.draw(true);
-    
+
     this.requestData();
 };

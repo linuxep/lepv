@@ -3,7 +3,7 @@
  * Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>.
  */
 
-var IOStatChart = function(rootDivName, socket, server) {
+var IOStatChart = function (rootDivName, socket, server) {
 
     // Call the base constructor, making sure (using call)
     // that "this" is set correctly during the call
@@ -20,7 +20,7 @@ var IOStatChart = function(rootDivName, socket, server) {
     this.socket_response = null;
     this.chart = null;
     this.chartData = {};
-    
+
     this.chartTitle = "IO Stat Chart";
     this.chartHeaderColor = 'yellow';
 
@@ -36,8 +36,8 @@ var IOStatChart = function(rootDivName, socket, server) {
 IOStatChart.prototype = Object.create(LepvChart.prototype);
 IOStatChart.prototype.constructor = IOStatChart;
 
-IOStatChart.prototype.initializeChart = function() {
-    
+IOStatChart.prototype.initializeChart = function () {
+
     this.chart = c3.generate({
         bindto: '#' + this.mainDivName,
         data: {
@@ -67,8 +67,8 @@ IOStatChart.prototype.initializeChart = function() {
                     position: "outter-middle"
                 },
                 padding: {
-                    top:10,
-                    bottom:10
+                    top: 10,
+                    bottom: 10
                 }
             }
         },
@@ -82,28 +82,28 @@ IOStatChart.prototype.initializeChart = function() {
     });
 };
 
-IOStatChart.prototype.updateChartData = function(response) {
+IOStatChart.prototype.updateChartData = function (response) {
     var data = response['data'];
-    if (!data && typeof(data)!='undefined' && data!=0) {
+    if (!data && typeof (data) != 'undefined' && data != 0) {
         return
     }
-    if (typeof(data) == "undefined"){ 
+    if (typeof (data) == "undefined") {
         return
     }
-    console.log(data)
+    // console.log(data)
     var diskDatas = data['disks'];
     // console.log(diskDatas)
-    
+
     var thisChart = this;
-    $.each(diskDatas, function( diskName, diskData ) {
-        if ( !(diskName in thisChart.chartData)) {
+    $.each(diskDatas, function (diskName, diskData) {
+        if (!(diskName in thisChart.chartData)) {
             thisChart.chartData[diskName] = {};
 
             thisChart.chartData[diskName]['read'] = [diskName + ' read'];
             thisChart.chartData[diskName]['write'] = [diskName + ' write'];
         }
 
-        if (thisChart.chartData[diskName]['read'].length > thisChart.maxDataCount ) {
+        if (thisChart.chartData[diskName]['read'].length > thisChart.maxDataCount) {
             thisChart.timeData.splice(1, 1);
 
             thisChart.chartData[diskName]['read'].splice(1, 1);
@@ -117,7 +117,7 @@ IOStatChart.prototype.updateChartData = function(response) {
 
     thisChart.timeData.push(new Date());
     var columnDataToDisplay = [thisChart.timeData];
-    $.each( thisChart.chartData, function( diskName, diskData ) {
+    $.each(thisChart.chartData, function (diskName, diskData) {
         columnDataToDisplay.push(diskData['read']);
         columnDataToDisplay.push(diskData['write']);
     });
