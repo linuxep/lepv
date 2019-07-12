@@ -64,7 +64,6 @@ CpuStatDonutChart.prototype.initializeChart = function () {
 
 
 CpuStatDonutChart.prototype.updateChartData = function (response) {
-    console.log('data: ' + response)
     var data = response['data'];
     if (!data && typeof (data) != 'undefined' && data != 0) {
         return
@@ -73,11 +72,17 @@ CpuStatDonutChart.prototype.updateChartData = function (response) {
         return
     }
     console.log(data)
+    console.log('------------')
 
     var overallData = data['all'];
-    if (overallData == null) {
+    if (!overallData && typeof (overallData) != 'undefined' && overallData != 0) {
         return
     }
+    if (typeof (overallData) == "undefined") {
+        return
+    }
+
+    console.log(overallData)
 
     this.chart.load({
         columns: [
