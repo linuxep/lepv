@@ -17,7 +17,7 @@ class LepDClient:
         self.port = port
         self.bufferSize = 2048
         self.config = config
-        self.socks = None
+        self.socks = dict()
 
         self.LEPDENDINGSTRING = 'lepdendstring'
 
