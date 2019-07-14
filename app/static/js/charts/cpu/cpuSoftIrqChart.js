@@ -93,7 +93,7 @@ CpuSoftIrqChart.prototype.updateChartData = function (response) {
     if (typeof (data) == "undefined") {
         return
     }
-    // console.log(data)
+    console.log('cpu soft irq', data)
 
     if (!('CPU-0' in this.chartData)) {
         this.chartData = {};

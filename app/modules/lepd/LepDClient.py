@@ -4,6 +4,7 @@ import re
 import pprint
 import socket
 import json
+import time
 """Core module for interacting with LEPD"""
 __author__ = "Copyright (c) 2016, Mac Xu <shinyxxn@hotmail.com>"
 __copyright__ = "Licensed under GPLv2 or later."
@@ -16,7 +17,7 @@ class LepDClient:
         self.port = port
         self.bufferSize = 2048
         self.config = config
-        self.sock = None
+        self.socks = None
 
         self.LEPDENDINGSTRING = 'lepdendstring'
 
@@ -145,20 +146,22 @@ class LepDClient:
     def split_to_lines(self, longString):
         return re.split(r'\\n|\n', longString.strip())
 
-    def connect(self):
+    def connect(self, methodName):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # initialise our socket
         try:
             sock.connect((self.server, self.port))  # connect to host <HOST> to port <PORT>
         except Exception as e:
             print("conncet error: ", e)
             return None
-        self.sock = sock
+
+        self.socks[methodName] = sock
+        return sock
 
     def sendRequest(self, methodName):
-        while(self.sock is None):
-            self.connect()
+        sock = self.socks[methodName]
+        if(sock is None):
+            sock = self.connect(methodName)
 
-        sock = self.sock
         try:
             input_data = {}
             input_data['method'] = methodName
@@ -179,9 +182,14 @@ class LepDClient:
 
             return responseJsonDecoded
         except socket.error as err:
-            print("connect lost ", err, "  try reconnect")
-            self.sock = None
-            self.sendRequest(methodName)
+            print("connect lost ", err, " ,sleep 100ms, and try reconnect")
+            self.socks[methodName] = None
+            time.sleep(0.1)
+            self.connect(methodName)
+            return None
+
+            # self.sendRequest(methodName)
+
             # print(methodName + ": " + str(error))
             # if (error.strerror == 'nodename nor servname provided, or not known'):
             #     print('please double check the server to monitor is reachable, and the method is supported by LEPD')
