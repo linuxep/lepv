@@ -17,7 +17,7 @@ class LepDClient:
         self.port = port
         self.bufferSize = 2048
         self.config = config
-        self.socks = dict()
+        self.socks = {}
 
         self.LEPDENDINGSTRING = 'lepdendstring'
 
@@ -158,8 +158,9 @@ class LepDClient:
         return sock
 
     def sendRequest(self, methodName):
-        sock = self.socks[methodName]
-        if(sock is None):
+        if(methodName in self.socks):
+            sock = self.socks[methodName]
+        else:
             sock = self.connect(methodName)
 
         try:
