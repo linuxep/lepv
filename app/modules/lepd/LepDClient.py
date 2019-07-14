@@ -154,6 +154,7 @@ class LepDClient:
             print("conncet error: ", e)
             return None
 
+        print(methodName, ' connection connect success')
         self.socks[methodName] = sock
         return sock
 
