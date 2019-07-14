@@ -184,10 +184,10 @@ class LepDClient:
 
             return responseJsonDecoded
         except socket.error as err:
-            print("connect lost ", err, " ,sleep 100ms, and try reconnect")
-            self.socks[methodName] = None
-            time.sleep(0.1)
-            self.connect(methodName)
+            print("connect lost ", err)
+            del self.socks[methodName]
+            # time.sleep(0.1)
+            # self.connect(methodName)
             return None
 
             # self.sendRequest(methodName)
